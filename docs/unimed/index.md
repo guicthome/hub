@@ -136,34 +136,34 @@ title: Unimed GV - Hub de Documentos
     <p class="subtitle">Unimed Governador Valadares</p>
   </div>
 
-  <div class="tools-grid vp-raw">
+  <div class="tools-grid">
     <div class="tool-card featured">
       <div class="tool-title">Variabilidade Assistencial por Especialidade</div>
-      <a href="/unimed/especialidades.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/especialidades.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card featured">
       <div class="tool-title">Coordenação do Cuidado</div>
-      <a href="/unimed/cuidadocoordenado.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/cuidadocoordenado.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">Oncologia: Painel Populacional</div>
-      <a href="/unimed/onco.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/onco.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">Pediatria Ambulatorial: Centro de Atendimento Integrado</div>
-      <a href="/unimed/ped-amb.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/ped-amb.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">Viva Pleno: Vertical de Cuidados aos Idosos</div>
-      <a href="/unimed/vivapleno.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/vivapleno.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">GCE: Painel de Acompanhamento</div>
-      <a href="/unimed/gce.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/gce.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">Psicologia ABA: Análise de Rede</div>
-      <a href="/unimed/tea.html" class="tool-link">Acessar</a>
+      <a data-direct href="/unimed/tea.html" class="tool-link">Acessar</a>
     </div>
   </div>
 

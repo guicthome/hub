@@ -269,38 +269,38 @@ title: Hub Grupo CSV
         </div>
         <div class="p-badge" style="background:#ebf7f1; color:#00995d;">7 painéis</div>
       </div>
-      <div class="partner-tools vp-raw">
-        <a href="/unimed/especialidades.html" class="tool-item featured">
+      <div class="partner-tools">
+        <a href="/unimed/especialidades.html" data-direct class="tool-item featured">
           <span class="dot" style="background:#00995d;"></span>
           Variabilidade por Especialidade
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/cuidadocoordenado.html" class="tool-item featured">
+        <a href="/unimed/cuidadocoordenado.html" data-direct class="tool-item featured">
           <span class="dot" style="background:#00995d;"></span>
           Coordenação do Cuidado
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/onco.html" class="tool-item">
+        <a href="/unimed/onco.html" data-direct class="tool-item">
           <span class="dot" style="background:#8baf1f;"></span>
           Oncologia: Painel Populacional
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/ped-amb.html" class="tool-item">
+        <a href="/unimed/ped-amb.html" data-direct class="tool-item">
           <span class="dot" style="background:#8baf1f;"></span>
           Pediatria Ambulatorial
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/vivapleno.html" class="tool-item">
+        <a href="/unimed/vivapleno.html" data-direct class="tool-item">
           <span class="dot" style="background:#8baf1f;"></span>
           Viva Pleno: Cuidados aos Idosos
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/gce.html" class="tool-item">
+        <a href="/unimed/gce.html" data-direct class="tool-item">
           <span class="dot" style="background:#8baf1f;"></span>
           GCE: Acompanhamento
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/tea.html" class="tool-item">
+        <a href="/unimed/tea.html" data-direct class="tool-item">
           <span class="dot" style="background:#8baf1f;"></span>
           Psicologia ABA: Análise de Rede
           <span class="arrow">›</span>
@@ -318,38 +318,38 @@ title: Hub Grupo CSV
         </div>
         <div class="p-badge" style="background:#f0fdf4; color:#013d19;">8 ferramentas</div>
       </div>
-      <div class="partner-tools vp-raw">
-        <a href="/unihealth/calc-plantao.html" class="tool-item featured">
+      <div class="partner-tools">
+        <a href="/unihealth/calc-plantao.html" data-direct class="tool-item featured">
           <span class="dot" style="background:#013d19;"></span>
           Calculadora Plantões Médicos
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/orcamento-medico-ugv.html" class="tool-item">
+        <a href="/unihealth/orcamento-medico-ugv.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           Orçamento Médico
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/fios.html" class="tool-item">
+        <a href="/unihealth/fios.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           Análise Reajuste Suturas
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/retornopa.html" class="tool-item">
+        <a href="/unihealth/retornopa.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           Análise Utilização PA
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/marco25.html" class="tool-item">
+        <a href="/unihealth/marco25.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           Análise de Indicadores
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/opme.html" class="tool-item">
+        <a href="/unihealth/opme.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           Plano de Ação OPME
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/isc-cesarianas.html" class="tool-item">
+        <a href="/unihealth/isc-cesarianas.html" data-direct class="tool-item">
           <span class="dot" style="background:#ec7106;"></span>
           ISC Cesarianas
           <span class="arrow">›</span>

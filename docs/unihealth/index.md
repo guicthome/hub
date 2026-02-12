@@ -142,11 +142,11 @@ title: Unihealth - Hub de Ferramentas
     <p class="subtitle">Gestão em Saúde Inteligente</p>
   </div>
 
-  <div class="uh-grid vp-raw">
+  <div class="uh-grid">
     <div class="uh-card featured">
       <div class="uh-title">Calculadora Plantões Médicos</div>
       <span class="uh-date">Outubro-25</span>
-      <a href="/unihealth/calc-plantao.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/calc-plantao.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">[Desativado] Análise Reprocir</div>
@@ -156,32 +156,32 @@ title: Unihealth - Hub de Ferramentas
     <div class="uh-card">
       <div class="uh-title">Orçamento Médico</div>
       <span class="uh-date">Setembro-25</span>
-      <a href="/unihealth/orcamento-medico-ugv.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/orcamento-medico-ugv.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Análise Reajuste Suturas</div>
       <span class="uh-date">Julho-25</span>
-      <a href="/unihealth/fios.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/fios.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Análise Utilização PA</div>
       <span class="uh-date">Março-25</span>
-      <a href="/unihealth/retornopa.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/retornopa.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Análise de Indicadores</div>
       <span class="uh-date">Março-25</span>
-      <a href="/unihealth/marco25.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/marco25.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Plano de Ação OPME</div>
       <span class="uh-date">Março-25</span>
-      <a href="/unihealth/opme.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/opme.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">ISC Cesarianas</div>
       <span class="uh-date">Maio-25</span>
-      <a href="/unihealth/isc-cesarianas.html" class="uh-link">Acessar</a>
+      <a data-direct href="/unihealth/isc-cesarianas.html" class="uh-link">Acessar</a>
     </div>
   </div>
 

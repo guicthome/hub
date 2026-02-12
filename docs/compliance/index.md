@@ -133,23 +133,23 @@ title: Central de Compliance
   <div class="frame">
     <h2 class="section-title">Políticas do Grupo CSV</h2>
     <p class="section-desc">Documentos transversais aplicáveis a todas as empresas do ecossistema.</p>
-    <div class="btn-grid vp-raw">
-      <a class="policy-btn" href="/compliance/privacidade.html">Política de Privacidade (LGPD)</a>
-      <a class="policy-btn" href="/compliance/termos.html">Termos de Uso</a>
-      <a class="policy-btn" href="/compliance/cookies.html">Política de Cookies</a>
-      <a class="policy-btn" href="/compliance/autorizacao-parceria.html">Autorização de Parceria – Uso de Marca</a>
+    <div class="btn-grid">
+      <a class="policy-btn" data-direct href="/compliance/privacidade.html">Política de Privacidade (LGPD)</a>
+      <a class="policy-btn" data-direct href="/compliance/termos.html">Termos de Uso</a>
+      <a class="policy-btn" data-direct href="/compliance/cookies.html">Política de Cookies</a>
+      <a class="policy-btn" data-direct href="/compliance/autorizacao-parceria.html">Autorização de Parceria – Uso de Marca</a>
     </div>
   </div>
 
   <div class="frame">
     <h2 class="section-title">Integridade e Conduta</h2>
     <p class="section-desc">Diretrizes éticas e de governança corporativa do Grupo CSV.</p>
-    <div class="btn-grid vp-raw">
-      <a class="policy-btn secondary" href="/compliance/codigo-de-conduta.html">Código de Ética e Conduta</a>
-      <a class="policy-btn secondary" href="/compliance/brindes.html">Política de Brindes, Presentes e Hospitalidade</a>
-      <a class="policy-btn secondary" href="/compliance/anticorrupcao.html">Política Anticorrupção e Antissuborno</a>
-      <a class="policy-btn secondary" href="/compliance/terceiros.html">Relacionamento com Terceiros e Due Diligence</a>
-      <a class="policy-btn secondary" href="/compliance/integridade.html">Cláusulas-Padrão de Integridade</a>
+    <div class="btn-grid">
+      <a class="policy-btn secondary" data-direct href="/compliance/codigo-de-conduta.html">Código de Ética e Conduta</a>
+      <a class="policy-btn secondary" data-direct href="/compliance/brindes.html">Política de Brindes, Presentes e Hospitalidade</a>
+      <a class="policy-btn secondary" data-direct href="/compliance/anticorrupcao.html">Política Anticorrupção e Antissuborno</a>
+      <a class="policy-btn secondary" data-direct href="/compliance/terceiros.html">Relacionamento com Terceiros e Due Diligence</a>
+      <a class="policy-btn secondary" data-direct href="/compliance/integridade.html">Cláusulas-Padrão de Integridade</a>
     </div>
   </div>
 
@@ -162,9 +162,9 @@ title: Central de Compliance
         <img src="/logos/marca_axia.png" alt="AxiaCare">
         <h4>AxiaCare® – Gestão e Governança Clínica</h4>
       </div>
-      <div class="btn-grid vp-raw">
-        <a class="policy-btn axia" href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
-        <a class="policy-btn axia" href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
+      <div class="btn-grid">
+        <a class="policy-btn axia" data-direct href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
+        <a class="policy-btn axia" data-direct href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
       </div>
     </div>
 
@@ -173,9 +173,9 @@ title: Central de Compliance
         <img src="/logos/marca_medvalor.png" alt="MedValor">
         <h4>MedValor® – Educação e Formação</h4>
       </div>
-      <div class="btn-grid vp-raw">
-        <a class="policy-btn medvalor" href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
-        <a class="policy-btn medvalor" href="/compliance/medvalor/termos.html">Termos de Uso – MedValor</a>
+      <div class="btn-grid">
+        <a class="policy-btn medvalor" data-direct href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
+        <a class="policy-btn medvalor" data-direct href="/compliance/medvalor/termos.html">Termos de Uso – MedValor</a>
       </div>
     </div>
 
@@ -184,9 +184,9 @@ title: Central de Compliance
         <img src="/logos/marca_thera.png" alt="TheraTech">
         <h4>TheraTech® – Tecnologia e IA</h4>
       </div>
-      <div class="btn-grid vp-raw">
-        <a class="policy-btn thera" href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>
-        <a class="policy-btn thera" href="/compliance/thera/termos.html">Termos de Uso – TheraTech</a>
+      <div class="btn-grid">
+        <a class="policy-btn thera" data-direct href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>
+        <a class="policy-btn thera" data-direct href="/compliance/thera/termos.html">Termos de Uso – TheraTech</a>
       </div>
     </div>
   </div>
