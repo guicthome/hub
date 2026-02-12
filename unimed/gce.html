@@ -8,8 +8,6 @@
 <meta name="author" content="Guilherme Thomé - AxiaCare">
 
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/guicthome/guilherme/072f6b53c297b30bc2e6cad6a1bd9262dd5a2160/favicon.ico">
-
 <!-- Open Graph -->
 <meta property="og:title" content="Painel GCE | Gerenciamento de Casos Especiais 2025">
 <meta property="og:description" content="Painel de Gerenciamento do Programa GCE - Espaço Viver Bem (Casa Unimed)">
@@ -868,9 +866,18 @@ body {
     break-inside: avoid;
   }
 }
+
+/* Hub CSV Back Button */
+.hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
+.hub-back-btn:hover{background:#196396;color:#fff;box-shadow:0 4px 20px rgba(25,99,150,0.3);transform:translateY(-1px)}
+@media print{.hub-back-btn{display:none!important}}
+
 </style>
+  <link rel="icon" type="image/png" href="/assets/logos/logo_csv.png">
 </head>
 <body>
+<a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
+
   <div class="wrapper">
     <!-- Header -->
     <header class="header">
@@ -1108,9 +1115,17 @@ body {
     </div>
 
     <!-- Footer AxiaCare -->
-    <div class="footer">
-      <img class="footer-logo" src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare Logo">
-      <div class="footer-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>
+    <footer style="margin-top:40px;padding:25px 15px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #196396">
+  <div style="font-size:14px;font-weight:700;color:#1a2b3c;margin-bottom:8px">Grupo CSV — Cuidados em Saúde com Valor</div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;font-size:13px;margin-bottom:8px">
+    <a href="/" style="color:#196396;text-decoration:none">Hub CSV</a>
+    <span style="color:#bbb">|</span>
+    <a href="/compliance/" style="color:#196396;text-decoration:none">Compliance</a>
+    <span style="color:#bbb">|</span>
+    <a href="mailto:contato@grupocsv.com" style="color:#196396;text-decoration:none">contato@grupocsv.com</a>
+  </div>
+  <div style="font-size:11px;color:#999">© 2026 Grupo CSV · AxiaCare® · MedValor® · TheraTech® — Todos os direitos reservados.</div>
+</footer>
       <div class="footer-links">
         <a href="https://linktr.ee/gui.thome">Conheça nossas soluções.</a>
         <span class="separator">|</span>
