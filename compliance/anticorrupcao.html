@@ -7,7 +7,6 @@
   <meta name="description" content="Diretrizes da Grupo CSV para prevenção e combate à corrupção e ao suborno.">
   <meta name="author" content="Grupo CSV">
   <link rel="canonical" href="/compliance/anticorrupcao.html">
-  <link rel="icon" href="https://grupocsv.com/favicon.ico">
   <meta name="theme-color" content="#196396">
 
   <meta property="og:title" content="Política Anticorrupção e Antissuborno – Grupo CSV">
@@ -66,9 +65,18 @@
 
     .btn-top{position:fixed;right:16px;bottom:16px;background:#196396;color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:var(--shadow);display:none}
     @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-  </style>
+  
+/* Hub CSV Back Button */
+.hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
+.hub-back-btn:hover{background:#196396;color:#fff;box-shadow:0 4px 20px rgba(25,99,150,0.3);transform:translateY(-1px)}
+@media print{.hub-back-btn{display:none!important}}
+
+</style>
+  <link rel="icon" type="image/png" href="/assets/logos/logo_csv.png">
 </head>
 <body>
+<a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
+
 <header id="topo">
   <div class="wrap">
     <a class="brand" href="https://grupocsv.com" aria-label="Grupo CSV"><img src="/assets/logos/logo_csv.png" alt="Grupo CSV"><span class="sr-only">Grupo CSV</span></a>
