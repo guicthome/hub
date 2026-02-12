@@ -134,10 +134,10 @@ title: Central de Compliance
     <h2 class="section-title">Políticas do Grupo CSV</h2>
     <p class="section-desc">Documentos transversais aplicáveis a todas as empresas do ecossistema.</p>
     <div class="btn-grid">
-      <a class="policy-btn" href="/compliance/privacidade">Política de Privacidade (LGPD)</a>
-      <a class="policy-btn" href="/compliance/termos">Termos de Uso</a>
-      <a class="policy-btn" href="/compliance/cookies">Política de Cookies</a>
-      <a class="policy-btn" href="/compliance/autorizacao-parceria">Autorização de Parceria – Uso de Marca</a>
+      <a class="policy-btn" href="/compliance/privacidade.html">Política de Privacidade (LGPD)</a>
+      <a class="policy-btn" href="/compliance/termos.html">Termos de Uso</a>
+      <a class="policy-btn" href="/compliance/cookies.html">Política de Cookies</a>
+      <a class="policy-btn" href="/compliance/autorizacao-parceria.html">Autorização de Parceria – Uso de Marca</a>
     </div>
   </div>
 
@@ -145,11 +145,11 @@ title: Central de Compliance
     <h2 class="section-title">Integridade e Conduta</h2>
     <p class="section-desc">Diretrizes éticas e de governança corporativa do Grupo CSV.</p>
     <div class="btn-grid">
-      <a class="policy-btn secondary" href="/compliance/codigo-de-conduta">Código de Ética e Conduta</a>
-      <a class="policy-btn secondary" href="/compliance/brindes">Política de Brindes, Presentes e Hospitalidade</a>
-      <a class="policy-btn secondary" href="/compliance/anticorrupcao">Política Anticorrupção e Antissuborno</a>
-      <a class="policy-btn secondary" href="/compliance/terceiros">Relacionamento com Terceiros e Due Diligence</a>
-      <a class="policy-btn secondary" href="/compliance/integridade">Cláusulas-Padrão de Integridade</a>
+      <a class="policy-btn secondary" href="/compliance/codigo-de-conduta.html">Código de Ética e Conduta</a>
+      <a class="policy-btn secondary" href="/compliance/brindes.html">Política de Brindes, Presentes e Hospitalidade</a>
+      <a class="policy-btn secondary" href="/compliance/anticorrupcao.html">Política Anticorrupção e Antissuborno</a>
+      <a class="policy-btn secondary" href="/compliance/terceiros.html">Relacionamento com Terceiros e Due Diligence</a>
+      <a class="policy-btn secondary" href="/compliance/integridade.html">Cláusulas-Padrão de Integridade</a>
     </div>
   </div>
 
@@ -163,8 +163,8 @@ title: Central de Compliance
         <h4>AxiaCare® – Gestão e Governança Clínica</h4>
       </div>
       <div class="btn-grid">
-        <a class="policy-btn axia" href="/compliance/axiacare/privacidade">Privacidade – AxiaCare</a>
-        <a class="policy-btn axia" href="/compliance/axiacare/termos">Termos de Uso – AxiaCare</a>
+        <a class="policy-btn axia" href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
+        <a class="policy-btn axia" href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
       </div>
     </div>
 
@@ -174,8 +174,8 @@ title: Central de Compliance
         <h4>MedValor® – Educação e Formação</h4>
       </div>
       <div class="btn-grid">
-        <a class="policy-btn medvalor" href="/compliance/medvalor/privacidade">Privacidade – MedValor</a>
-        <a class="policy-btn medvalor" href="/compliance/medvalor/termos">Termos de Uso – MedValor</a>
+        <a class="policy-btn medvalor" href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
+        <a class="policy-btn medvalor" href="/compliance/medvalor/termos.html">Termos de Uso – MedValor</a>
       </div>
     </div>
 
@@ -185,8 +185,8 @@ title: Central de Compliance
         <h4>TheraTech® – Tecnologia e IA</h4>
       </div>
       <div class="btn-grid">
-        <a class="policy-btn thera" href="/compliance/thera/privacidade">Privacidade – TheraTech</a>
-        <a class="policy-btn thera" href="/compliance/thera/termos">Termos de Uso – TheraTech</a>
+        <a class="policy-btn thera" href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>
+        <a class="policy-btn thera" href="/compliance/thera/termos.html">Termos de Uso – TheraTech</a>
       </div>
     </div>
   </div>
