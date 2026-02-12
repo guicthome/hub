@@ -139,11 +139,11 @@ title: Unihealth - Hub de Ferramentas
       <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth Logo" class="logo">
     </a>
     <h1>Hub Unihealth</h1>
-    <p class="subtitle">Gestão em Saúde Inteligente</p>
+    <p class="subtitle">Hospital de Média/Alta Complexidade</p>
   </div>
 
   <div class="uh-grid">
-    <div class="uh-card featured">
+    <div class="uh-card">
       <div class="uh-title">Calculadora Plantões Médicos</div>
       <span class="uh-date">Outubro-25</span>
       <a data-direct href="/unihealth/calc-plantao.html" class="uh-link">Acessar</a>
@@ -185,6 +185,7 @@ title: Unihealth - Hub de Ferramentas
     </div>
   </div>
 
+  <div style="text-align:center; margin-bottom:30px;"><a href="https://hub.grupocsv.com" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#013d19; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
   <div class="uh-foot">
     <img class="foot-logo" src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare Logo">
     <div class="foot-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>

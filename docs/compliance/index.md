@@ -202,6 +202,8 @@ title: Central de Compliance
     </ul>
   </div>
 
+  <div style="text-align:center; margin-bottom:24px;"><a href="/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#196396; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
+
   <div class="page-footer">
     <strong>Grupo CSV – Central de Compliance</strong>
     <div class="small">© 2026 Grupo CSV. Cuidados em Saúde com Valor. Todos os direitos reservados.</div>
