@@ -40,7 +40,7 @@ jobs:
 
       - name: Copy static folders to dist
         run: |
-          # Copy module folders
+          # Copy standalone HTML modules (companies, partners, compliance, founder)
           cp -r axia docs/.vitepress/dist/ 2>/dev/null || true
           cp -r medvalor docs/.vitepress/dist/ 2>/dev/null || true
           cp -r thera docs/.vitepress/dist/ 2>/dev/null || true
@@ -48,7 +48,8 @@ jobs:
           cp -r unihealth docs/.vitepress/dist/ 2>/dev/null || true
           cp -r compliance docs/.vitepress/dist/ 2>/dev/null || true
           cp -r founder docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r _infra docs/.vitepress/dist/ 2>/dev/null || true
+
+          # Note: _infra is NOT copied here because VitePress builds it from docs/_infra/
 
           # Copy assets
           cp -r assets docs/.vitepress/dist/ 2>/dev/null || true

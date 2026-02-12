@@ -50,10 +50,20 @@ export default defineConfig({
           text: 'Infraestrutura Cognitiva',
           items: [
             { text: 'Visão Geral', link: '/_infra/' },
-            { text: 'CSV Core', link: '/_infra/csv-core/' },
-            { text: 'AxiaCare Mandate', link: '/_infra/axiacare/' },
-            { text: 'MedValor Mandate', link: '/_infra/medvalor/' },
-            { text: 'TheraTech Mandate', link: '/_infra/thera/' },
+            {
+              text: 'CSV Core',
+              collapsed: false,
+              items: [
+                { text: 'Definição', link: '/_infra/csv-core/definition' },
+                { text: 'Sistema de Identidade', link: '/_infra/csv-core/identity-system' },
+                { text: 'Assets', link: '/_infra/csv-core/assets' },
+                { text: 'Playbook Hub', link: '/_infra/csv-core/playbook-hub' },
+                { text: 'Fundador', link: '/_infra/csv-core/founder' },
+              ]
+            },
+            { text: 'AxiaCare Mandate', link: '/_infra/axiacare/mandate' },
+            { text: 'MedValor Mandate', link: '/_infra/medvalor/mandate' },
+            { text: 'TheraTech Mandate', link: '/_infra/thera/mandate' },
           ]
         }
       ]
