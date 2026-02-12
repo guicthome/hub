@@ -204,7 +204,7 @@ title: Hub Grupo CSV
 
 <div class="hub-hero">
   <div class="inner">
-    <img src="/logos/marca_csv.png" alt="Grupo CSV" class="logo">
+    <img src="/logos/marca_csv_neg.png" alt="Grupo CSV" class="logo">
     <h1>Hub Grupo CSV</h1>
     <p class="tagline">Cuidados em Saúde com Valor — Portal central do ecossistema</p>
     <div class="hero-actions">
@@ -258,7 +258,6 @@ title: Hub Grupo CSV
       <h2 class="section-title">Instituições Parceiras</h2>
       <p class="section-desc">Dashboards, ferramentas e entregáveis desenvolvidos para nossos parceiros.</p>
     </div>
-
     <!-- Unimed -->
     <div class="partner-section">
       <div class="partner-header">
@@ -307,7 +306,6 @@ title: Hub Grupo CSV
         </a>
       </div>
     </div>
-
     <!-- Unihealth -->
     <div class="partner-section">
       <div class="partner-header">
@@ -388,7 +386,7 @@ title: Hub Grupo CSV
         <div class="gc-desc">Playbooks, system identity, definições canônicas e mandates para integração com AI.</div>
       </a>
       <a href="https://github.com/grupocsv/hub" class="gov-card" target="_blank">
-        <div class="gc-icon">&#128187;</div>
+        <div class="gc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <div class="gc-title">Repositório GitHub</div>
         <div class="gc-desc">Código fonte, assets e documentação completa do ecossistema Grupo CSV.</div>
       </a>

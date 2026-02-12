@@ -2,7 +2,7 @@
 
 Portal central do ecossistema **Grupo CSV** - Cuidados em Saúde com Valor.
 
-🌐 **URL:** [hub.grupocsv.com](https://hub.grupocsv.com)
+**URL:** [hub.grupocsv.com](https://hub.grupocsv.com)
 
 ---
 
