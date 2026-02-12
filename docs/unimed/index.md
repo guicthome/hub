@@ -3,57 +3,136 @@ layout: page
 title: Unimed GV - Hub de Documentos
 ---
 
-<style>
-.vp-doc { padding: 0 !important; }
-.unimed-wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
-.unimed-header {
-  text-align: center; padding: 50px 20px;
+<style scoped>
+.VPPage { padding: 0 !important; }
+
+.unimed-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 48px;
+  min-height: calc(100vh - 64px);
+}
+
+.page-header {
+  text-align: center;
+  padding: 50px 20px;
   background: linear-gradient(135deg, rgba(0,153,93,0.04) 0%, rgba(0,153,93,0.02) 100%);
-  border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-  margin-bottom: 40px; border: 1px solid rgba(0,153,93,0.12);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+  border: 1px solid rgba(0,153,93,0.12);
 }
-.unimed-header .logo { width: 280px; max-width: 90%; margin: 0 auto 20px; display: block; }
-.unimed-header h2 { color: #00995d; font-size: 36px; font-weight: 700; margin-bottom: 12px; border: none; }
-.unimed-header .subtitle { color: var(--vp-c-text-2); font-size: 16px; }
-.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 50px; }
+.dark .page-header { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+
+.page-header .logo { width: 280px; max-width: 90%; margin: 0 auto 20px; display: block; }
+.page-header .logo-link { display: inline-block; transition: transform 0.3s; }
+.page-header .logo-link:hover { transform: scale(1.05); }
+
+.page-header h1 { color: #00995d; font-size: 36px; font-weight: 700; margin: 0 0 12px; border: none; letter-spacing: -0.3px; }
+.dark .page-header h1 { color: #3dcc8e; }
+.page-header .subtitle { color: var(--vp-c-text-2); font-size: 16px; }
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
 .tool-card {
-  background: linear-gradient(135deg, rgba(0,153,93,0.03) 0%, rgba(0,153,93,0.05) 100%);
-  border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: all 0.3s cubic-bezier(0.4,0,0.2,1); border: 1px solid rgba(0,153,93,0.1);
-  position: relative; overflow: hidden; display: flex; flex-direction: column;
+  background: linear-gradient(135deg, rgba(0,153,93,0.03), rgba(0,153,93,0.05));
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  border: 1px solid rgba(0,153,93,0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-.tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,#00995d 0%,#8baf1f 100%); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.dark .tool-card { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00995d, #8baf1f);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
 .tool-card:hover::before { transform: scaleX(1); }
 .tool-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,153,93,0.15); border-color: rgba(0,153,93,0.2); }
-.tool-card.featured { background: linear-gradient(135deg, #00995d 0%, #007a4a 100%); color: white; border-color: #00995d; }
+
+.tool-card.featured {
+  background: linear-gradient(135deg, #00995d, #007a4a);
+  color: white;
+  border-color: #00995d;
+}
 .tool-card.featured .tool-title { color: white; }
-.tool-card.featured .tool-link { background: #8baf1f; border: 2px solid #8baf1f; }
+.tool-card.featured .tool-link { background: #8baf1f; border-color: #8baf1f; }
 .tool-card.featured .tool-link:hover { background: #a0c944; border-color: #a0c944; }
-.tool-card.featured::after { content: 'NOVO'; position: absolute; top: 16px; right: 16px; background: #8baf1f; color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; }
+.tool-card.featured::after {
+  content: 'NOVO';
+  position: absolute;
+  top: 16px; right: 16px;
+  background: #8baf1f;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(139,175,31,0.4);
+}
+
 .tool-title { color: #00995d; font-size: 18px; font-weight: 600; margin-bottom: 20px; line-height: 1.3; flex-grow: 1; }
+.dark .tool-card:not(.featured) .tool-title { color: #3dcc8e; }
+
 .tool-link {
-  display: inline-block; width: 100%; padding: 14px 24px; background: #00995d; color: white !important;
-  text-decoration: none !important; border-radius: 10px; font-weight: 600; font-size: 14px; text-align: center;
-  transition: all 0.3s ease; border: 2px solid #00995d;
+  display: block;
+  width: 100%;
+  padding: 14px 24px;
+  background: #00995d;
+  color: white !important;
+  text-decoration: none !important;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 2px solid #00995d;
 }
 .tool-link:hover { background: #8baf1f; border-color: #8baf1f; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,175,31,0.3); }
-.unimed-foot { margin-top: 40px; padding: 25px 15px; background-color: #f8f5f0; text-align: center; border-top: 2px solid #00995d; border-radius: 16px; }
-.unimed-foot .foot-logo { width: 140px; margin: 0 auto 10px; display: block; }
-.unimed-foot .foot-title { font-size: 15px; font-weight: bold; color: #333; margin: 10px 0 18px; }
-.unimed-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 14px; margin-bottom: 10px; }
-.unimed-foot .foot-links a { color: #004E4C; text-decoration: none; }
-.unimed-foot .foot-links a:hover { text-decoration: underline; }
-.unimed-foot .sep { color: #bbb; margin: 0 4px; }
-.unimed-foot .copyright { margin-top: 18px; font-size: 11px; color: #999; }
-@media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } .unimed-header h2 { font-size: 28px; } }
+
+.page-foot {
+  padding: 25px 15px;
+  background: #f8f5f0;
+  text-align: center;
+  border-top: 2px solid #00995d;
+  border-radius: 16px;
+}
+.dark .page-foot { background: var(--vp-c-bg-soft); border-color: #3dcc8e; }
+.page-foot .foot-logo { width: 140px; margin: 0 auto 10px; display: block; }
+.page-foot .foot-title { font-size: 15px; font-weight: bold; margin: 10px 0 18px; }
+.page-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 14px; margin-bottom: 10px; }
+.page-foot .foot-links a { color: #004E4C; text-decoration: none; }
+.dark .page-foot .foot-links a { color: #5da9e0; }
+.page-foot .foot-links a:hover { text-decoration: underline; }
+.page-foot .sep { color: #bbb; margin: 0 4px; }
+.page-foot .copyright { margin-top: 18px; font-size: 11px; color: #999; }
+
+@media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } .page-header h1 { font-size: 28px; } .page-header .logo { width: 220px; } }
 </style>
 
-<div class="unimed-wrap">
-  <div class="unimed-header">
-    <a href="https://www.unimed.coop.br/site/web/governadorvaladares" target="_blank">
+<div class="unimed-page">
+  <div class="page-header">
+    <a href="https://www.unimed.coop.br/site/web/governadorvaladares" target="_blank" class="logo-link">
       <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed Governador Valadares" class="logo">
     </a>
-    <h2>Hub de Documentos</h2>
+    <h1>Hub de Documentos</h1>
     <p class="subtitle">Unimed Governador Valadares</p>
   </div>
 
@@ -88,7 +167,7 @@ title: Unimed GV - Hub de Documentos
     </div>
   </div>
 
-  <div class="unimed-foot">
+  <div class="page-foot">
     <img class="foot-logo" src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare Logo">
     <div class="foot-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>
     <div class="foot-links">
