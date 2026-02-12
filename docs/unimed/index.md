@@ -133,15 +133,15 @@ title: Unimed GV - Hub de Documentos
       <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed Governador Valadares" class="logo">
     </a>
     <h1>Hub de Documentos</h1>
-    <p class="subtitle">Unimed Governador Valadares</p>
+    <p class="subtitle">Operadora de Planos de Saúde</p>
   </div>
 
   <div class="tools-grid">
-    <div class="tool-card featured">
+    <div class="tool-card">
       <div class="tool-title">Variabilidade Assistencial por Especialidade</div>
       <a data-direct href="/unimed/especialidades.html" class="tool-link">Acessar</a>
     </div>
-    <div class="tool-card featured">
+    <div class="tool-card">
       <div class="tool-title">Coordenação do Cuidado</div>
       <a data-direct href="/unimed/cuidadocoordenado.html" class="tool-link">Acessar</a>
     </div>
@@ -167,6 +167,7 @@ title: Unimed GV - Hub de Documentos
     </div>
   </div>
 
+  <div style="text-align:center; margin-bottom:30px;"><a href="https://hub.grupocsv.com" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#00995d; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
   <div class="page-foot">
     <img class="foot-logo" src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare Logo">
     <div class="foot-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>

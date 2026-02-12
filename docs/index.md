@@ -56,16 +56,6 @@ title: Hub Grupo CSV
 
 .section { padding: 48px 0 0; }
 .section-header { margin-bottom: 24px; }
-.section-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  padding: 4px 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
 .section-title { font-size: 1.6rem; font-weight: 700; margin: 0 0 6px; color: #1a2b3c; border: none; }
 .dark .section-title { color: var(--vp-c-text-1); }
 .section-desc { color: #5b6470; font-size: 0.95rem; margin: 0; }
@@ -99,9 +89,7 @@ title: Hub Grupo CSV
 .empresa-card .card-logo { height: 48px; margin-bottom: 16px; object-fit: contain; }
 .empresa-card .card-name { font-size: 1.15rem; font-weight: 700; margin: 0 0 8px; color: #1a2b3c; }
 .dark .empresa-card .card-name { color: var(--vp-c-text-1); }
-.empresa-card .card-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0 0 16px; flex-grow: 1; }
-.empresa-card .card-badge { font-size: 0.78rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; background: #f1f5f9; color: #64748b; }
-.dark .empresa-card .card-badge { background: var(--vp-c-bg-alt); }
+.empresa-card .card-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0; flex-grow: 1; }
 
 /* ── Partner Sections ── */
 .partner-section {
@@ -127,15 +115,6 @@ title: Hub Grupo CSV
 .partner-header .p-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; color: #1a2b3c; }
 .dark .partner-header .p-name { color: var(--vp-c-text-1); }
 .partner-header .p-sub { font-size: 0.85rem; color: #5b6470; margin: 0; }
-.partner-header .p-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
 
 .partner-tools {
   padding: 20px 28px 28px;
@@ -162,8 +141,6 @@ title: Hub Grupo CSV
 .tool-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
 .tool-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .tool-item .arrow { margin-left: auto; opacity: 0.4; font-size: 0.85rem; flex-shrink: 0; }
-.tool-item.featured { font-weight: 700; }
-.tool-item.featured .dot { box-shadow: 0 0 6px currentColor; }
 .tool-item.disabled { opacity: 0.45; pointer-events: none; }
 
 /* ── Governance Cards ── */
@@ -183,7 +160,6 @@ title: Hub Grupo CSV
 }
 .dark .gov-card { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
 .gov-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
-.gov-card .gc-icon { font-size: 1.5rem; margin-bottom: 12px; }
 .gov-card .gc-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 8px; color: #1a2b3c; }
 .dark .gov-card .gc-title { color: var(--vp-c-text-1); }
 .gov-card .gc-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0; }
@@ -220,7 +196,6 @@ title: Hub Grupo CSV
   <!-- ═══ EMPRESAS ═══ -->
   <div class="section">
     <div class="section-header">
-      <div class="section-label" style="background:#e8f4fc; color:#196396;">Ecossistema</div>
       <h2 class="section-title">Empresas do Grupo</h2>
       <p class="section-desc">Três empresas especializadas, cada uma focada em uma dimensão da transformação em saúde.</p>
     </div>
@@ -230,21 +205,18 @@ title: Hub Grupo CSV
         <img src="/logos/marca_axia.png" alt="AxiaCare" class="card-logo">
         <div class="card-name">AxiaCare®</div>
         <div class="card-desc">Consultoria estratégica, governança clínica e operações de saúde.</div>
-        <div class="card-badge">Em construção</div>
       </a>
       <a href="/medvalor/" class="empresa-card">
         <div class="top-bar" style="background: linear-gradient(90deg, #ea580c, #f97316);"></div>
         <img src="/logos/marca_medvalor.png" alt="MedValor" class="card-logo">
         <div class="card-name">MedValor®</div>
         <div class="card-desc">Educação executiva e capacitação estratégica para líderes em saúde.</div>
-        <div class="card-badge">Em construção</div>
       </a>
       <a href="/thera/" class="empresa-card">
         <div class="top-bar" style="background: linear-gradient(90deg, #6B5B95, #7c3aed);"></div>
         <img src="/logos/marca_thera.png" alt="TheraTech" class="card-logo">
         <div class="card-name">TheraTech®</div>
-        <div class="card-desc">Fábrica de software, IA e plataformas SaaS para saúde.</div>
-        <div class="card-badge">Em construção</div>
+        <div class="card-desc">Desenvolvimento de software, IA e plataformas SaaS para saúde.</div>
       </a>
     </div>
   </div>
@@ -254,7 +226,6 @@ title: Hub Grupo CSV
   <!-- ═══ PARCEIROS ═══ -->
   <div class="section" id="parceiros">
     <div class="section-header">
-      <div class="section-label" style="background:#ebf7f1; color:#00995d;">Parceiros</div>
       <h2 class="section-title">Instituições Parceiras</h2>
       <p class="section-desc">Dashboards, ferramentas e entregáveis desenvolvidos para nossos parceiros.</p>
     </div>
@@ -264,43 +235,42 @@ title: Hub Grupo CSV
         <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo">
         <div class="p-info">
           <div class="p-name">Unimed Governador Valadares</div>
-          <div class="p-sub">Hub de Documentos — Dashboards e Painéis</div>
+          <div class="p-sub">Operadora de Planos de Saúde</div>
         </div>
-        <div class="p-badge" style="background:#ebf7f1; color:#00995d;">7 painéis</div>
       </div>
       <div class="partner-tools">
-        <a href="/unimed/especialidades.html" data-direct class="tool-item featured">
+        <a href="/unimed/especialidades.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
           Variabilidade por Especialidade
           <span class="arrow">›</span>
         </a>
-        <a href="/unimed/cuidadocoordenado.html" data-direct class="tool-item featured">
+        <a href="/unimed/cuidadocoordenado.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
           Coordenação do Cuidado
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/onco.html" data-direct class="tool-item">
-          <span class="dot" style="background:#8baf1f;"></span>
+          <span class="dot" style="background:#00995d;"></span>
           Oncologia: Painel Populacional
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/ped-amb.html" data-direct class="tool-item">
-          <span class="dot" style="background:#8baf1f;"></span>
+          <span class="dot" style="background:#00995d;"></span>
           Pediatria Ambulatorial
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/vivapleno.html" data-direct class="tool-item">
-          <span class="dot" style="background:#8baf1f;"></span>
+          <span class="dot" style="background:#00995d;"></span>
           Viva Pleno: Cuidados aos Idosos
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/gce.html" data-direct class="tool-item">
-          <span class="dot" style="background:#8baf1f;"></span>
+          <span class="dot" style="background:#00995d;"></span>
           GCE: Acompanhamento
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/tea.html" data-direct class="tool-item">
-          <span class="dot" style="background:#8baf1f;"></span>
+          <span class="dot" style="background:#00995d;"></span>
           Psicologia ABA: Análise de Rede
           <span class="arrow">›</span>
         </a>
@@ -312,43 +282,42 @@ title: Hub Grupo CSV
         <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo">
         <div class="p-info">
           <div class="p-name">Unihealth</div>
-          <div class="p-sub">Hub de Ferramentas — Gestão em Saúde Inteligente</div>
+          <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
-        <div class="p-badge" style="background:#f0fdf4; color:#013d19;">8 ferramentas</div>
       </div>
       <div class="partner-tools">
-        <a href="/unihealth/calc-plantao.html" data-direct class="tool-item featured">
+        <a href="/unihealth/calc-plantao.html" data-direct class="tool-item">
           <span class="dot" style="background:#013d19;"></span>
           Calculadora Plantões Médicos
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/orcamento-medico-ugv.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           Orçamento Médico
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/fios.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           Análise Reajuste Suturas
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/retornopa.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           Análise Utilização PA
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/marco25.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           Análise de Indicadores
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/opme.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           Plano de Ação OPME
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/isc-cesarianas.html" data-direct class="tool-item">
-          <span class="dot" style="background:#ec7106;"></span>
+          <span class="dot" style="background:#013d19;"></span>
           ISC Cesarianas
           <span class="arrow">›</span>
         </a>
@@ -366,27 +335,22 @@ title: Hub Grupo CSV
   <!-- ═══ GOVERNANÇA ═══ -->
   <div class="section">
     <div class="section-header">
-      <div class="section-label" style="background:#fef3c7; color:#92400e;">Governança</div>
       <h2 class="section-title">Compliance, Fundador e Infraestrutura</h2>
     </div>
     <div class="gov-grid">
       <a href="/compliance/" class="gov-card">
-        <div class="gc-icon">&#9878;</div>
         <div class="gc-title">Central de Compliance</div>
-        <div class="gc-desc">Políticas de privacidade, termos de uso, código de conduta e documentação de integridade — 15 documentos.</div>
+        <div class="gc-desc">Políticas de privacidade, termos de uso, código de conduta e documentação de integridade.</div>
       </a>
       <a href="/founder/" class="gov-card">
-        <div class="gc-icon">&#9733;</div>
         <div class="gc-title">Guilherme Thomé</div>
         <div class="gc-desc">Médico executivo, Superintendente Unimed/ICDS, especialista em VBHC. Fundador do Grupo CSV.</div>
       </a>
       <a href="/_infra/" class="gov-card">
-        <div class="gc-icon">&#9881;</div>
         <div class="gc-title">Infraestrutura Cognitiva</div>
         <div class="gc-desc">Playbooks, system identity, definições canônicas e mandates para integração com AI.</div>
       </a>
       <a href="https://github.com/grupocsv/hub" class="gov-card" target="_blank">
-        <div class="gc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
         <div class="gc-title">Repositório GitHub</div>
         <div class="gc-desc">Código fonte, assets e documentação completa do ecossistema Grupo CSV.</div>
       </a>

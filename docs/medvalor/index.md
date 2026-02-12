@@ -32,25 +32,11 @@ title: MedValor®
 }
 
 .glass-card .brand-logo {
-  width: 200px;
+  max-width: 280px;
+  max-height: 200px;
   margin: 0 auto 30px;
   display: block;
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.2));
-}
-
-.glass-card .brand-name {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 10px;
-  color: white;
-  border: none;
-  letter-spacing: -0.5px;
-}
-
-.glass-card .brand-tagline {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin: 0 0 30px;
 }
 
 .glass-card .brand-desc {
@@ -70,6 +56,23 @@ title: MedValor®
   letter-spacing: 0.5px;
 }
 
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
 .hero-footer {
   margin-top: 40px;
   font-size: 0.85rem;
@@ -80,23 +83,21 @@ title: MedValor®
 
 @media (max-width: 640px) {
   .glass-card { padding: 40px 24px; }
-  .glass-card .brand-name { font-size: 2rem; }
-  .glass-card .brand-logo { width: 160px; }
+  .glass-card .brand-logo { max-width: 200px; }
 }
 </style>
 
 <div class="hero-full">
   <div class="glass-card">
-    <img src="/logos/marca_medvalor.png" alt="MedValor" class="brand-logo">
-    <h1 class="brand-name">MedValor®</h1>
-    <p class="brand-tagline">Educação Executiva para Líderes em Saúde</p>
+    <img src="/logos/medvalor_vertical_laranja_negativa.png" alt="MedValor" class="brand-logo">
     <p class="brand-desc">
       Capacitação estratégica, desenvolvimento de lideranças e metodologias
       práticas para transformar a gestão em saúde.
     </p>
-    <div class="badge-wip">Em construção</div>
+    <div class="badge-wip">Em Breve</div>
   </div>
+  <a href="/" class="back-btn" data-direct>← Voltar ao Hub</a>
   <div class="hero-footer">
-    <p>Grupo CSV | <a href="/compliance/">Compliance</a> | <a href="mailto:contato@medvalor.com.br">contato@medvalor.com.br</a></p>
+    <p>Grupo CSV | <a href="/compliance/">Compliance</a> | <a href="mailto:contato@medvalor.med.br">contato@medvalor.med.br</a></p>
   </div>
 </div>

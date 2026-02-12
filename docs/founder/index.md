@@ -109,33 +109,65 @@ title: Guilherme Thomé
 .contact-box {
   background: rgba(255,255,255,0.08);
   border-radius: 14px;
-  padding: 20px;
+  padding: 24px;
   margin-bottom: 25px;
   border: 1px solid rgba(255,255,255,0.06);
 }
 
 .contact-box h3 {
   font-size: 1rem;
-  margin: 0 0 14px;
+  margin: 0 0 18px;
   opacity: 0.9;
   color: white;
   border: none;
+  letter-spacing: 0.5px;
 }
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
-  font-size: 0.85rem;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
-.contact-item {
+.contact-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  font-size: 0.9rem;
 }
-.contact-item a { color: white !important; text-decoration: none !important; }
-.contact-item a:hover { text-decoration: underline !important; }
+
+.contact-row .c-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.contact-row .c-info { display: flex; flex-direction: column; gap: 2px; }
+.contact-row .c-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; }
+.contact-row a { color: white !important; text-decoration: none !important; font-weight: 500; }
+.contact-row a:hover { text-decoration: underline !important; }
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s;
+}
+.back-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 
 .hero-footer {
   margin-top: 30px;
@@ -148,23 +180,21 @@ title: Guilherme Thomé
   .glass-card { padding: 35px 20px; }
   .founder-name { font-size: 1.8rem; }
   .links-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
 }
 </style>
 
 <div class="hero-full">
   <div class="glass-card">
-    <img src="https://i.imgur.com/7wYpSaD.png" alt="Guilherme Thomé" class="profile-img">
+    <img src="/logos/avatar_guilherme.png" alt="Guilherme Thomé" class="profile-img">
     <h1 class="founder-name">Guilherme Thomé</h1>
     <p class="founder-title">
       Médico Executivo e Consultor | Especialista em VBHC<br>
       Superintendente Unimed/ICDS | Fundador Grupo CSV
     </p>
     <p class="founder-bio">
-      Com mais de 15 anos de experiência em gestão de organizações de saúde, atuo na interseção
-      entre estratégia, governança clínica e inovação. Fundei o Grupo CSV para transformar a
-      forma como cuidamos da saúde, através das empresas AxiaCare® (consultoria), MedValor®
-      (educação) e TheraTech® (tecnologia).
+      Atuo na interseção entre estratégia, governança clínica e inovação. Fundei o Grupo CSV para
+      transformar a forma como cuidamos da saúde, através das empresas AxiaCare® (consultoria),
+      MedValor® (educação) e TheraTech® (tecnologia).
     </p>
     <div class="links-grid">
       <a href="https://hub.guithome.com.br/cv.html" class="link-card" target="_blank">
@@ -195,12 +225,31 @@ title: Guilherme Thomé
     <div class="contact-box">
       <h3>Contato</h3>
       <div class="contact-grid">
-        <div class="contact-item"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span> <a href="mailto:guilherme@guithome.com.br">guilherme@guithome.com.br</a></div>
-        <div class="contact-item"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/><line x1="9" y1="18" x2="15" y2="18"/></svg></span> <a href="mailto:guilherme@axcare.com.br">guilherme@axcare.com.br</a></div>
-        <div class="contact-item"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg></span> <a href="mailto:guilherme@medvalor.com.br">guilherme@medvalor.com.br</a></div>
+        <div class="contact-row">
+          <div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="c-info">
+            <span class="c-label">B2B</span>
+            <a href="mailto:guilherme@grupocsv.com">guilherme@grupocsv.com</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="c-info">
+            <span class="c-label">B2C</span>
+            <a href="mailto:guilherme@guithome.com.br">guilherme@guithome.com.br</a>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="c-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="c-info">
+            <span class="c-label">Telefone</span>
+            <a href="tel:+5533999399959">+55 33 9 9939 9959</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <a href="/" class="back-btn" data-direct>← Voltar ao Hub</a>
   <div class="hero-footer">
     <p>Grupo CSV | AxiaCare® · MedValor® · TheraTech® | <a href="/compliance/">Compliance</a></p>
   </div>
