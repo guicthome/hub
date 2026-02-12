@@ -142,7 +142,7 @@ title: Unihealth - Hub de Ferramentas
     <p class="subtitle">Gestão em Saúde Inteligente</p>
   </div>
 
-  <div class="uh-grid">
+  <div class="uh-grid vp-raw">
     <div class="uh-card featured">
       <div class="uh-title">Calculadora Plantões Médicos</div>
       <span class="uh-date">Outubro-25</span>

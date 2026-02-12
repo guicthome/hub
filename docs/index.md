@@ -1,235 +1,405 @@
 ---
-layout: home
-
-hero:
-  name: "Grupo CSV"
-  text: "Hub Central"
-  tagline: Cuidados em Saúde com Valor
-  image:
-    src: /logos/marca_csv.png
-    alt: Grupo CSV
-  actions:
-    - theme: brand
-      text: Empresas do Grupo
-      link: '#empresas'
-    - theme: alt
-      text: Compliance
-      link: /compliance/
-    - theme: alt
-      text: Infraestrutura
-      link: /_infra/
+layout: page
+title: Hub Grupo CSV
 ---
 
-<style>
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(135deg, #196396 0%, #2DBF7F 100%);
-  --vp-home-hero-image-background-image: linear-gradient(135deg, #196396 20%, #2DBF7F 80%);
-  --vp-home-hero-image-filter: blur(44px);
-}
+<style scoped>
+.VPPage { padding: 0 !important; }
 
-.VPNavBarTitle .logo {
-  height: 36px !important;
-  width: auto !important;
+/* ── Hero ── */
+.hub-hero {
+  background: linear-gradient(135deg, #0f2b46 0%, #196396 40%, #2DBF7F 100%);
+  padding: 80px 24px 60px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
-
-.VPHero .image-bg {
-  opacity: 0.8;
+.hub-hero::before {
+  content: '';
+  position: absolute;
+  top: -60%; left: -20%;
+  width: 140%; height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(45,191,127,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(25,99,150,0.2) 0%, transparent 50%);
+  pointer-events: none;
 }
-
-.VPHero .image-src {
-  max-width: 280px !important;
+.hub-hero .inner { position: relative; max-width: 800px; margin: 0 auto; }
+.hub-hero .logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3)); }
+.hub-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin: 0 0 8px; border: none; color: white; letter-spacing: -1px; }
+.hub-hero .tagline { font-size: 1.15rem; opacity: 0.9; margin: 0 0 32px; font-weight: 300; }
+.hub-hero .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hub-hero .hero-btn {
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s;
 }
+.hub-hero .hero-btn.primary { background: white; color: #196396; }
+.hub-hero .hero-btn.primary:hover { background: #e8f4fc; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.hub-hero .hero-btn.secondary { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+.hub-hero .hero-btn.secondary:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+/* ── Layout ── */
+.hub-body {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 24px 60px;
+  background:
+    radial-gradient(1400px 600px at -10% -20%, #e8f0f6 0%, transparent 60%),
+    radial-gradient(1200px 500px at 110% 0%, #ebf7f1 0%, transparent 60%),
+    #F6F4EF;
 }
+.dark .hub-body { background: var(--vp-c-bg); }
 
-.card-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.card {
-  background: var(--vp-c-bg-soft);
-  border-radius: 16px;
-  padding: 28px;
-  border: 1px solid var(--vp-c-divider);
-  transition: all 0.3s;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.card:hover {
-  border-color: var(--vp-c-brand-1);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
-}
-
-.card-logo {
-  height: 56px;
-  margin-bottom: 20px;
-  object-fit: contain;
-}
-
-.card-logo-only {
-  height: 64px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-.card-title {
+.section { padding: 48px 0 0; }
+.section-header { margin-bottom: 24px; }
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
   font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 12px;
-  color: var(--vp-c-text-1);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
+.section-title { font-size: 1.6rem; font-weight: 700; margin: 0 0 6px; color: #1a2b3c; border: none; }
+.dark .section-title { color: var(--vp-c-text-1); }
+.section-desc { color: #5b6470; font-size: 0.95rem; margin: 0; }
 
-.card-desc {
-  font-size: 0.95rem;
-  color: var(--vp-c-text-2);
-  line-height: 1.6;
-}
+.divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent); margin: 48px 0 0; }
+.dark .divider { background: linear-gradient(90deg, transparent, var(--vp-c-divider), transparent); }
 
-.divider {
-  height: 1px;
-  background: var(--vp-c-divider);
-  margin: 60px auto;
-  max-width: 200px;
-}
+/* ── Empresas Grid ── */
+.empresas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 768px) { .empresas-grid { grid-template-columns: 1fr; } }
 
-.section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--vp-c-text-1);
-}
-
-.section-desc {
-  font-size: 1rem;
-  color: var(--vp-c-text-2);
-  margin-bottom: 32px;
-  max-width: 700px;
-}
-
-.partner-card {
-  background: var(--vp-c-bg-soft);
+.empresa-card {
+  background: white;
   border-radius: 16px;
-  padding: 32px;
-  border: 1px solid var(--vp-c-divider);
+  padding: 28px 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   transition: all 0.3s;
   text-decoration: none;
   color: inherit;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 120px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.dark .empresa-card { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+.empresa-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+.empresa-card .top-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.empresa-card .card-logo { height: 48px; margin-bottom: 16px; object-fit: contain; }
+.empresa-card .card-name { font-size: 1.15rem; font-weight: 700; margin: 0 0 8px; color: #1a2b3c; }
+.dark .empresa-card .card-name { color: var(--vp-c-text-1); }
+.empresa-card .card-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0 0 16px; flex-grow: 1; }
+.empresa-card .card-badge { font-size: 0.78rem; font-weight: 600; padding: 4px 14px; border-radius: 20px; background: #f1f5f9; color: #64748b; }
+.dark .empresa-card .card-badge { background: var(--vp-c-bg-alt); }
+
+/* ── Partner Sections ── */
+.partner-section {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.dark .partner-section { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+
+.partner-header {
+  padding: 28px 28px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.dark .partner-header { border-color: var(--vp-c-divider); }
+.partner-header .p-logo { height: 52px; object-fit: contain; }
+.partner-header .p-info { flex-grow: 1; }
+.partner-header .p-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; color: #1a2b3c; }
+.dark .partner-header .p-name { color: var(--vp-c-text-1); }
+.partner-header .p-sub { font-size: 0.85rem; color: #5b6470; margin: 0; }
+.partner-header .p-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
 }
 
-.partner-card:hover {
-  border-color: var(--vp-c-brand-1);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+.partner-tools {
+  padding: 20px 28px 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-decoration: none !important;
+  color: #1a2b3c !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: #fafbfc;
+}
+.dark .tool-item { background: var(--vp-c-bg-alt); border-color: var(--vp-c-divider); color: var(--vp-c-text-1) !important; }
+.tool-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.tool-item .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.tool-item .arrow { margin-left: auto; opacity: 0.4; font-size: 0.85rem; flex-shrink: 0; }
+.tool-item.featured { font-weight: 700; }
+.tool-item.featured .dot { box-shadow: 0 0 6px currentColor; }
+.tool-item.disabled { opacity: 0.45; pointer-events: none; }
+
+/* ── Governance Cards ── */
+.gov-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+.gov-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.dark .gov-card { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+.gov-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+.gov-card .gc-icon { font-size: 1.5rem; margin-bottom: 12px; }
+.gov-card .gc-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 8px; color: #1a2b3c; }
+.dark .gov-card .gc-title { color: var(--vp-c-text-1); }
+.gov-card .gc-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0; }
+
+/* ── Footer ── */
+.hub-footer {
+  text-align: center;
+  padding: 40px 24px 48px;
+  color: #5b6470;
+  font-size: 0.88rem;
+}
+.hub-footer .brands { font-weight: 600; color: #1a2b3c; margin-bottom: 8px; }
+.dark .hub-footer .brands { color: var(--vp-c-text-1); }
+.hub-footer a { color: #196396; text-decoration: none; }
+.hub-footer a:hover { text-decoration: underline; }
+.dark .hub-footer a { color: #5da9e0; }
 </style>
 
-<div id="empresas"></div>
-
-## Empresas do Grupo {#empresas}
-
-<p class="section-desc">O Grupo CSV opera através de três empresas especializadas, cada uma focada em uma dimensão essencial da transformação em saúde:</p>
-
-<div class="card-grid">
-  <a href="/axia/" class="card">
-    <img src="/logos/marca_axia.png" alt="AxiaCare" class="card-logo">
-    <div class="card-title">AxiaCare®</div>
-    <div class="card-desc">Consultoria estratégica, governança clínica e operações de saúde. Transformamos organizações através de inteligência aplicada.</div>
-  </a>
-
-  <a href="/medvalor/" class="card">
-    <img src="/logos/marca_medvalor.png" alt="MedValor" class="card-logo">
-    <div class="card-title">MedValor®</div>
-    <div class="card-desc">Educação executiva e capacitação estratégica para líderes em saúde. Metodologias práticas e conteúdo de alta qualidade.</div>
-  </a>
-
-  <a href="/thera/" class="card">
-    <img src="/logos/marca_thera.png" alt="TheraTech" class="card-logo">
-    <div class="card-title">TheraTech®</div>
-    <div class="card-desc">Fábrica de software, inteligência artificial e plataformas SaaS. Tecnologia desenvolvida para simplificar a saúde.</div>
-  </a>
+<div class="hub-hero">
+  <div class="inner">
+    <img src="/logos/marca_csv.png" alt="Grupo CSV" class="logo">
+    <h1>Hub Grupo CSV</h1>
+    <p class="tagline">Cuidados em Saúde com Valor — Portal central do ecossistema</p>
+    <div class="hero-actions">
+      <a href="#parceiros" class="hero-btn primary">Dashboards e Ferramentas</a>
+      <a href="/compliance/" class="hero-btn secondary">Compliance</a>
+      <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
+    </div>
+  </div>
 </div>
 
-<div class="divider"></div>
+<div class="hub-body">
 
-## Instituições Parceiras
+  <!-- ═══ EMPRESAS ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-label" style="background:#e8f4fc; color:#196396;">Ecossistema</div>
+      <h2 class="section-title">Empresas do Grupo</h2>
+      <p class="section-desc">Três empresas especializadas, cada uma focada em uma dimensão da transformação em saúde.</p>
+    </div>
+    <div class="empresas-grid">
+      <a href="/axia/" class="empresa-card">
+        <div class="top-bar" style="background: linear-gradient(90deg, #196396, #2DBF7F);"></div>
+        <img src="/logos/marca_axia.png" alt="AxiaCare" class="card-logo">
+        <div class="card-name">AxiaCare®</div>
+        <div class="card-desc">Consultoria estratégica, governança clínica e operações de saúde.</div>
+        <div class="card-badge">Em construção</div>
+      </a>
+      <a href="/medvalor/" class="empresa-card">
+        <div class="top-bar" style="background: linear-gradient(90deg, #ea580c, #f97316);"></div>
+        <img src="/logos/marca_medvalor.png" alt="MedValor" class="card-logo">
+        <div class="card-name">MedValor®</div>
+        <div class="card-desc">Educação executiva e capacitação estratégica para líderes em saúde.</div>
+        <div class="card-badge">Em construção</div>
+      </a>
+      <a href="/thera/" class="empresa-card">
+        <div class="top-bar" style="background: linear-gradient(90deg, #6B5B95, #7c3aed);"></div>
+        <img src="/logos/marca_thera.png" alt="TheraTech" class="card-logo">
+        <div class="card-name">TheraTech®</div>
+        <div class="card-desc">Fábrica de software, IA e plataformas SaaS para saúde.</div>
+        <div class="card-badge">Em construção</div>
+      </a>
+    </div>
+  </div>
 
-<p class="section-desc">Entregáveis e ferramentas desenvolvidas para nossos principais parceiros:</p>
+  <div class="divider"></div>
 
-<div class="card-grid-2">
-  <a href="/unimed/" class="partner-card">
-    <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed Governador Valadares" class="card-logo-only">
-  </a>
+  <!-- ═══ PARCEIROS ═══ -->
+  <div class="section" id="parceiros">
+    <div class="section-header">
+      <div class="section-label" style="background:#ebf7f1; color:#00995d;">Parceiros</div>
+      <h2 class="section-title">Instituições Parceiras</h2>
+      <p class="section-desc">Dashboards, ferramentas e entregáveis desenvolvidos para nossos parceiros.</p>
+    </div>
 
-  <a href="/unihealth/" class="partner-card">
-    <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="card-logo-only">
-  </a>
-</div>
+    <!-- Unimed -->
+    <div class="partner-section">
+      <div class="partner-header">
+        <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo">
+        <div class="p-info">
+          <div class="p-name">Unimed Governador Valadares</div>
+          <div class="p-sub">Hub de Documentos — Dashboards e Painéis</div>
+        </div>
+        <div class="p-badge" style="background:#ebf7f1; color:#00995d;">7 painéis</div>
+      </div>
+      <div class="partner-tools vp-raw">
+        <a href="/unimed/especialidades.html" class="tool-item featured">
+          <span class="dot" style="background:#00995d;"></span>
+          Variabilidade por Especialidade
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/cuidadocoordenado.html" class="tool-item featured">
+          <span class="dot" style="background:#00995d;"></span>
+          Coordenação do Cuidado
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/onco.html" class="tool-item">
+          <span class="dot" style="background:#8baf1f;"></span>
+          Oncologia: Painel Populacional
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/ped-amb.html" class="tool-item">
+          <span class="dot" style="background:#8baf1f;"></span>
+          Pediatria Ambulatorial
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/vivapleno.html" class="tool-item">
+          <span class="dot" style="background:#8baf1f;"></span>
+          Viva Pleno: Cuidados aos Idosos
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/gce.html" class="tool-item">
+          <span class="dot" style="background:#8baf1f;"></span>
+          GCE: Acompanhamento
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/tea.html" class="tool-item">
+          <span class="dot" style="background:#8baf1f;"></span>
+          Psicologia ABA: Análise de Rede
+          <span class="arrow">›</span>
+        </a>
+      </div>
+    </div>
 
-<div class="divider"></div>
+    <!-- Unihealth -->
+    <div class="partner-section">
+      <div class="partner-header">
+        <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo">
+        <div class="p-info">
+          <div class="p-name">Unihealth</div>
+          <div class="p-sub">Hub de Ferramentas — Gestão em Saúde Inteligente</div>
+        </div>
+        <div class="p-badge" style="background:#f0fdf4; color:#013d19;">8 ferramentas</div>
+      </div>
+      <div class="partner-tools vp-raw">
+        <a href="/unihealth/calc-plantao.html" class="tool-item featured">
+          <span class="dot" style="background:#013d19;"></span>
+          Calculadora Plantões Médicos
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/orcamento-medico-ugv.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          Orçamento Médico
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/fios.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          Análise Reajuste Suturas
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/retornopa.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          Análise Utilização PA
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/marco25.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          Análise de Indicadores
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/opme.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          Plano de Ação OPME
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unihealth/isc-cesarianas.html" class="tool-item">
+          <span class="dot" style="background:#ec7106;"></span>
+          ISC Cesarianas
+          <span class="arrow">›</span>
+        </a>
+        <a href="#" class="tool-item disabled">
+          <span class="dot" style="background:#94a3b8;"></span>
+          [Desativado] Análise Reprocir
+          <span class="arrow">›</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
-## Governança e Compliance
+  <div class="divider"></div>
 
-<div class="card-grid">
-  <a href="/compliance/" class="card">
-    <div class="card-title">Central de Compliance</div>
-    <div class="card-desc">Políticas de privacidade, termos de uso, código de conduta e documentação de integridade do Grupo CSV e suas empresas.</div>
-  </a>
-</div>
+  <!-- ═══ GOVERNANÇA ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-label" style="background:#fef3c7; color:#92400e;">Governança</div>
+      <h2 class="section-title">Compliance, Fundador e Infraestrutura</h2>
+    </div>
+    <div class="gov-grid">
+      <a href="/compliance/" class="gov-card">
+        <div class="gc-icon">&#9878;</div>
+        <div class="gc-title">Central de Compliance</div>
+        <div class="gc-desc">Políticas de privacidade, termos de uso, código de conduta e documentação de integridade — 15 documentos.</div>
+      </a>
+      <a href="/founder/" class="gov-card">
+        <div class="gc-icon">&#9733;</div>
+        <div class="gc-title">Guilherme Thomé</div>
+        <div class="gc-desc">Médico executivo, Superintendente Unimed/ICDS, especialista em VBHC. Fundador do Grupo CSV.</div>
+      </a>
+      <a href="/_infra/" class="gov-card">
+        <div class="gc-icon">&#9881;</div>
+        <div class="gc-title">Infraestrutura Cognitiva</div>
+        <div class="gc-desc">Playbooks, system identity, definições canônicas e mandates para integração com AI.</div>
+      </a>
+      <a href="https://github.com/grupocsv/hub" class="gov-card" target="_blank">
+        <div class="gc-icon">&#128187;</div>
+        <div class="gc-title">Repositório GitHub</div>
+        <div class="gc-desc">Código fonte, assets e documentação completa do ecossistema Grupo CSV.</div>
+      </a>
+    </div>
+  </div>
 
-<div class="divider"></div>
-
-## Fundador
-
-<div class="card-grid">
-  <a href="/founder/" class="card">
-    <div class="card-title">Guilherme Thomé</div>
-    <div class="card-desc">Médico executivo e consultor. Superintendente Unimed/ICDS. Especialista em Value-Based Healthcare. Fundador do Grupo CSV.</div>
-  </a>
-</div>
-
-<div class="divider"></div>
-
-## Infraestrutura Cognitiva
-
-<p class="section-desc">Documentação técnica e recursos para desenvolvedores e agentes de IA:</p>
-
-<div class="card-grid">
-  <a href="/_infra/" class="card">
-    <div class="card-title">Documentação Técnica</div>
-    <div class="card-desc">Playbooks, system identity, definições canônicas e mandates para integração com AI.</div>
-  </a>
-
-  <a href="https://github.com/grupocsv/hub" class="card" target="_blank">
-    <div class="card-title">Repositório GitHub</div>
-    <div class="card-desc">Código fonte, assets e documentação completa do ecossistema.</div>
-  </a>
-</div>
-
-<div class="divider"></div>
-
-<div style="text-align: center; padding: 40px 20px;">
-
-**Grupo CSV** — AxiaCare® · MedValor® · TheraTech®
-
-[contato@grupocsv.com](mailto:contato@grupocsv.com) · [compliance@grupocsv.com](mailto:compliance@grupocsv.com)
+  <!-- ═══ FOOTER ═══ -->
+  <div class="hub-footer">
+    <div class="brands">Grupo CSV — AxiaCare® · MedValor® · TheraTech®</div>
+    <div><a href="mailto:contato@grupocsv.com">contato@grupocsv.com</a> · <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a></div>
+    <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8;">© 2026 Grupo CSV. Todos os direitos reservados.</div>
+  </div>
 
 </div>
