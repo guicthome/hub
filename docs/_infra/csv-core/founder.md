@@ -5,9 +5,9 @@ Médico Executivo e Consultor em Saúde. Atua na interseção entre liderança e
 
 ## Canais Oficiais
 
-*   🌐 **Site Pessoal:** [guithome.com.br](https://guithome.com.br)
-*   🔗 **Links & Destaques:** [link.guithome.com.br](https://link.guithome.com.br)
-*   📧 **Email Corporativo:** [guilherme@grupocsv.com](mailto:guilherme@grupocsv.com)
+*   **Site Pessoal:** [guithome.com.br](https://guithome.com.br)
+*   **Links & Destaques:** [link.guithome.com.br](https://link.guithome.com.br)
+*   **Email Corporativo:** [guilherme@grupocsv.com](mailto:guilherme@grupocsv.com)
 
 ## Sobre
 
