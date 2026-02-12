@@ -7,14 +7,14 @@ hero:
   actions:
     - theme: brand
       text: Definições Core
-      link: /csv-core/definition
+      link: /_infra/csv-core/definition
     - theme: alt
       text: Central de Compliance
       link: /compliance/
 features:
   - title: AxiaCare®
     details: Consultoria estratégica, governança clínica e operações de saúde.
-    link: /axiacare/mandate
+    link: /_infra/axiacare/mandate
     icon:
       src: /axia-logo.png
       alt: AxiaCare Logo
@@ -22,7 +22,7 @@ features:
       height: 80
   - title: MedValor®
     details: Formação de lideranças, cultura organizacional e ensino híbrido.
-    link: /medvalor/mandate
+    link: /_infra/medvalor/mandate
     icon:
       src: /medvalor-logo.png
       alt: MedValor Logo
@@ -30,7 +30,7 @@ features:
       height: 80
   - title: TheraTech®
     details: Fábrica de software, inteligência artificial e plataformas SaaS.
-    link: /thera/mandate
+    link: /_infra/thera/mandate
     icon:
       src: /thera-logo.png
       alt: TheraTech Logo
@@ -44,7 +44,7 @@ features:
 </div>
 
 <div class="grid grid-2" style="margin-top: 32px;">
-  <a href="/csv-core/definition" class="card">
+  <a href="/_infra/csv-core/definition" class="card">
     <h3>CSV Core Definitions ↗</h3>
     <p>Definições canônicas, princípios e manifesto do grupo.</p>
   </a>
@@ -52,11 +52,11 @@ features:
     <h3>Central de Compliance ↗</h3>
     <p>Políticas de privacidade, termos, integridade e conduta.</p>
   </a>
-  <a href="/csv-core/identity-system" class="card">
+  <a href="/_infra/csv-core/identity-system" class="card">
     <h3>Sistema de Identidade ↗</h3>
     <p>Tokens de design, logos e regras visuais.</p>
   </a>
-  <a href="/csv-core/assets" class="card">
+  <a href="/_infra/csv-core/assets" class="card">
     <h3>Central de Assets ↗</h3>
     <p>Logos, wallpapers e materiais de marca.</p>
   </a>
