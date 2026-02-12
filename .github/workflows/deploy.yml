@@ -38,25 +38,37 @@ jobs:
       - name: Build with VitePress
         run: npm run docs:build
 
-      - name: Copy static folders to dist
+      - name: Copy static content to dist
         run: |
-          # Copy standalone HTML modules (companies, partners, compliance, founder)
-          cp -r axia docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r medvalor docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r thera docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r unimed docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r unihealth docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r compliance docs/.vitepress/dist/ 2>/dev/null || true
-          cp -r founder docs/.vitepress/dist/ 2>/dev/null || true
+          DIST=docs/.vitepress/dist
+
+          # Save VitePress-built index pages (with nav + visual design)
+          for dir in axia medvalor thera compliance founder unimed unihealth; do
+            [ -f "$DIST/$dir/index.html" ] && cp "$DIST/$dir/index.html" "/tmp/vp_${dir}.html"
+          done
+
+          # Copy standalone HTML modules (sub-pages, dashboards, policies)
+          cp -r axia "$DIST/" 2>/dev/null || true
+          cp -r medvalor "$DIST/" 2>/dev/null || true
+          cp -r thera "$DIST/" 2>/dev/null || true
+          cp -r unimed "$DIST/" 2>/dev/null || true
+          cp -r unihealth "$DIST/" 2>/dev/null || true
+          cp -r compliance "$DIST/" 2>/dev/null || true
+          cp -r founder "$DIST/" 2>/dev/null || true
+
+          # Restore VitePress-built index pages (preserve SPA navigation)
+          for dir in axia medvalor thera compliance founder unimed unihealth; do
+            [ -f "/tmp/vp_${dir}.html" ] && cp "/tmp/vp_${dir}.html" "$DIST/$dir/index.html"
+          done
 
           # Note: _infra is NOT copied here because VitePress builds it from docs/_infra/
 
           # Copy assets
-          cp -r assets docs/.vitepress/dist/ 2>/dev/null || true
+          cp -r assets "$DIST/" 2>/dev/null || true
 
           # Copy root files
-          cp CNAME docs/.vitepress/dist/ 2>/dev/null || true
-          cp site.webmanifest docs/.vitepress/dist/ 2>/dev/null || true
+          cp CNAME "$DIST/" 2>/dev/null || true
+          cp site.webmanifest "$DIST/" 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
