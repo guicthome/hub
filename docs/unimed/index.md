@@ -136,7 +136,7 @@ title: Unimed GV - Hub de Documentos
     <p class="subtitle">Unimed Governador Valadares</p>
   </div>
 
-  <div class="tools-grid">
+  <div class="tools-grid vp-raw">
     <div class="tool-card featured">
       <div class="tool-title">Variabilidade Assistencial por Especialidade</div>
       <a href="/unimed/especialidades.html" class="tool-link">Acessar</a>
