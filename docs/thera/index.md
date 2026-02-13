@@ -5,99 +5,226 @@ title: TheraTech®
 
 <style scoped>
 .VPPage { padding: 0 !important; }
-.VPFooter { display: none !important; }
 
-.hero-full {
-  background: linear-gradient(135deg, #4c1d95 0%, #6B5B95 50%, #7c3aed 100%);
+.empresa-page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  background:
+    radial-gradient(1400px 600px at -10% -20%, #ede8f4 0%, transparent 60%),
+    radial-gradient(1200px 500px at 110% 0%, #f0ecf7 0%, transparent 60%),
+    #F6F4EF;
   min-height: calc(100vh - 64px);
+}
+.dark .empresa-page { background: var(--vp-c-bg); }
+
+.frame {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(13,38,76,.06);
+  border-radius: 18px;
+  box-shadow: 0 10px 28px rgba(13,38,76,.14);
+  padding: clamp(18px, 4vw, 28px);
+  margin-bottom: 24px;
+}
+.dark .frame { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+
+.hero-section {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  padding: 60px 24px;
+  gap: 32px;
 }
+@media (max-width: 640px) { .hero-section { flex-direction: column; text-align: center; } }
 
-.glass-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 60px 40px;
-  max-width: 600px;
-  width: 100%;
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+.brand-logo {
+  width: 140px;
+  height: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 12px rgba(107,91,149,.15));
 }
+@media (max-width: 640px) { .brand-logo { width: 120px; } }
 
-.glass-card .brand-logo {
-  max-width: 280px;
-  max-height: 200px;
-  margin: 0 auto 30px;
-  display: block;
-  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.2));
+.hero-text h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 2.3vw + 1rem, 2rem);
+  color: #6B5B95;
+  border: none;
 }
+.dark .hero-text h1 { color: #a78bfa; }
+.hero-text .razao { font-size: 0.85rem; color: #5b6470; margin: 0 0 4px; }
+.hero-text .subtitle { font-size: 0.95rem; margin-top: 10px; line-height: 1.6; color: #5b6470; }
 
-.glass-card .brand-desc {
-  font-size: 1rem;
-  line-height: 1.7;
-  opacity: 0.85;
-  margin: 0 0 40px;
+.section-title {
+  margin: 0 0 12px;
+  color: #2d3445;
+  font-size: clamp(1.15rem, 1.1vw + 0.9rem, 1.35rem);
+  border: none;
 }
+.dark .section-title { color: var(--vp-c-text-1); }
+.section-desc { color: #5b6470; font-size: 0.92rem; margin-bottom: 16px; line-height: 1.6; }
 
-.badge-wip {
-  background: rgba(255,255,255,0.2);
-  padding: 16px 32px;
+.service-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) { .service-grid { grid-template-columns: 1fr 1fr; } }
+
+.service-card {
+  background: linear-gradient(180deg, #f8f6fc, #f0ecf7);
+  border: 1px solid rgba(107,91,149,.08);
+  border-radius: 14px;
+  padding: 20px;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.service-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(107,91,149,.12); }
+.dark .service-card { background: linear-gradient(180deg, #2a2640, #1e1c30); border-color: var(--vp-c-divider); }
+.service-card h4 { margin: 0 0 8px; font-size: 0.95rem; color: #6B5B95; border: none; }
+.dark .service-card h4 { color: #a78bfa; }
+.service-card p { margin: 0; font-size: 0.88rem; color: #5b6470; line-height: 1.5; }
+
+.info-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f8f6fc;
   border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 500;
-  display: inline-block;
-  letter-spacing: 0.5px;
+  border: 1px solid rgba(107,91,149,.06);
 }
+.dark .info-item { background: var(--vp-c-bg-alt); border-color: var(--vp-c-divider); }
+.info-item .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: #8b7cb5; font-weight: 600; }
+.info-item .value { font-size: 0.9rem; color: #2d3445; margin-top: 2px; }
+.dark .info-item .value { color: var(--vp-c-text-1); }
+.info-item a { color: #6B5B95; text-decoration: none; }
+.info-item a:hover { text-decoration: underline; }
 
-.back-btn {
+.status-banner {
+  background: linear-gradient(180deg, #8B7CB5, #6B5B95);
+  color: white;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.status-banner h3 { margin: 0 0 8px; font-size: 1.1rem; border: none; color: white; }
+.status-banner p { margin: 0; font-size: 0.9rem; opacity: 0.85; }
+
+.back-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 24px;
   padding: 10px 24px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.15);
+  background: #6B5B95;
   color: white !important;
   text-decoration: none !important;
   font-weight: 600;
   font-size: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.2);
   transition: all 0.2s;
 }
-.back-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+.back-link:hover { background: #7c6ba8; transform: translateY(-2px); }
 
-.hero-footer {
-  margin-top: 40px;
-  font-size: 0.85rem;
-  opacity: 0.7;
+.page-footer {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(13,38,76,.10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
 }
-.hero-footer a { color: white; text-decoration: none; }
-.hero-footer a:hover { text-decoration: underline; }
-
-@media (max-width: 640px) {
-  .glass-card { padding: 40px 24px; }
-  .glass-card .brand-logo { max-width: 200px; }
-}
+.dark .page-footer { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
+.page-footer .small { font-size: 0.85rem; color: #5b6470; }
 </style>
 
-<div class="hero-full">
-  <div class="glass-card">
+<div class="empresa-page">
+  <div class="frame hero-section">
     <img src="/logos/thera_vertical_roxo_negativo.png" alt="TheraTech" class="brand-logo">
-    <p class="brand-desc">
-      Desenvolvimento de software, inteligência artificial e plataformas SaaS
-      desenvolvidas para simplificar e otimizar processos em saúde.
-    </p>
-    <div class="badge-wip">Em Breve</div>
+    <div class="hero-text">
+      <h1>TheraTech®</h1>
+      <p class="razao">Thera Tecnologia em Saúde Ltda · CNPJ 63.100.433/0001-39</p>
+      <p class="subtitle">
+        Desenvolvimento de software, inteligência artificial e plataformas SaaS
+        projetadas para simplificar e otimizar processos em saúde.
+      </p>
+    </div>
   </div>
-  <a href="/" class="back-btn" data-direct>← Voltar ao Hub</a>
-  <div class="hero-footer">
-    <p>Grupo CSV | <a href="/compliance/">Compliance</a> | <a href="mailto:contato@thera.tech">contato@thera.tech</a></p>
+
+  <div class="frame">
+    <h2 class="section-title">Áreas de Atuação</h2>
+    <p class="section-desc">Soluções tecnológicas desenvolvidas para o ecossistema de saúde.</p>
+    <div class="service-grid">
+      <div class="service-card">
+        <h4>Plataformas SaaS</h4>
+        <p>Sistemas web para gestão de indicadores, dashboards clínicos e painéis de acompanhamento de desfechos em saúde.</p>
+      </div>
+      <div class="service-card">
+        <h4>Inteligência Artificial</h4>
+        <p>Modelos de IA aplicados à análise de dados assistenciais, predição de riscos e suporte à decisão clínica.</p>
+      </div>
+      <div class="service-card">
+        <h4>Automação e Integração</h4>
+        <p>Pipelines de dados, integrações entre sistemas de saúde e automação de processos operacionais e administrativos.</p>
+      </div>
+      <div class="service-card">
+        <h4>Infraestrutura Digital</h4>
+        <p>Arquitetura de repositórios, identidade visual digital e infraestrutura cognitiva para agentes de IA.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame">
+    <h2 class="section-title">Informações e Contato</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <div>
+          <div class="label">Site</div>
+          <div class="value"><a href="https://thera.tech" target="_blank">thera.tech</a></div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div>
+          <div class="label">E-mail</div>
+          <div class="value"><a href="mailto:contato@thera.tech">contato@thera.tech</a></div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div>
+          <div class="label">Compliance</div>
+          <div class="value"><a href="/compliance/">Central de Compliance</a></div>
+        </div>
+      </div>
+      <div class="info-item">
+        <div>
+          <div class="label">Grupo</div>
+          <div class="value"><a href="https://grupocsv.com" target="_blank">Grupo CSV</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="status-banner">
+      <h3>Em Breve</h3>
+      <p>O site oficial da Thera está em desenvolvimento. Em breve, mais informações estarão disponíveis.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-bottom:24px;">
+    <a href="/" class="back-link" data-direct>← Voltar ao Hub</a>
+  </div>
+
+  <div class="page-footer">
+    <strong>TheraTech® — Grupo CSV</strong>
+    <div class="small">© 2026 Grupo CSV. Cuidados em Saúde com Valor. Todos os direitos reservados.</div>
   </div>
 </div>
