@@ -164,18 +164,75 @@ title: Hub Grupo CSV
 .dark .gov-card .gc-title { color: var(--vp-c-text-1); }
 .gov-card .gc-desc { font-size: 0.88rem; color: #5b6470; line-height: 1.5; margin: 0; }
 
-/* ── Footer ── */
+/* ── Footer Elegante ── */
 .hub-footer {
   text-align: center;
-  padding: 40px 24px 48px;
-  color: #5b6470;
-  font-size: 0.88rem;
+  padding: 48px 24px 56px;
+  margin-top: 48px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(180deg, transparent 0%, rgba(25,99,150,0.03) 100%);
 }
-.hub-footer .brands { font-weight: 600; color: #1a2b3c; margin-bottom: 8px; }
-.dark .hub-footer .brands { color: var(--vp-c-text-1); }
-.hub-footer a { color: #196396; text-decoration: none; }
-.hub-footer a:hover { text-decoration: underline; }
-.dark .hub-footer a { color: #5da9e0; }
+.dark .hub-footer {
+  border-color: var(--vp-c-divider);
+  background: linear-gradient(180deg, transparent 0%, rgba(25,99,150,0.06) 100%);
+}
+.hub-footer .footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.hub-footer .footer-logos img {
+  height: 28px;
+  width: auto;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+  filter: grayscale(30%);
+}
+.hub-footer .footer-logos img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+.hub-footer .footer-logos .logo-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0,0,0,0.12);
+}
+.dark .hub-footer .footer-logos .logo-divider {
+  background: var(--vp-c-divider);
+}
+.hub-footer .footer-contacts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+}
+.hub-footer .footer-contacts a {
+  color: #196396;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hub-footer .footer-contacts a:hover {
+  color: #0f2b46;
+  text-decoration: underline;
+}
+.dark .hub-footer .footer-contacts a { color: #5da9e0; }
+.dark .hub-footer .footer-contacts a:hover { color: #8ec8f0; }
+.hub-footer .footer-contacts .contact-sep {
+  color: rgba(0,0,0,0.2);
+  font-size: 0.7rem;
+}
+.dark .hub-footer .footer-contacts .contact-sep { color: var(--vp-c-divider); }
+.hub-footer .footer-copy {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
+}
+.dark .hub-footer .footer-copy { color: var(--vp-c-text-3); }
 </style>
 
 <div class="hub-hero">
@@ -359,9 +416,19 @@ title: Hub Grupo CSV
 
   <!-- ═══ FOOTER ═══ -->
   <div class="hub-footer">
-    <div class="brands">Grupo CSV — AxiaCare® · MedValor® · TheraTech®</div>
-    <div><a href="mailto:contato@grupocsv.com">contato@grupocsv.com</a> · <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a></div>
-    <div style="margin-top:8px; font-size:0.8rem; color:#94a3b8;">© 2026 Grupo CSV. Todos os direitos reservados.</div>
+    <div class="footer-logos">
+      <img src="/logos/logo_csv.png" alt="Grupo CSV" title="Grupo CSV">
+      <span class="logo-divider"></span>
+      <img src="/logos/logo_axia.png" alt="AxiaCare" title="AxiaCare®">
+      <img src="/logos/logo_medvalor.png" alt="MedValor" title="MedValor®">
+      <img src="/logos/logo_thera.png" alt="TheraTech" title="TheraTech®">
+    </div>
+    <div class="footer-contacts">
+      <a href="mailto:contato@grupocsv.com">contato@grupocsv.com</a>
+      <span class="contact-sep">|</span>
+      <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a>
+    </div>
+    <div class="footer-copy">© 2026 Grupo CSV. Todos os direitos reservados.</div>
   </div>
 
 </div>

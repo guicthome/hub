@@ -74,10 +74,7 @@ export default defineConfig({
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/gui-thome' }
     ],
 
-    footer: {
-      message: 'Cuidados em Saúde com Valor',
-      copyright: '© 2026 Grupo CSV. Todos os direitos reservados. | AxiaCare® • MedValor® • TheraTech®'
-    },
+
 
     search: {
       provider: 'local'
