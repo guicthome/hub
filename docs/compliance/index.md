@@ -159,8 +159,7 @@ title: Central de Compliance
 
     <div class="empresa-block" style="border-top: none; margin-top: 0; padding-top: 0;">
       <div class="empresa-header">
-        <img src="/logos/marca_axia.png" alt="AxiaCare">
-        <h4>AxiaCare® – Gestão e Governança Clínica</h4>
+        <h4>AxiaCare® — Axia Gestão em Saúde Ltda &bull; CNPJ 58.323.596/0001-40</h4>
       </div>
       <div class="btn-grid">
         <a class="policy-btn axia" data-direct href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
@@ -170,8 +169,7 @@ title: Central de Compliance
 
     <div class="empresa-block">
       <div class="empresa-header">
-        <img src="/logos/marca_medvalor.png" alt="MedValor">
-        <h4>MedValor® – Educação e Formação</h4>
+        <h4>MedValor® — Medvalor Conteúdo em Saúde Ltda &bull; CNPJ 58.323.964/0001-50</h4>
       </div>
       <div class="btn-grid">
         <a class="policy-btn medvalor" data-direct href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
@@ -181,8 +179,7 @@ title: Central de Compliance
 
     <div class="empresa-block">
       <div class="empresa-header">
-        <img src="/logos/marca_thera.png" alt="TheraTech">
-        <h4>TheraTech® – Tecnologia e IA</h4>
+        <h4>TheraTech® — Thera Tecnologia em Saúde Ltda &bull; CNPJ 63.100.433/0001-39</h4>
       </div>
       <div class="btn-grid">
         <a class="policy-btn thera" data-direct href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>

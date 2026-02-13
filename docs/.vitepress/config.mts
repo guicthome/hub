@@ -12,7 +12,7 @@ export default defineConfig({
     ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicons/favicon-16x16.png' }],
     ['meta', { property: 'og:title', content: 'Hub Grupo CSV | Portal Central' }],
     ['meta', { property: 'og:description', content: 'Ecossistema de soluções em saúde: AxiaCare®, MedValor®, TheraTech®' }],
-    ['meta', { property: 'og:image', content: '/logos/marca_csv.png' }],
+    ['meta', { property: 'og:image', content: 'https://hub.grupocsv.com/og/og_hub.png' }],
     ['meta', { property: 'og:url', content: 'https://hub.grupocsv.com' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
