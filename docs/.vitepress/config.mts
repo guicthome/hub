@@ -19,7 +19,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/logos/marca_csv.png',
+    logo: '/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive.png',
     siteTitle: 'Hub Grupo CSV',
 
     nav: [

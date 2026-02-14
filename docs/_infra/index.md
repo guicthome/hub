@@ -145,7 +145,7 @@ title: Infraestrutura Cognitiva
 
     <div class="empresa-block" style="border-top: none; margin-top: 0; padding-top: 0;">
       <div class="empresa-header">
-        <img src="/logos/marca_axia.png" alt="AxiaCare">
+        <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare">
         <h4>AxiaCare® — Consultoria e Governança Clínica</h4>
       </div>
       <div class="resource-grid">
@@ -155,7 +155,7 @@ title: Infraestrutura Cognitiva
 
     <div class="empresa-block">
       <div class="empresa-header">
-        <img src="/logos/marca_medvalor.png" alt="MedValor">
+        <img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor">
         <h4>MedValor® — Educação e Capacitação</h4>
       </div>
       <div class="resource-grid">
@@ -165,7 +165,7 @@ title: Infraestrutura Cognitiva
 
     <div class="empresa-block">
       <div class="empresa-header">
-        <img src="/logos/marca_thera.png" alt="TheraTech">
+        <img src="/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech">
         <h4>TheraTech® — Desenvolvimento de Software e IA</h4>
       </div>
       <div class="resource-grid">
