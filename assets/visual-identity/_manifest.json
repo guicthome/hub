@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "description": "Identidade visual do Grupo CSV e marcas associadas. Estrutura otimizada para consumo por IA.",
+  "owner": "Dr. Guilherme C. Thome",
+  "hub_destination": "hub.grupocsv.com",
+  "naming_convention": {
+    "pattern": "{brand}_{asset-type}_{orientation}_{color-scheme}_{polarity}.{ext}",
+    "separator": "_",
+    "word_separator_within_field": "-"
+  },
+  "brands": {
+    "grupo-csv": {
+      "full_name": "Grupo CSV",
+      "description": "Holding - Cuidados em Saude com Valor",
+      "role": "parent-brand"
+    },
+    "axiacare": {
+      "full_name": "AxiaCare",
+      "registered_trademark": true,
+      "slogan": "Gestao em Saude.",
+      "description": "Consultoria e gestao hospitalar",
+      "role": "subsidiary"
+    },
+    "medvalor": {
+      "full_name": "MedValor",
+      "registered_trademark": true,
+      "slogan": "Inspirar. Impactar. Transformar.",
+      "description": "Educacao medica e eventos",
+      "color_variants": [
+        "blue",
+        "orange"
+      ],
+      "role": "subsidiary"
+    },
+    "thera": {
+      "full_name": "Thera",
+      "registered_trademark": true,
+      "description": "Tecnologia e SaaS em saude",
+      "color_variants": [
+        "blue",
+        "purple"
+      ],
+      "role": "subsidiary",
+      "legacy_slogan": "Ambientes Inteligentes (versao anterior em thera/logo-legacy/)"
+    },
+    "guilherme-thome": {
+      "full_name": "Dr. Guilherme C. Thome",
+      "description": "Marca pessoal do fundador do Grupo CSV",
+      "role": "personal-brand"
+    }
+  },
+  "polarity_definitions": {
+    "positive": "Logo em cor escura sobre fundo claro (uso em fundos brancos/claros)",
+    "negative": "Logo em cor clara sobre fundo escuro (uso em fundos pretos/escuros)"
+  },
+  "color_scheme_definitions": {
+    "full-color": "Versao colorida principal (cores oficiais da marca)",
+    "monochrome": "Versao monocromatica (preto puro = positive, branco puro = negative)",
+    "blue": "Variante em azul (MedValor, Thera)",
+    "orange": "Variante em laranja (MedValor)",
+    "purple": "Variante em roxo (Thera)"
+  },
+  "format_definitions": {
+    "svg": "Vetor escalavel - uso preferencial para web e impressao",
+    "png": "Imagem raster com transparencia",
+    "jpg": "Imagem raster com fundo solido",
+    "webp": "Imagem web otimizada com transparencia",
+    "ai": "Arquivo fonte Adobe Illustrator (editavel)",
+    "pdf": "Vetor em PDF (impressao profissional)",
+    "otf": "Fonte tipografica OpenType"
+  },
+  "folder_structure": {
+    "{brand}/logo/{format}/": "Logotipos organizados por formato",
+    "{brand}/logo/source/": "Arquivos fonte editaveis (.ai, .pdf)",
+    "{brand}/logo-legacy/": "Versoes anteriores do logotipo (Thera)",
+    "{brand}/avatar/": "Avatares para redes sociais e perfis",
+    "{brand}/signature/": "Assinaturas digitais e rubricas (Guilherme Thome)",
+    "{brand}/stationery/": "Papelaria (cartao, timbrado, envelope, carimbo, pasta)",
+    "_brand-guidelines/": "Guias de identidade visual, cores, fontes",
+    "_creatives/": "Pecas criativas (social media, banners, QR codes, thumbnails)",
+    "_wallpapers/": "Wallpapers e fundos de tela"
+  },
+  "asset_type_definitions": {
+    "logo": "Logotipo oficial da marca",
+    "avatar": "Imagem circular/quadrada para perfil em redes sociais",
+    "signature": "Assinatura manuscrita digital do fundador",
+    "rubrica": "Rubrica (iniciais) manuscrita digital",
+    "stationery": "Material de papelaria (cartao de visita, timbrado, etc.)",
+    "creative": "Peca criativa para marketing/social media",
+    "wallpaper": "Fundo de tela para desktop/celular",
+    "brand-guide": "Documento guia de identidade visual",
+    "font": "Arquivo de fonte tipografica",
+    "qr-code": "Codigo QR para links",
+    "photo": "Fotografia do fundador"
+  }
+}

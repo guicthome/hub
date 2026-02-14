@@ -237,7 +237,7 @@ title: Hub Grupo CSV
 
 <div class="hub-hero">
   <div class="inner">
-    <img src="/logos/marca_csv_neg.png" alt="Grupo CSV" class="logo">
+    <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png" alt="Grupo CSV" class="logo">
     <h1>Hub Grupo CSV</h1>
     <p class="tagline">Cuidados em Saúde com Valor — Portal central do ecossistema</p>
     <div class="hero-actions">
@@ -259,19 +259,19 @@ title: Hub Grupo CSV
     <div class="empresas-grid">
       <a href="/axia/" class="empresa-card">
         <div class="top-bar" style="background: linear-gradient(90deg, #196396, #2DBF7F);"></div>
-        <img src="/logos/marca_axia.png" alt="AxiaCare" class="card-logo">
+        <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" class="card-logo">
         <div class="card-name">AxiaCare®</div>
         <div class="card-desc">Consultoria estratégica, governança clínica e operações de saúde.</div>
       </a>
       <a href="/medvalor/" class="empresa-card">
         <div class="top-bar" style="background: linear-gradient(90deg, #ea580c, #f97316);"></div>
-        <img src="/logos/marca_medvalor.png" alt="MedValor" class="card-logo">
+        <img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor" class="card-logo">
         <div class="card-name">MedValor®</div>
         <div class="card-desc">Educação executiva e capacitação estratégica para líderes em saúde.</div>
       </a>
       <a href="/thera/" class="empresa-card">
         <div class="top-bar" style="background: linear-gradient(90deg, #6B5B95, #7c3aed);"></div>
-        <img src="/logos/marca_thera.png" alt="TheraTech" class="card-logo">
+        <img src="/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech" class="card-logo">
         <div class="card-name">TheraTech®</div>
         <div class="card-desc">Desenvolvimento de software, IA e plataformas SaaS para saúde.</div>
       </a>
@@ -417,11 +417,11 @@ title: Hub Grupo CSV
   <!-- ═══ FOOTER ═══ -->
   <div class="hub-footer">
     <div class="footer-logos">
-      <img src="/logos/logo_csv.png" alt="Grupo CSV" title="Grupo CSV">
+      <img src="/visual-identity/grupo-csv/avatar/grupo-csv_avatar_v1.png" alt="Grupo CSV" title="Grupo CSV">
       <span class="logo-divider"></span>
-      <img src="/logos/logo_axia.png" alt="AxiaCare" title="AxiaCare®">
-      <img src="/logos/logo_medvalor.png" alt="MedValor" title="MedValor®">
-      <img src="/logos/logo_thera.png" alt="TheraTech" title="TheraTech®">
+      <img src="/visual-identity/axiacare/avatar/axiacare_avatar_v1.png" alt="AxiaCare" title="AxiaCare®">
+      <img src="/visual-identity/medvalor/avatar/medvalor_avatar_v1.png" alt="MedValor" title="MedValor®">
+      <img src="/visual-identity/thera/avatar/thera_avatar_v1.png" alt="TheraTech" title="TheraTech®">
     </div>
     <div class="footer-contacts">
       <a href="mailto:contato@grupocsv.com">contato@grupocsv.com</a>

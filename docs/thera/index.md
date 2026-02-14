@@ -148,7 +148,7 @@ title: TheraTech®
 
 <div class="empresa-page">
   <div class="frame hero-section">
-    <img src="/logos/thera_vertical_roxo_negativo.png" alt="TheraTech" class="brand-logo">
+    <img src="/visual-identity/thera/logo/png/thera_logo_vertical_purple_positive.png" alt="TheraTech" class="brand-logo">
     <div class="hero-text">
       <h1>TheraTech®</h1>
       <p class="razao">Thera Tecnologia em Saúde Ltda · CNPJ 63.100.433/0001-39</p>
