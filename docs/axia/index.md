@@ -153,8 +153,9 @@ title: AxiaCare®
       <h1>AxiaCare®</h1>
       <p class="razao">Axia Gestão em Saúde Ltda · CNPJ 58.323.596/0001-40</p>
       <p class="subtitle">
-        Consultoria e governança clínica para organizações de saúde. Transformamos operações
-        hospitalares e de operadoras através de modelos de cuidado baseado em valor.
+        Orquestrador B2B2X de saúde baseada em valor. Conectamos operadoras, hospitais, prestadores,
+        empresas de tecnologia, indústria farmacêutica e operadores logísticos em alianças
+        multi-organizacionais orientadas a desfechos e eficiência operacional.
       </p>
     </div>
   </div>
@@ -213,10 +214,8 @@ title: AxiaCare®
   </div>
 
   <div class="frame">
-    <div class="status-banner">
-      <h3>Em Breve</h3>
-      <p>O site oficial da AxiaCare está em desenvolvimento. Em breve, mais informações estarão disponíveis.</p>
-    </div>
+    <h2 class="section-title">Links Relacionados</h2>
+    <p class="section-desc" style="color:#94a3b8; font-style:italic;">Nenhum link adicionado.</p>
   </div>
 
   <div style="text-align:center; margin-bottom:24px;">
