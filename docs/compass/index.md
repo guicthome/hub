@@ -1,5 +1,5 @@
 ---
-title: Compass™ | Linha Editorial Estratégica
+title: Compass™ - Linha Editorial do Grupo CSV
 ---
 
 <style>
@@ -150,7 +150,7 @@ title: Compass™ | Linha Editorial Estratégica
 </div>
 
 <div class="compass-intro">
-  <h1>Compass&trade; | Linha Editorial Estratégica</h1>
+  <h1>Compass&trade; - Linha Editorial do Grupo CSV</h1>
   <p>O Compass&trade; é a linha editorial estratégica do Grupo CSV. Cada edição consolida análise técnica sobre um tema relevante para a gestão em saúde, com base em fontes primárias verificáveis, preservando integralmente texto e referências.</p>
   <p>O objetivo é oferecer orientação clara, tecnicamente fundamentada e construtiva para tomada de decisão em operadoras, hospitais e organizações do ecossistema.</p>
 </div>
