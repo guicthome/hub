@@ -14,7 +14,8 @@ Este repositório contém o Hub Central do Grupo CSV, construído com [VitePress
 - **Instituições Parceiras** - Entregáveis para Unimed GV e Unihealth
 - **Governança e Compliance** - Políticas, termos e documentação de integridade
 - **Fundador** - Informações sobre Guilherme Thomé
-- **Infraestrutura Cognitiva** - Documentação técnica para desenvolvedores e AI
+- **Infraestrutura Cognitiva** - Documentação técnica para desenvolvedores e agentes
+- **Compass** - Linha editorial estratégica do Grupo CSV
 
 ---
 
@@ -45,6 +46,12 @@ grupocsv/hub/
 │   └── thera/
 │
 ├── founder/                 # Módulo 4: Guilherme Thomé
+│
+├── compass/                 # Módulo 6: Compass — Linha editorial estratégica
+│   ├── edicoes/             # Edições publicadas
+│   ├── templates/           # Templates editoriais
+│   ├── policies/            # Padrão editorial
+│   └── skills/              # Guia operacional
 │
 ├── _infra/                  # Módulo 5: Infraestrutura Cognitiva
 │   ├── csv-core/            # Definições canônicas
@@ -77,6 +84,12 @@ Central unificada de políticas, termos de uso, código de conduta e documentaç
 
 ### Módulo 4 - Fundador
 Página com informações, links e contatos de Guilherme Thomé.
+
+### Módulo 6 - Compass
+Linha editorial estratégica do Grupo CSV. Documentos técnico-estratégicos para tomada de decisão em organizações de saúde.
+
+- **Central Compass:** [compass/README.md](compass/README.md)
+- **Edição 001/2026:** [Metas quantitativas de produção em contratos ACO com orçamento global](compass/edicoes/2026/001/compass.md)
 
 ### Módulo 5 - Infraestrutura Cognitiva
 Documentação técnica pensada para:
@@ -139,6 +152,7 @@ O workflow:
 | 24/01/2026 | Migração para VitePress |
 | 24/01/2026 | Criação do módulo Founder |
 | 24/01/2026 | Limpeza de arquivos desnecessários |
+| 19/02/2026 | Implementação da Central Compass e publicação da edição 001/2026 |
 
 ---
 
