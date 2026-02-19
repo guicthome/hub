@@ -19,7 +19,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive.png',
+    logo: '/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png',
     siteTitle: 'Hub Grupo CSV',
 
     nav: [
@@ -41,7 +41,7 @@ export default defineConfig({
       },
       { text: 'Compliance', link: '/compliance/' },
       { text: 'Fundador', link: '/founder/' },
-      { text: 'Compass', link: '/compass/' },
+      { text: 'Compass\u2122', link: '/compass/' },
       { text: 'Infra', link: '/_infra/' },
     ],
 
@@ -50,7 +50,7 @@ export default defineConfig({
         {
           text: 'Compass\u2122',
           items: [
-            { text: 'Central Compass', link: '/compass/' },
+            { text: 'Central Compass\u2122', link: '/compass/' },
             {
               text: '2026',
               collapsed: false,

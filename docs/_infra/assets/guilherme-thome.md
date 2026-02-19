@@ -438,11 +438,6 @@ title: "Assets Dr. Guilherme C. Thomé"
     <p class="format-note">Imagens para perfis em redes sociais e plataformas.</p>
 <div class="avatar-grid">
   <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_combined.png" alt="guilherme-thome_avatar_combined.png" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_combined.png</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_combined.png" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
     <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_current.png" alt="guilherme-thome_avatar_current.png" loading="lazy">
     <div class="logo-label">guilherme-thome_avatar_current.png</div>
     <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_current.png" download class="dl-link">Download</a>
@@ -451,31 +446,6 @@ title: "Assets Dr. Guilherme C. Thomé"
     <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_current_low-res.png" alt="guilherme-thome_avatar_current_low-res.png" loading="lazy">
     <div class="logo-label">guilherme-thome_avatar_current_low-res.png</div>
     <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_current_low-res.png" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v1.png" alt="guilherme-thome_avatar_v1.png" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_v1.png</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v1.png" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v1_low-res.jpg" alt="guilherme-thome_avatar_v1_low-res.jpg" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_v1_low-res.jpg</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v1_low-res.jpg" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v2.png" alt="guilherme-thome_avatar_v2.png" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_v2.png</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v2.png" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v3.png" alt="guilherme-thome_avatar_v3.png" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_v3.png</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v3.png" download class="dl-link">Download</a>
-  </div>
-  <div class="avatar-item">
-    <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v4.png" alt="guilherme-thome_avatar_v4.png" loading="lazy">
-    <div class="logo-label">guilherme-thome_avatar_v4.png</div>
-    <a href="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v4.png" download class="dl-link">Download</a>
   </div>
   <div class="avatar-item">
     <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_with-name.png" alt="guilherme-thome_avatar_with-name.png" loading="lazy">

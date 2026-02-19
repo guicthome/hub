@@ -3,146 +3,216 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 ---
 
 <style>
-.compass-edition-header {
-  background: linear-gradient(135deg, #f8fafc, #eef3f8);
-  border-radius: 12px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  border-left: 4px solid #196396;
+/* ── Compass Edition Layout ── */
+.compass-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 0 2rem;
 }
-.compass-edition-header img {
-  max-width: 420px;
+
+.compass-hero {
+  background: linear-gradient(135deg, #0f2b46 0%, #196396 50%, #2DBF7F 100%);
+  border-radius: 20px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.compass-hero::before {
+  content: '';
+  position: absolute;
+  top: -40%; left: -10%;
+  width: 120%; height: 180%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(45,191,127,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.compass-hero-inner {
+  position: relative;
+}
+.compass-hero img {
+  max-width: 520px;
   width: 100%;
   height: auto;
-  margin-bottom: 1rem;
-}
-.compass-edition-header h1 {
-  color: #196396;
-  font-size: 1.5rem;
-  margin: 0 0 0.5rem 0;
-}
-.compass-meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.5rem;
-  margin: 1rem 0;
-}
-.compass-meta-item {
-  font-size: 0.88rem;
-  color: #475569;
-}
-.compass-meta-item strong {
-  color: #1e293b;
-  display: block;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.15rem;
-}
-.compass-section {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 1.5rem 2rem;
   margin-bottom: 1.5rem;
+  filter: brightness(1.1);
+}
+.compass-hero h1 {
+  color: #fff;
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  margin: 0 0 1.2rem;
+  line-height: 1.3;
+  border: none;
+}
+.compass-hero-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.compass-hero-meta-item {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.82rem;
+}
+.compass-hero-meta-item strong {
+  display: block;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.1rem;
+}
+
+/* ── Content Sections ── */
+.compass-section {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
+  padding: 2rem 2.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 16px rgba(13,38,76,0.06);
+}
+.dark .compass-section {
+  background: var(--vp-c-bg-soft);
+  border-color: var(--vp-c-divider);
+  box-shadow: none;
 }
 .compass-section h2 {
-  color: #1e293b;
+  color: #196396;
   font-size: 1.15rem;
-  margin: 0 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid rgba(25,99,150,0.12);
+  border-top: none;
 }
+.dark .compass-section h2 { color: #5da9e0; }
 .compass-section p {
   color: #334155;
-  line-height: 1.7;
-  margin: 0 0 0.8rem 0;
+  line-height: 1.75;
+  margin: 0 0 0.9rem;
+  font-size: 0.93rem;
 }
+.dark .compass-section p { color: var(--vp-c-text-2); }
 .compass-section strong {
   color: #1e293b;
 }
-.ref-table {
+.dark .compass-section strong { color: var(--vp-c-text-1); }
+
+/* ── Tables ── */
+.ref-table, .comparison-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
   margin: 1rem 0;
 }
-.ref-table th {
-  text-align: left;
-  padding: 0.5rem 0.8rem;
-  background: #f1f5f9;
-  color: #1e293b;
-  font-weight: 600;
-}
-.ref-table td {
-  padding: 0.5rem 0.8rem;
-  border-bottom: 1px solid #e2e8f0;
-  color: #334155;
-  vertical-align: top;
-}
-.ref-table td a {
-  color: #196396;
-  text-decoration: none;
-  word-break: break-all;
-}
-.ref-table td a:hover {
-  text-decoration: underline;
-}
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-  margin: 1rem 0;
-}
-.comparison-table th {
+.ref-table th, .comparison-table th {
   text-align: left;
   padding: 0.6rem 0.8rem;
-  background: #f1f5f9;
-  color: #1e293b;
+  background: linear-gradient(180deg, #f1f5f9, #e8edf3);
+  color: #196396;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
-.comparison-table td {
+.dark .ref-table th, .dark .comparison-table th {
+  background: var(--vp-c-bg-alt);
+  color: #5da9e0;
+}
+.ref-table td, .comparison-table td {
   padding: 0.6rem 0.8rem;
   border-bottom: 1px solid #e2e8f0;
   color: #334155;
   vertical-align: top;
   line-height: 1.5;
 }
-.back-hub {
-  display: inline-block;
+.dark .ref-table td, .dark .comparison-table td {
+  border-color: var(--vp-c-divider);
+  color: var(--vp-c-text-2);
+}
+.ref-table td a, .comparison-table td a {
+  color: #196396;
+  text-decoration: none;
+  word-break: break-all;
+}
+.ref-table td a:hover, .comparison-table td a:hover {
+  text-decoration: underline;
+}
+
+/* ── Scope Note ── */
+.compass-scope {
+  background: linear-gradient(135deg, #f8fafc, #eef3f8);
+  border: 1px solid rgba(25,99,150,0.1);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
   margin-top: 1.5rem;
+  color: #475569;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.dark .compass-scope {
+  background: var(--vp-c-bg-alt);
+  border-color: var(--vp-c-divider);
+  color: var(--vp-c-text-3);
+}
+
+/* ── Navigation ── */
+.compass-nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.compass-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 0.6rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.compass-nav .nav-primary {
   background: #196396;
   color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
 }
-.back-hub:hover {
+.compass-nav .nav-primary:hover {
   background: #134b73;
+  transform: translateY(-2px);
 }
-.compass-footer {
+.compass-nav .nav-secondary {
+  background: rgba(25,99,150,0.08);
+  color: #196396;
+  border: 1px solid rgba(25,99,150,0.15);
+}
+.compass-nav .nav-secondary:hover {
+  background: rgba(25,99,150,0.15);
+  transform: translateY(-2px);
+}
+
+/* ── Footer ── */
+.compass-edition-footer {
   text-align: center;
   padding: 1.5rem 0 0;
   color: #94a3b8;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 </style>
 
-<div class="compass-edition-header">
-  <img src="/compass_header.png" alt="Compass — Grupo CSV" />
-  <h1>Metas quantitativas de produção em contratos ACO com orçamento global</h1>
-  <div class="compass-meta">
-    <div class="compass-meta-item"><strong>Edição</strong>001/2026</div>
-    <div class="compass-meta-item"><strong>Data</strong>19 de fevereiro de 2026</div>
-    <div class="compass-meta-item"><strong>Status</strong>Publicado</div>
-  </div>
-  <div style="margin-top: 0.8rem; font-size: 0.85rem; color: #64748b;">
-    <strong style="color: #475569;">Assets:</strong>
-    <a href="/compass/edicoes/2026/001/assets/compass_header.png" style="color: #196396; text-decoration: none;">compass_header.png</a> &middot;
-    <a href="/compass/edicoes/2026/001/assets/compass_letterhead.pdf" style="color: #196396; text-decoration: none;">compass_letterhead.pdf</a>
+<div class="compass-page">
+
+<div class="compass-hero">
+  <div class="compass-hero-inner">
+    <img src="/compass_header.png" alt="Compass™ — Grupo CSV" />
+    <h1>Metas quantitativas de produção em contratos ACO com orçamento global</h1>
+    <div class="compass-hero-meta">
+      <div class="compass-hero-meta-item"><strong>Edição</strong>001/2026</div>
+      <div class="compass-hero-meta-item"><strong>Data</strong>19 de fevereiro de 2026</div>
+      <div class="compass-hero-meta-item"><strong>Status</strong>Publicado</div>
+    </div>
   </div>
 </div>
 
@@ -355,7 +425,7 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 <tr><td>[2] [17] [31] [33] [36] [44] [55] [59]</td><td>Toward Hospital Global Budgeting: State Considerations</td><td><a href="https://www.shvs.org/wp-content/uploads/2018/05/SHVS_-Global-Hospital-Budgets_FINAL.pdf">shvs.org</a></td></tr>
 <tr><td>[3] [11] [15] [49]</td><td>The Future of Capitation: The Physician Role in Managing...</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1495203/">pmc.ncbi.nlm.nih.gov</a></td></tr>
 <tr><td>[4] [26] [29] [46] [52]</td><td>HSCRC GBR Adjustments</td><td><a href="https://hscrc.maryland.gov/pages/gbr-adjustments.aspx">hscrc.maryland.gov</a></td></tr>
-<tr><td>[5] [32] [35] [45] [54]</td><td>Bundled Payments</td><td><a href="https://www.cms.gov/priorities/innovation/key-concepts/bundled-payments">cms.gov</a></td></tr>
+<tr><td>[5] [32] [35] [45] [54]</td><td>CMS Innovation Center: Alternative Payment Models</td><td><a href="https://www.cms.gov/priorities/innovation/key-concepts/alternative-payment-models">cms.gov</a></td></tr>
 <tr><td>[6] [9]</td><td>Global Budget Revenue Agreement</td><td><a href="https://hscrc.maryland.gov/documents/global-budgets/global-budget-revenue-agreement-fwmc-7-16-14.pdf">hscrc.maryland.gov</a></td></tr>
 <tr><td>[7] [14] [24]</td><td>AHEAD Model Financial Specifications</td><td><a href="https://www.cms.gov/files/document/ahead-tech-specs-v30.pdf">cms.gov</a></td></tr>
 <tr><td>[8] [21] [22] [27] [51] [62] [63]</td><td>The Fixed-Cost Dilemma</td><td><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2020/12/The-fixed-cost-dilemma.pdf">microsoft.com/research</a></td></tr>
@@ -363,7 +433,7 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 <tr><td>[13]</td><td>Health Care Spending and Quality in Year 1</td><td><a href="https://www.nejm.org/doi/full/10.1056/NEJMsa1101416">nejm.org</a></td></tr>
 <tr><td>[16] [30] [40] [53]</td><td>Incomplete Contracts and Renegotiation</td><td><a href="https://www.jstor.org/stable/1912698">jstor.org</a></td></tr>
 <tr><td>[18] [19] [34] [38] [41] [50] [57] [60]</td><td>Global Budgets for Hospitals</td><td><a href="https://www.urban.org/sites/default/files/2016/05/03/05_global_budgets_for_hospitals.pdf">urban.org</a></td></tr>
-<tr><td>[20]</td><td>Program Guidance & Specifications</td><td><a href="https://www.cms.gov/medicare/payment/fee-for-service-providers/shared-savings-program-ssp-acos/guidance-regulations">cms.gov</a></td></tr>
+<tr><td>[20]</td><td>Program Guidance &amp; Specifications</td><td><a href="https://www.cms.gov/medicare/payment/fee-for-service-providers/shared-savings-program-ssp-acos/guidance-regulations">cms.gov</a></td></tr>
 <tr><td>[23]</td><td>End-of-Life Care in the Intensive Care Unit</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3480521/">pmc.ncbi.nlm.nih.gov</a></td></tr>
 <tr><td>[25] [48]</td><td>What's in a Name: A Primer on Global Budget Models</td><td><a href="https://hcttf.org/wp-content/uploads/2019/09/HCTTF-Whats-in-a-Name-A-Primer-on-Global-Budget-Models-1.pdf">hcttf.org</a></td></tr>
 <tr><td>[28]</td><td>Accountable Care Organizations in the U.S. Health Care System</td><td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4422096/">pmc.ncbi.nlm.nih.gov</a></td></tr>
@@ -375,10 +445,17 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 </table>
 </div>
 
-<div style="text-align: center; margin-top: 2rem;">
-  <a href="/compass/" class="back-hub">&larr; Voltar para a Central Compass&trade;</a>
+<div class="compass-scope">
+  <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico destinado a apoiar análise e tomada de decisão. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 </div>
 
-<div class="compass-footer">
+<div class="compass-nav">
+  <a href="/compass/" class="nav-primary">&larr; Central Compass&trade;</a>
+  <a href="/" class="nav-secondary">&larr; Voltar ao Hub</a>
+</div>
+
+<div class="compass-edition-footer">
   Compass&trade; &mdash; Grupo CSV &middot; Cuidados em Saúde com Valor
+</div>
+
 </div>

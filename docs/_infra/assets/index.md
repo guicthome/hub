@@ -70,9 +70,9 @@ title: Central de Assets
 .brand-card img {
   width: 56px;
   height: 56px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  object-fit: contain;
+  border: none;
   flex-shrink: 0;
 }
 
@@ -155,35 +155,35 @@ title: Central de Assets
     <h2 class="section-title">Assets por Marca</h2>
     <div class="brand-grid">
       <a href="/_infra/assets/grupo-csv" class="brand-card">
-        <img src="/visual-identity/grupo-csv/avatar/grupo-csv_avatar_v1.png" alt="Grupo CSV">
+        <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV">
         <div class="brand-card-text">
           <h3>Grupo CSV</h3>
           <p>Holding. Cuidados em Saude com Valor.</p>
         </div>
       </a>
       <a href="/_infra/assets/axiacare" class="brand-card">
-        <img src="/visual-identity/axiacare/avatar/axiacare_avatar_v1.png" alt="AxiaCare">
+        <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare">
         <div class="brand-card-text">
           <h3>AxiaCare</h3>
           <p>Consultoria e gestao hospitalar.</p>
         </div>
       </a>
       <a href="/_infra/assets/medvalor" class="brand-card">
-        <img src="/visual-identity/medvalor/avatar/medvalor_avatar_v1.png" alt="MedValor">
+        <img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor">
         <div class="brand-card-text">
           <h3>MedValor</h3>
           <p>Educacao medica e eventos.</p>
         </div>
       </a>
       <a href="/_infra/assets/thera" class="brand-card">
-        <img src="/visual-identity/thera/avatar/thera_avatar_v1.png" alt="Thera">
+        <img src="/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech">
         <div class="brand-card-text">
           <h3>Thera</h3>
           <p>Tecnologia e SaaS em saude.</p>
         </div>
       </a>
       <a href="/_infra/assets/guilherme-thome" class="brand-card">
-        <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_v1.png" alt="Dr. Guilherme C. Thome">
+        <img src="/visual-identity/guilherme-thome/avatar/guilherme-thome_avatar_current.png" alt="Dr. Guilherme C. Thomé">
         <div class="brand-card-text">
           <h3>Dr. Guilherme C. Thome</h3>
           <p>Marca pessoal do fundador.</p>

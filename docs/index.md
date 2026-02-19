@@ -184,11 +184,19 @@ title: Hub Grupo CSV
   margin-bottom: 20px;
 }
 .hub-footer .footer-logos img {
-  height: 28px;
-  width: auto;
+  height: 36px !important;
+  max-height: 36px !important;
+  width: auto !important;
+  max-width: 160px !important;
   opacity: 0.55;
   transition: opacity 0.3s;
   filter: grayscale(30%);
+  object-fit: contain;
+}
+.hub-footer .footer-logos a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 .hub-footer .footer-logos img:hover {
   opacity: 1;
@@ -417,11 +425,11 @@ title: Hub Grupo CSV
   <!-- ═══ FOOTER ═══ -->
   <div class="hub-footer">
     <div class="footer-logos">
-      <img src="/visual-identity/grupo-csv/avatar/grupo-csv_avatar_v1.png" alt="Grupo CSV" title="Grupo CSV">
+      <a href="https://grupocsv.com" target="_blank" title="Grupo CSV"><img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" style="height:36px;max-height:36px;width:auto;max-width:160px;object-fit:contain;"></a>
       <span class="logo-divider"></span>
-      <img src="/visual-identity/axiacare/avatar/axiacare_avatar_v1.png" alt="AxiaCare" title="AxiaCare®">
-      <img src="/visual-identity/medvalor/avatar/medvalor_avatar_v1.png" alt="MedValor" title="MedValor®">
-      <img src="/visual-identity/thera/avatar/thera_avatar_v1.png" alt="TheraTech" title="TheraTech®">
+      <a href="https://axcare.com.br" target="_blank" title="AxiaCare®"><img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" style="height:36px;max-height:36px;width:auto;max-width:160px;object-fit:contain;"></a>
+      <a href="https://medvalor.med.br" target="_blank" title="MedValor®"><img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor" style="height:36px;max-height:36px;width:auto;max-width:160px;object-fit:contain;"></a>
+      <a href="https://thera.tech" target="_blank" title="TheraTech®"><img src="/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech" style="height:36px;max-height:36px;width:auto;max-width:160px;object-fit:contain;"></a>
     </div>
     <div class="footer-contacts">
       <a href="mailto:contato@grupocsv.com">contato@grupocsv.com</a>
