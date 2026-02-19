@@ -41,10 +41,26 @@ export default defineConfig({
       },
       { text: 'Compliance', link: '/compliance/' },
       { text: 'Fundador', link: '/founder/' },
+      { text: 'Compass', link: '/compass/' },
       { text: 'Infra', link: '/_infra/' },
     ],
 
     sidebar: {
+      '/compass/': [
+        {
+          text: 'Compass\u2122',
+          items: [
+            { text: 'Central Compass', link: '/compass/' },
+            {
+              text: '2026',
+              collapsed: false,
+              items: [
+                { text: '001 \u2014 Metas ACO', link: '/compass/edicoes/2026/001/compass' },
+              ]
+            },
+          ]
+        }
+      ],
       '/_infra/': [
         {
           text: 'Infraestrutura Cognitiva',

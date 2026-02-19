@@ -1,0 +1,16 @@
+id: "NNN/AAAA"
+linha_editorial: "Compass™ | Linha editorial estratégica do Grupo CSV"
+titulo: "[Título fiel ao conteúdo da fonte primária]"
+ano: AAAA
+edicao: N
+temas:
+  - "[Apenas termos que apareçam explicitamente na fonte primária]"
+tags:
+  - "[Apenas termos que apareçam explicitamente na fonte primária]"
+fontes:
+  - "Fonte primária (conteúdo integral preservado)"
+arquivos:
+  - "compass.md"
+assets:
+  - "assets/compass_header.png"
+  - "assets/compass_letterhead.pdf"
