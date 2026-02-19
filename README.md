@@ -15,7 +15,7 @@ Este repositório contém o Hub Central do Grupo CSV, construído com [VitePress
 - **Governança e Compliance** - Políticas, termos e documentação de integridade
 - **Fundador** - Informações sobre Guilherme Thomé
 - **Infraestrutura Cognitiva** - Documentação técnica para desenvolvedores e agentes
-- **Compass** - Linha editorial estratégica do Grupo CSV
+- **Compass™** - Linha editorial estratégica do Grupo CSV
 
 ---
 
@@ -85,7 +85,7 @@ Central unificada de políticas, termos de uso, código de conduta e documentaç
 ### Módulo 4 - Fundador
 Página com informações, links e contatos de Guilherme Thomé.
 
-### Módulo 6 - Compass
+### Módulo 6 - Compass™
 Linha editorial estratégica do Grupo CSV. Documentos técnico-estratégicos para tomada de decisão em organizações de saúde.
 
 - **Central Compass:** [compass/README.md](compass/README.md)
@@ -152,7 +152,10 @@ O workflow:
 | 24/01/2026 | Migração para VitePress |
 | 24/01/2026 | Criação do módulo Founder |
 | 24/01/2026 | Limpeza de arquivos desnecessários |
-| 19/02/2026 | Implementação da Central Compass e publicação da edição 001/2026 |
+| 19/02/2026 | Implementação da Central Compass™ e publicação da edição 001/2026 |
+| 19/02/2026 | Limpeza de avatares: manter apenas 3 oficiais (current, current_low-res, with-name) |
+| 19/02/2026 | Footer com logos reais clicáveis; navbar com logo transparente; Compass™ TM global |
+| 19/02/2026 | Redesign da publicação Compass™ 001/2026 com layout elegante |
 
 ---
 

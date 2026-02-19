@@ -146,7 +146,7 @@ title: Compass™ | Linha Editorial Estratégica
 </style>
 
 <div class="compass-header">
-  <img src="/compass_header.png" alt="Compass — Grupo CSV" />
+  <img src="/compass_header.png" alt="Compass™ — Grupo CSV" />
 </div>
 
 <div class="compass-intro">
