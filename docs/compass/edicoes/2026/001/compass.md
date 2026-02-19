@@ -11,7 +11,7 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 }
 
 .compass-hero {
-  background: linear-gradient(135deg, #0f2b46 0%, #196396 50%, #2DBF7F 100%);
+  background: linear-gradient(135deg, #1a4a6e 0%, #2980b9 50%, #3ecf8e 100%);
   border-radius: 20px;
   padding: 2.5rem 2.5rem 2rem;
   margin-bottom: 2rem;
@@ -156,13 +156,43 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
   color: var(--vp-c-text-3);
 }
 
+/* ── Download Button ── */
+.compass-download {
+  text-align: center;
+  margin-top: 2rem;
+}
+.compass-download a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 2rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #196396, #2980b9);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(25,99,150,0.2);
+}
+.compass-download a:hover {
+  background: linear-gradient(135deg, #134b73, #196396);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(25,99,150,0.3);
+}
+.compass-download a svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
 /* ── Navigation ── */
 .compass-nav {
   display: flex;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 .compass-nav a {
   display: inline-flex;
@@ -184,12 +214,13 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
   transform: translateY(-2px);
 }
 .compass-nav .nav-secondary {
-  background: rgba(25,99,150,0.08);
-  color: #196396;
-  border: 1px solid rgba(25,99,150,0.15);
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
 }
 .compass-nav .nav-secondary:hover {
-  background: rgba(25,99,150,0.15);
+  background: #e2e8f0;
+  color: #1e293b;
   transform: translateY(-2px);
 }
 
@@ -447,6 +478,13 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 
 <div class="compass-scope">
   <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico destinado a apoiar análise e tomada de decisão. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
+</div>
+
+<div class="compass-download">
+  <a href="/compass/edicoes/2026/001/compass_001_2026.pdf" download>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+    Download PDF com timbrado
+  </a>
 </div>
 
 <div class="compass-nav">
