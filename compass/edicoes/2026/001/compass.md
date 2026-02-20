@@ -1,4 +1,4 @@
-# Compass&trade; | Linha editorial estratégica do Grupo CSV
+# Compass&trade; | Base de Conhecimento Corporativa do Grupo CSV
 
 ![Compass Header](assets/compass_header.png)
 

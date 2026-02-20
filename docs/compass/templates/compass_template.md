@@ -54,4 +54,4 @@
 
 ---
 
-[Voltar para a Central Compass&trade;](../../README.md)
+[Voltar para a Central Compass&trade;](/compass/)

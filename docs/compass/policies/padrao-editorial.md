@@ -80,4 +80,4 @@ Antes de commitar qualquer edição, verificar todos os itens abaixo:
 
 ---
 
-[Voltar para a Central Compass&trade;](../README.md)
+[Voltar para a Central Compass&trade;](/compass/)
