@@ -157,35 +157,35 @@ title: Central de Compliance
     <h2 class="section-title">Políticas por Empresa</h2>
     <p class="section-desc">Documentos específicos de cada unidade de negócio do Grupo CSV.</p>
 
-    <div class="empresa-block" style="border-top: none; margin-top: 0; padding-top: 0;">
-      <div class="empresa-header">
-        <h4>AxiaCare® — Axia Gestão em Saúde Ltda &bull; CNPJ 58.323.596/0001-40</h4>
-      </div>
-      <div class="btn-grid">
-        <a class="policy-btn axia" data-direct href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
-        <a class="policy-btn axia" data-direct href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
-      </div>
-    </div>
+<div class="empresa-block" style="border-top: none; margin-top: 0; padding-top: 0;">
+<div class="empresa-header">
+<h4>AxiaCare® — Axia Gestão em Saúde Ltda &bull; CNPJ 58.323.596/0001-40</h4>
+</div>
+<div class="btn-grid">
+<a class="policy-btn axia" data-direct href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
+<a class="policy-btn axia" data-direct href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
+</div>
+</div>
 
-    <div class="empresa-block">
-      <div class="empresa-header">
-        <h4>MedValor® — Medvalor Conteúdo em Saúde Ltda &bull; CNPJ 58.323.964/0001-50</h4>
-      </div>
-      <div class="btn-grid">
-        <a class="policy-btn medvalor" data-direct href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
-        <a class="policy-btn medvalor" data-direct href="/compliance/medvalor/termos.html">Termos de Uso – MedValor</a>
-      </div>
-    </div>
+<div class="empresa-block">
+<div class="empresa-header">
+<h4>MedValor® — Medvalor Conteúdo em Saúde Ltda &bull; CNPJ 58.323.964/0001-50</h4>
+</div>
+<div class="btn-grid">
+<a class="policy-btn medvalor" data-direct href="/compliance/medvalor/privacidade.html">Privacidade – MedValor</a>
+<a class="policy-btn medvalor" data-direct href="/compliance/medvalor/termos.html">Termos de Uso – MedValor</a>
+</div>
+</div>
 
-    <div class="empresa-block">
-      <div class="empresa-header">
-        <h4>TheraTech® — Thera Tecnologia em Saúde Ltda &bull; CNPJ 63.100.433/0001-39</h4>
-      </div>
-      <div class="btn-grid">
-        <a class="policy-btn thera" data-direct href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>
-        <a class="policy-btn thera" data-direct href="/compliance/thera/termos.html">Termos de Uso – TheraTech</a>
-      </div>
-    </div>
+<div class="empresa-block">
+<div class="empresa-header">
+<h4>TheraTech® — Thera Tecnologia em Saúde Ltda &bull; CNPJ 63.100.433/0001-39</h4>
+</div>
+<div class="btn-grid">
+<a class="policy-btn thera" data-direct href="/compliance/thera/privacidade.html">Privacidade – TheraTech</a>
+<a class="policy-btn thera" data-direct href="/compliance/thera/termos.html">Termos de Uso – TheraTech</a>
+</div>
+</div>
   </div>
 
   <div class="frame contact-frame">
