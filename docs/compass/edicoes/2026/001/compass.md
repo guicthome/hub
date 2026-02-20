@@ -11,30 +11,41 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 }
 
 .compass-hero {
-  background: linear-gradient(135deg, #1a4a6e 0%, #2980b9 50%, #3ecf8e 100%);
   border-radius: 20px;
-  padding: 2.5rem 2.5rem 2rem;
   margin-bottom: 2rem;
-  position: relative;
   overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(13,38,76,0.08);
 }
-.compass-hero::before {
+.compass-hero-logos {
+  background: #fff;
+  padding: 1.5rem 2.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.compass-hero-logos img {
+  max-width: 480px;
+  width: 100%;
+  height: auto;
+}
+.dark .compass-hero-logos {
+  background: var(--vp-c-bg-soft);
+  border-bottom-color: var(--vp-c-divider);
+}
+.compass-hero-content {
+  background: linear-gradient(135deg, #0d264c 0%, #196396 60%, #1a7a5a 100%);
+  padding: 2rem 2.5rem 1.8rem;
+  position: relative;
+}
+.compass-hero-content::before {
   content: '';
   position: absolute;
-  top: -40%; left: -10%;
-  width: 120%; height: 180%;
-  background: radial-gradient(ellipse at 30% 20%, rgba(45,191,127,0.12) 0%, transparent 60%);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 80% 0%, rgba(62,207,142,0.1) 0%, transparent 50%);
   pointer-events: none;
 }
 .compass-hero-inner {
   position: relative;
-}
-.compass-hero img {
-  max-width: 520px;
-  width: 100%;
-  height: auto;
-  margin-bottom: 1.5rem;
-  filter: brightness(1.1);
 }
 .compass-hero h1 {
   color: #fff;
@@ -50,7 +61,7 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
   flex-wrap: wrap;
 }
 .compass-hero-meta-item {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.8);
   font-size: 0.82rem;
 }
 .compass-hero-meta-item strong {
@@ -236,14 +247,18 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 <div class="compass-page">
 
 <div class="compass-hero">
-  <div class="compass-hero-inner">
+  <div class="compass-hero-logos">
     <img src="/compass_header.png" alt="Compass™ — Grupo CSV" />
+  </div>
+  <div class="compass-hero-content">
+  <div class="compass-hero-inner">
     <h1>Metas quantitativas de produção em contratos ACO com orçamento global</h1>
     <div class="compass-hero-meta">
       <div class="compass-hero-meta-item"><strong>Edição</strong>001/2026</div>
       <div class="compass-hero-meta-item"><strong>Data</strong>19 de fevereiro de 2026</div>
       <div class="compass-hero-meta-item"><strong>Status</strong>Publicado</div>
     </div>
+  </div>
   </div>
 </div>
 
