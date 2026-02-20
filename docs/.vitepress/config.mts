@@ -73,6 +73,7 @@ export default defineConfig({
                 { text: 'Definição', link: '/_infra/csv-core/definition' },
                 { text: 'Sistema de Identidade', link: '/_infra/csv-core/identity-system' },
                 { text: 'Assets', link: '/_infra/csv-core/assets' },
+                { text: 'Guia de Logos', link: '/_infra/assets/logo-usage-guide' },
                 { text: 'Playbook Hub', link: '/_infra/csv-core/playbook-hub' },
                 { text: 'Fundador', link: '/_infra/csv-core/founder' },
               ]
