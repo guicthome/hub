@@ -1,5 +1,5 @@
 ---
-title: Compass™ - Linha Editorial do Grupo CSV
+title: Compass™ - Base de Conhecimento Corporativa do Grupo CSV
 ---
 
 <style>
@@ -158,9 +158,9 @@ title: Compass™ - Linha Editorial do Grupo CSV
 </div>
 
 <div class="compass-intro">
-  <h1>Compass&trade; - Linha Editorial do Grupo CSV</h1>
-  <p>O Compass&trade; é a linha editorial estratégica do Grupo CSV. Cada edição consolida análise técnica sobre um tema relevante para a gestão em saúde, com base em fontes primárias verificáveis, preservando integralmente texto e referências.</p>
-  <p>O objetivo é oferecer orientação clara, tecnicamente fundamentada e construtiva para tomada de decisão em operadoras, hospitais e organizações do ecossistema.</p>
+  <h1>Compass&trade; - Base de Conhecimento Corporativa do Grupo CSV</h1>
+  <p>O Compass&trade; é a base de conhecimento corporativa e de educação continuada do Grupo CSV. Cada edição consolida análise técnica sobre um tema relevante para a gestão em saúde, com base em fontes primárias verificáveis, preservando integralmente texto e referências.</p>
+  <p>O objetivo é apoiar a formação contínua dos integrantes do Grupo CSV e oferecer orientação clara, tecnicamente fundamentada e construtiva para tomada de decisão.</p>
 </div>
 
 <div class="compass-section">
@@ -207,7 +207,7 @@ title: Compass™ - Linha Editorial do Grupo CSV
 </div>
 
 <div class="compass-note">
-  <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico destinado a apoiar análise e tomada de decisão. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
+  <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico de uso interno, destinado à educação continuada e ao apoio à tomada de decisão dos integrantes do Grupo CSV. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 </div>
 
 <div style="text-align: center; margin-top: 2rem;">

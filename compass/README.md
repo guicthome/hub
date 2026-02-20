@@ -1,4 +1,4 @@
-# Central Compass&trade; | Linha editorial estratégica do Grupo CSV
+# Central Compass&trade; | Base de Conhecimento Corporativa do Grupo CSV
 
 ![Compass Header](edicoes/2026/001/assets/compass_header.png)
 
@@ -6,9 +6,9 @@
 
 ## O que é o Compass&trade;
 
-O Compass&trade; é a linha editorial estratégica do Grupo CSV. Cada edição consolida análise técnica sobre um tema relevante para a gestão em saúde, com base em fontes primárias verificáveis, preservando integralmente texto e referências.
+O Compass&trade; é a base de conhecimento corporativa e de educação continuada do Grupo CSV. Cada edição consolida análise técnica sobre um tema relevante para a gestão em saúde, com base em fontes primárias verificáveis, preservando integralmente texto e referências.
 
-O objetivo é oferecer orientação clara, tecnicamente fundamentada e construtiva para tomada de decisão em operadoras, hospitais e organizações do ecossistema.
+O objetivo é apoiar a formação contínua dos integrantes do Grupo CSV e oferecer orientação clara, tecnicamente fundamentada e construtiva para tomada de decisão.
 
 ---
 
@@ -46,7 +46,7 @@ Exemplo: `001/2026` é a primeira edição do ano de 2026.
 
 ## Nota de escopo
 
-Cada edição do Compass&trade; é um documento técnico-estratégico destinado a apoiar análise e tomada de decisão. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
+Cada edição do Compass&trade; é um documento técnico-estratégico de uso interno, destinado à educação continuada e ao apoio à tomada de decisão dos integrantes do Grupo CSV. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 
 ---
 

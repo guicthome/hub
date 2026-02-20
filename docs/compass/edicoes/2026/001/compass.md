@@ -492,7 +492,7 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
 </div>
 
 <div class="compass-scope">
-  <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico destinado a apoiar análise e tomada de decisão. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
+  <strong>Nota de escopo.</strong> Cada edição do Compass&trade; é um documento técnico-estratégico de uso interno, destinado à educação continuada e ao apoio à tomada de decisão dos integrantes do Grupo CSV. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 </div>
 
 <div class="compass-download">

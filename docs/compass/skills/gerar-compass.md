@@ -120,4 +120,4 @@ Fazer push para a branch principal.
 
 ---
 
-[Voltar para a Central Compass&trade;](../README.md)
+[Voltar para a Central Compass&trade;](/compass/)
