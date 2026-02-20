@@ -241,6 +241,72 @@ title: Hub Grupo CSV
   letter-spacing: 0.02em;
 }
 .dark .hub-footer .footer-copy { color: var(--vp-c-text-3); }
+
+/* ── Mobile Responsivo ── */
+@media (max-width: 768px) {
+  /* Hero */
+  .hub-hero { padding: 48px 16px 40px; }
+  .hub-hero .inner { padding: 0 4px; }
+  .hub-hero .logo { width: 80px; margin-bottom: 14px; }
+  .hub-hero h1 { font-size: 1.8rem; }
+  .hub-hero .tagline { font-size: 0.88rem; margin-bottom: 24px; word-wrap: break-word; overflow-wrap: break-word; }
+  .hub-hero .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
+  .hub-hero .hero-btn { width: 100%; max-width: 280px; text-align: center; padding: 12px 20px; font-size: 0.9rem; }
+
+  /* Body */
+  .hub-body { padding: 0 16px 40px; }
+  .section { padding: 32px 0 0; }
+  .section-title { font-size: 1.3rem; }
+  .divider { margin: 32px 0 0; }
+
+  /* Empresas */
+  .empresas-grid { grid-template-columns: 1fr; gap: 14px; }
+  .empresa-card { padding: 22px 18px; }
+
+  /* Parceiros */
+  .partner-header { flex-direction: column; text-align: center; padding: 20px 16px 16px; gap: 12px; }
+  .partner-header .p-logo { height: 44px; }
+  .partner-header .p-name { font-size: 1.05rem; word-wrap: break-word; }
+  .partner-tools { padding: 14px 14px 18px; grid-template-columns: 1fr; gap: 8px; }
+  .tool-item { padding: 12px 14px; font-size: 0.85rem; word-wrap: break-word; overflow-wrap: break-word; }
+
+  /* Governança */
+  .gov-grid { grid-template-columns: 1fr; gap: 12px; }
+  .gov-card { padding: 20px; }
+
+  /* Footer */
+  .hub-footer { padding: 32px 16px 40px; margin-top: 32px; }
+  .hub-footer .footer-logos {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 16px 24px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+  .hub-footer .footer-logos img {
+    height: 28px !important;
+    max-height: 28px !important;
+    max-width: 120px !important;
+  }
+  .hub-footer .footer-logos .logo-divider { display: none; }
+  .hub-footer .footer-contacts { gap: 10px; font-size: 0.8rem; }
+  .hub-footer .footer-copy { font-size: 0.72rem; }
+}
+
+@media (max-width: 400px) {
+  .hub-hero { padding: 36px 12px 32px; }
+  .hub-hero .logo { width: 64px; }
+  .hub-hero .hero-btn { max-width: 240px; padding: 10px 16px; font-size: 0.85rem; }
+  .hub-body { padding: 0 12px 32px; }
+  .partner-tools { padding: 10px 10px 14px; }
+  .hub-footer .footer-logos img {
+    height: 24px !important;
+    max-height: 24px !important;
+    max-width: 100px !important;
+  }
+  .hub-footer .footer-logos { gap: 12px 20px; }
+}
 </style>
 
 <div class="hub-hero">

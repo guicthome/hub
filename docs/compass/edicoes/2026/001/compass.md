@@ -242,6 +242,37 @@ title: "001/2026 — Metas quantitativas de produção em contratos ACO com orç
   color: #94a3b8;
   font-size: 0.82rem;
 }
+
+/* ── Mobile Responsivo ── */
+@media (max-width: 768px) {
+  .compass-page { padding: 0 0 1rem; }
+  .compass-hero { border-radius: 14px; margin-bottom: 1.2rem; }
+  .compass-hero-logos { padding: 1rem 1.2rem; }
+  .compass-hero-logos img { max-width: 320px; }
+  .compass-hero-content { padding: 1.2rem 1.2rem 1rem; }
+  .compass-hero h1 { font-size: 1.15rem; margin-bottom: 0.8rem; }
+  .compass-hero-meta { gap: 1rem; }
+  .compass-hero-meta-item { font-size: 0.75rem; }
+  .compass-hero-meta-item strong { font-size: 0.65rem; }
+  .compass-section { padding: 1.2rem 1rem; border-radius: 12px; margin-bottom: 0.8rem; }
+  .compass-section h2 { font-size: 1rem; }
+  .compass-section p { font-size: 0.88rem; }
+  .ref-table, .comparison-table { font-size: 0.75rem; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ref-table th, .comparison-table th { padding: 0.4rem 0.5rem; font-size: 0.68rem; white-space: nowrap; }
+  .ref-table td, .comparison-table td { padding: 0.4rem 0.5rem; min-width: 100px; }
+  .compass-scope { padding: 0.8rem 1rem; font-size: 0.82rem; }
+  .compass-download a { padding: 0.6rem 1.4rem; font-size: 0.85rem; }
+  .compass-nav { flex-direction: column; align-items: center; }
+  .compass-nav a { width: 100%; max-width: 280px; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .compass-hero-logos { padding: 0.8rem 1rem; }
+  .compass-hero-logos img { max-width: 260px; }
+  .compass-hero-content { padding: 1rem; }
+  .compass-hero h1 { font-size: 1.05rem; }
+  .compass-hero-meta { gap: 0.6rem; }
+  .compass-section { padding: 1rem 0.8rem; }
+}
 </style>
 
 <div class="compass-page">
