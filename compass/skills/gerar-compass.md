@@ -72,7 +72,7 @@ Executar o checklist obrigatório abaixo. Todos os itens devem passar antes do c
 ### Checklist obrigatório
 
 - [ ] Texto integral presente (zero omissões)
-- [ ] Zero menções a "inteligência artificial", "IA", "LLM", "AI" (buscar no repositório)
+- [ ] Zero referências ao processo de produção do documento (ferramentas, métodos de autoria)
 - [ ] Zero ocorrências de "Parecer técnico executivo" (buscar no repositório)
 - [ ] Numeração correta (formato NNN/AAAA)
 - [ ] Cabeçalho Compass&trade; completo
@@ -87,9 +87,9 @@ Executar o checklist obrigatório abaixo. Todos os itens devem passar antes do c
 ```bash
 # Buscar termos proibidos
 grep -rni "parecer técnico" compass/
-grep -rni "inteligência artificial" compass/
-grep -rni '"IA"' compass/
-grep -rni "LLM" compass/
+grep -rni "gerado por" compass/
+grep -rni "elaborado com" compass/
+grep -rni "auxílio de" compass/
 
 # Verificar links de assets
 ls -la compass/edicoes/AAAA/NNN/assets/

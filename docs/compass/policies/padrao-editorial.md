@@ -34,10 +34,10 @@ Manter tom executivo. Frases curtas quando possível. Parágrafos com uma ideia 
 
 ## Proibições
 
-As seguintes expressões e termos são proibidos em qualquer arquivo, template, metadado ou texto do Compass&trade;:
+As seguintes expressões e práticas são proibidas em qualquer arquivo, template, metadado ou texto do Compass&trade;:
 
 - "Parecer técnico executivo" (e variações como "parecer técnico", "parecer executivo")
-- "Inteligência artificial", "IA", "LLM", "gerado por IA", "AI" (e equivalentes em qualquer idioma)
+- Referências ao processo de produção do documento (ex.: "este texto foi gerado por", "elaborado com auxílio de", menções a ferramentas ou métodos de autoria)
 - Linguagem acusatória, irônica ou confrontativa
 - Adjetivos superlativos sem fundamentação ("revolucionário", "inédito", "disruptivo")
 
@@ -69,7 +69,7 @@ Antes de commitar qualquer edição, verificar todos os itens abaixo:
 
 1. Texto integral da fonte primária presente, sem omissões
 2. Zero ocorrências de "Parecer técnico executivo" (ou variações)
-3. Zero menções a "inteligência artificial", "IA", "LLM", "AI"
+3. Zero referências ao processo de produção do documento (ferramentas, métodos de autoria)
 4. Numeração correta (formato NNN/AAAA)
 5. Cabeçalho Compass&trade; completo (edição, título, data, status, assets)
 6. Links funcionais (Central para edição; edição para assets)
