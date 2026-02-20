@@ -217,13 +217,6 @@ title: MedValor®
     <p class="section-desc" style="color:#94a3b8; font-style:italic;">Nenhum link adicionado.</p>
   </div>
 
-  <div class="frame">
-    <div class="status-banner">
-      <h3>Em Breve</h3>
-      <p>O site oficial da MedValor está em desenvolvimento. Em breve, mais informações estarão disponíveis.</p>
-    </div>
-  </div>
-
   <div style="text-align:center; margin-bottom:24px;">
     <a href="/" class="back-link" data-direct>← Voltar ao Hub</a>
   </div>

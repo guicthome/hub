@@ -133,15 +133,23 @@ title: Compass™ - Linha Editorial do Grupo CSV
   display: inline-block;
   margin-top: 1.5rem;
   padding: 0.6rem 1.5rem;
-  background: #196396;
-  color: #fff;
+  background: #f1f5f9;
+  color: #334155 !important;
   border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  border: 1px solid rgba(0,0,0,.08);
 }
 .back-hub:hover {
-  background: #134b73;
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+.dark .back-hub {
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1) !important;
+  border-color: var(--vp-c-divider);
 }
 </style>
 
