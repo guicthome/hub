@@ -18,7 +18,7 @@
 > 1. Não invente nada. Nenhum fato, argumento, exemplo, número, interpretação, citação ou referência que não esteja na fonte primária.
 > 2. Preserve 100% do texto da fonte primária. Nada pode ser omitido. Citações e referências devem permanecer exatamente como estão.
 > 3. Tom construtivo: claro, leve, genuinamente construtivo e não-confrontativo. Sem linguagem acusatória, sem ironia, sem ataques.
-> 4. Proibido mencionar "inteligência artificial", "IA", "LLM", "gerado por IA" ou equivalentes em qualquer parte do documento.
+> 4. Proibido incluir referências ao processo de produção do documento (ex.: ferramentas, métodos de autoria, ou expressões como "gerado por", "elaborado com auxílio de").
 > 5. Proibido usar "Parecer técnico executivo" ou variações. Substituir pelo padrão Compass&trade;.
 > 6. Título: curto, tecnicamente preciso, fiel ao conteúdo, sem apelo de marketing.
 
