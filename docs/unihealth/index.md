@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Unihealth - Hub de Ferramentas
+title: Unihealth Governador Valadares - Hub de Ferramentas
 ---
 
 <style scoped>
@@ -138,7 +138,7 @@ title: Unihealth - Hub de Ferramentas
     <a href="https://icds.org.br/hospital-unimed-governador-valadares/" target="_blank" class="logo-link">
       <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth Logo" class="logo">
     </a>
-    <h1>Hub Unihealth</h1>
+    <h1>Hub Unihealth Governador Valadares</h1>
     <p class="subtitle">Hospital de Média/Alta Complexidade</p>
   </div>
 

@@ -250,6 +250,7 @@ title: Hub Grupo CSV
     <p class="tagline">Cuidados em Saúde com Valor — Portal central do ecossistema</p>
     <div class="hero-actions">
       <a href="#parceiros" class="hero-btn primary">Dashboards e Ferramentas</a>
+      <a href="/compass/" class="hero-btn secondary">Compass™</a>
       <a href="/compliance/" class="hero-btn secondary">Compliance</a>
       <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
     </div>
@@ -346,7 +347,7 @@ title: Hub Grupo CSV
       <div class="partner-header">
         <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo">
         <div class="p-info">
-          <div class="p-name">Unihealth</div>
+          <div class="p-name">Unihealth Governador Valadares</div>
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
       </div>
