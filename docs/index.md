@@ -9,7 +9,7 @@ title: Hub Grupo CSV
 /* ── Hero ── */
 .hub-hero {
   background: linear-gradient(135deg, #0f2b46 0%, #196396 40%, #2DBF7F 100%);
-  padding: 80px 24px 60px;
+  padding: 96px 24px 72px;
   text-align: center;
   color: white;
   position: relative;
@@ -25,9 +25,23 @@ title: Hub Grupo CSV
   pointer-events: none;
 }
 .hub-hero .inner { position: relative; max-width: 800px; margin: 0 auto; }
-.hub-hero .logo { width: 120px; margin-bottom: 20px; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3)); }
-.hub-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin: 0 0 8px; border: none; color: white; letter-spacing: -1px; }
-.hub-hero .tagline { font-size: 1.15rem; opacity: 0.9; margin: 0 0 32px; font-weight: 300; }
+.hub-hero .logo { width: 140px; margin-bottom: 24px; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3)); }
+.hub-hero h1 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 800; margin: 0 0 0; border: none; color: white; letter-spacing: -1px; }
+.hub-hero .hero-rule {
+  width: 48px;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+  margin: 16px auto 14px;
+  border: none;
+}
+.hub-hero .tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  opacity: 0.85;
+  margin: 0 0 36px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .hub-hero .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 .hub-hero .hero-btn {
   padding: 12px 28px;
@@ -110,6 +124,8 @@ title: Hub Grupo CSV
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 .dark .partner-header { border-color: var(--vp-c-divider); }
+.partner-header .p-logo-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s; }
+.partner-header .p-logo-link:hover { transform: scale(1.05); }
 .partner-header .p-logo { height: 52px; object-fit: contain; }
 .partner-header .p-info { flex-grow: 1; }
 .partner-header .p-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; color: #1a2b3c; }
@@ -245,11 +261,12 @@ title: Hub Grupo CSV
 /* ── Mobile Responsivo ── */
 @media (max-width: 768px) {
   /* Hero */
-  .hub-hero { padding: 48px 16px 40px; }
+  .hub-hero { padding: 56px 16px 44px; }
   .hub-hero .inner { padding: 0 4px; }
-  .hub-hero .logo { width: 80px; margin-bottom: 14px; }
+  .hub-hero .logo { width: 96px; margin-bottom: 16px; }
   .hub-hero h1 { font-size: 1.8rem; }
-  .hub-hero .tagline { font-size: 0.88rem; margin-bottom: 24px; word-wrap: break-word; overflow-wrap: break-word; }
+  .hub-hero .hero-rule { width: 36px; margin: 12px auto 10px; }
+  .hub-hero .tagline { font-size: 0.78rem; margin-bottom: 24px; letter-spacing: 0.06em; word-wrap: break-word; overflow-wrap: break-word; }
   .hub-hero .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
   .hub-hero .hero-btn { width: 100%; max-width: 280px; text-align: center; padding: 12px 20px; font-size: 0.9rem; }
 
@@ -295,8 +312,8 @@ title: Hub Grupo CSV
 }
 
 @media (max-width: 400px) {
-  .hub-hero { padding: 36px 12px 32px; }
-  .hub-hero .logo { width: 64px; }
+  .hub-hero { padding: 40px 12px 32px; }
+  .hub-hero .logo { width: 80px; }
   .hub-hero .hero-btn { max-width: 240px; padding: 10px 16px; font-size: 0.85rem; }
   .hub-body { padding: 0 12px 32px; }
   .partner-tools { padding: 10px 10px 14px; }
@@ -313,7 +330,8 @@ title: Hub Grupo CSV
   <div class="inner">
     <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png" alt="Grupo CSV" class="logo">
     <h1>Hub Grupo CSV</h1>
-    <p class="tagline">Cuidados em Saúde com Valor — Portal central do ecossistema</p>
+    <div class="hero-rule"></div>
+    <p class="tagline">Cuidados em Saúde com Valor</p>
     <div class="hero-actions">
       <a href="#parceiros" class="hero-btn primary">Dashboards e Ferramentas</a>
       <a href="/compass/" class="hero-btn secondary">Compass™</a>
@@ -364,7 +382,7 @@ title: Hub Grupo CSV
     <!-- Unimed -->
     <div class="partner-section">
       <div class="partner-header">
-        <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo">
+        <a href="/unimed/" class="p-logo-link"><img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo"></a>
         <div class="p-info">
           <div class="p-name">Unimed Governador Valadares</div>
           <div class="p-sub">Operadora de Planos de Saúde</div>
@@ -411,7 +429,7 @@ title: Hub Grupo CSV
     <!-- Unihealth -->
     <div class="partner-section">
       <div class="partner-header">
-        <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo">
+        <a href="/unihealth/" class="p-logo-link"><img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo"></a>
         <div class="p-info">
           <div class="p-name">Unihealth Governador Valadares</div>
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
@@ -451,11 +469,6 @@ title: Hub Grupo CSV
         <a href="/unihealth/isc-cesarianas.html" data-direct class="tool-item">
           <span class="dot" style="background:#013d19;"></span>
           ISC Cesarianas
-          <span class="arrow">›</span>
-        </a>
-        <a href="#" class="tool-item disabled">
-          <span class="dot" style="background:#94a3b8;"></span>
-          [Desativado] Análise Reprocir
           <span class="arrow">›</span>
         </a>
       </div>
