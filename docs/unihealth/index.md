@@ -114,21 +114,29 @@ title: Unihealth Governador Valadares - Hub de Ferramentas
 .uh-link.disabled:hover { background: #94a3b8; border-color: #94a3b8; transform: none; box-shadow: none; }
 
 .uh-foot {
-  padding: 25px 15px;
+  padding: 32px 20px;
   background: #f8f5f0;
   text-align: center;
   border-top: 2px solid #006b68;
   border-radius: 16px;
 }
 .dark .uh-foot { background: var(--vp-c-bg-soft); border-color: #3dcc8e; }
-.uh-foot .foot-logo { width: 140px; margin: 0 auto 10px; display: block; }
-.uh-foot .foot-title { font-size: 15px; font-weight: bold; margin: 10px 0 18px; }
-.uh-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 14px; margin-bottom: 10px; }
-.uh-foot .foot-links a { color: #004E4C; text-decoration: none; }
+.uh-foot .foot-logo { width: 140px; margin: 0 auto 12px; display: block; }
+.uh-foot .foot-slogan { font-size: 14px; font-weight: 600; color: #2d3445; margin: 8px 0 20px; letter-spacing: 0.01em; }
+.dark .uh-foot .foot-slogan { color: var(--vp-c-text-1); }
+.uh-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 8px; line-height: 1.6; }
+.uh-foot .foot-links a { color: #196396; text-decoration: none; transition: color 0.2s; }
 .dark .uh-foot .foot-links a { color: #5da9e0; }
-.uh-foot .foot-links a:hover { text-decoration: underline; }
-.uh-foot .sep { color: #bbb; margin: 0 4px; }
-.uh-foot .copyright { margin-top: 18px; font-size: 11px; color: #999; }
+.uh-foot .foot-links a:hover { text-decoration: underline; color: #0f2b46; }
+.dark .uh-foot .foot-links a:hover { color: #8ec8f0; }
+.uh-foot .sep { color: #cbd5e1; margin: 0 3px; font-size: 11px; }
+.uh-foot .copyright { margin-top: 20px; font-size: 11px; color: #94a3b8; letter-spacing: 0.01em; }
+@media (max-width: 480px) {
+  .uh-foot { padding: 24px 16px; }
+  .uh-foot .foot-logo { width: 120px; }
+  .uh-foot .foot-slogan { font-size: 13px; }
+  .uh-foot .foot-links { font-size: 12px; gap: 4px; }
+}
 
 @media (max-width: 768px) { .uh-grid { grid-template-columns: 1fr; } .uh-header h1 { font-size: 28px; } .uh-header .logo { width: 220px; } }
 </style>
@@ -147,11 +155,6 @@ title: Unihealth Governador Valadares - Hub de Ferramentas
       <div class="uh-title">Calculadora Plantões Médicos</div>
       <span class="uh-date">Outubro-25</span>
       <a data-direct href="/unihealth/calc-plantao.html" class="uh-link">Acessar</a>
-    </div>
-    <div class="uh-card">
-      <div class="uh-title">[Desativado] Análise Reprocir</div>
-      <span class="uh-date">Setembro-25</span>
-      <a href="#" class="uh-link disabled">Desativado</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Orçamento Médico</div>
@@ -187,22 +190,27 @@ title: Unihealth Governador Valadares - Hub de Ferramentas
 
   <div style="text-align:center; margin-bottom:30px;"><a href="https://hub.grupocsv.com" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#013d19; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
   <div class="uh-foot">
-    <img class="foot-logo" src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare Logo">
-    <div class="foot-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>
+    <img class="foot-logo" src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare">
+    <div class="foot-slogan">Gestão e Consultoria em Saúde</div>
     <div class="foot-links">
-      <a href="https://linktr.ee/gui.thome">Conheça nossas soluções.</a>
+      <a href="https://linktr.ee/gui.thome">Conheça nossas soluções</a>
       <span class="sep">|</span>
-      <a href="https://www.axcare.com.br">axcare.com.br</a>
-      <span class="sep">|</span>
-      <a href="https://www.medvalor.med.br">medvalor.med.br</a>
+      <a href="https://www.axcare.com.br" target="_blank">axcare.com.br</a>
     </div>
     <div class="foot-links">
-      <a href="https://guithome.com.br">guithome.com.br</a>
+      <a href="https://grupocsv.com" target="_blank">grupocsv.com</a>
       <span class="sep">|</span>
-      <a href="https://linkedin.com/in/guithome">LinkedIn</a>
+      <a href="https://www.medvalor.med.br" target="_blank">medvalor.med.br</a>
       <span class="sep">|</span>
-      <a href="https://www.instagram.com/gui.thome/">Instagram</a>
+      <a href="https://thera.tech" target="_blank">thera.tech</a>
     </div>
-    <div class="copyright">Copyright © 2025 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
+    <div class="foot-links">
+      <a href="https://guithome.com.br" target="_blank">guithome.com.br</a>
+      <span class="sep">|</span>
+      <a href="https://linkedin.com/in/guithome" target="_blank">LinkedIn</a>
+      <span class="sep">|</span>
+      <a href="https://www.instagram.com/gui.thome/" target="_blank">Instagram</a>
+    </div>
+    <div class="copyright">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
   </div>
 </div>

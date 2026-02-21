@@ -108,21 +108,29 @@ title: Unimed GV - Hub de Documentos
 .tool-link:hover { background: #8baf1f; border-color: #8baf1f; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,175,31,0.3); }
 
 .page-foot {
-  padding: 25px 15px;
+  padding: 32px 20px;
   background: #f8f5f0;
   text-align: center;
   border-top: 2px solid #00995d;
   border-radius: 16px;
 }
 .dark .page-foot { background: var(--vp-c-bg-soft); border-color: #3dcc8e; }
-.page-foot .foot-logo { width: 140px; margin: 0 auto 10px; display: block; }
-.page-foot .foot-title { font-size: 15px; font-weight: bold; margin: 10px 0 18px; }
-.page-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 14px; margin-bottom: 10px; }
-.page-foot .foot-links a { color: #004E4C; text-decoration: none; }
+.page-foot .foot-logo { width: 140px; margin: 0 auto 12px; display: block; }
+.page-foot .foot-slogan { font-size: 14px; font-weight: 600; color: #2d3445; margin: 8px 0 20px; letter-spacing: 0.01em; }
+.dark .page-foot .foot-slogan { color: var(--vp-c-text-1); }
+.page-foot .foot-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 8px; line-height: 1.6; }
+.page-foot .foot-links a { color: #196396; text-decoration: none; transition: color 0.2s; }
 .dark .page-foot .foot-links a { color: #5da9e0; }
-.page-foot .foot-links a:hover { text-decoration: underline; }
-.page-foot .sep { color: #bbb; margin: 0 4px; }
-.page-foot .copyright { margin-top: 18px; font-size: 11px; color: #999; }
+.page-foot .foot-links a:hover { text-decoration: underline; color: #0f2b46; }
+.dark .page-foot .foot-links a:hover { color: #8ec8f0; }
+.page-foot .sep { color: #cbd5e1; margin: 0 3px; font-size: 11px; }
+.page-foot .copyright { margin-top: 20px; font-size: 11px; color: #94a3b8; letter-spacing: 0.01em; }
+@media (max-width: 480px) {
+  .page-foot { padding: 24px 16px; }
+  .page-foot .foot-logo { width: 120px; }
+  .page-foot .foot-slogan { font-size: 13px; }
+  .page-foot .foot-links { font-size: 12px; gap: 4px; }
+}
 
 @media (max-width: 768px) { .tools-grid { grid-template-columns: 1fr; } .page-header h1 { font-size: 28px; } .page-header .logo { width: 220px; } }
 </style>
@@ -169,22 +177,27 @@ title: Unimed GV - Hub de Documentos
 
   <div style="text-align:center; margin-bottom:30px;"><a href="https://hub.grupocsv.com" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#00995d; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
   <div class="page-foot">
-    <img class="foot-logo" src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare Logo">
-    <div class="foot-title">AxView™ | WebApps - Gestão e Consultoria em Saúde</div>
+    <img class="foot-logo" src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare">
+    <div class="foot-slogan">Gestão e Consultoria em Saúde</div>
     <div class="foot-links">
-      <a href="https://linktr.ee/gui.thome">Conheça nossas soluções.</a>
+      <a href="https://linktr.ee/gui.thome">Conheça nossas soluções</a>
       <span class="sep">|</span>
-      <a href="https://www.axcare.com.br">axcare.com.br</a>
-      <span class="sep">|</span>
-      <a href="https://www.medvalor.med.br">medvalor.med.br</a>
+      <a href="https://www.axcare.com.br" target="_blank">axcare.com.br</a>
     </div>
     <div class="foot-links">
-      <a href="https://guithome.com.br">guithome.com.br</a>
+      <a href="https://grupocsv.com" target="_blank">grupocsv.com</a>
       <span class="sep">|</span>
-      <a href="https://linkedin.com/in/guithome">LinkedIn</a>
+      <a href="https://www.medvalor.med.br" target="_blank">medvalor.med.br</a>
       <span class="sep">|</span>
-      <a href="https://www.instagram.com/gui.thome/">Instagram</a>
+      <a href="https://thera.tech" target="_blank">thera.tech</a>
     </div>
-    <div class="copyright">Copyright © 2025 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
+    <div class="foot-links">
+      <a href="https://guithome.com.br" target="_blank">guithome.com.br</a>
+      <span class="sep">|</span>
+      <a href="https://linkedin.com/in/guithome" target="_blank">LinkedIn</a>
+      <span class="sep">|</span>
+      <a href="https://www.instagram.com/gui.thome/" target="_blank">Instagram</a>
+    </div>
+    <div class="copyright">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
   </div>
 </div>

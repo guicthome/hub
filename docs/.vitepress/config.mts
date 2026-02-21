@@ -36,7 +36,7 @@ export default defineConfig({
         text: 'Parceiros',
         items: [
           { text: 'Unimed GV', link: '/unimed/' },
-          { text: 'Unihealth', link: '/unihealth/' },
+          { text: 'Unihealth GV', link: '/unihealth/' },
         ]
       },
       { text: 'Compliance', link: '/compliance/' },
@@ -81,6 +81,8 @@ export default defineConfig({
             { text: 'AxiaCare Mandate', link: '/_infra/axiacare/mandate' },
             { text: 'MedValor Mandate', link: '/_infra/medvalor/mandate' },
             { text: 'TheraTech Mandate', link: '/_infra/thera/mandate' },
+            { text: 'Padrão de Footer', link: '/_infra/standards/footer' },
+            { text: 'Arquivo de Páginas', link: '/_infra/archive/' },
           ]
         }
       ]
