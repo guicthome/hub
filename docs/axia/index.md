@@ -235,11 +235,6 @@ head:
     </div>
   </div>
 
-  <div class="frame">
-    <h2 class="section-title">Links Relacionados</h2>
-    <p class="section-desc" style="color:#94a3b8; font-style:italic;">Nenhum link adicionado.</p>
-  </div>
-
   <div style="text-align:center; margin-bottom:24px;">
     <a href="/" class="back-link" data-direct>← Voltar ao Hub</a>
   </div>

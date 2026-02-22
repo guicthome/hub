@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Unimed GV - Hub de Documentos
+title: Hub Unimed Governador Valadares
 head:
   - - meta
     - property: og:title
-      content: "Unimed Governador Valadares | Hub de Documentos"
+      content: "Hub Unimed Governador Valadares | Operadora de Planos de Saúde"
   - - meta
     - property: og:description
       content: "Dashboards, ferramentas e entregáveis desenvolvidos para a Unimed GV. Parceiro Grupo CSV."
@@ -162,7 +162,7 @@ head:
     <a href="https://www.unimed.coop.br/site/web/governadorvaladares" target="_blank" class="logo-link">
       <img src="https://i.imgur.com/prZGWXK.png" alt="Unimed Governador Valadares" class="logo">
     </a>
-    <h1>Hub de Documentos</h1>
+    <h1>Hub Unimed Governador Valadares</h1>
     <p class="subtitle">Operadora de Planos de Saúde</p>
   </div>
 
