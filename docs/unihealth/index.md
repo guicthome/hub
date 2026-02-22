@@ -157,11 +157,6 @@ title: Unihealth Governador Valadares - Hub de Ferramentas
       <a data-direct href="/unihealth/calc-plantao.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
-      <div class="uh-title">Orçamento Médico</div>
-      <span class="uh-date">Setembro-25</span>
-      <a data-direct href="/unihealth/orcamento-medico-ugv.html" class="uh-link">Acessar</a>
-    </div>
-    <div class="uh-card">
       <div class="uh-title">Análise Reajuste Suturas</div>
       <span class="uh-date">Julho-25</span>
       <a data-direct href="/unihealth/fios.html" class="uh-link">Acessar</a>
@@ -170,11 +165,6 @@ title: Unihealth Governador Valadares - Hub de Ferramentas
       <div class="uh-title">Análise Utilização PA</div>
       <span class="uh-date">Março-25</span>
       <a data-direct href="/unihealth/retornopa.html" class="uh-link">Acessar</a>
-    </div>
-    <div class="uh-card">
-      <div class="uh-title">Análise de Indicadores</div>
-      <span class="uh-date">Março-25</span>
-      <a data-direct href="/unihealth/marco25.html" class="uh-link">Acessar</a>
     </div>
     <div class="uh-card">
       <div class="uh-title">Plano de Ação OPME</div>

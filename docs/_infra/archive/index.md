@@ -21,6 +21,8 @@ docs/_infra/archive/
 | # | Parceiro | Nome Original | Arquivo | Data de Arquivamento | Motivo |
 |---|----------|---------------|---------|---------------------|--------|
 | 1 | Unihealth GV | [Desativado] Análise Reprocir | `reprocir_fechado.html` | 2026-02-21 | Ferramenta desativada; análise concluída e sem uso recorrente |
+| 2 | Unihealth GV | Orçamento Médico | `orcamento-medico-ugv.html` | 2026-02-21 | Arquivado a pedido do gestor |
+| 3 | Unihealth GV | Análise de Indicadores | `marco25.html` | 2026-02-21 | Arquivado a pedido do gestor |
 
 ---
 
