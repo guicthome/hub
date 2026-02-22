@@ -1,6 +1,28 @@
 ---
 layout: page
 title: TheraTech®
+head:
+  - - meta
+    - property: og:title
+      content: "TheraTech® | Tecnologia e Inovação em Saúde"
+  - - meta
+    - property: og:description
+      content: "Soluções tecnológicas para analytics, automação e inovação no ecossistema de saúde. Uma empresa do Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_thera.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/thera/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_thera.png"
 ---
 
 <style scoped>

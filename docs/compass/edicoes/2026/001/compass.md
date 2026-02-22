@@ -1,5 +1,27 @@
 ---
 title: "001/2026 — Metas quantitativas de produção em contratos ACO com orçamento global"
+head:
+  - - meta
+    - property: og:title
+      content: "Compass™ 001/2026 — Metas ACO com Orçamento Global"
+  - - meta
+    - property: og:description
+      content: "Análise técnica sobre metas quantitativas de produção em contratos ACO com orçamento global."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_compass.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/compass/edicoes/2026/001/compass"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_compass.png"
 ---
 
 <style>

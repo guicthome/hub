@@ -1,6 +1,28 @@
 ---
 layout: page
 title: MedValor®
+head:
+  - - meta
+    - property: og:title
+      content: "MedValor® | Educação Executiva em Saúde"
+  - - meta
+    - property: og:description
+      content: "Formação de lideranças médicas e executivas em saúde baseada em valor. Uma empresa do Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_medvalor.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/medvalor/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_medvalor.png"
 ---
 
 <style scoped>

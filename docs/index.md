@@ -1,6 +1,28 @@
 ---
 layout: page
 title: Hub Grupo CSV
+head:
+  - - meta
+    - property: og:title
+      content: "Hub Grupo CSV | Cuidados em Saúde com Valor"
+  - - meta
+    - property: og:description
+      content: "Portal central do ecossistema Grupo CSV — AxiaCare®, MedValor®, TheraTech®"
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_hub.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_hub.png"
 ---
 
 <style scoped>

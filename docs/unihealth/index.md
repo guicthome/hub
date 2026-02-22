@@ -1,6 +1,28 @@
 ---
 layout: page
 title: Unihealth Governador Valadares - Hub de Ferramentas
+head:
+  - - meta
+    - property: og:title
+      content: "Unihealth Governador Valadares | Hub de Ferramentas"
+  - - meta
+    - property: og:description
+      content: "Dashboards, ferramentas e entregáveis desenvolvidos para o Hospital Unihealth GV. Parceiro Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_unihealth.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/unihealth/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_unihealth.png"
 ---
 
 <style scoped>

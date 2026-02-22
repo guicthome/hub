@@ -1,6 +1,28 @@
 ---
 layout: page
 title: Guilherme Thomé
+head:
+  - - meta
+    - property: og:title
+      content: "Guilherme Thomé | Fundador do Grupo CSV"
+  - - meta
+    - property: og:description
+      content: "Médico executivo e consultor em saúde. Fundador do Grupo CSV — AxiaCare®, MedValor®, TheraTech®."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_founder.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/founder/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_founder.png"
 ---
 
 <style scoped>
