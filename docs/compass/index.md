@@ -1,5 +1,27 @@
 ---
 title: Compass™ - Base de Conhecimento Corporativa do Grupo CSV
+head:
+  - - meta
+    - property: og:title
+      content: "Compass™ | Base de Conhecimento Corporativa"
+  - - meta
+    - property: og:description
+      content: "Publicação corporativa do Grupo CSV com análises, pareceres técnicos e inteligência estratégica em saúde."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_compass.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/compass/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_compass.png"
 ---
 
 <style>

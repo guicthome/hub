@@ -1,6 +1,28 @@
 ---
 layout: page
 title: Central de Compliance
+head:
+  - - meta
+    - property: og:title
+      content: "Central de Compliance | Grupo CSV"
+  - - meta
+    - property: og:description
+      content: "Governança, ética e transparência. Documentos de compliance do ecossistema Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_compliance.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/compliance/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_compliance.png"
 ---
 
 <style scoped>

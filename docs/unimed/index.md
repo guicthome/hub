@@ -1,6 +1,28 @@
 ---
 layout: page
 title: Unimed GV - Hub de Documentos
+head:
+  - - meta
+    - property: og:title
+      content: "Unimed Governador Valadares | Hub de Documentos"
+  - - meta
+    - property: og:description
+      content: "Dashboards, ferramentas e entregáveis desenvolvidos para a Unimed GV. Parceiro Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_unimed.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/unimed/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_unimed.png"
 ---
 
 <style scoped>

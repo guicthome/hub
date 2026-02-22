@@ -1,6 +1,28 @@
 ---
 layout: page
 title: AxiaCare®
+head:
+  - - meta
+    - property: og:title
+      content: "AxiaCare® | Gestão e Consultoria em Saúde"
+  - - meta
+    - property: og:description
+      content: "Consultoria especializada em gestão hospitalar, operadoras e saúde baseada em valor. Uma empresa do Grupo CSV."
+  - - meta
+    - property: og:image
+      content: "https://hub.grupocsv.com/og/og_axiacare.png"
+  - - meta
+    - property: og:url
+      content: "https://hub.grupocsv.com/axia/"
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:image
+      content: "https://hub.grupocsv.com/og/og_axiacare.png"
 ---
 
 <style scoped>
