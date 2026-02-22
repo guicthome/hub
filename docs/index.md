@@ -441,11 +441,6 @@ title: Hub Grupo CSV
           Calculadora Plantões Médicos
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/orcamento-medico-ugv.html" data-direct class="tool-item">
-          <span class="dot" style="background:#013d19;"></span>
-          Orçamento Médico
-          <span class="arrow">›</span>
-        </a>
         <a href="/unihealth/fios.html" data-direct class="tool-item">
           <span class="dot" style="background:#013d19;"></span>
           Análise Reajuste Suturas
@@ -454,11 +449,6 @@ title: Hub Grupo CSV
         <a href="/unihealth/retornopa.html" data-direct class="tool-item">
           <span class="dot" style="background:#013d19;"></span>
           Análise Utilização PA
-          <span class="arrow">›</span>
-        </a>
-        <a href="/unihealth/marco25.html" data-direct class="tool-item">
-          <span class="dot" style="background:#013d19;"></span>
-          Análise de Indicadores
           <span class="arrow">›</span>
         </a>
         <a href="/unihealth/opme.html" data-direct class="tool-item">

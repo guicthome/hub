@@ -100,6 +100,12 @@
     </div>
 </div>
 
+<script>
+new Chart(document.getElementById('chartDistribuicao'), {type:'bar',data:{labels:['Anticorpos','Hormônios','Diferenciadores','Tirosina Quinase','Proteassoma'],datasets:[{data:[2903,1244,456,212,77],backgroundColor:['#00995d','#8baf1f','#004e4c','#f47920','#903189']}]},options:{plugins:{legend:{display:false}}}});
+new Chart(document.getElementById('chartInsight1'), {type:'pie',data:{labels:['Críticos','Moderados','Baixo Impacto'],datasets:[{data:[40,35,25],backgroundColor:['#004E4C','#8baf1f','#f2c51d']}]}});
+new Chart(document.getElementById('chartInsight2'), {type:'bar',data:{labels:['Alto Custo','Alternativas Econômicas'],datasets:[{data:[3000,1500],backgroundColor:['#004E4C','#8baf1f']}]}});
+new Chart(document.getElementById('chartInsight3'), {type:'doughnut',data:{labels:['Grupo A','Grupo B','Grupo C'],datasets:[{data:[20,30,50],backgroundColor:['#004E4C','#8baf1f','#f2c51d']}]}});
+</script>
 
     <!-- AXIACARE FOOTER -->
     <div style="margin-top:40px;padding:32px 20px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #196396;border-radius:16px">
@@ -126,12 +132,5 @@
       </div>
       <div style="font-size:11px;color:#94a3b8">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
     </div>
-
-<script>
-new Chart(document.getElementById('chartDistribuicao'), {type:'bar',data:{labels:['Anticorpos','Hormônios','Diferenciadores','Tirosina Quinase','Proteassoma'],datasets:[{data:[2903,1244,456,212,77],backgroundColor:['#00995d','#8baf1f','#004e4c','#f47920','#903189']}]},options:{plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('chartInsight1'), {type:'pie',data:{labels:['Críticos','Moderados','Baixo Impacto'],datasets:[{data:[40,35,25],backgroundColor:['#004E4C','#8baf1f','#f2c51d']}]}});
-new Chart(document.getElementById('chartInsight2'), {type:'bar',data:{labels:['Alto Custo','Alternativas Econômicas'],datasets:[{data:[3000,1500],backgroundColor:['#004E4C','#8baf1f']}]}});
-new Chart(document.getElementById('chartInsight3'), {type:'doughnut',data:{labels:['Grupo A','Grupo B','Grupo C'],datasets:[{data:[20,30,50],backgroundColor:['#004E4C','#8baf1f','#f2c51d']}]}});
-</script>
 </body>
 </html>
