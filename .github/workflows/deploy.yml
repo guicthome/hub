@@ -43,7 +43,7 @@ jobs:
           DIST=docs/.vitepress/dist
 
           # Save VitePress-built index pages (with nav + visual design)
-          for dir in axia medvalor thera compliance founder unimed unihealth; do
+          for dir in axia medvalor thera compliance founder unimed unihealth icds; do
             [ -f "$DIST/$dir/index.html" ] && cp "$DIST/$dir/index.html" "/tmp/vp_${dir}.html"
           done
 
@@ -55,9 +55,10 @@ jobs:
           cp -r unihealth "$DIST/" 2>/dev/null || true
           cp -r compliance "$DIST/" 2>/dev/null || true
           cp -r founder "$DIST/" 2>/dev/null || true
+          cp -r icds "$DIST/" 2>/dev/null || true
 
           # Restore VitePress-built index pages (preserve SPA navigation)
-          for dir in axia medvalor thera compliance founder unimed unihealth; do
+          for dir in axia medvalor thera compliance founder unimed unihealth icds; do
             [ -f "/tmp/vp_${dir}.html" ] && cp "/tmp/vp_${dir}.html" "$DIST/$dir/index.html"
           done
 
