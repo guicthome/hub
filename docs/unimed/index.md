@@ -97,17 +97,7 @@ head:
 .tool-card.featured .tool-link { background: #8baf1f; border-color: #8baf1f; }
 .tool-card.featured .tool-link:hover { background: #a0c944; border-color: #a0c944; }
 .tool-card.featured::after {
-  content: 'NOVO';
-  position: absolute;
-  top: 16px; right: 16px;
-  background: #8baf1f;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(139,175,31,0.4);
+  display: none;
 }
 
 .tool-title { color: #00995d; font-size: 18px; font-weight: 600; margin-bottom: 20px; line-height: 1.3; flex-grow: 1; }
