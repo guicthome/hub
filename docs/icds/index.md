@@ -98,16 +98,7 @@ head:
 .icds-card.featured .icds-link { background: #5B8DB8; border-color: #5B8DB8; }
 .icds-card.featured .icds-link:hover { background: #6fa0c8; border-color: #6fa0c8; }
 .icds-card.featured::after {
-  content: 'NOVO';
-  position: absolute;
-  top: 16px; right: 16px;
-  background: #5B8DB8;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
+  display: none;
   box-shadow: 0 2px 8px rgba(91,141,184,0.4);
 }
 

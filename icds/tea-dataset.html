@@ -6,11 +6,11 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®</title>
+  <title>Data Set TEA — Indicadores Mínimos de Assistência | ICDS</title>
   <meta name="description" content="Questionário de coleta de dados para Transtorno do Espectro Autista (TEA) — Unimed Rio Verde (GO)">
   <meta name="theme-color" content="#1B3A5C">
 
-  <meta property="og:title" content="Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®">
+  <meta property="og:title" content="Data Set TEA — Indicadores Mínimos de Assistência | ICDS">
   <meta property="og:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -1033,7 +1033,7 @@
   </form>
 </div>
 
-<!-- AXIACARE FOOTER -->
+<!-- FOOTER -->
 <div style="margin-top:40px;padding:32px 20px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #1B3A5C;border-radius:16px">
   <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" style="width:140px;margin:0 auto 12px auto;display:block">
   <div style="font-size:14px;font-weight:600;color:#2d3445;margin-bottom:14px">Gestão e Consultoria em Saúde</div>
@@ -1406,9 +1406,7 @@ function generatePDF() {
   for (let i = 1; i <= totalPages; i++) {
     doc.setPage(i);
     doc.setFontSize(7);
-    doc.setTextColor(150, 150, 150);
-    doc.text('AxiaCare® — Data Set TEA — Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' });
-    doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
+    doc.setTextColor(150, 150,doc.text('ICDS \u2014 Data Set TEA \u2014 Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' }); doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
   }
 
   doc.save('DataSet_TEA_Unimed_RioVerde.pdf');

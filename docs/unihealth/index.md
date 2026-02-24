@@ -98,17 +98,7 @@ head:
 .uh-card.featured .uh-link { background: #ec7106; border-color: #ec7106; }
 .uh-card.featured .uh-link:hover { background: #ff8519; border-color: #ff8519; }
 .uh-card.featured::after {
-  content: 'NOVO';
-  position: absolute;
-  top: 16px; right: 16px;
-  background: #ec7106;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(236,113,6,0.4);
+  display: none;
 }
 
 .uh-title { color: #013d19; font-size: 18px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; flex-grow: 1; }
