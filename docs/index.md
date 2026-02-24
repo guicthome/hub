@@ -144,7 +144,12 @@ head:
   align-items: center;
   gap: 20px;
   border-bottom: 1px solid rgba(0,0,0,0.06);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
 }
+.partner-header:hover { background: rgba(0,0,0,0.015); }
+.dark .partner-header:hover { background: rgba(255,255,255,0.03); }
 .dark .partner-header { border-color: var(--vp-c-divider); }
 .partner-header .p-logo-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s; }
 .partner-header .p-logo-link:hover { transform: scale(1.05); }
@@ -153,6 +158,42 @@ head:
 .partner-header .p-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; color: #1a2b3c; }
 .dark .partner-header .p-name { color: var(--vp-c-text-1); }
 .partner-header .p-sub { font-size: 0.85rem; color: #5b6470; margin: 0; }
+.partner-header .p-toggle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+.partner-header:hover .p-toggle { color: #196396; background: rgba(25,99,150,0.08); }
+.dark .partner-header:hover .p-toggle { color: #5da9e0; background: rgba(93,169,224,0.1); }
+.partner-header .p-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+.partner-section.collapsed .partner-header .p-toggle svg {
+  transform: rotate(-90deg);
+}
+.partner-section.collapsed .partner-header {
+  border-bottom-color: transparent;
+}
+
+.partner-tools-wrapper {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  max-height: 600px;
+  opacity: 1;
+}
+.partner-section.collapsed .partner-tools-wrapper {
+  max-height: 0;
+  opacity: 0;
+}
 
 .partner-tools {
   padding: 20px 28px 28px;
@@ -303,9 +344,10 @@ head:
   .empresa-card { padding: 22px 18px; }
 
   /* Parceiros */
-  .partner-header { flex-direction: column; text-align: center; padding: 20px 16px 16px; gap: 12px; }
+  .partner-header { padding: 18px 16px; gap: 12px; }
   .partner-header .p-logo { height: 44px; }
   .partner-header .p-name { font-size: 1.05rem; word-wrap: break-word; }
+  .partner-header .p-toggle { width: 36px; height: 36px; }
   .partner-tools { padding: 14px 14px 18px; grid-template-columns: 1fr; gap: 8px; }
   .tool-item { padding: 12px 14px; font-size: 0.85rem; word-wrap: break-word; overflow-wrap: break-word; }
 
@@ -402,14 +444,16 @@ head:
       <p class="section-desc">Dashboards, ferramentas e entregáveis desenvolvidos para nossos parceiros.</p>
     </div>
     <!-- Unimed -->
-    <div class="partner-section">
+    <div class="partner-section" id="partner-unimed">
       <div class="partner-header">
         <a href="/unimed/" class="p-logo-link"><img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo"></a>
         <div class="p-info">
           <div class="p-name">Unimed Governador Valadares</div>
           <div class="p-sub">Operadora de Planos de Saúde</div>
         </div>
+        <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
+      <div class="partner-tools-wrapper">
       <div class="partner-tools">
         <a href="/unimed/especialidades.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
@@ -447,16 +491,19 @@ head:
           <span class="arrow">›</span>
         </a>
       </div>
+      </div>
     </div>
     <!-- Unihealth -->
-    <div class="partner-section">
+    <div class="partner-section" id="partner-unihealth">
       <div class="partner-header">
         <a href="/unihealth/" class="p-logo-link"><img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo"></a>
         <div class="p-info">
           <div class="p-name">Unihealth Governador Valadares</div>
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
+        <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
+      <div class="partner-tools-wrapper">
       <div class="partner-tools">
         <a href="/unihealth/calc-plantao.html" data-direct class="tool-item">
           <span class="dot" style="background:#013d19;"></span>
@@ -483,6 +530,7 @@ head:
           ISC Cesarianas
           <span class="arrow">›</span>
         </a>
+      </div>
       </div>
     </div>
   </div>
@@ -529,6 +577,21 @@ head:
       <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a>
     </div>
     <div class="footer-copy">© 2026 Grupo CSV. Todos os direitos reservados.</div>
-  </div>
+</div>
+
+<script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  document.querySelectorAll('.partner-header').forEach(header => {
+    header.addEventListener('click', (e) => {
+      // Don't toggle if clicking the logo link
+      if (e.target.closest('.p-logo-link')) return;
+      const section = header.closest('.partner-section');
+      if (section) section.classList.toggle('collapsed');
+    });
+  });
+});
+</script>
 
 </div>
