@@ -588,8 +588,24 @@ head:
           ISC Cesarianas
           <span class="arrow">›</span>
         </a>
-        <a href="/unihealth/tea-dataset.html" data-direct class="tool-item">
-          <span class="dot" style="background:#013d19;"></span>
+      </div>
+      </div>
+    </div>
+    <!-- ICDS -->
+    <div class="partner-section collapsed" id="partner-icds">
+      <div class="partner-header">
+        <a href="/icds/" class="p-logo-link"><img src="/icds/icds_logo_official.png" alt="ICDS" class="p-logo"></a>
+        <div class="p-info">
+          <div class="p-name">ICDS</div>
+          <div class="p-sub">Entidade Filantrópica e Gestora Assistencial</div>
+        </div>
+        <a href="/icds/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </div>
+      <div class="partner-tools-wrapper">
+      <div class="partner-tools">
+        <a href="/icds/tea-dataset.html" data-direct class="tool-item">
+          <span class="dot" style="background:#1B3A5C;"></span>
           TEA: Data Set Indicadores
           <span class="arrow">›</span>
         </a>
