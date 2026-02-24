@@ -193,27 +193,46 @@ head:
 .dark .partner-header .p-name { color: var(--vp-c-text-1); }
 .partner-header .p-sub { font-size: 0.85rem; color: #5b6470; margin: 0; }
 .partner-header .p-toggle {
-  width: 32px;
-  height: 32px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 5px;
+  padding: 6px 14px;
   border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748b;
+  background: rgba(100,116,139,0.07);
+  border: 1px solid rgba(100,116,139,0.15);
+  cursor: pointer;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-  color: #94a3b8;
-  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
-.partner-header:hover .p-toggle { color: #196396; background: rgba(25,99,150,0.08); }
-.dark .partner-header:hover .p-toggle { color: #5da9e0; background: rgba(93,169,224,0.1); }
+.partner-header .p-toggle:hover {
+  background: rgba(100,116,139,0.14);
+  border-color: rgba(100,116,139,0.3);
+}
+.dark .partner-header .p-toggle {
+  color: #94a3b8;
+  background: rgba(148,163,184,0.1);
+  border-color: rgba(148,163,184,0.2);
+}
+.dark .partner-header .p-toggle:hover {
+  background: rgba(148,163,184,0.18);
+  border-color: rgba(148,163,184,0.35);
+}
 .partner-header .p-toggle svg {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   transition: transform 0.3s ease;
 }
 .partner-section.collapsed .partner-header .p-toggle svg {
   transform: rotate(-90deg);
 }
+.partner-header .p-toggle .toggle-label-expand { display: none; }
+.partner-header .p-toggle .toggle-label-collapse { display: inline; }
+.partner-section.collapsed .partner-header .p-toggle .toggle-label-expand { display: inline; }
+.partner-section.collapsed .partner-header .p-toggle .toggle-label-collapse { display: none; }
 .partner-section.collapsed .partner-header {
   border-bottom-color: transparent;
 }
@@ -383,7 +402,8 @@ head:
   .partner-header .p-name { font-size: 1.05rem; word-wrap: break-word; }
   .partner-header .p-portal-btn { padding: 5px 10px; font-size: 0.72rem; }
   .partner-header .p-portal-btn svg { width: 11px; height: 11px; }
-  .partner-header .p-toggle { width: 36px; height: 36px; }
+  .partner-header .p-toggle { padding: 5px 10px; font-size: 0.72rem; }
+  .partner-header .p-toggle svg { width: 12px; height: 12px; }
   .partner-tools { padding: 14px 14px 18px; grid-template-columns: 1fr; gap: 8px; }
   .tool-item { padding: 12px 14px; font-size: 0.85rem; word-wrap: break-word; overflow-wrap: break-word; }
 
@@ -488,7 +508,7 @@ head:
           <div class="p-sub">Operadora de Planos de Saúde</div>
         </div>
         <a href="/unimed/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
-        <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
@@ -539,7 +559,7 @@ head:
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
         <a href="/unihealth/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
-        <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
