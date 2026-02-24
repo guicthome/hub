@@ -153,6 +153,40 @@ head:
 .dark .partner-header { border-color: var(--vp-c-divider); }
 .partner-header .p-logo-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s; }
 .partner-header .p-logo-link:hover { transform: scale(1.05); }
+.partner-header .p-portal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #196396;
+  background: rgba(25,99,150,0.07);
+  border: 1px solid rgba(25,99,150,0.15);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.partner-header .p-portal-btn:hover {
+  background: rgba(25,99,150,0.14);
+  border-color: rgba(25,99,150,0.3);
+  transform: translateY(-1px);
+}
+.partner-header .p-portal-btn svg {
+  width: 13px;
+  height: 13px;
+}
+.dark .partner-header .p-portal-btn {
+  color: #5da9e0;
+  background: rgba(93,169,224,0.1);
+  border-color: rgba(93,169,224,0.2);
+}
+.dark .partner-header .p-portal-btn:hover {
+  background: rgba(93,169,224,0.18);
+  border-color: rgba(93,169,224,0.35);
+}
 .partner-header .p-logo { height: 52px; object-fit: contain; }
 .partner-header .p-info { flex-grow: 1; }
 .partner-header .p-name { font-size: 1.2rem; font-weight: 700; margin: 0 0 2px; color: #1a2b3c; }
@@ -347,6 +381,8 @@ head:
   .partner-header { padding: 18px 16px; gap: 12px; }
   .partner-header .p-logo { height: 44px; }
   .partner-header .p-name { font-size: 1.05rem; word-wrap: break-word; }
+  .partner-header .p-portal-btn { padding: 5px 10px; font-size: 0.72rem; }
+  .partner-header .p-portal-btn svg { width: 11px; height: 11px; }
   .partner-header .p-toggle { width: 36px; height: 36px; }
   .partner-tools { padding: 14px 14px 18px; grid-template-columns: 1fr; gap: 8px; }
   .tool-item { padding: 12px 14px; font-size: 0.85rem; word-wrap: break-word; overflow-wrap: break-word; }
@@ -451,6 +487,7 @@ head:
           <div class="p-name">Unimed Governador Valadares</div>
           <div class="p-sub">Operadora de Planos de Saúde</div>
         </div>
+        <a href="/unimed/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
         <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
       <div class="partner-tools-wrapper">
@@ -501,6 +538,7 @@ head:
           <div class="p-name">Unihealth Governador Valadares</div>
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
+        <a href="/unihealth/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
         <span class="p-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
       </div>
       <div class="partner-tools-wrapper">
@@ -585,8 +623,8 @@ import { onMounted } from 'vue'
 onMounted(() => {
   document.querySelectorAll('.partner-header').forEach(header => {
     header.addEventListener('click', (e) => {
-      // Don't toggle if clicking the logo link
-      if (e.target.closest('.p-logo-link')) return;
+      // Don't toggle if clicking the logo link or portal button
+      if (e.target.closest('.p-logo-link') || e.target.closest('.p-portal-btn')) return;
       const section = header.closest('.partner-section');
       if (section) section.classList.toggle('collapsed');
     });
