@@ -151,6 +151,22 @@ Para backup ou download completo:
 
 ---
 
+## CDN URLs (Para Webapps)
+
+URLs publicas para uso direto em aplicacoes web. Versoes verticais, coloridas, com texto em branco (negative) para fundos escuros.
+
+| Marca | Palavra-chave | Orientacao | CDN URL |
+| :--- | :--- | :--- | :--- |
+| **AxiaCare** | Gestao | Vertical | [CDN](https://files.manuscdn.com/user_upload_by_module/session_file/310519663322381856/nvrWgHhzJRtjZBEZ.png) |
+| **Thera** | Tecnologia | Vertical | [CDN](https://files.manuscdn.com/user_upload_by_module/session_file/310519663322381856/wTWwrKZYqCuNSkXy.png) |
+| **MedValor** | Ensino | Vertical | [CDN](https://files.manuscdn.com/user_upload_by_module/session_file/310519663322381856/HgEqstWJFRotZugR.png) |
+| **Grupo CSV** | Ecossistema | Horizontal | [CDN](https://files.manuscdn.com/user_upload_by_module/session_file/310519663322381856/WxgAEYTWiDElKMqn.png) |
+
+> **Uso:** Footer padrao do ecossistema Spectra e demais webapps. Carousel com efeito de transicao.
+> **Nota:** A logo MedValor tem formato maior; aplicar `max-h` reduzido (~85%) para harmonia visual.
+
+---
+
 ## Dados Estruturados (Para IA)
 
 ```json
