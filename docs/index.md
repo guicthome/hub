@@ -444,7 +444,7 @@ head:
       <p class="section-desc">Dashboards, ferramentas e entregáveis desenvolvidos para nossos parceiros.</p>
     </div>
     <!-- Unimed -->
-    <div class="partner-section" id="partner-unimed">
+    <div class="partner-section collapsed" id="partner-unimed">
       <div class="partner-header">
         <a href="/unimed/" class="p-logo-link"><img src="https://i.imgur.com/prZGWXK.png" alt="Unimed GV" class="p-logo"></a>
         <div class="p-info">
@@ -494,7 +494,7 @@ head:
       </div>
     </div>
     <!-- Unihealth -->
-    <div class="partner-section" id="partner-unihealth">
+    <div class="partner-section collapsed" id="partner-unihealth">
       <div class="partner-header">
         <a href="/unihealth/" class="p-logo-link"><img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="p-logo"></a>
         <div class="p-info">
