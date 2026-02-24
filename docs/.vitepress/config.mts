@@ -37,6 +37,7 @@ export default defineConfig({
         items: [
           { text: 'Unimed GV', link: '/unimed/' },
           { text: 'Unihealth GV', link: '/unihealth/' },
+          { text: 'ICDS', link: '/icds/' },
         ]
       },
       { text: 'Compliance', link: '/compliance/' },
