@@ -189,6 +189,13 @@ title: Central de Assets
           <p>Marca pessoal do fundador.</p>
         </div>
       </a>
+      <a href="/_infra/assets/icds" class="brand-card">
+        <img src="/visual-identity/icds/logo/png/icds_horizontal_fundo_azul.png" alt="ICDS">
+        <div class="brand-card-text">
+          <h3>ICDS</h3>
+          <p>Parceiro. Entidade Filantropica e Gestora Assistencial.</p>
+        </div>
+      </a>
     </div>
   </div>
 

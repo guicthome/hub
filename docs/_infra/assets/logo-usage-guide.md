@@ -133,6 +133,16 @@ Cor primária: roxo. Variante secundária: azul.
 | Rubrica | `guilherme-thome_rubrica.png` | 3130x1313 | Documentos formais |
 | Assinatura completa | `guilherme-thome_signature_full.png` | 3319x1043 | Documentos formais |
 
+### ICDS (Parceiro)
+
+Cor primaria: azul marinho (#1B3A5C). Cor secundaria: azul medio (#2C5F8A). Entidade Filantropica e Gestora Assistencial.
+
+| Tipo | Arquivo | Dimensoes | Uso |
+|------|---------|-----------|-----|
+| Horizontal fundo azul | `icds_horizontal_fundo_azul.png` | 404x156 | Navbar, hero, cards (fundo claro ou escuro) |
+| Horizontal positivo | `icds_horizontal_sem_fundo_positivo.png` | 500x178 | Documentos, footers, fundo claro |
+| Horizontal negativo | `icds_horizontal_sem_fundo_negativo.png` | 600x214 | Fundo escuro, dark mode |
+
 ---
 
 ## Erros Comuns a Evitar

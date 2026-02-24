@@ -166,7 +166,7 @@ head:
 <div class="icds-page">
   <div class="icds-header">
     <a href="https://icds.org.br/" target="_blank" class="logo-link">
-      <img src="/icds/icds_logo_official.png" alt="ICDS Logo" class="logo">
+      <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS Logo" class="logo">
     </a>
     <h1>Hub ICDS</h1>
     <p class="subtitle">Entidade Filantrópica e Gestora Assistencial</p>

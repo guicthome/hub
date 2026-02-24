@@ -594,7 +594,7 @@ head:
     <!-- ICDS -->
     <div class="partner-section collapsed" id="partner-icds">
       <div class="partner-header">
-        <a href="/icds/" class="p-logo-link"><img src="/icds/icds_logo_official.png" alt="ICDS" class="p-logo"></a>
+        <a href="/icds/" class="p-logo-link"><img src="/visual-identity/icds/logo/png/icds_horizontal_fundo_azul.png" alt="ICDS" class="p-logo" style="border-radius:8px;"></a>
         <div class="p-info">
           <div class="p-name">ICDS</div>
           <div class="p-sub">Entidade Filantrópica e Gestora Assistencial</div>
