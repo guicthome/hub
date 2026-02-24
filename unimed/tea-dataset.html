@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®</title>
+  <meta name="description" content="Questionário de coleta de dados para Transtorno do Espectro Autista (TEA) — Unimed Governador Valadares">
+  <meta name="theme-color" content="#196396">
+
+  <meta property="og:title" content="Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®">
+  <meta property="og:description" content="Questionário de coleta de dados para TEA — Unimed Governador Valadares">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://hub.grupocsv.com/og/og_unimed.png">
+  <meta property="og:url" content="https://hub.grupocsv.com/unimed/tea-dataset.html">
+  <meta property="og:site_name" content="Unimed GV | Hub Grupo CSV">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Data Set TEA — Indicadores Mínimos de Assistência">
+  <meta name="twitter:description" content="Questionário de coleta de dados para TEA — Unimed Governador Valadares">
+  <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_unimed.png">
+
+  <link rel="icon" href="/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+  <style>
+    :root {
+      --ax-primary: #196396;
+      --ax-primary-light: #2b7ab8;
+      --ax-primary-dark: #0f4764;
+      --ax-green: #00995d;
+      --ax-cream: #f8f5f0;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #64748b;
+      --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Hub Back Button */
+    .hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
+    @media(max-width:768px){.hub-back-btn{position:relative;top:auto;left:auto;display:flex;width:fit-content;margin:12px auto 0;z-index:1;box-shadow:0 1px 6px rgba(0,0,0,0.06)}}
+    .hub-back-btn:hover{background:#196396;color:#fff;box-shadow:0 4px 20px rgba(25,99,150,0.3);transform:translateY(-1px)}
+    @media print{.hub-back-btn{display:none!important}}
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0f4764 0%, #196396 50%, #2b7ab8 100%);
+      color: #fff;
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+    .hero-brand { width: 120px; margin: 0 auto 16px; display: block; }
+    .hero h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .hero .hero-sub { font-size: 1rem; opacity: 0.85; font-weight: 400; margin-bottom: 8px; }
+    .hero .hero-tag { font-size: 0.82rem; opacity: 0.6; }
+
+    /* Container */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px 40px; }
+
+    /* Context box */
+    .context-box {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      margin: -30px auto 32px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+    .context-box h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ax-primary);
+      margin-bottom: 16px;
+    }
+    .context-box ul {
+      list-style: none;
+      padding: 0;
+    }
+    .context-box li {
+      position: relative;
+      padding: 10px 0 10px 20px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      border-bottom: 1px solid var(--bg-tertiary);
+    }
+    .context-box li:last-child { border-bottom: none; }
+    .context-box li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      background: var(--ax-green);
+      border-radius: 50%;
+    }
+    .context-box li strong { color: var(--text-primary); font-weight: 600; }
+
+    /* Section */
+    .form-section {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .section-header {
+      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
+      color: #fff;
+      padding: 18px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+    .section-header:hover { filter: brightness(1.05); }
+    .section-num {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .section-title { font-size: 1rem; font-weight: 700; flex-grow: 1; }
+    .section-chevron {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .form-section.collapsed .section-chevron { transform: rotate(-90deg); }
+    .section-body {
+      padding: 24px;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+      max-height: 5000px;
+      opacity: 1;
+      overflow: hidden;
+    }
+    .form-section.collapsed .section-body {
+      max-height: 0;
+      opacity: 0;
+      padding: 0 24px;
+    }
+
+    /* Sub-section */
+    .sub-q { margin-bottom: 22px; }
+    .sub-q:last-child { margin-bottom: 0; }
+    .sub-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .sub-hint {
+      font-size: 0.78rem;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    /* Form elements */
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--ax-primary);
+      box-shadow: 0 0 0 3px rgba(25,99,150,0.1);
+    }
+    textarea { resize: vertical; min-height: 70px; }
+    .input-sm { max-width: 200px; }
+    .input-md { max-width: 400px; }
+    .input-inline {
+      display: inline-block;
+      width: auto;
+      min-width: 100px;
+      margin: 0 6px;
+    }
+
+    /* Radio / Checkbox groups */
+    .option-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .option-item input[type="radio"],
+    .option-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--ax-primary);
+      cursor: pointer;
+    }
+    .other-text {
+      display: inline-block;
+      width: 200px;
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.84rem;
+      background: var(--bg-secondary);
+      outline: none;
+      margin-left: 4px;
+    }
+    .other-text:focus {
+      border-color: var(--ax-primary);
+      box-shadow: 0 0 0 3px rgba(25,99,150,0.1);
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+    .data-table th {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      font-weight: 600;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--border-color);
+      font-size: 0.82rem;
+    }
+    .data-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--bg-tertiary);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .row-label {
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .data-table input[type="text"],
+    .data-table input[type="number"],
+    .data-table select {
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      border-radius: 8px;
+    }
+
+    /* Numbered list inputs */
+    .numbered-list { list-style: none; padding: 0; }
+    .numbered-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .numbered-list .num {
+      width: 28px;
+      height: 28px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+    }
+    .numbered-list input { flex-grow: 1; }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 20px 0;
+    }
+
+    /* Inline fields */
+    .inline-fields {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .field-group label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-tertiary);
+    }
+
+    /* Generate PDF button */
+    .pdf-section {
+      text-align: center;
+      margin: 32px 0 16px;
+    }
+    .btn-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(25,99,150,0.3);
+    }
+    .btn-pdf:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(25,99,150,0.4);
+    }
+    .btn-pdf svg { width: 20px; height: 20px; }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--ax-green);
+      z-index: 10000;
+      transition: width 0.3s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { padding: 50px 16px 32px; }
+      .hero h1 { font-size: 1.4rem; }
+      .context-box { padding: 20px; margin: -20px 12px 24px; }
+      .container { padding: 0 12px 32px; }
+      .section-body { padding: 18px; }
+      .form-section.collapsed .section-body { padding: 0 18px; }
+      .section-header { padding: 14px 18px; }
+      .option-group { gap: 8px; }
+      .data-table { font-size: 0.78rem; display: block; overflow-x: auto; }
+      .inline-fields { flex-direction: column; }
+      .other-text { width: 160px; }
+      .input-sm { max-width: 100%; }
+      .input-md { max-width: 100%; }
+    }
+
+    @media print {
+      .hub-back-btn, .pdf-section, .progress-bar { display: none !important; }
+      .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
+      .section-chevron { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
+
+<header class="hero">
+  <img src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare®" class="hero-brand">
+  <h1>Data Set TEA</h1>
+  <div class="hero-sub">Indicadores Mínimos de Assistência</div>
+  <div class="hero-tag">Unimed Governador Valadares — Questionário de Coleta</div>
+</header>
+
+<div class="container">
+
+  <!-- Context Box -->
+  <div class="context-box">
+    <h2>Objetivos da Coleta</h2>
+    <ul>
+      <li><strong>Profissionais:</strong> saber se o prestador tem os cinco profissionais essenciais (médicos, fisioterapeutas, terapeutas ocupacionais, fonoaudiólogos e psicólogos), quantos são generalistas, quantos são especialistas, e em qual área.</li>
+      <li><strong>Pacientes:</strong> Coletar dados sobre o número de pacientes com diagnóstico de TEA, o instrumento utilizado para o diagnóstico (CID, DSM, ou outros), o profissional que o fechou, e dados gerais como gênero, data de nascimento e a idade em que receberam o diagnóstico.</li>
+      <li><strong>Tratamento:</strong> Coletar dados sobre onde o tratamento é realizado (clínica, instituto, prestador)? Quantas horas semanais/mensais são recebidas? Quais profissionais atendem cada paciente? Coletar o nome, o número de registro profissional (CREF, CRM, CRP, CFA) e o contato dos profissionais para futuras capacitações.</li>
+      <li><strong>Judicialização:</strong> Fazer análise das judicializações (já que há um alto volume de ações, muitas vezes solicitadas por uma única fonte, e algumas decisões judiciais parecem inexequíveis ou sem nexo técnico). Compreender como a judicialização está sendo processada internamente na Unimed e o que o serviço interno não consegue absorver. Verificar a existência de uma base de dados ou de um arquivo para cada caso judicializado. Levantar quem são os juízes da comarca e os peritos chamados para ajudar na judicialização.</li>
+      <li><strong>Dados dos Prestadores:</strong> Coletar informações sobre os contratos com os prestadores, o modelo de pagamento e o custo de cada procedimento.</li>
+      <li><strong>Alinhamento da Jornada do Paciente:</strong> Comparar a linha de cuidado desenhada pelo grupo com a jornada atual do paciente na Unimed, a fim de identificar o esforço necessário para alinhá-la ao modelo proposto.</li>
+      <li><strong>Modelos de Pagamento e Fluxo de Pagamento:</strong> Entender qual o modelo de pagamento atual da Unimed, o fluxo de pagamento, o tipo de contrato, a governança contratual, a unidade de pagamento (por paciente, por episódio) e o modelo de repasse (salário mensal, fixo prospectivo, retrospectivo). Verificar os protocolos e os detalhes de pagamento para cada tipo de profissional.</li>
+      <li><strong>Informações Adicionais Necessárias:</strong> saber se há compartilhamento de risco, processo de auditoria clínica, ou integração com regulação interna. Necessidade de um conjunto mínimo de informações, incluindo a base de beneficiários, a utilização e o custo por item, a rede de prestadores, eventos cobertos, eventos de alta complexidade (como internações), indicadores assistenciais e a situação da judicialização.</li>
+    </ul>
+  </div>
+
+  <form id="teaForm">
+
+  <!-- SECTION 1: PROFISSIONAIS -->
+  <div class="form-section" id="sec1">
+    <div class="section-header" onclick="toggleSection('sec1')">
+      <div class="section-num">1</div>
+      <div class="section-title">Profissionais (por prestador / serviço)</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">Preencher a quantidade de profissionais por categoria:</span>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Profissionais</th>
+              <th>Generalista (Qtde)</th>
+              <th>Especialista (Qtde)</th>
+              <th>Área de especialidade (se aplicável)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">Médicos</td><td><input type="number" min="0" name="prof_med_gen"></td><td><input type="number" min="0" name="prof_med_esp"></td><td><input type="text" name="prof_med_area"></td></tr>
+            <tr><td class="row-label">Fisioterapeutas</td><td><input type="number" min="0" name="prof_fisio_gen"></td><td><input type="number" min="0" name="prof_fisio_esp"></td><td><input type="text" name="prof_fisio_area"></td></tr>
+            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="number" min="0" name="prof_to_gen"></td><td><input type="number" min="0" name="prof_to_esp"></td><td><input type="text" name="prof_to_area"></td></tr>
+            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="number" min="0" name="prof_fono_gen"></td><td><input type="number" min="0" name="prof_fono_esp"></td><td><input type="text" name="prof_fono_area"></td></tr>
+            <tr><td class="row-label">Psicólogos</td><td><input type="number" min="0" name="prof_psi_gen"></td><td><input type="number" min="0" name="prof_psi_esp"></td><td><input type="text" name="prof_psi_area"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">Observações (opcional):</span>
+        <textarea name="prof_obs" rows="3" placeholder="Observações sobre os profissionais..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: PACIENTES -->
+  <div class="form-section" id="sec2">
+    <div class="section-header" onclick="toggleSection('sec2')">
+      <div class="section-num">2</div>
+      <div class="section-title">Pacientes</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">2.1 Número de pacientes diagnosticados com TEA:</span>
+        <input type="number" min="0" name="pac_total" class="input-sm" placeholder="Qtde pacientes">
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">2.2 Instrumento utilizado para diagnóstico:</span>
+        <div class="option-group">
+          <label class="option-item"><input type="checkbox" name="pac_diag_cid"> CID</label>
+          <label class="option-item"><input type="checkbox" name="pac_diag_dsm"> DSM</label>
+          <label class="option-item"><input type="checkbox" name="pac_diag_ambos"> Ambos</label>
+          <label class="option-item"><input type="checkbox" name="pac_diag_outro"> Outro: <input type="text" class="other-text" name="pac_diag_outro_txt" placeholder="Especifique"></label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">2.3 Profissional que fechou o diagnóstico (perfil):</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="pac_prof_diag" value="medico"> Médico (especialidade: <input type="text" class="other-text" name="pac_prof_diag_esp" placeholder="Especialidade">)</label>
+        </div>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="pac_prof_diag" value="psicologo"> Psicólogo</label>
+        </div>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="pac_prof_diag" value="outro"> Outro: <input type="text" class="other-text" name="pac_prof_diag_outro" placeholder="Especifique"></label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">2.4 Dados clínicos gerais dos pacientes (informar padrão disponível):</span>
+        <div class="inline-fields" style="margin-bottom:12px">
+          <div class="field-group">
+            <label>Gênero:</label>
+            <div class="option-group">
+              <label class="option-item"><input type="radio" name="pac_genero" value="masculino"> Masculino</label>
+              <label class="option-item"><input type="radio" name="pac_genero" value="feminino"> Feminino</label>
+            </div>
+          </div>
+        </div>
+        <div class="inline-fields" style="margin-bottom:12px">
+          <div class="field-group">
+            <label>Data de nascimento (DN):</label>
+            <input type="date" name="pac_dn" class="input-sm">
+          </div>
+          <div class="field-group">
+            <label>Idade no diagnóstico:</label>
+            <input type="text" name="pac_idade_diag" class="input-sm" placeholder="Ex: 3 anos">
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Outras variáveis disponíveis:</label>
+          <textarea name="pac_outras_vars" rows="2" placeholder="Descreva outras variáveis disponíveis..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TRATAMENTO -->
+  <div class="form-section" id="sec3">
+    <div class="section-header" onclick="toggleSection('sec3')">
+      <div class="section-num">3</div>
+      <div class="section-title">Tratamento</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">3.1 Seguem protocolo estruturado de cuidado?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="trat_protocolo" value="sim"> Sim</label>
+          <label class="option-item"><input type="radio" name="trat_protocolo" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="trat_protocolo" value="parcial"> Parcial</label>
+        </div>
+        <div style="margin-top:8px">
+          <span class="sub-hint">Se sim/parcial, qual protocolo?</span>
+          <input type="text" name="trat_protocolo_qual" class="input-md" placeholder="Nome do protocolo">
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">3.2 Local onde o tratamento é realizado (marcar todos):</span>
+        <div class="option-group">
+          <label class="option-item"><input type="checkbox" name="trat_local_clinica"> Clínica</label>
+          <label class="option-item"><input type="checkbox" name="trat_local_instituto"> Instituto</label>
+          <label class="option-item"><input type="checkbox" name="trat_local_prestador"> Prestador individual</label>
+          <label class="option-item"><input type="checkbox" name="trat_local_unimed"> Serviço próprio Unimed</label>
+          <label class="option-item"><input type="checkbox" name="trat_local_outro"> Outro: <input type="text" class="other-text" name="trat_local_outro_txt" placeholder="Especifique"></label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">3.3 Carga horária média por paciente:</span>
+        <div class="inline-fields" style="margin-bottom:12px">
+          <div class="field-group">
+            <label>Horas/semana:</label>
+            <input type="number" min="0" step="0.5" name="trat_horas_sem" class="input-sm" placeholder="0">
+          </div>
+          <div class="field-group">
+            <label>Horas/mês:</label>
+            <input type="number" min="0" step="0.5" name="trat_horas_mes" class="input-sm" placeholder="0">
+          </div>
+        </div>
+        <div style="margin-bottom:8px">
+          <span class="sub-hint">Existe variação por perfil/cluster?</span>
+          <div class="option-group">
+            <label class="option-item"><input type="radio" name="trat_variacao" value="sim"> Sim</label>
+            <label class="option-item"><input type="radio" name="trat_variacao" value="nao"> Não</label>
+          </div>
+        </div>
+        <div>
+          <span class="sub-hint">Se sim, descreva:</span>
+          <textarea name="trat_variacao_desc" rows="3" placeholder="Descreva a variação por perfil/cluster..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">3.4 Profissionais que atendem (marcar todos):</span>
+        <div class="option-group">
+          <label class="option-item"><input type="checkbox" name="trat_prof_med"> Médico</label>
+          <label class="option-item"><input type="checkbox" name="trat_prof_fisio"> Fisioterapeuta</label>
+          <label class="option-item"><input type="checkbox" name="trat_prof_to"> Terapeuta Ocupacional</label>
+          <label class="option-item"><input type="checkbox" name="trat_prof_fono"> Fonoaudiólogo</label>
+          <label class="option-item"><input type="checkbox" name="trat_prof_psi"> Psicólogo</label>
+          <label class="option-item"><input type="checkbox" name="trat_prof_outro"> Outro: <input type="text" class="other-text" name="trat_prof_outro_txt" placeholder="Especifique"></label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">3.5 Como é definido "quais profissionais atendem cada paciente"?</span>
+        <div class="option-group" style="flex-direction:column">
+          <label class="option-item"><input type="radio" name="trat_definicao" value="pti"> Plano terapêutico individual (PTI)</label>
+          <label class="option-item"><input type="radio" name="trat_definicao" value="regulacao"> Regulação / auditoria</label>
+          <label class="option-item"><input type="radio" name="trat_definicao" value="prestador"> Prestador define</label>
+          <label class="option-item"><input type="radio" name="trat_definicao" value="outro"> Outro: <input type="text" class="other-text" name="trat_definicao_outro" placeholder="Especifique"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PRESTADORES -->
+  <div class="form-section" id="sec4">
+    <div class="section-header" onclick="toggleSection('sec4')">
+      <div class="section-num">4</div>
+      <div class="section-title">Prestadores (cadastro para futuras capacitações)</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-hint" style="margin-bottom:16px">Preencher para cada profissional (ou anexar lista).</div>
+      <div id="prestadores-container">
+        <div class="prestador-entry" style="background:var(--bg-secondary);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border-color)">
+          <div class="sub-q">
+            <span class="sub-label">4.1 Nome do profissional:</span>
+            <input type="text" name="prest_nome_1" placeholder="Nome completo">
+          </div>
+          <div class="sub-q">
+            <span class="sub-label">4.2 Nº de registro profissional:</span>
+            <div class="inline-fields" style="flex-wrap:wrap;gap:8px">
+              <div class="field-group"><label>CRM</label><input type="text" name="prest_crm_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label>CRP</label><input type="text" name="prest_crp_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label>CREF</label><input type="text" name="prest_cref_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label>CREFITO</label><input type="text" name="prest_crefito_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label>CFa</label><input type="text" name="prest_cfa_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label>Outro</label><input type="text" name="prest_outro_reg_1" class="input-sm" placeholder="Conselho / Nº"></div>
+            </div>
+          </div>
+          <div class="sub-q">
+            <span class="sub-label">4.3 Contato:</span>
+            <div class="inline-fields">
+              <div class="field-group" style="flex:1;min-width:200px"><label>E-mail</label><input type="email" name="prest_email_1" placeholder="email@exemplo.com"></div>
+              <div class="field-group" style="flex:1;min-width:200px"><label>Telefone/WhatsApp</label><input type="tel" name="prest_tel_1" placeholder="(00) 00000-0000"></div>
+            </div>
+          </div>
+          <div class="sub-q">
+            <span class="sub-label">4.4 Vínculo / local de atuação:</span>
+            <input type="text" name="prest_vinculo_1" placeholder="Vínculo e local de atuação">
+          </div>
+        </div>
+      </div>
+      <button type="button" onclick="addPrestador()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:10px;font-family:inherit;font-size:0.84rem;font-weight:600;color:var(--ax-primary);cursor:pointer;transition:all 0.2s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Adicionar profissional
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTION 5: PAGAMENTO -->
+  <div class="form-section" id="sec5">
+    <div class="section-header" onclick="toggleSection('sec5')">
+      <div class="section-num">5</div>
+      <div class="section-title">Pagamento (remuneração / repasse)</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">5.1 Quanto recebem por atendimento (valor unitário)?</span>
+        <div class="inline-fields">
+          <div class="field-group"><label>R$</label><input type="text" name="pag_valor_unit" class="input-sm" placeholder="0,00"></div>
+          <span style="font-size:0.84rem;color:var(--text-tertiary);align-self:flex-end;padding-bottom:10px">por atendimento/procedimento</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">5.2 Quanto recebem por mês (média)?</span>
+        <div class="inline-fields">
+          <div class="field-group"><label>R$</label><input type="text" name="pag_valor_mes" class="input-sm" placeholder="0,00"></div>
+          <span style="font-size:0.84rem;color:var(--text-tertiary);align-self:flex-end;padding-bottom:10px">/ mês</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">5.3 Forma de pagamento atual (marcar):</span>
+        <div class="option-group" style="flex-direction:column">
+          <label class="option-item"><input type="radio" name="pag_forma" value="fee_for_service"> Fee for service (por procedimento)</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="pacote"> Pacote</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="capitation"> Capitation (per capita)</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="salario"> Salário</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="fixo_prospectivo"> Fixo prospectivo</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="retrospectivo"> Retrospectivo</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="outro"> Outro: <input type="text" class="other-text" name="pag_forma_outro" placeholder="Especifique"></label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">5.4 Observações de regras e variações (por profissional / procedimento):</span>
+        <textarea name="pag_obs" rows="3" placeholder="Descreva regras e variações..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: JUDICIALIZAÇÕES -->
+  <div class="form-section" id="sec6">
+    <div class="section-header" onclick="toggleSection('sec6')">
+      <div class="section-num">6</div>
+      <div class="section-title">Dados das Judicializações</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">6.1 Número de judicializações por mês:</span>
+        <div class="inline-fields">
+          <div class="field-group"><label>Média / mês</label><input type="number" min="0" name="jud_media_mes" class="input-sm" placeholder="0"></div>
+          <div class="field-group"><label>Período analisado — de</label><input type="text" name="jud_periodo_de" class="input-sm" placeholder="MM/AAAA"></div>
+          <div class="field-group"><label>a</label><input type="text" name="jud_periodo_a" class="input-sm" placeholder="MM/AAAA"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">6.2 Valor médio das judicializações:</span>
+        <div class="inline-fields">
+          <div class="field-group"><label>R$</label><input type="text" name="jud_valor_medio" class="input-sm" placeholder="0,00"></div>
+          <div class="field-group"><label>Referência</label><input type="text" name="jud_valor_ref" class="input-sm" placeholder="média mensal ou por ação?"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">6.3 Quem são os juízes da comarca?</span>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="jud_juiz_1" placeholder="Nome do juiz"></li>
+          <li><span class="num">2</span><input type="text" name="jud_juiz_2" placeholder="Nome do juiz"></li>
+          <li><span class="num">3</span><input type="text" name="jud_juiz_3" placeholder="Nome do juiz"></li>
+          <li><span class="num">4</span><input type="text" name="jud_juiz_4" placeholder="Nome do juiz"></li>
+        </ol>
+        <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_juiz_anexo"> Anexo lista</label>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">6.4 Quem são os peritos convocados?</span>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="jud_perito_1" placeholder="Nome do perito"></li>
+          <li><span class="num">2</span><input type="text" name="jud_perito_2" placeholder="Nome do perito"></li>
+          <li><span class="num">3</span><input type="text" name="jud_perito_3" placeholder="Nome do perito"></li>
+        </ol>
+        <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_perito_anexo"> Anexo lista</label>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">6.5 Existe base de dados/arquivo por caso judicializado?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="jud_base" value="sim"> Sim (onde? <input type="text" class="other-text" name="jud_base_onde" placeholder="Local/sistema">)</label>
+          <label class="option-item"><input type="radio" name="jud_base" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="jud_base" value="parcial"> Parcial</label>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">6.6 Como a judicialização é processada internamente? (resumo do fluxo)</span>
+        <textarea name="jud_fluxo" rows="4" placeholder="Descreva o fluxo interno de processamento das judicializações..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: JORNADA DO PACIENTE -->
+  <div class="form-section" id="sec7">
+    <div class="section-header" onclick="toggleSection('sec7')">
+      <div class="section-num">7</div>
+      <div class="section-title">Jornada Atual do Paciente (AS-IS) + Insumos para Desenho da Linha de Cuidado</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+      <div class="sub-q">
+        <span class="sub-label">7.1 Existe documentação da jornada atual (AS-IS)?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="jorn_doc" value="sim"> Sim (anexar)</label>
+          <label class="option-item"><input type="radio" name="jorn_doc" value="parcial"> Parcial</label>
+          <label class="option-item"><input type="radio" name="jorn_doc" value="nao"> Não</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Anexo/Link:</label>
+          <input type="text" name="jorn_doc_link" class="input-md" placeholder="URL ou referência do anexo">
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.2 Descreva a jornada atual do paciente TEA na Unimed (AS-IS)</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="field-group"><label>Porta de entrada (onde começa):</label><textarea name="jorn_porta" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Triagem/avaliação inicial (quem faz / como):</label><textarea name="jorn_triagem" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Diagnóstico (quem fecha / instrumentos):</label><textarea name="jorn_diagnostico" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Encaminhamentos (regras / quem autoriza):</label><textarea name="jorn_encaminhamentos" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Terapias (como são definidas e revisadas):</label><textarea name="jorn_terapias" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Acompanhamento e reavaliações (frequência / critérios):</label><textarea name="jorn_acompanhamento" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label>Alta/continuidade (quando e como ocorre):</label><textarea name="jorn_alta" rows="2" placeholder="Descreva..."></textarea></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.3 A jornada atual segue fluxo/protocolo padronizado?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="jorn_padrao" value="sim"> Sim</label>
+          <label class="option-item"><input type="radio" name="jorn_padrao" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="jorn_padrao" value="parcial"> Parcial</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Se sim, qual?</label>
+          <input type="text" name="jorn_padrao_qual" class="input-md" placeholder="Nome do protocolo/fluxo">
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.4 Variabilidade da jornada (onde "muda" de um caso para outro)</span>
+        <div class="sub-hint">Marque os pontos onde existe variação relevante:</div>
+        <div class="option-group" style="flex-direction:column">
+          <label class="option-item"><input type="checkbox" name="jorn_var_porta"> Porta de entrada / acesso</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_diag"> Critérios de diagnóstico</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_terapias"> Definição de terapias e carga horária</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_prest"> Prestadores acionados</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_autorizacoes"> Autorizações / regulação</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_auditoria"> Auditoria clínica</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_revisoes"> Revisões de plano terapêutico</label>
+          <label class="option-item"><input type="checkbox" name="jorn_var_outros"> Outros: <input type="text" class="other-text" name="jorn_var_outros_txt" placeholder="Especifique"></label>
+        </div>
+        <div class="field-group" style="margin-top:12px">
+          <label>Descreva exemplos de variação:</label>
+          <textarea name="jorn_var_desc" rows="3" placeholder="Exemplos de variação entre casos..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.5 Gargalos, retrabalhos e problemas mais frequentes</span>
+        <div class="sub-hint">Liste até 10:</div>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="jorn_gargalo_1" placeholder="Descreva o gargalo"></li>
+          <li><span class="num">2</span><input type="text" name="jorn_gargalo_2" placeholder="Descreva o gargalo"></li>
+          <li><span class="num">3</span><input type="text" name="jorn_gargalo_3" placeholder="Descreva o gargalo"></li>
+          <li><span class="num">4</span><input type="text" name="jorn_gargalo_4" placeholder="Descreva o gargalo"></li>
+          <li><span class="num">5</span><input type="text" name="jorn_gargalo_5" placeholder="Descreva o gargalo"></li>
+        </ol>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.6 Pontos de dor (perspectiva do beneficiário e da operação)</span>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="field-group"><label>Do beneficiário/família:</label><textarea name="jorn_dor_benef" rows="3" placeholder="Descreva os pontos de dor do beneficiário/família..."></textarea></div>
+          <div class="field-group"><label>Da Unimed (regulação, auditoria, atendimento):</label><textarea name="jorn_dor_unimed" rows="3" placeholder="Descreva os pontos de dor da Unimed..."></textarea></div>
+          <div class="field-group"><label>Dos prestadores:</label><textarea name="jorn_dor_prest" rows="3" placeholder="Descreva os pontos de dor dos prestadores..."></textarea></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.7 Requisitos e expectativas para a Linha de Cuidado (insumos para desenho)</span>
+        <div class="sub-hint">O que precisa existir no modelo futuro? (marcar e detalhar)</div>
+        <div class="option-group" style="flex-direction:column">
+          <label class="option-item"><input type="checkbox" name="jorn_req_elegibilidade"> Critérios claros de elegibilidade/entrada</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_diagnostico"> Padronização de diagnóstico</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_clusters"> Definição de clusters/perfis de complexidade</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_protocolos"> Protocolos terapêuticos por perfil</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_indicadores"> Indicadores mínimos e metas</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_autorizacao"> Regras de autorização e auditoria</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_sistemas"> Integração com sistemas/regulação</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_governanca"> Governança (comitê, rituais, papéis)</label>
+          <label class="option-item"><input type="checkbox" name="jorn_req_outros"> Outros: <input type="text" class="other-text" name="jorn_req_outros_txt" placeholder="Especifique"></label>
+        </div>
+        <div class="field-group" style="margin-top:12px">
+          <label>Detalhes:</label>
+          <textarea name="jorn_req_detalhes" rows="3" placeholder="Detalhe os requisitos e expectativas..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.8 Restrições e riscos para implantação (top 3)</span>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="jorn_risco_1" placeholder="Restrição ou risco"></li>
+          <li><span class="num">2</span><input type="text" name="jorn_risco_2" placeholder="Restrição ou risco"></li>
+          <li><span class="num">3</span><input type="text" name="jorn_risco_3" placeholder="Restrição ou risco"></li>
+        </ol>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-q">
+        <span class="sub-label">7.9 Prioridades (o que atacar primeiro nos próximos 90 dias)</span>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="jorn_prioridade_1" placeholder="Prioridade"></li>
+          <li><span class="num">2</span><input type="text" name="jorn_prioridade_2" placeholder="Prioridade"></li>
+          <li><span class="num">3</span><input type="text" name="jorn_prioridade_3" placeholder="Prioridade"></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: GOVERNANÇA -->
+  <div class="form-section" id="sec8">
+    <div class="section-header" onclick="toggleSection('sec8')">
+      <div class="section-num">8</div>
+      <div class="section-title">Governança</div>
+      <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="section-body">
+
+      <div class="sub-q">
+        <span class="sub-label" style="font-size:0.94rem;color:var(--ax-primary)">8.1 Governança e processos</span>
+      </div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.1.1 Existe compartilhamento de risco com prestadores?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="gov_risco" value="sim"> Sim</label>
+          <label class="option-item"><input type="radio" name="gov_risco" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="gov_risco" value="em_discussao"> Em discussão</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Se sim, como funciona?</label>
+          <textarea name="gov_risco_como" rows="3" placeholder="Descreva o modelo de compartilhamento de risco..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.1.2 Existe processo de auditoria clínica para TEA?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="gov_auditoria" value="sim"> Sim</label>
+          <label class="option-item"><input type="radio" name="gov_auditoria" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="gov_auditoria" value="parcial"> Parcial</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Se sim, descreva (quem faz / periodicidade / critérios):</label>
+          <textarea name="gov_auditoria_desc" rows="3" placeholder="Descreva o processo de auditoria clínica..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.1.3 Há integração com regulação interna (autorizações, diretrizes, etc.)?</span>
+        <div class="option-group">
+          <label class="option-item"><input type="radio" name="gov_regulacao" value="sim"> Sim</label>
+          <label class="option-item"><input type="radio" name="gov_regulacao" value="nao"> Não</label>
+          <label class="option-item"><input type="radio" name="gov_regulacao" value="parcial"> Parcial</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Se sim, como se dá a integração?</label>
+          <textarea name="gov_regulacao_como" rows="3" placeholder="Descreva a integração com regulação interna..."></textarea>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label" style="font-size:0.94rem;color:var(--ax-primary)">8.2 Conjunto mínimo de dados (marcar disponibilidade)</span>
+        <div class="sub-hint">Preencher Disponível? / Fonte / Frequência / Responsável:</div>
+        <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Dado mínimo</th>
+              <th>Disponível? (S/N/Parcial)</th>
+              <th>Fonte (sistema/área)</th>
+              <th>Frequência (mensal, trimestral...)</th>
+              <th>Responsável</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">Base de beneficiários (carteira)</td><td><select name="gov_dado_benef"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_benef_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_benef_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_benef_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Base de pacientes TEA (identificação)</td><td><select name="gov_dado_tea"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_tea_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_tea_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_tea_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Utilização (consultas/terapias/exames)</td><td><select name="gov_dado_util"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_util_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_util_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_util_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Custo por item (procedimento, terapia, exame)</td><td><select name="gov_dado_custo"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_custo_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_custo_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_custo_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Rede de prestadores (cadastro + tipo)</td><td><select name="gov_dado_rede"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_rede_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_rede_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_rede_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Eventos cobertos (rol/regras)</td><td><select name="gov_dado_eventos"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_eventos_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_eventos_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_eventos_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Eventos de alta complexidade (ex.: internações)</td><td><select name="gov_dado_alta"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_alta_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_alta_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_alta_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Indicadores assistenciais disponíveis</td><td><select name="gov_dado_indic"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_indic_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_indic_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_indic_resp" placeholder="Responsável"></td></tr>
+            <tr><td class="row-label">Situação da judicialização (volume/valor)</td><td><select name="gov_dado_jud"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></td><td><input type="text" name="gov_dado_jud_fonte" placeholder="Fonte"></td><td><input type="text" name="gov_dado_jud_freq" placeholder="Frequência"></td><td><input type="text" name="gov_dado_jud_resp" placeholder="Responsável"></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.3 Indicadores assistenciais disponíveis (listar):</span>
+        <ol class="numbered-list">
+          <li><span class="num">1</span><input type="text" name="gov_indicador_1" placeholder="Indicador"></li>
+          <li><span class="num">2</span><input type="text" name="gov_indicador_2" placeholder="Indicador"></li>
+          <li><span class="num">3</span><input type="text" name="gov_indicador_3" placeholder="Indicador"></li>
+        </ol>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.4 Observações sobre qualidade do dado (lacunas, inconsistências, acesso):</span>
+        <textarea name="gov_qualidade" rows="4" placeholder="Descreva lacunas, inconsistências e questões de acesso aos dados..."></textarea>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sub-q">
+        <span class="sub-label">8.5 Evidências / anexos disponíveis (relatórios, extrações, dashboards):</span>
+        <div class="option-group">
+          <label class="option-item"><input type="checkbox" name="gov_evid_relatorios"> Relatórios anexos</label>
+          <label class="option-item"><input type="checkbox" name="gov_evid_dashboard"> Link para dashboard</label>
+          <label class="option-item"><input type="checkbox" name="gov_evid_planilha"> Planilha</label>
+          <label class="option-item"><input type="checkbox" name="gov_evid_outros"> Outros</label>
+        </div>
+        <div class="field-group" style="margin-top:8px">
+          <label>Anexo/Link:</label>
+          <input type="text" name="gov_evid_link" class="input-md" placeholder="URL ou referência do anexo">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PDF Button -->
+  <div class="pdf-section">
+    <button type="button" class="btn-pdf" onclick="generatePDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Gerar PDF do Formulário
+    </button>
+  </div>
+
+  </form>
+</div>
+
+<!-- AXIACARE FOOTER -->
+<div style="margin-top:40px;padding:32px 20px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #196396;border-radius:16px">
+  <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" style="width:140px;margin:0 auto 12px auto;display:block">
+  <div style="font-size:14px;font-weight:600;color:#2d3445;margin-bottom:14px">Gestão e Consultoria em Saúde</div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:6px">
+    <a href="https://linktr.ee/gui.thome" style="color:#196396;text-decoration:none">Conheça nossas soluções</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://www.axcare.com.br" target="_blank" style="color:#196396;text-decoration:none">axcare.com.br</a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:6px">
+    <a href="https://grupocsv.com" target="_blank" style="color:#196396;text-decoration:none">grupocsv.com</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://www.medvalor.med.br" target="_blank" style="color:#196396;text-decoration:none">medvalor.med.br</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://thera.tech" target="_blank" style="color:#196396;text-decoration:none">thera.tech</a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:14px">
+    <a href="https://guithome.com.br" target="_blank" style="color:#196396;text-decoration:none">guithome.com.br</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://linkedin.com/in/guithome" target="_blank" style="color:#196396;text-decoration:none">LinkedIn</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://www.instagram.com/gui.thome/" target="_blank" style="color:#196396;text-decoration:none">Instagram</a>
+  </div>
+  <div style="font-size:11px;color:#94a3b8">Copyright &copy; 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
+</div>
+
+<script>
+// Toggle sections
+function toggleSection(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+  updateProgress();
+}
+
+// Add prestador
+let prestadorCount = 1;
+function addPrestador() {
+  prestadorCount++;
+  const n = prestadorCount;
+  const container = document.getElementById('prestadores-container');
+  const entry = document.createElement('div');
+  entry.className = 'prestador-entry';
+  entry.style.cssText = 'background:var(--bg-secondary);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border-color)';
+  entry.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <span style="font-size:0.82rem;font-weight:700;color:var(--ax-primary)">Profissional #${n}</span>
+      <button type="button" onclick="this.closest('.prestador-entry').remove()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>
+    </div>
+    <div class="sub-q">
+      <span class="sub-label">4.1 Nome do profissional:</span>
+      <input type="text" name="prest_nome_${n}" placeholder="Nome completo">
+    </div>
+    <div class="sub-q">
+      <span class="sub-label">4.2 Nº de registro profissional:</span>
+      <div class="inline-fields" style="flex-wrap:wrap;gap:8px">
+        <div class="field-group"><label>CRM</label><input type="text" name="prest_crm_${n}" class="input-sm" placeholder="Nº"></div>
+        <div class="field-group"><label>CRP</label><input type="text" name="prest_crp_${n}" class="input-sm" placeholder="Nº"></div>
+        <div class="field-group"><label>CREF</label><input type="text" name="prest_cref_${n}" class="input-sm" placeholder="Nº"></div>
+        <div class="field-group"><label>CREFITO</label><input type="text" name="prest_crefito_${n}" class="input-sm" placeholder="Nº"></div>
+        <div class="field-group"><label>CFa</label><input type="text" name="prest_cfa_${n}" class="input-sm" placeholder="Nº"></div>
+        <div class="field-group"><label>Outro</label><input type="text" name="prest_outro_reg_${n}" class="input-sm" placeholder="Conselho / Nº"></div>
+      </div>
+    </div>
+    <div class="sub-q">
+      <span class="sub-label">4.3 Contato:</span>
+      <div class="inline-fields">
+        <div class="field-group" style="flex:1;min-width:200px"><label>E-mail</label><input type="email" name="prest_email_${n}" placeholder="email@exemplo.com"></div>
+        <div class="field-group" style="flex:1;min-width:200px"><label>Telefone/WhatsApp</label><input type="tel" name="prest_tel_${n}" placeholder="(00) 00000-0000"></div>
+      </div>
+    </div>
+    <div class="sub-q">
+      <span class="sub-label">4.4 Vínculo / local de atuação:</span>
+      <input type="text" name="prest_vinculo_${n}" placeholder="Vínculo e local de atuação">
+    </div>
+  `;
+  container.appendChild(entry);
+}
+
+// Progress bar
+function updateProgress() {
+  const form = document.getElementById('teaForm');
+  const inputs = form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
+  let filled = 0;
+  inputs.forEach(i => { if (i.value.trim()) filled++; });
+  const pct = inputs.length > 0 ? (filled / inputs.length) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+document.addEventListener('input', updateProgress);
+
+// PDF Generation
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'mm', 'a4');
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 15;
+  const contentW = pageW - margin * 2;
+  let y = 15;
+
+  function checkPage(needed) {
+    if (y + needed > pageH - 20) {
+      doc.addPage();
+      y = 15;
+    }
+  }
+
+  function addTitle(text) {
+    checkPage(14);
+    doc.setFillColor(25, 99, 150);
+    doc.roundedRect(margin, y, contentW, 10, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text(text, margin + 4, y + 7);
+    doc.setTextColor(0, 0, 0);
+    y += 14;
+  }
+
+  function addSubLabel(text) {
+    checkPage(8);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(50, 50, 50);
+    const lines = doc.splitTextToSize(text, contentW);
+    doc.text(lines, margin, y);
+    y += lines.length * 4.5;
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(0, 0, 0);
+  }
+
+  function addValue(text) {
+    if (!text || !text.trim()) text = '(não preenchido)';
+    checkPage(6);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(60, 60, 60);
+    const lines = doc.splitTextToSize(text, contentW - 4);
+    doc.text(lines, margin + 2, y);
+    y += lines.length * 4.2 + 2;
+    doc.setTextColor(0, 0, 0);
+  }
+
+  function getVal(name) {
+    const el = document.querySelector(`[name="${name}"]`);
+    return el ? el.value : '';
+  }
+
+  function getRadio(name) {
+    const el = document.querySelector(`[name="${name}"]:checked`);
+    return el ? el.value : '';
+  }
+
+  function getChecked(names) {
+    const result = [];
+    names.forEach(n => {
+      const el = document.querySelector(`[name="${n}"]`);
+      if (el && el.checked) {
+        const label = el.closest('.option-item');
+        if (label) {
+          let txt = label.textContent.trim();
+          const otherInput = label.querySelector('.other-text');
+          if (otherInput && otherInput.value.trim()) {
+            txt = txt.replace(/Outro:.*|Outros:.*/, '') + 'Outro: ' + otherInput.value.trim();
+          }
+          result.push(txt);
+        }
+      }
+    });
+    return result.join(', ') || '(nenhum selecionado)';
+  }
+
+  // Header
+  doc.setFillColor(25, 99, 150);
+  doc.rect(0, 0, pageW, 35, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Data Set TEA', pageW / 2, 14, { align: 'center' });
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Indicadores Mínimos de Assistência', pageW / 2, 21, { align: 'center' });
+  doc.setFontSize(8);
+  doc.text('Unimed Governador Valadares — Questionário de Coleta', pageW / 2, 27, { align: 'center' });
+  doc.setFontSize(7);
+  doc.text('Gerado em: ' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR'), pageW / 2, 32, { align: 'center' });
+  doc.setTextColor(0, 0, 0);
+  y = 42;
+
+  // 1) PROFISSIONAIS
+  addTitle('1) Profissionais (por prestador / serviço)');
+  const profRows = [
+    ['Médicos', getVal('prof_med_gen'), getVal('prof_med_esp'), getVal('prof_med_area')],
+    ['Fisioterapeutas', getVal('prof_fisio_gen'), getVal('prof_fisio_esp'), getVal('prof_fisio_area')],
+    ['Terapeutas Ocupacionais', getVal('prof_to_gen'), getVal('prof_to_esp'), getVal('prof_to_area')],
+    ['Fonoaudiólogos', getVal('prof_fono_gen'), getVal('prof_fono_esp'), getVal('prof_fono_area')],
+    ['Psicólogos', getVal('prof_psi_gen'), getVal('prof_psi_esp'), getVal('prof_psi_area')]
+  ];
+  doc.autoTable({
+    head: [['Profissionais', 'Generalista (Qtde)', 'Especialista (Qtde)', 'Área de especialidade']],
+    body: profRows,
+    startY: y,
+    theme: 'grid',
+    headStyles: { fillColor: [25, 99, 150], fontSize: 8 },
+    styles: { fontSize: 8, cellPadding: 3 },
+    margin: { left: margin, right: margin }
+  });
+  y = doc.lastAutoTable.finalY + 4;
+  addSubLabel('Observações:');
+  addValue(getVal('prof_obs'));
+
+  // 2) PACIENTES
+  addTitle('2) Pacientes');
+  addSubLabel('2.1 Número de pacientes diagnosticados com TEA:');
+  addValue(getVal('pac_total') || '(não preenchido)');
+  addSubLabel('2.2 Instrumento utilizado para diagnóstico:');
+  addValue(getChecked(['pac_diag_cid', 'pac_diag_dsm', 'pac_diag_ambos', 'pac_diag_outro']));
+  addSubLabel('2.3 Profissional que fechou o diagnóstico:');
+  let profDiag = getRadio('pac_prof_diag');
+  if (profDiag === 'medico') profDiag = 'Médico (especialidade: ' + (getVal('pac_prof_diag_esp') || '—') + ')';
+  else if (profDiag === 'psicologo') profDiag = 'Psicólogo';
+  else if (profDiag === 'outro') profDiag = 'Outro: ' + (getVal('pac_prof_diag_outro') || '—');
+  addValue(profDiag);
+  addSubLabel('2.4 Dados clínicos gerais:');
+  addValue('Gênero: ' + (getRadio('pac_genero') || '—') + ' | DN: ' + (getVal('pac_dn') || '—') + ' | Idade no diagnóstico: ' + (getVal('pac_idade_diag') || '—'));
+  addSubLabel('Outras variáveis disponíveis:');
+  addValue(getVal('pac_outras_vars'));
+
+  // 3) TRATAMENTO
+  addTitle('3) Tratamento');
+  addSubLabel('3.1 Protocolo estruturado de cuidado:');
+  addValue(getRadio('trat_protocolo') + (getVal('trat_protocolo_qual') ? ' — ' + getVal('trat_protocolo_qual') : ''));
+  addSubLabel('3.2 Local do tratamento:');
+  addValue(getChecked(['trat_local_clinica', 'trat_local_instituto', 'trat_local_prestador', 'trat_local_unimed', 'trat_local_outro']));
+  addSubLabel('3.3 Carga horária média por paciente:');
+  addValue((getVal('trat_horas_sem') || '—') + ' horas/semana | ' + (getVal('trat_horas_mes') || '—') + ' horas/mês');
+  addSubLabel('Variação por perfil/cluster:');
+  addValue(getRadio('trat_variacao') + (getVal('trat_variacao_desc') ? ' — ' + getVal('trat_variacao_desc') : ''));
+  addSubLabel('3.4 Profissionais que atendem:');
+  addValue(getChecked(['trat_prof_med', 'trat_prof_fisio', 'trat_prof_to', 'trat_prof_fono', 'trat_prof_psi', 'trat_prof_outro']));
+  addSubLabel('3.5 Definição de profissionais por paciente:');
+  let defProf = getRadio('trat_definicao');
+  if (defProf === 'pti') defProf = 'Plano terapêutico individual (PTI)';
+  else if (defProf === 'regulacao') defProf = 'Regulação / auditoria';
+  else if (defProf === 'prestador') defProf = 'Prestador define';
+  else if (defProf === 'outro') defProf = 'Outro: ' + (getVal('trat_definicao_outro') || '—');
+  addValue(defProf);
+
+  // 4) PRESTADORES
+  addTitle('4) Prestadores (cadastro para futuras capacitações)');
+  const entries = document.querySelectorAll('.prestador-entry');
+  entries.forEach((entry, idx) => {
+    const n = idx + 1;
+    const nome = getVal('prest_nome_' + n);
+    const regs = ['CRM: ' + getVal('prest_crm_' + n), 'CRP: ' + getVal('prest_crp_' + n), 'CREF: ' + getVal('prest_cref_' + n), 'CREFITO: ' + getVal('prest_crefito_' + n), 'CFa: ' + getVal('prest_cfa_' + n)].filter(r => r.split(': ')[1]).join(' | ');
+    addSubLabel('Profissional #' + n + ': ' + (nome || '(não preenchido)'));
+    addValue('Registros: ' + (regs || '—'));
+    addValue('E-mail: ' + (getVal('prest_email_' + n) || '—') + ' | Tel: ' + (getVal('prest_tel_' + n) || '—'));
+    addValue('Vínculo: ' + (getVal('prest_vinculo_' + n) || '—'));
+  });
+
+  // 5) PAGAMENTO
+  addTitle('5) Pagamento (remuneração / repasse)');
+  addSubLabel('5.1 Valor por atendimento:');
+  addValue('R$ ' + (getVal('pag_valor_unit') || '—'));
+  addSubLabel('5.2 Valor por mês (média):');
+  addValue('R$ ' + (getVal('pag_valor_mes') || '—'));
+  addSubLabel('5.3 Forma de pagamento:');
+  let formaPag = getRadio('pag_forma');
+  const formaMap = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo', outro: 'Outro: ' + (getVal('pag_forma_outro') || '—') };
+  addValue(formaMap[formaPag] || '(não selecionado)');
+  addSubLabel('5.4 Observações:');
+  addValue(getVal('pag_obs'));
+
+  // 6) JUDICIALIZAÇÕES
+  addTitle('6) Dados das Judicializações');
+  addSubLabel('6.1 Número de judicializações por mês:');
+  addValue('Média: ' + (getVal('jud_media_mes') || '—') + ' / mês | Período: ' + (getVal('jud_periodo_de') || '—') + ' a ' + (getVal('jud_periodo_a') || '—'));
+  addSubLabel('6.2 Valor médio:');
+  addValue('R$ ' + (getVal('jud_valor_medio') || '—') + ' (' + (getVal('jud_valor_ref') || '—') + ')');
+  addSubLabel('6.3 Juízes da comarca:');
+  for (let i = 1; i <= 4; i++) { const v = getVal('jud_juiz_' + i); if (v) addValue(i + '. ' + v); }
+  addSubLabel('6.4 Peritos convocados:');
+  for (let i = 1; i <= 3; i++) { const v = getVal('jud_perito_' + i); if (v) addValue(i + '. ' + v); }
+  addSubLabel('6.5 Base de dados por caso judicializado:');
+  let judBase = getRadio('jud_base');
+  if (judBase === 'sim') judBase = 'Sim — ' + (getVal('jud_base_onde') || '—');
+  addValue(judBase || '(não selecionado)');
+  addSubLabel('6.6 Fluxo interno:');
+  addValue(getVal('jud_fluxo'));
+
+  // 7) JORNADA
+  addTitle('7) Jornada Atual do Paciente (AS-IS)');
+  addSubLabel('7.1 Documentação da jornada:');
+  addValue(getRadio('jorn_doc') + (getVal('jorn_doc_link') ? ' — ' + getVal('jorn_doc_link') : ''));
+  addSubLabel('7.2 Jornada atual:');
+  const jornFields = [
+    ['Porta de entrada', 'jorn_porta'],
+    ['Triagem/avaliação', 'jorn_triagem'],
+    ['Diagnóstico', 'jorn_diagnostico'],
+    ['Encaminhamentos', 'jorn_encaminhamentos'],
+    ['Terapias', 'jorn_terapias'],
+    ['Acompanhamento', 'jorn_acompanhamento'],
+    ['Alta/continuidade', 'jorn_alta']
+  ];
+  jornFields.forEach(([label, name]) => {
+    const v = getVal(name);
+    if (v) { addSubLabel('  ' + label + ':'); addValue(v); }
+  });
+  addSubLabel('7.3 Fluxo/protocolo padronizado:');
+  addValue(getRadio('jorn_padrao') + (getVal('jorn_padrao_qual') ? ' — ' + getVal('jorn_padrao_qual') : ''));
+  addSubLabel('7.4 Variabilidade da jornada:');
+  addValue(getChecked(['jorn_var_porta', 'jorn_var_diag', 'jorn_var_terapias', 'jorn_var_prest', 'jorn_var_autorizacoes', 'jorn_var_auditoria', 'jorn_var_revisoes', 'jorn_var_outros']));
+  if (getVal('jorn_var_desc')) { addSubLabel('Exemplos de variação:'); addValue(getVal('jorn_var_desc')); }
+  addSubLabel('7.5 Gargalos:');
+  for (let i = 1; i <= 5; i++) { const v = getVal('jorn_gargalo_' + i); if (v) addValue(i + '. ' + v); }
+  addSubLabel('7.6 Pontos de dor:');
+  addSubLabel('  Beneficiário/família:'); addValue(getVal('jorn_dor_benef'));
+  addSubLabel('  Unimed:'); addValue(getVal('jorn_dor_unimed'));
+  addSubLabel('  Prestadores:'); addValue(getVal('jorn_dor_prest'));
+  addSubLabel('7.7 Requisitos para Linha de Cuidado:');
+  addValue(getChecked(['jorn_req_elegibilidade', 'jorn_req_diagnostico', 'jorn_req_clusters', 'jorn_req_protocolos', 'jorn_req_indicadores', 'jorn_req_autorizacao', 'jorn_req_sistemas', 'jorn_req_governanca', 'jorn_req_outros']));
+  if (getVal('jorn_req_detalhes')) { addSubLabel('Detalhes:'); addValue(getVal('jorn_req_detalhes')); }
+  addSubLabel('7.8 Restrições e riscos (top 3):');
+  for (let i = 1; i <= 3; i++) { const v = getVal('jorn_risco_' + i); if (v) addValue(i + '. ' + v); }
+  addSubLabel('7.9 Prioridades (90 dias):');
+  for (let i = 1; i <= 3; i++) { const v = getVal('jorn_prioridade_' + i); if (v) addValue(i + '. ' + v); }
+
+  // 8) GOVERNANÇA
+  addTitle('8) Governança');
+  addSubLabel('8.1.1 Compartilhamento de risco:');
+  addValue(getRadio('gov_risco') + (getVal('gov_risco_como') ? ' — ' + getVal('gov_risco_como') : ''));
+  addSubLabel('8.1.2 Auditoria clínica para TEA:');
+  addValue(getRadio('gov_auditoria') + (getVal('gov_auditoria_desc') ? ' — ' + getVal('gov_auditoria_desc') : ''));
+  addSubLabel('8.1.3 Integração com regulação interna:');
+  addValue(getRadio('gov_regulacao') + (getVal('gov_regulacao_como') ? ' — ' + getVal('gov_regulacao_como') : ''));
+
+  addSubLabel('8.2 Conjunto mínimo de dados:');
+  const dadoRows = [
+    ['Base de beneficiários (carteira)', getVal('gov_dado_benef'), getVal('gov_dado_benef_fonte'), getVal('gov_dado_benef_freq'), getVal('gov_dado_benef_resp')],
+    ['Base de pacientes TEA', getVal('gov_dado_tea'), getVal('gov_dado_tea_fonte'), getVal('gov_dado_tea_freq'), getVal('gov_dado_tea_resp')],
+    ['Utilização', getVal('gov_dado_util'), getVal('gov_dado_util_fonte'), getVal('gov_dado_util_freq'), getVal('gov_dado_util_resp')],
+    ['Custo por item', getVal('gov_dado_custo'), getVal('gov_dado_custo_fonte'), getVal('gov_dado_custo_freq'), getVal('gov_dado_custo_resp')],
+    ['Rede de prestadores', getVal('gov_dado_rede'), getVal('gov_dado_rede_fonte'), getVal('gov_dado_rede_freq'), getVal('gov_dado_rede_resp')],
+    ['Eventos cobertos', getVal('gov_dado_eventos'), getVal('gov_dado_eventos_fonte'), getVal('gov_dado_eventos_freq'), getVal('gov_dado_eventos_resp')],
+    ['Eventos alta complexidade', getVal('gov_dado_alta'), getVal('gov_dado_alta_fonte'), getVal('gov_dado_alta_freq'), getVal('gov_dado_alta_resp')],
+    ['Indicadores assistenciais', getVal('gov_dado_indic'), getVal('gov_dado_indic_fonte'), getVal('gov_dado_indic_freq'), getVal('gov_dado_indic_resp')],
+    ['Judicialização', getVal('gov_dado_jud'), getVal('gov_dado_jud_fonte'), getVal('gov_dado_jud_freq'), getVal('gov_dado_jud_resp')]
+  ];
+  checkPage(60);
+  doc.autoTable({
+    head: [['Dado mínimo', 'Disponível?', 'Fonte', 'Frequência', 'Responsável']],
+    body: dadoRows,
+    startY: y,
+    theme: 'grid',
+    headStyles: { fillColor: [25, 99, 150], fontSize: 7 },
+    styles: { fontSize: 7, cellPadding: 2 },
+    columnStyles: { 0: { cellWidth: 40 } },
+    margin: { left: margin, right: margin }
+  });
+  y = doc.lastAutoTable.finalY + 4;
+
+  addSubLabel('8.3 Indicadores assistenciais disponíveis:');
+  for (let i = 1; i <= 3; i++) { const v = getVal('gov_indicador_' + i); if (v) addValue(i + '. ' + v); }
+  addSubLabel('8.4 Observações sobre qualidade do dado:');
+  addValue(getVal('gov_qualidade'));
+  addSubLabel('8.5 Evidências / anexos:');
+  addValue(getChecked(['gov_evid_relatorios', 'gov_evid_dashboard', 'gov_evid_planilha', 'gov_evid_outros']));
+  if (getVal('gov_evid_link')) addValue('Link: ' + getVal('gov_evid_link'));
+
+  // Footer on last page
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setFontSize(7);
+    doc.setTextColor(150, 150, 150);
+    doc.text('AxiaCare® — Data Set TEA — Unimed Governador Valadares', pageW / 2, pageH - 8, { align: 'center' });
+    doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
+  }
+
+  doc.save('DataSet_TEA_Unimed_GV.pdf');
+}
+</script>
+</body>
+</html>
