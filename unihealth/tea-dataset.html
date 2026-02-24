@@ -7,20 +7,20 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®</title>
-  <meta name="description" content="Questionário de coleta de dados para Transtorno do Espectro Autista (TEA) — Unimed Governador Valadares">
+  <meta name="description" content="Questionário de coleta de dados para Transtorno do Espectro Autista (TEA) — Unimed Rio Verde (GO)">
   <meta name="theme-color" content="#196396">
 
   <meta property="og:title" content="Data Set TEA — Indicadores Mínimos de Assistência | AxiaCare®">
-  <meta property="og:description" content="Questionário de coleta de dados para TEA — Unimed Governador Valadares">
+  <meta property="og:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:image" content="https://hub.grupocsv.com/og/og_unimed.png">
-  <meta property="og:url" content="https://hub.grupocsv.com/unimed/tea-dataset.html">
-  <meta property="og:site_name" content="Unimed GV | Hub Grupo CSV">
+  <meta property="og:image" content="https://hub.grupocsv.com/og/og_unihealth.png">
+  <meta property="og:url" content="https://hub.grupocsv.com/unihealth/tea-dataset.html">
+  <meta property="og:site_name" content="Unihealth GV | Hub Grupo CSV">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Data Set TEA — Indicadores Mínimos de Assistência">
-  <meta name="twitter:description" content="Questionário de coleta de dados para TEA — Unimed Governador Valadares">
-  <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_unimed.png">
+  <meta name="twitter:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
+  <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_unihealth.png">
 
   <link rel="icon" href="/favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
@@ -416,10 +416,13 @@
 <a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
 
 <header class="hero">
-  <img src="https://i.imgur.com/yAUQciP.png" alt="AxiaCare®" class="hero-brand">
+  <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth" class="hero-brand" style="width:160px">
   <h1>Data Set TEA</h1>
   <div class="hero-sub">Indicadores Mínimos de Assistência</div>
-  <div class="hero-tag">Unimed Governador Valadares — Questionário de Coleta</div>
+  <div style="margin:12px auto 0;display:flex;align-items:center;justify-content:center;gap:10px">
+    <img src="/unihealth/logo_unimed_rioverde.png" alt="Unimed Rio Verde" style="height:36px;border-radius:6px">
+    <span style="font-size:0.82rem;opacity:0.7">Questionário de Coleta</span>
+  </div>
 </header>
 
 <div class="container">
@@ -1211,7 +1214,7 @@ function generatePDF() {
   doc.setFont('helvetica', 'normal');
   doc.text('Indicadores Mínimos de Assistência', pageW / 2, 21, { align: 'center' });
   doc.setFontSize(8);
-  doc.text('Unimed Governador Valadares — Questionário de Coleta', pageW / 2, 27, { align: 'center' });
+  doc.text('Unimed Rio Verde (GO) — Questionário de Coleta', pageW / 2, 27, { align: 'center' });
   doc.setFontSize(7);
   doc.text('Gerado em: ' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR'), pageW / 2, 32, { align: 'center' });
   doc.setTextColor(0, 0, 0);
@@ -1404,11 +1407,11 @@ function generatePDF() {
     doc.setPage(i);
     doc.setFontSize(7);
     doc.setTextColor(150, 150, 150);
-    doc.text('AxiaCare® — Data Set TEA — Unimed Governador Valadares', pageW / 2, pageH - 8, { align: 'center' });
+    doc.text('AxiaCare® — Data Set TEA — Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' });
     doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
   }
 
-  doc.save('DataSet_TEA_Unimed_GV.pdf');
+  doc.save('DataSet_TEA_Unimed_RioVerde.pdf');
 }
 </script>
 </body>
