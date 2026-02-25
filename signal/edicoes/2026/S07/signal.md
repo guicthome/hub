@@ -53,7 +53,7 @@ head:
 ### Projeto Axys-Teller e Jornada Cirúrgica
 
 - **Tag:** `OPERAÇÕES`
-- **Resumo:** Avanço no Projeto Axys-Teller (Jornada Cirúrgica) com duas frentes: contato médico direto pelo Dr. Fabrício Portilho com cirurgiões selecionados, e estruturação operacional de agendamento e fluxo. Consignação de materiais OitoPharma/ImunoBR autorizada pela Diretoria.
+- **Resumo:** Avanço no Projeto Axys-Teller (Jornada Cirúrgica) com duas frentes: contato médico direto pelo Dr. Fabrício Portilho com cirurgiões selecionados, e estruturação operacional de agendamento e fluxo.
 
 ---
 
@@ -63,6 +63,7 @@ head:
 - Implantação do SGU (Sistema de Gestão Unimed) em andamento com apoio da TI.
 - Comitê ESG realizou primeira reunião com pauta de Política de Sustentabilidade.
 - Plataforma TEAjudo apresentada ao EVS como solução para gestão de beneficiários TEA.
+- Consignação de materiais OitoPharma/ImunoBR autorizada pela Diretoria.
 
 ---
 
