@@ -43,6 +43,7 @@ export default defineConfig({
       { text: 'Compliance', link: '/compliance/' },
       { text: 'Fundador', link: '/founder/' },
       { text: 'Compass\u2122', link: '/compass/' },
+      { text: 'Signal\u2122', link: '/signal/' },
       { text: 'Infra', link: '/_infra/' },
     ],
 
@@ -59,6 +60,24 @@ export default defineConfig({
                 { text: '001 \u2014 Metas ACO', link: '/compass/edicoes/2026/001/compass' },
               ]
             },
+          ]
+        }
+      ],
+      '/signal/': [
+        {
+          text: 'Signal\u2122',
+          items: [
+            { text: 'Central Signal\u2122', link: '/signal/' },
+            {
+              text: '2026',
+              collapsed: false,
+              items: [
+                { text: 'S07 \u2014 16-23 Fev', link: '/signal/edicoes/2026/S07/signal' },
+              ]
+            },
+            { text: 'Padr\u00e3o Editorial', link: '/signal/policies/padrao-editorial' },
+            { text: 'Guia Operacional', link: '/signal/skills/gerar-signal' },
+            { text: 'Template', link: '/signal/templates/signal_template' },
           ]
         }
       ],

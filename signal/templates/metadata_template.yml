@@ -1,0 +1,21 @@
+id: "SNN_AAAA"
+semana: NN
+ano: AAAA
+periodo: "DD/MM/AAAA - DD/MM/AAAA"
+executivo: "Guilherme Thomé, MD, MBA"
+data_geracao: "YYYY-MM-DD"
+fontes_varredura:
+  - Notion
+  - Gmail
+metricas:
+  paginas_notion: 0
+  threads_gmail: 0
+  mensagens_analisadas: 0
+  novos_termos_sugeridos: 0
+  atualizacoes_sugeridas: 0
+fatos_estrategicos:
+  - tag: "TAG_EXEMPLO_1"
+    titulo: "Título do Fato 1"
+  - tag: "TAG_EXEMPLO_2"
+    titulo: "Título do Fato 2"
+demais_movimentacoes_count: 0
