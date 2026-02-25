@@ -64,7 +64,7 @@ head:
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.hub-hero .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hub-hero .hero-actions { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 .hub-hero .hero-btn {
   padding: 12px 28px;
   border-radius: 10px;
@@ -77,6 +77,37 @@ head:
 .hub-hero .hero-btn.primary:hover { background: #e8f4fc; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 .hub-hero .hero-btn.secondary { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
 .hub-hero .hero-btn.secondary:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+.hub-hero .hero-groups {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hub-hero .hero-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.hub-hero .hero-group-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.55;
+  font-weight: 500;
+}
+.hub-hero .hero-group-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hub-hero .hero-group-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.2);
+  align-self: stretch;
+  margin: 8px 0;
+}
 
 /* ── Layout ── */
 .hub-body {
@@ -383,8 +414,11 @@ head:
   .hub-hero h1 { font-size: 1.8rem; }
   .hub-hero .hero-rule { width: 36px; margin: 12px auto 10px; }
   .hub-hero .tagline { font-size: 0.78rem; margin-bottom: 24px; letter-spacing: 0.06em; word-wrap: break-word; overflow-wrap: break-word; }
-  .hub-hero .hero-actions { flex-direction: column; align-items: center; gap: 10px; }
+  .hub-hero .hero-actions { gap: 16px; }
   .hub-hero .hero-btn { width: 100%; max-width: 280px; text-align: center; padding: 12px 20px; font-size: 0.9rem; }
+  .hub-hero .hero-groups { flex-direction: column; gap: 16px; }
+  .hub-hero .hero-group-divider { display: none; }
+  .hub-hero .hero-group-btns { flex-direction: column; align-items: center; }
 
   /* Body */
   .hub-body { padding: 0 16px 40px; }
@@ -454,9 +488,23 @@ head:
     <p class="tagline">Cuidados em Saúde com Valor</p>
     <div class="hero-actions">
       <a href="#parceiros" class="hero-btn primary">Dashboards e Ferramentas</a>
-      <a href="/compass/" class="hero-btn secondary">Compass™</a>
-      <a href="/compliance/" class="hero-btn secondary">Compliance</a>
-      <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
+      <div class="hero-groups">
+        <div class="hero-group">
+          <span class="hero-group-label">Produtos</span>
+          <div class="hero-group-btns">
+            <a href="/compass/" class="hero-btn secondary">Compass™</a>
+            <a href="/signal/" class="hero-btn secondary">Signal™</a>
+          </div>
+        </div>
+        <div class="hero-group-divider"></div>
+        <div class="hero-group">
+          <span class="hero-group-label">Governança</span>
+          <div class="hero-group-btns">
+            <a href="/compliance/" class="hero-btn secondary">Compliance</a>
+            <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
