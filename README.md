@@ -16,6 +16,7 @@ Este repositório contém o Hub Central do Grupo CSV, construído com [VitePress
 - **Fundador** - Informações sobre Guilherme Thomé
 - **Infraestrutura Cognitiva** - Documentação técnica para desenvolvedores e agentes
 - **Compass™** - Linha editorial estratégica do Grupo CSV
+- **Signal™** - Resumo semanal de inteligência estratégica
 
 ---
 
@@ -49,6 +50,12 @@ grupocsv/hub/
 │
 ├── compass/                 # Módulo 6: Compass — Linha editorial estratégica
 │   ├── edicoes/             # Edições publicadas
+│   ├── templates/           # Templates editoriais
+│   ├── policies/            # Padrão editorial
+│   └── skills/              # Guia operacional
+│
+├── signal/                  # Módulo 7: Signal — Resumo semanal estratégico
+│   ├── edicoes/             # Edições semanais (SNN/AAAA)
 │   ├── templates/           # Templates editoriais
 │   ├── policies/            # Padrão editorial
 │   └── skills/              # Guia operacional
@@ -90,6 +97,12 @@ Linha editorial estratégica do Grupo CSV. Documentos técnico-estratégicos par
 
 - **Central Compass:** [compass/README.md](compass/README.md)
 - **Edição 001/2026:** [Metas quantitativas de produção em contratos ACO com orçamento global](compass/edicoes/2026/001/compass.md)
+
+### Módulo 7 - Signal™
+Resumo semanal de inteligência estratégica do Grupo CSV. Sintetiza os 5 a 7 fatos mais relevantes da semana, extraídos da varredura contínua de fontes internas.
+
+- **Central Signal:** [signal/README.md](signal/README.md)
+- **Edição S07/2026:** [16 a 23 de fevereiro de 2026](signal/edicoes/2026/S07/signal.md)
 
 ### Módulo 5 - Infraestrutura Cognitiva
 Documentação técnica pensada para:
@@ -156,6 +169,7 @@ O workflow:
 | 19/02/2026 | Limpeza de avatares: manter apenas 3 oficiais (current, current_low-res, with-name) |
 | 19/02/2026 | Footer com logos reais clicáveis; navbar com logo transparente; Compass™ TM global |
 | 19/02/2026 | Redesign da publicação Compass™ 001/2026 com layout elegante |
+| 24/02/2026 | Implementação da Central Signal™ e publicação da edição S07/2026 |
 
 ---
 
