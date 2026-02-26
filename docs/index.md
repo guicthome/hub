@@ -490,7 +490,7 @@ head:
       <a href="#parceiros" class="hero-btn primary">Dashboards e Ferramentas</a>
       <div class="hero-groups">
         <div class="hero-group">
-          <span class="hero-group-label">Produtos</span>
+          <span class="hero-group-label">Corporativo</span>
           <div class="hero-group-btns">
             <a href="/compass/" class="hero-btn secondary">Compass™</a>
             <a href="/signal/" class="hero-btn secondary">Signal™</a>
