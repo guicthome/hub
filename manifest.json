@@ -1,19 +1,17 @@
 {
   "manifestVersion": "1.0.0",
-  "lastUpdated": "2026-02-27T15:21:16.573308Z",
+  "lastUpdated": "2026-02-27T15:35:05Z",
+  "totalAssets": 26,
   "knowledgeAssets": [
     {
-      "id": "llms-entrypoint",
+      "id": "llms",
       "priority": 0,
       "title": "Llms",
       "path": "/llms.txt",
-      "version": "1.0.0",
       "sha256": "556f8f3a8c0d2767c70bdf556177c2eb90bc09b3c3937c3f8b4a5b74c0910f43",
-      "description": "Ponto de entrada principal para agentes de IA, fornecendo instru\u00e7\u00f5es iniciais e links para os artefatos de conhecimento.",
+      "description": "Ponto de entrada para agentes de IA com instruções iniciais e links para os artefatos de conhecimento.",
       "tags": [
-        "entrypoint",
-        "meta",
-        "instruction"
+        "entrypoint"
       ]
     },
     {
@@ -21,13 +19,10 @@
       "priority": 1,
       "title": "Completeness Checklist",
       "path": "/completeness-checklist.md",
-      "version": "1.0.0",
       "sha256": "5fb52c690ae2ff7fd5114f68f507a8dad14d7149a22b5f8ce3749880551ed157",
-      "description": "Checklist processual para garantir a leitura completa e persistente de todos os ativos cr\u00edticos de conhecimento.",
+      "description": "Artefato de meta-governança para consumo estruturado por agentes de IA.",
       "tags": [
-        "meta",
-        "checklist",
-        "persistence"
+        "meta"
       ]
     },
     {
@@ -35,42 +30,32 @@
       "priority": 2,
       "title": "Definition",
       "path": "/docs/_infra/csv-core/definition.md",
-      "version": "1.0.0",
       "sha256": "652021dd6e00632d211307cac2164e14ca3659c2341d9c68039e6754c9d8632c",
-      "description": "A defini\u00e7\u00e3o can\u00f4nica do Grupo CSV, sua identidade fundamental, princ\u00edpios e estrutura de atua\u00e7\u00e3o (A Tr\u00edade).",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
       "tags": [
-        "core",
-        "strategy",
-        "definition"
+        "core"
       ]
     },
     {
-      "id": "identity-system",
+      "id": "csv-core-identity-system",
       "priority": 3,
       "title": "Identity System",
       "path": "/docs/_infra/csv-core/identity-system.md",
-      "version": "1.0.0",
       "sha256": "df49a27df87c9c944049665d5a010ecda9eb7e8b9558e89a3bceb9b256ca67ad",
-      "description": "O sistema de identidade visual, incluindo paleta de cores can\u00f4nica, tipografia e estrutura do sistema de logos.",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
       "tags": [
-        "core",
-        "design",
-        "branding"
+        "core"
       ]
     },
     {
-      "id": "logo-usage-guide",
+      "id": "assets-logo-usage-guide",
       "priority": 4,
       "title": "Logo Usage Guide",
       "path": "/docs/_infra/assets/logo-usage-guide.md",
-      "version": "1.0.0",
       "sha256": "922dc6e97c2c7d8558dec746098c8a4699bf1511523b16696aff4241871762b1",
-      "description": "Regras de ouro e guia de invent\u00e1rio para o uso correto de todas as varia\u00e7\u00f5es de logos do ecossistema.",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
       "tags": [
-        "core",
-        "design",
-        "assets",
-        "guide"
+        "core"
       ]
     },
     {
@@ -78,13 +63,10 @@
       "priority": 5,
       "title": "Mandate",
       "path": "/docs/_infra/axiacare/mandate.md",
-      "version": "1.0.0",
       "sha256": "29cd8d69c77dd3840abadad5053a80c5d185b6049630873dc23bbb3fb2cad2e8",
-      "description": "O mandato institucional da AxiaCare\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "description": "Mandato institucional que define escopo de atuação e relação com o ecossistema.",
       "tags": [
-        "mandate",
-        "axiacare",
-        "strategy"
+        "mandate"
       ]
     },
     {
@@ -92,13 +74,10 @@
       "priority": 6,
       "title": "Mandate",
       "path": "/docs/_infra/medvalor/mandate.md",
-      "version": "1.0.0",
       "sha256": "7e9a572bededd70af037b4538b79dda798e273889d28279e8f24b74407dc87ba",
-      "description": "O mandato institucional da MedValor\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "description": "Mandato institucional que define escopo de atuação e relação com o ecossistema.",
       "tags": [
-        "mandate",
-        "medvalor",
-        "education"
+        "mandate"
       ]
     },
     {
@@ -106,55 +85,208 @@
       "priority": 7,
       "title": "Mandate",
       "path": "/docs/_infra/thera/mandate.md",
-      "version": "1.0.0",
       "sha256": "30b5fafe8fcb327c392fa6888c64ac705d00a091bb91ffd3a7fd3eb2063314a3",
-      "description": "O mandato institucional da TheraTech\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "description": "Mandato institucional que define escopo de atuação e relação com o ecossistema.",
       "tags": [
-        "mandate",
-        "thera",
-        "technology"
+        "mandate"
       ]
     },
     {
-      "id": "assets-catalog",
+      "id": "csv-core-assets",
       "priority": 8,
       "title": "Assets",
       "path": "/docs/_infra/csv-core/assets.md",
-      "version": "1.0.0",
       "sha256": "66e68940ed29dae5ccc1255043a5b5be2b81dc80749f78b200c28a059765af9c",
-      "description": "Cat\u00e1logo de assets visuais, incluindo logos, wallpapers e criativos, com links para CDN e dados estruturados.",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
       "tags": [
-        "core",
-        "assets",
-        "catalog"
+        "core"
       ]
     },
     {
-      "id": "hub-playbook",
-      "priority": 9,
-      "title": "Playbook Hub",
-      "path": "/docs/_infra/csv-core/playbook-hub.md",
-      "version": "1.0.0",
-      "sha256": "b00d32eef2c253c8e11f8979c80cda4e07d2543ff6107ca1bdf6ade67447235d",
-      "description": "Playbook operacional do Hub Central, explicando o conceito, a arquitetura da informa\u00e7\u00e3o e a governan\u00e7a.",
-      "tags": [
-        "core",
-        "playbook",
-        "governance"
-      ]
-    },
-    {
-      "id": "founder-info",
-      "priority": 10,
+      "id": "csv-core-founder",
+      "priority": 8,
       "title": "Founder",
       "path": "/docs/_infra/csv-core/founder.md",
-      "version": "1.0.0",
       "sha256": "196ac0e66528f732cf2427fa3ec2abb3f22406835382cc57c25e22c79a8eb984",
-      "description": "Informa\u00e7\u00f5es sobre o fundador do Grupo CSV, Guilherme Thom\u00e9.",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
       "tags": [
-        "core",
-        "founder",
-        "people"
+        "core"
+      ]
+    },
+    {
+      "id": "csv-core-playbook-hub",
+      "priority": 8,
+      "title": "Playbook Hub",
+      "path": "/docs/_infra/csv-core/playbook-hub.md",
+      "sha256": "b00d32eef2c253c8e11f8979c80cda4e07d2543ff6107ca1bdf6ade67447235d",
+      "description": "Documento fundamental do ecossistema Grupo CSV.",
+      "tags": [
+        "core"
+      ]
+    },
+    {
+      "id": "assets-axiacare",
+      "priority": 9,
+      "title": "Axiacare",
+      "path": "/docs/_infra/assets/axiacare.md",
+      "sha256": "21722c503162cc7741e2751dffeb89e1c213ffbb9b5baf843df012dd8b632eff",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-brand-guidelines",
+      "priority": 9,
+      "title": "Brand Guidelines",
+      "path": "/docs/_infra/assets/brand-guidelines.md",
+      "sha256": "3c02716e3b583ac6f8ec7f96872a4ffdd4602dee81d076e7e107d1388f1dd6a4",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-creatives",
+      "priority": 9,
+      "title": "Creatives",
+      "path": "/docs/_infra/assets/creatives.md",
+      "sha256": "4f9a24d20e2c917a07379688e0ed2c324b78a595c86acd4aa88ca137dc6dbc96",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-grupo-csv",
+      "priority": 9,
+      "title": "Grupo Csv",
+      "path": "/docs/_infra/assets/grupo-csv.md",
+      "sha256": "2314fa2a4a035a669feb66374656467fa0fc103648b17ccbac2c0d67e3fe1e29",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-guilherme-thome",
+      "priority": 9,
+      "title": "Guilherme Thome",
+      "path": "/docs/_infra/assets/guilherme-thome.md",
+      "sha256": "3bd1265866faadd6e388c22667b34195fa2d10dea0630d5641a02972ebb1d38a",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-icds",
+      "priority": 9,
+      "title": "Icds",
+      "path": "/docs/_infra/assets/icds.md",
+      "sha256": "25c58d73e5e2b56d2541bbfc858dfe7ff06fe72782e148b0bae557392016257f",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-index",
+      "priority": 9,
+      "title": "Index",
+      "path": "/docs/_infra/assets/index.md",
+      "sha256": "4b5605e48f84c4b8be5189188b96a7769c771f759e54a03df3986d45a84cc11d",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-medvalor",
+      "priority": 9,
+      "title": "Medvalor",
+      "path": "/docs/_infra/assets/medvalor.md",
+      "sha256": "fc72019bffecc9e638286ea745bfc74dd8044f9b9f1d34909a21decdae805950",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-thera",
+      "priority": 9,
+      "title": "Thera",
+      "path": "/docs/_infra/assets/thera.md",
+      "sha256": "26bd9e560d6b56034df7c1885e897fcc5b6dfbce03eaf7526f390b8d08bf6587",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "assets-wallpapers",
+      "priority": 9,
+      "title": "Wallpapers",
+      "path": "/docs/_infra/assets/wallpapers.md",
+      "sha256": "b2714dad4dd42e67d71aba38364169f9c1b95d8252df4f752dbfe830168641e8",
+      "description": "Catálogo ou guia de assets visuais do ecossistema.",
+      "tags": [
+        "assets"
+      ]
+    },
+    {
+      "id": "standards-footer",
+      "priority": 10,
+      "title": "Footer",
+      "path": "/docs/_infra/standards/footer.md",
+      "sha256": "3af6c36589ca8e948dbe06abc65e384606547cc24baa2a0713df7c6128230902",
+      "description": "Padrão ou diretriz de compliance e governança.",
+      "tags": [
+        "standards"
+      ]
+    },
+    {
+      "id": "README",
+      "priority": 11,
+      "title": "Readme",
+      "path": "/docs/_infra/README.md",
+      "sha256": "1c33ca101cd0012d635872f0f5dca31aed36b56433839d1e8605f8b955c244e8",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "archive-index",
+      "priority": 11,
+      "title": "Index",
+      "path": "/docs/_infra/archive/index.md",
+      "sha256": "c724e122f4c4887a8d1a9febc29e1892954a36535edf59d2ce9f6ae19c380823",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "index",
+      "priority": 11,
+      "title": "Index",
+      "path": "/docs/_infra/index.md",
+      "sha256": "435a7e72e831760158e6e3281931108041debe6140d7abf5ed6fe9e7bf3b0437",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "uploads_usuario-README",
+      "priority": 11,
+      "title": "Readme",
+      "path": "/docs/_infra/uploads_usuario/README.md",
+      "sha256": "98ea33ea8f8a9d815a53c1a3e2ff3f4ee8125fd437b3613d1b9018fe9b0c629d",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
       ]
     }
   ]
