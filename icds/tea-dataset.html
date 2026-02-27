@@ -22,10 +22,10 @@
   <meta name="twitter:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
   <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_icds.png">
 
-  <link rel="icon" href="/favicons/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+  <link rel="icon" href="/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,6 +48,7 @@
       --text-secondary: #475569;
       --text-tertiary: #64748b;
       --border-color: #e2e8f0;
+      --ax-red: #dc2626;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; scroll-behavior: smooth; overflow-x: hidden; }
@@ -140,6 +141,8 @@
       gap: 12px;
       user-select: none;
     }
+    .section-header[role="button"] { outline: none; }
+    .section-header[role="button"]:focus-visible { box-shadow: 0 0 0 3px rgba(255,255,255,0.5); }
     .section-header:hover { filter: brightness(1.05); }
     .section-num {
       width: 36px;
@@ -154,6 +157,20 @@
       flex-shrink: 0;
     }
     .section-title { font-size: 1rem; font-weight: 700; flex-grow: 1; }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    .section-badge.empty { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); }
+    .section-badge.partial { background: rgba(255,200,50,0.3); color: #ffd666; }
+    .section-badge.complete { background: rgba(0,200,100,0.3); color: #6ee7a0; }
     .section-chevron {
       width: 20px;
       height: 20px;
@@ -185,11 +202,51 @@
       margin-bottom: 8px;
       display: block;
     }
+    .sub-label .required { color: var(--ax-red); margin-left: 2px; }
     .sub-hint {
       font-size: 0.78rem;
       color: var(--text-tertiary);
       margin-bottom: 8px;
       font-style: italic;
+    }
+
+    /* Tooltip */
+    .help-tip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-tertiary);
+      color: var(--text-tertiary);
+      font-size: 0.65rem;
+      font-weight: 800;
+      cursor: help;
+      position: relative;
+      margin-left: 4px;
+      vertical-align: middle;
+      border: 1px solid var(--border-color);
+    }
+    .help-tip:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ax-primary-dark);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      font-style: normal;
+      white-space: normal;
+      width: 240px;
+      line-height: 1.4;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      pointer-events: none;
     }
 
     /* Form elements */
@@ -208,12 +265,16 @@
       font-size: 0.88rem;
       color: var(--text-primary);
       background: var(--bg-secondary);
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, border-left 0.2s;
       outline: none;
     }
     input:focus, textarea:focus, select:focus {
       border-color: var(--ax-primary);
       box-shadow: 0 0 0 3px rgba(25,99,150,0.1);
+    }
+    /* Melhoria #10: Feedback visual ao preencher */
+    input.filled, textarea.filled, select.filled {
+      border-left: 3px solid var(--ax-green);
     }
     textarea { resize: vertical; min-height: 70px; }
     .input-sm { max-width: 200px; }
@@ -347,32 +408,47 @@
       color: var(--text-tertiary);
     }
 
-    /* Generate PDF button */
-    .pdf-section {
+    /* Action buttons row */
+    .action-buttons {
       text-align: center;
       margin: 32px 0 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
     }
-    .btn-pdf {
+    .btn-action {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
-      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
-      color: #fff;
+      padding: 14px 28px;
       border: none;
       border-radius: 12px;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
+    }
+    .btn-action svg { width: 20px; height: 20px; }
+    .btn-pdf {
+      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
+      color: #fff;
       box-shadow: 0 4px 16px rgba(25,99,150,0.3);
     }
     .btn-pdf:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(25,99,150,0.4);
     }
-    .btn-pdf svg { width: 20px; height: 20px; }
+    .btn-csv {
+      background: linear-gradient(135deg, var(--ax-green) 0%, #00b36b 100%);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0,153,93,0.3);
+    }
+    .btn-csv:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,153,93,0.4);
+    }
 
     /* Progress bar */
     .progress-bar {
@@ -385,6 +461,189 @@
       transition: width 0.3s ease;
     }
 
+    /* Floating TOC nav */
+    .toc-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .toc-toggle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--ax-primary);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(27,58,92,0.35);
+      transition: all 0.2s;
+    }
+    .toc-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(27,58,92,0.45); }
+    .toc-toggle svg { width: 22px; height: 22px; }
+    .toc-menu {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      padding: 8px 0;
+      min-width: 260px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .toc-menu.open { display: block; }
+    .toc-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 0.84rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .toc-menu a:hover { background: var(--bg-tertiary); color: var(--ax-primary); }
+    .toc-menu a .toc-num {
+      width: 24px;
+      height: 24px;
+      background: var(--bg-tertiary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--ax-primary);
+      flex-shrink: 0;
+    }
+
+    /* Draft bar */
+    .draft-bar {
+      display: none;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.86rem;
+      color: #92400e;
+      box-shadow: 0 2px 8px rgba(245,158,11,0.15);
+    }
+    .draft-bar.visible { display: flex; }
+    .draft-bar button {
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .draft-bar .btn-restore { background: #f59e0b; color: #fff; }
+    .draft-bar .btn-restore:hover { background: #d97706; }
+    .draft-bar .btn-dismiss { background: transparent; color: #92400e; border: 1px solid #d97706; }
+    .draft-bar .btn-dismiss:hover { background: rgba(217,119,6,0.1); }
+
+    /* Auto-save indicator */
+    .autosave-indicator {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      z-index: 9997;
+      background: rgba(0,153,93,0.9);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .autosave-indicator.show { opacity: 1; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .modal-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--ax-primary); margin-bottom: 12px; }
+    .modal-box p { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+    .modal-box .modal-actions { display: flex; gap: 10px; justify-content: center; }
+    .modal-box .modal-actions button {
+      padding: 10px 24px;
+      border-radius: 10px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .modal-box .btn-confirm { background: var(--ax-primary); color: #fff; }
+    .modal-box .btn-confirm:hover { background: var(--ax-primary-light); }
+    .modal-box .btn-cancel { background: var(--bg-tertiary); color: var(--text-secondary); }
+    .modal-box .btn-cancel:hover { background: var(--border-color); }
+
+    /* Responsive card table for mobile (Seção 8.2) */
+    .card-table-mobile { display: none; }
+    .card-table-mobile .card-row {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .card-table-mobile .card-row-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ax-primary);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .card-table-mobile .card-field {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-bottom: 8px;
+    }
+    .card-table-mobile .card-field:last-child { margin-bottom: 0; }
+    .card-table-mobile .card-field label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .hero { padding: 50px 16px 32px; }
@@ -395,17 +654,23 @@
       .form-section.collapsed .section-body { padding: 0 18px; }
       .section-header { padding: 14px 18px; }
       .option-group { gap: 8px; }
+      .data-table.desktop-table { display: none; }
+      .card-table-mobile { display: block; }
       .data-table { font-size: 0.78rem; display: block; overflow-x: auto; }
       .inline-fields { flex-direction: column; }
       .other-text { width: 160px; }
       .input-sm { max-width: 100%; }
       .input-md { max-width: 100%; }
+      .action-buttons { flex-direction: column; align-items: stretch; }
+      .btn-action { justify-content: center; }
+      .toc-fab { bottom: 16px; right: 16px; }
     }
 
     @media print {
-      .hub-back-btn, .pdf-section, .progress-bar { display: none !important; }
+      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
-      .section-chevron { display: none; }
+      .section-chevron, .section-badge { display: none; }
+      .form-section { page-break-inside: avoid; break-inside: avoid; }
     }
   </style>
 </head>
@@ -427,6 +692,14 @@
 
 <div class="container">
 
+  <!-- Draft restore bar -->
+  <div class="draft-bar" id="draftBar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;flex-shrink:0"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+    <span style="flex:1">Existe um rascunho salvo automaticamente. Deseja restaurar?</span>
+    <button class="btn-restore" onclick="restoreDraft()">Restaurar</button>
+    <button class="btn-dismiss" onclick="dismissDraft()">Descartar</button>
+  </div>
+
   <!-- Context Box -->
   <div class="context-box">
     <h2>Objetivos da Coleta</h2>
@@ -442,18 +715,19 @@
     </ul>
   </div>
 
-  <form id="teaForm">
+  <form id="teaForm" novalidate>
 
   <!-- SECTION 1: PROFISSIONAIS -->
   <div class="form-section" id="sec1">
-    <div class="section-header" onclick="toggleSection('sec1')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec1-body" onclick="toggleSection('sec1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec1')}">
       <div class="section-num">1</div>
       <div class="section-title">Profissionais (por prestador / serviço)</div>
+      <span class="section-badge empty" id="badge-sec1">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec1-body" role="region" aria-labelledby="sec1-title">
       <div class="sub-q">
-        <span class="sub-label">Preencher a quantidade de profissionais por categoria:</span>
+        <span class="sub-label">Preencher a quantidade de profissionais por categoria: <span class="required">*</span></span>
         <table class="data-table">
           <thead>
             <tr>
@@ -464,41 +738,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="row-label">Médicos</td><td><input type="number" min="0" name="prof_med_gen"></td><td><input type="number" min="0" name="prof_med_esp"></td><td><input type="text" name="prof_med_area"></td></tr>
-            <tr><td class="row-label">Fisioterapeutas</td><td><input type="number" min="0" name="prof_fisio_gen"></td><td><input type="number" min="0" name="prof_fisio_esp"></td><td><input type="text" name="prof_fisio_area"></td></tr>
-            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="number" min="0" name="prof_to_gen"></td><td><input type="number" min="0" name="prof_to_esp"></td><td><input type="text" name="prof_to_area"></td></tr>
-            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="number" min="0" name="prof_fono_gen"></td><td><input type="number" min="0" name="prof_fono_esp"></td><td><input type="text" name="prof_fono_area"></td></tr>
-            <tr><td class="row-label">Psicólogos</td><td><input type="number" min="0" name="prof_psi_gen"></td><td><input type="number" min="0" name="prof_psi_esp"></td><td><input type="text" name="prof_psi_area"></td></tr>
+            <tr><td class="row-label">Médicos</td><td><input type="number" min="0" id="prof_med_gen" name="prof_med_gen"></td><td><input type="number" min="0" id="prof_med_esp" name="prof_med_esp"></td><td><input type="text" id="prof_med_area" name="prof_med_area"></td></tr>
+            <tr><td class="row-label">Fisioterapeutas</td><td><input type="number" min="0" id="prof_fisio_gen" name="prof_fisio_gen"></td><td><input type="number" min="0" id="prof_fisio_esp" name="prof_fisio_esp"></td><td><input type="text" id="prof_fisio_area" name="prof_fisio_area"></td></tr>
+            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="number" min="0" id="prof_to_gen" name="prof_to_gen"></td><td><input type="number" min="0" id="prof_to_esp" name="prof_to_esp"></td><td><input type="text" id="prof_to_area" name="prof_to_area"></td></tr>
+            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="number" min="0" id="prof_fono_gen" name="prof_fono_gen"></td><td><input type="number" min="0" id="prof_fono_esp" name="prof_fono_esp"></td><td><input type="text" id="prof_fono_area" name="prof_fono_area"></td></tr>
+            <tr><td class="row-label">Psicólogos</td><td><input type="number" min="0" id="prof_psi_gen" name="prof_psi_gen"></td><td><input type="number" min="0" id="prof_psi_esp" name="prof_psi_esp"></td><td><input type="text" id="prof_psi_area" name="prof_psi_area"></td></tr>
           </tbody>
         </table>
       </div>
       <div class="sub-q">
         <span class="sub-label">Observações (opcional):</span>
-        <textarea name="prof_obs" rows="3" placeholder="Observações sobre os profissionais..."></textarea>
+        <textarea id="prof_obs" name="prof_obs" rows="3" placeholder="Observações sobre os profissionais..."></textarea>
       </div>
     </div>
   </div>
 
   <!-- SECTION 2: PACIENTES -->
   <div class="form-section" id="sec2">
-    <div class="section-header" onclick="toggleSection('sec2')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec2-body" onclick="toggleSection('sec2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec2')}">
       <div class="section-num">2</div>
       <div class="section-title">Pacientes</div>
+      <span class="section-badge empty" id="badge-sec2">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec2-body" role="region">
       <div class="sub-q">
-        <span class="sub-label">2.1 Número de pacientes diagnosticados com TEA:</span>
-        <input type="number" min="0" name="pac_total" class="input-sm" placeholder="Qtde pacientes">
+        <span class="sub-label">2.1 Número de pacientes diagnosticados com TEA: <span class="required">*</span></span>
+        <input type="number" min="0" id="pac_total" name="pac_total" class="input-sm" placeholder="Qtde pacientes">
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">2.2 Instrumento utilizado para diagnóstico:</span>
+        <span class="sub-label">2.2 Instrumento utilizado para diagnóstico: <span class="help-tip" data-tip="CID = Classificação Internacional de Doenças (OMS). DSM = Manual Diagnóstico e Estatístico de Transtornos Mentais (APA).">?</span></span>
         <div class="option-group">
-          <label class="option-item"><input type="checkbox" name="pac_diag_cid"> CID</label>
-          <label class="option-item"><input type="checkbox" name="pac_diag_dsm"> DSM</label>
-          <label class="option-item"><input type="checkbox" name="pac_diag_ambos"> Ambos</label>
-          <label class="option-item"><input type="checkbox" name="pac_diag_outro"> Outro: <input type="text" class="other-text" name="pac_diag_outro_txt" placeholder="Especifique"></label>
+          <label class="option-item"><input type="radio" name="pac_diag_instrumento" value="cid"> CID</label>
+          <label class="option-item"><input type="radio" name="pac_diag_instrumento" value="dsm"> DSM</label>
+          <label class="option-item"><input type="radio" name="pac_diag_instrumento" value="ambos"> Ambos</label>
+          <label class="option-item"><input type="radio" name="pac_diag_instrumento" value="outro"> Outro: <input type="text" class="other-text" name="pac_diag_outro_txt" placeholder="Especifique"></label>
         </div>
       </div>
       <div class="divider"></div>
@@ -516,29 +791,35 @@
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">2.4 Dados clínicos gerais dos pacientes (informar padrão disponível):</span>
+        <span class="sub-label">2.4 Dados demográficos dos pacientes (dados agregados): <span class="required">*</span></span>
+        <div class="sub-hint">Informar a distribuição por gênero do total de pacientes TEA.</div>
         <div class="inline-fields" style="margin-bottom:12px">
           <div class="field-group">
-            <label>Gênero:</label>
-            <div class="option-group">
-              <label class="option-item"><input type="radio" name="pac_genero" value="masculino"> Masculino</label>
-              <label class="option-item"><input type="radio" name="pac_genero" value="feminino"> Feminino</label>
-            </div>
+            <label for="pac_genero_masc">Qtde Masculino:</label>
+            <input type="number" min="0" id="pac_genero_masc" name="pac_genero_masc" class="input-sm" placeholder="0">
+          </div>
+          <div class="field-group">
+            <label for="pac_genero_fem">Qtde Feminino:</label>
+            <input type="number" min="0" id="pac_genero_fem" name="pac_genero_fem" class="input-sm" placeholder="0">
+          </div>
+          <div class="field-group">
+            <label for="pac_genero_ni">Qtde Não informado:</label>
+            <input type="number" min="0" id="pac_genero_ni" name="pac_genero_ni" class="input-sm" placeholder="0">
           </div>
         </div>
         <div class="inline-fields" style="margin-bottom:12px">
           <div class="field-group">
-            <label>Data de nascimento (DN):</label>
-            <input type="date" name="pac_dn" class="input-sm">
+            <label for="pac_idade_diag">Idade média no diagnóstico:</label>
+            <input type="text" id="pac_idade_diag" name="pac_idade_diag" class="input-sm" placeholder="Ex: 3 anos">
           </div>
           <div class="field-group">
-            <label>Idade no diagnóstico:</label>
-            <input type="text" name="pac_idade_diag" class="input-sm" placeholder="Ex: 3 anos">
+            <label for="pac_faixa_etaria">Faixa etária predominante:</label>
+            <input type="text" id="pac_faixa_etaria" name="pac_faixa_etaria" class="input-sm" placeholder="Ex: 2-6 anos">
           </div>
         </div>
         <div class="field-group">
-          <label>Outras variáveis disponíveis:</label>
-          <textarea name="pac_outras_vars" rows="2" placeholder="Descreva outras variáveis disponíveis..."></textarea>
+          <label for="pac_outras_vars">Outras variáveis disponíveis:</label>
+          <textarea id="pac_outras_vars" name="pac_outras_vars" rows="2" placeholder="Descreva outras variáveis disponíveis..."></textarea>
         </div>
       </div>
     </div>
@@ -546,12 +827,13 @@
 
   <!-- SECTION 3: TRATAMENTO -->
   <div class="form-section" id="sec3">
-    <div class="section-header" onclick="toggleSection('sec3')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec3-body" onclick="toggleSection('sec3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec3')}">
       <div class="section-num">3</div>
       <div class="section-title">Tratamento</div>
+      <span class="section-badge empty" id="badge-sec3">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec3-body" role="region">
       <div class="sub-q">
         <span class="sub-label">3.1 Seguem protocolo estruturado de cuidado?</span>
         <div class="option-group">
@@ -561,7 +843,7 @@
         </div>
         <div style="margin-top:8px">
           <span class="sub-hint">Se sim/parcial, qual protocolo?</span>
-          <input type="text" name="trat_protocolo_qual" class="input-md" placeholder="Nome do protocolo">
+          <input type="text" id="trat_protocolo_qual" name="trat_protocolo_qual" class="input-md" placeholder="Nome do protocolo">
         </div>
       </div>
       <div class="divider"></div>
@@ -580,12 +862,12 @@
         <span class="sub-label">3.3 Carga horária média por paciente:</span>
         <div class="inline-fields" style="margin-bottom:12px">
           <div class="field-group">
-            <label>Horas/semana:</label>
-            <input type="number" min="0" step="0.5" name="trat_horas_sem" class="input-sm" placeholder="0">
+            <label for="trat_horas_sem">Horas/semana:</label>
+            <input type="number" min="0" step="0.5" id="trat_horas_sem" name="trat_horas_sem" class="input-sm" placeholder="0">
           </div>
           <div class="field-group">
-            <label>Horas/mês:</label>
-            <input type="number" min="0" step="0.5" name="trat_horas_mes" class="input-sm" placeholder="0">
+            <label for="trat_horas_mes">Horas/mês:</label>
+            <input type="number" min="0" step="0.5" id="trat_horas_mes" name="trat_horas_mes" class="input-sm" placeholder="0">
           </div>
         </div>
         <div style="margin-bottom:8px">
@@ -597,7 +879,7 @@
         </div>
         <div>
           <span class="sub-hint">Se sim, descreva:</span>
-          <textarea name="trat_variacao_desc" rows="3" placeholder="Descreva a variação por perfil/cluster..."></textarea>
+          <textarea id="trat_variacao_desc" name="trat_variacao_desc" rows="3" placeholder="Descreva a variação por perfil/cluster..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -614,7 +896,7 @@
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">3.5 Como é definido "quais profissionais atendem cada paciente"?</span>
+        <span class="sub-label">3.5 Como é definido "quais profissionais atendem cada paciente"? <span class="help-tip" data-tip="PTI = Plano Terapêutico Individual, documento que define as terapias e profissionais para cada paciente.">?</span></span>
         <div class="option-group" style="flex-direction:column">
           <label class="option-item"><input type="radio" name="trat_definicao" value="pti"> Plano terapêutico individual (PTI)</label>
           <label class="option-item"><input type="radio" name="trat_definicao" value="regulacao"> Regulação / auditoria</label>
@@ -627,40 +909,41 @@
 
   <!-- SECTION 4: PRESTADORES -->
   <div class="form-section" id="sec4">
-    <div class="section-header" onclick="toggleSection('sec4')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec4-body" onclick="toggleSection('sec4')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec4')}">
       <div class="section-num">4</div>
       <div class="section-title">Prestadores (cadastro para futuras capacitações)</div>
+      <span class="section-badge empty" id="badge-sec4">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec4-body" role="region">
       <div class="sub-hint" style="margin-bottom:16px">Preencher para cada profissional (ou anexar lista).</div>
       <div id="prestadores-container">
         <div class="prestador-entry" style="background:var(--bg-secondary);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border-color)">
           <div class="sub-q">
             <span class="sub-label">4.1 Nome do profissional:</span>
-            <input type="text" name="prest_nome_1" placeholder="Nome completo">
+            <input type="text" id="prest_nome_1" name="prest_nome_1" placeholder="Nome completo">
           </div>
           <div class="sub-q">
             <span class="sub-label">4.2 Nº de registro profissional:</span>
             <div class="inline-fields" style="flex-wrap:wrap;gap:8px">
-              <div class="field-group"><label>CRM</label><input type="text" name="prest_crm_1" class="input-sm" placeholder="Nº"></div>
-              <div class="field-group"><label>CRP</label><input type="text" name="prest_crp_1" class="input-sm" placeholder="Nº"></div>
-              <div class="field-group"><label>CREF</label><input type="text" name="prest_cref_1" class="input-sm" placeholder="Nº"></div>
-              <div class="field-group"><label>CREFITO</label><input type="text" name="prest_crefito_1" class="input-sm" placeholder="Nº"></div>
-              <div class="field-group"><label>CFa</label><input type="text" name="prest_cfa_1" class="input-sm" placeholder="Nº"></div>
-              <div class="field-group"><label>Outro</label><input type="text" name="prest_outro_reg_1" class="input-sm" placeholder="Conselho / Nº"></div>
+              <div class="field-group"><label for="prest_crm_1">CRM</label><input type="text" id="prest_crm_1" name="prest_crm_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label for="prest_crp_1">CRP</label><input type="text" id="prest_crp_1" name="prest_crp_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label for="prest_cref_1">CREF</label><input type="text" id="prest_cref_1" name="prest_cref_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label for="prest_crefito_1">CREFITO</label><input type="text" id="prest_crefito_1" name="prest_crefito_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label for="prest_cfa_1">CFa</label><input type="text" id="prest_cfa_1" name="prest_cfa_1" class="input-sm" placeholder="Nº"></div>
+              <div class="field-group"><label for="prest_outro_reg_1">Outro</label><input type="text" id="prest_outro_reg_1" name="prest_outro_reg_1" class="input-sm" placeholder="Conselho / Nº"></div>
             </div>
           </div>
           <div class="sub-q">
             <span class="sub-label">4.3 Contato:</span>
             <div class="inline-fields">
-              <div class="field-group" style="flex:1;min-width:200px"><label>E-mail</label><input type="email" name="prest_email_1" placeholder="email@exemplo.com"></div>
-              <div class="field-group" style="flex:1;min-width:200px"><label>Telefone/WhatsApp</label><input type="tel" name="prest_tel_1" placeholder="(00) 00000-0000"></div>
+              <div class="field-group" style="flex:1;min-width:200px"><label for="prest_email_1">E-mail</label><input type="email" id="prest_email_1" name="prest_email_1" placeholder="email@exemplo.com"></div>
+              <div class="field-group" style="flex:1;min-width:200px"><label for="prest_tel_1">Telefone/WhatsApp</label><input type="tel" id="prest_tel_1" name="prest_tel_1" placeholder="(00) 00000-0000"></div>
             </div>
           </div>
           <div class="sub-q">
             <span class="sub-label">4.4 Vínculo / local de atuação:</span>
-            <input type="text" name="prest_vinculo_1" placeholder="Vínculo e local de atuação">
+            <input type="text" id="prest_vinculo_1" name="prest_vinculo_1" placeholder="Vínculo e local de atuação">
           </div>
         </div>
       </div>
@@ -671,32 +954,38 @@
     </div>
   </div>
 
-  <!-- SECTION 5: PAGAMENTO -->
+  <!-- SECTION 5: PAGAMENTO — Melhoria: tabela por categoria profissional -->
   <div class="form-section" id="sec5">
-    <div class="section-header" onclick="toggleSection('sec5')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec5-body" onclick="toggleSection('sec5')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec5')}">
       <div class="section-num">5</div>
       <div class="section-title">Pagamento (remuneração / repasse)</div>
+      <span class="section-badge empty" id="badge-sec5">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec5-body" role="region">
       <div class="sub-q">
-        <span class="sub-label">5.1 Quanto recebem por atendimento (valor unitário)?</span>
-        <div class="inline-fields">
-          <div class="field-group"><label>R$</label><input type="text" name="pag_valor_unit" class="input-sm" placeholder="0,00"></div>
-          <span style="font-size:0.84rem;color:var(--text-tertiary);align-self:flex-end;padding-bottom:10px">por atendimento/procedimento</span>
-        </div>
+        <span class="sub-label">5.1 Valores por categoria profissional: <span class="required">*</span> <span class="help-tip" data-tip="Preencha o valor unitário (por atendimento/sessão) e o valor mensal médio para cada categoria profissional envolvida no cuidado TEA.">?</span></span>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>R$ / atendimento</th>
+              <th>R$ / mês (média)</th>
+              <th>Forma de pagamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-label">Médicos</td><td><input type="text" name="pag_med_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_med_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_med_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+            <tr><td class="row-label">Fisioterapeutas</td><td><input type="text" name="pag_fisio_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fisio_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fisio_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="text" name="pag_to_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_to_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_to_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="text" name="pag_fono_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fono_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fono_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+            <tr><td class="row-label">Psicólogos</td><td><input type="text" name="pag_psi_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_psi_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_psi_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+          </tbody>
+        </table>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">5.2 Quanto recebem por mês (média)?</span>
-        <div class="inline-fields">
-          <div class="field-group"><label>R$</label><input type="text" name="pag_valor_mes" class="input-sm" placeholder="0,00"></div>
-          <span style="font-size:0.84rem;color:var(--text-tertiary);align-self:flex-end;padding-bottom:10px">/ mês</span>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="sub-q">
-        <span class="sub-label">5.3 Forma de pagamento atual (marcar):</span>
+        <span class="sub-label">5.2 Forma de pagamento predominante (geral): <span class="help-tip" data-tip="Fee for service = pagamento por procedimento realizado. Capitation = valor fixo per capita. Fixo prospectivo = valor definido antes da prestação.">?</span></span>
         <div class="option-group" style="flex-direction:column">
           <label class="option-item"><input type="radio" name="pag_forma" value="fee_for_service"> Fee for service (por procedimento)</label>
           <label class="option-item"><input type="radio" name="pag_forma" value="pacote"> Pacote</label>
@@ -709,56 +998,71 @@
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">5.4 Observações de regras e variações (por profissional / procedimento):</span>
-        <textarea name="pag_obs" rows="3" placeholder="Descreva regras e variações..."></textarea>
+        <span class="sub-label">5.3 Observações de regras e variações (por profissional / procedimento):</span>
+        <textarea id="pag_obs" name="pag_obs" rows="3" placeholder="Descreva regras e variações..."></textarea>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 6: JUDICIALIZAÇÕES -->
+  <!-- SECTION 6: JUDICIALIZAÇÕES — Melhoria: campos dinâmicos -->
   <div class="form-section" id="sec6">
-    <div class="section-header" onclick="toggleSection('sec6')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec6-body" onclick="toggleSection('sec6')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec6')}">
       <div class="section-num">6</div>
       <div class="section-title">Dados das Judicializações</div>
+      <span class="section-badge empty" id="badge-sec6">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec6-body" role="region">
       <div class="sub-q">
         <span class="sub-label">6.1 Número de judicializações por mês:</span>
         <div class="inline-fields">
-          <div class="field-group"><label>Média / mês</label><input type="number" min="0" name="jud_media_mes" class="input-sm" placeholder="0"></div>
-          <div class="field-group"><label>Período analisado — de</label><input type="text" name="jud_periodo_de" class="input-sm" placeholder="MM/AAAA"></div>
-          <div class="field-group"><label>a</label><input type="text" name="jud_periodo_a" class="input-sm" placeholder="MM/AAAA"></div>
+          <div class="field-group"><label for="jud_media_mes">Média / mês</label><input type="number" min="0" id="jud_media_mes" name="jud_media_mes" class="input-sm" placeholder="0"></div>
+          <div class="field-group"><label for="jud_periodo_de">Período analisado — de</label><input type="text" id="jud_periodo_de" name="jud_periodo_de" class="input-sm" placeholder="MM/AAAA"></div>
+          <div class="field-group"><label for="jud_periodo_a">a</label><input type="text" id="jud_periodo_a" name="jud_periodo_a" class="input-sm" placeholder="MM/AAAA"></div>
         </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
         <span class="sub-label">6.2 Valor médio das judicializações:</span>
         <div class="inline-fields">
-          <div class="field-group"><label>R$</label><input type="text" name="jud_valor_medio" class="input-sm" placeholder="0,00"></div>
-          <div class="field-group"><label>Referência</label><input type="text" name="jud_valor_ref" class="input-sm" placeholder="média mensal ou por ação?"></div>
+          <div class="field-group"><label for="jud_valor_medio">R$</label><input type="text" id="jud_valor_medio" name="jud_valor_medio" class="input-sm money-input" placeholder="0,00"></div>
+          <div class="field-group"><label for="jud_valor_ref">Referência</label><input type="text" id="jud_valor_ref" name="jud_valor_ref" class="input-sm" placeholder="média mensal ou por ação?"></div>
         </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
         <span class="sub-label">6.3 Quem são os juízes da comarca?</span>
-        <ol class="numbered-list">
-          <li><span class="num">1</span><input type="text" name="jud_juiz_1" placeholder="Nome do juiz"></li>
-          <li><span class="num">2</span><input type="text" name="jud_juiz_2" placeholder="Nome do juiz"></li>
-          <li><span class="num">3</span><input type="text" name="jud_juiz_3" placeholder="Nome do juiz"></li>
-          <li><span class="num">4</span><input type="text" name="jud_juiz_4" placeholder="Nome do juiz"></li>
-        </ol>
+        <div id="juizes-container">
+          <ol class="numbered-list">
+            <li><span class="num">1</span><input type="text" name="jud_juiz_1" placeholder="Nome do juiz"></li>
+            <li><span class="num">2</span><input type="text" name="jud_juiz_2" placeholder="Nome do juiz"></li>
+            <li><span class="num">3</span><input type="text" name="jud_juiz_3" placeholder="Nome do juiz"></li>
+            <li><span class="num">4</span><input type="text" name="jud_juiz_4" placeholder="Nome do juiz"></li>
+          </ol>
+        </div>
+        <button type="button" onclick="addDynamicField('juizes-container','jud_juiz','Nome do juiz')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar juiz</button>
         <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_juiz_anexo"> Anexo lista</label>
+        <div class="field-group" style="margin-top:8px">
+          <label for="jud_juiz_link">Link do anexo (Google Drive, etc.):</label>
+          <input type="text" id="jud_juiz_link" name="jud_juiz_link" class="input-md" placeholder="URL do anexo">
+        </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
         <span class="sub-label">6.4 Quem são os peritos convocados?</span>
-        <ol class="numbered-list">
-          <li><span class="num">1</span><input type="text" name="jud_perito_1" placeholder="Nome do perito"></li>
-          <li><span class="num">2</span><input type="text" name="jud_perito_2" placeholder="Nome do perito"></li>
-          <li><span class="num">3</span><input type="text" name="jud_perito_3" placeholder="Nome do perito"></li>
-        </ol>
+        <div id="peritos-container">
+          <ol class="numbered-list">
+            <li><span class="num">1</span><input type="text" name="jud_perito_1" placeholder="Nome do perito"></li>
+            <li><span class="num">2</span><input type="text" name="jud_perito_2" placeholder="Nome do perito"></li>
+            <li><span class="num">3</span><input type="text" name="jud_perito_3" placeholder="Nome do perito"></li>
+          </ol>
+        </div>
+        <button type="button" onclick="addDynamicField('peritos-container','jud_perito','Nome do perito')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar perito</button>
         <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_perito_anexo"> Anexo lista</label>
+        <div class="field-group" style="margin-top:8px">
+          <label for="jud_perito_link">Link do anexo (Google Drive, etc.):</label>
+          <input type="text" id="jud_perito_link" name="jud_perito_link" class="input-md" placeholder="URL do anexo">
+        </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
@@ -772,19 +1076,20 @@
       <div class="divider"></div>
       <div class="sub-q">
         <span class="sub-label">6.6 Como a judicialização é processada internamente? (resumo do fluxo)</span>
-        <textarea name="jud_fluxo" rows="4" placeholder="Descreva o fluxo interno de processamento das judicializações..."></textarea>
+        <textarea id="jud_fluxo" name="jud_fluxo" rows="4" placeholder="Descreva o fluxo interno de processamento das judicializações..."></textarea>
       </div>
     </div>
   </div>
 
   <!-- SECTION 7: JORNADA DO PACIENTE -->
   <div class="form-section" id="sec7">
-    <div class="section-header" onclick="toggleSection('sec7')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec7-body" onclick="toggleSection('sec7')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec7')}">
       <div class="section-num">7</div>
       <div class="section-title">Jornada Atual do Paciente (AS-IS) + Insumos para Desenho da Linha de Cuidado</div>
+      <span class="section-badge empty" id="badge-sec7">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec7-body" role="region">
       <div class="sub-q">
         <span class="sub-label">7.1 Existe documentação da jornada atual (AS-IS)?</span>
         <div class="option-group">
@@ -793,21 +1098,21 @@
           <label class="option-item"><input type="radio" name="jorn_doc" value="nao"> Não</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Anexo/Link:</label>
-          <input type="text" name="jorn_doc_link" class="input-md" placeholder="URL ou referência do anexo">
+          <label for="jorn_doc_link">Anexo/Link:</label>
+          <input type="text" id="jorn_doc_link" name="jorn_doc_link" class="input-md" placeholder="URL ou referência do anexo">
         </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
         <span class="sub-label">7.2 Descreva a jornada atual do paciente TEA na Unimed (AS-IS)</span>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="field-group"><label>Porta de entrada (onde começa):</label><textarea name="jorn_porta" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Triagem/avaliação inicial (quem faz / como):</label><textarea name="jorn_triagem" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Diagnóstico (quem fecha / instrumentos):</label><textarea name="jorn_diagnostico" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Encaminhamentos (regras / quem autoriza):</label><textarea name="jorn_encaminhamentos" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Terapias (como são definidas e revisadas):</label><textarea name="jorn_terapias" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Acompanhamento e reavaliações (frequência / critérios):</label><textarea name="jorn_acompanhamento" rows="2" placeholder="Descreva..."></textarea></div>
-          <div class="field-group"><label>Alta/continuidade (quando e como ocorre):</label><textarea name="jorn_alta" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_porta">Porta de entrada (onde começa):</label><textarea id="jorn_porta" name="jorn_porta" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_triagem">Triagem/avaliação inicial (quem faz / como):</label><textarea id="jorn_triagem" name="jorn_triagem" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_diagnostico">Diagnóstico (quem fecha / instrumentos):</label><textarea id="jorn_diagnostico" name="jorn_diagnostico" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_encaminhamentos">Encaminhamentos (regras / quem autoriza):</label><textarea id="jorn_encaminhamentos" name="jorn_encaminhamentos" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_terapias">Terapias (como são definidas e revisadas):</label><textarea id="jorn_terapias" name="jorn_terapias" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_acompanhamento">Acompanhamento e reavaliações (frequência / critérios):</label><textarea id="jorn_acompanhamento" name="jorn_acompanhamento" rows="2" placeholder="Descreva..."></textarea></div>
+          <div class="field-group"><label for="jorn_alta">Alta/continuidade (quando e como ocorre):</label><textarea id="jorn_alta" name="jorn_alta" rows="2" placeholder="Descreva..."></textarea></div>
         </div>
       </div>
       <div class="divider"></div>
@@ -819,8 +1124,8 @@
           <label class="option-item"><input type="radio" name="jorn_padrao" value="parcial"> Parcial</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Se sim, qual?</label>
-          <input type="text" name="jorn_padrao_qual" class="input-md" placeholder="Nome do protocolo/fluxo">
+          <label for="jorn_padrao_qual">Se sim, qual?</label>
+          <input type="text" id="jorn_padrao_qual" name="jorn_padrao_qual" class="input-md" placeholder="Nome do protocolo/fluxo">
         </div>
       </div>
       <div class="divider"></div>
@@ -838,8 +1143,8 @@
           <label class="option-item"><input type="checkbox" name="jorn_var_outros"> Outros: <input type="text" class="other-text" name="jorn_var_outros_txt" placeholder="Especifique"></label>
         </div>
         <div class="field-group" style="margin-top:12px">
-          <label>Descreva exemplos de variação:</label>
-          <textarea name="jorn_var_desc" rows="3" placeholder="Exemplos de variação entre casos..."></textarea>
+          <label for="jorn_var_desc">Descreva exemplos de variação:</label>
+          <textarea id="jorn_var_desc" name="jorn_var_desc" rows="3" placeholder="Exemplos de variação entre casos..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -858,9 +1163,9 @@
       <div class="sub-q">
         <span class="sub-label">7.6 Pontos de dor (perspectiva do beneficiário e da operação)</span>
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="field-group"><label>Do beneficiário/família:</label><textarea name="jorn_dor_benef" rows="3" placeholder="Descreva os pontos de dor do beneficiário/família..."></textarea></div>
-          <div class="field-group"><label>Da Unimed (regulação, auditoria, atendimento):</label><textarea name="jorn_dor_unimed" rows="3" placeholder="Descreva os pontos de dor da Unimed..."></textarea></div>
-          <div class="field-group"><label>Dos prestadores:</label><textarea name="jorn_dor_prest" rows="3" placeholder="Descreva os pontos de dor dos prestadores..."></textarea></div>
+          <div class="field-group"><label for="jorn_dor_benef">Do beneficiário/família:</label><textarea id="jorn_dor_benef" name="jorn_dor_benef" rows="3" placeholder="Descreva os pontos de dor do beneficiário/família..."></textarea></div>
+          <div class="field-group"><label for="jorn_dor_unimed">Da Unimed (regulação, auditoria, atendimento):</label><textarea id="jorn_dor_unimed" name="jorn_dor_unimed" rows="3" placeholder="Descreva os pontos de dor da Unimed..."></textarea></div>
+          <div class="field-group"><label for="jorn_dor_prest">Dos prestadores:</label><textarea id="jorn_dor_prest" name="jorn_dor_prest" rows="3" placeholder="Descreva os pontos de dor dos prestadores..."></textarea></div>
         </div>
       </div>
       <div class="divider"></div>
@@ -879,8 +1184,8 @@
           <label class="option-item"><input type="checkbox" name="jorn_req_outros"> Outros: <input type="text" class="other-text" name="jorn_req_outros_txt" placeholder="Especifique"></label>
         </div>
         <div class="field-group" style="margin-top:12px">
-          <label>Detalhes:</label>
-          <textarea name="jorn_req_detalhes" rows="3" placeholder="Detalhe os requisitos e expectativas..."></textarea>
+          <label for="jorn_req_detalhes">Detalhes:</label>
+          <textarea id="jorn_req_detalhes" name="jorn_req_detalhes" rows="3" placeholder="Detalhe os requisitos e expectativas..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -906,12 +1211,13 @@
 
   <!-- SECTION 8: GOVERNANÇA -->
   <div class="form-section" id="sec8">
-    <div class="section-header" onclick="toggleSection('sec8')">
+    <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec8-body" onclick="toggleSection('sec8')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec8')}">
       <div class="section-num">8</div>
       <div class="section-title">Governança</div>
+      <span class="section-badge empty" id="badge-sec8">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
-    <div class="section-body">
+    <div class="section-body" id="sec8-body" role="region">
 
       <div class="sub-q">
         <span class="sub-label" style="font-size:0.94rem;color:var(--ax-primary)">8.1 Governança e processos</span>
@@ -925,8 +1231,8 @@
           <label class="option-item"><input type="radio" name="gov_risco" value="em_discussao"> Em discussão</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Se sim, como funciona?</label>
-          <textarea name="gov_risco_como" rows="3" placeholder="Descreva o modelo de compartilhamento de risco..."></textarea>
+          <label for="gov_risco_como">Se sim, como funciona?</label>
+          <textarea id="gov_risco_como" name="gov_risco_como" rows="3" placeholder="Descreva o modelo de compartilhamento de risco..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -939,8 +1245,8 @@
           <label class="option-item"><input type="radio" name="gov_auditoria" value="parcial"> Parcial</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Se sim, descreva (quem faz / periodicidade / critérios):</label>
-          <textarea name="gov_auditoria_desc" rows="3" placeholder="Descreva o processo de auditoria clínica..."></textarea>
+          <label for="gov_auditoria_desc">Se sim, descreva (quem faz / periodicidade / critérios):</label>
+          <textarea id="gov_auditoria_desc" name="gov_auditoria_desc" rows="3" placeholder="Descreva o processo de auditoria clínica..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -953,8 +1259,8 @@
           <label class="option-item"><input type="radio" name="gov_regulacao" value="parcial"> Parcial</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Se sim, como se dá a integração?</label>
-          <textarea name="gov_regulacao_como" rows="3" placeholder="Descreva a integração com regulação interna..."></textarea>
+          <label for="gov_regulacao_como">Se sim, como se dá a integração?</label>
+          <textarea id="gov_regulacao_como" name="gov_regulacao_como" rows="3" placeholder="Descreva a integração com regulação interna..."></textarea>
         </div>
       </div>
       <div class="divider"></div>
@@ -962,8 +1268,9 @@
       <div class="sub-q">
         <span class="sub-label" style="font-size:0.94rem;color:var(--ax-primary)">8.2 Conjunto mínimo de dados (marcar disponibilidade)</span>
         <div class="sub-hint">Preencher Disponível? / Fonte / Frequência / Responsável:</div>
+        <!-- Desktop table -->
         <div style="overflow-x:auto">
-        <table class="data-table">
+        <table class="data-table desktop-table">
           <thead>
             <tr>
               <th>Dado mínimo</th>
@@ -986,6 +1293,8 @@
           </tbody>
         </table>
         </div>
+        <!-- Mobile card layout -->
+        <div class="card-table-mobile" id="govCardsMobile"></div>
       </div>
       <div class="divider"></div>
 
@@ -1001,7 +1310,7 @@
 
       <div class="sub-q">
         <span class="sub-label">8.4 Observações sobre qualidade do dado (lacunas, inconsistências, acesso):</span>
-        <textarea name="gov_qualidade" rows="4" placeholder="Descreva lacunas, inconsistências e questões de acesso aos dados..."></textarea>
+        <textarea id="gov_qualidade" name="gov_qualidade" rows="4" placeholder="Descreva lacunas, inconsistências e questões de acesso aos dados..."></textarea>
       </div>
       <div class="divider"></div>
 
@@ -1014,23 +1323,63 @@
           <label class="option-item"><input type="checkbox" name="gov_evid_outros"> Outros</label>
         </div>
         <div class="field-group" style="margin-top:8px">
-          <label>Anexo/Link:</label>
-          <input type="text" name="gov_evid_link" class="input-md" placeholder="URL ou referência do anexo">
+          <label for="gov_evid_link">Anexo/Link:</label>
+          <input type="text" id="gov_evid_link" name="gov_evid_link" class="input-md" placeholder="URL ou referência do anexo">
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- PDF Button -->
-  <div class="pdf-section">
-    <button type="button" class="btn-pdf" onclick="generatePDF()">
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button type="button" class="btn-action btn-pdf" onclick="confirmGeneratePDF()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Gerar PDF do Formulário
+      Gerar PDF
+    </button>
+    <button type="button" class="btn-action btn-csv" onclick="exportCSV()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exportar CSV
+    </button>
+    <button type="button" onclick="clearForm()" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);transition:all 0.2s">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      Limpar formulário
     </button>
   </div>
 
   </form>
+</div>
+
+<!-- Floating TOC -->
+<div class="toc-fab" id="tocFab">
+  <div class="toc-menu" id="tocMenu">
+    <a href="#sec1" onclick="navTo('sec1')"><span class="toc-num">1</span>Profissionais</a>
+    <a href="#sec2" onclick="navTo('sec2')"><span class="toc-num">2</span>Pacientes</a>
+    <a href="#sec3" onclick="navTo('sec3')"><span class="toc-num">3</span>Tratamento</a>
+    <a href="#sec4" onclick="navTo('sec4')"><span class="toc-num">4</span>Prestadores</a>
+    <a href="#sec5" onclick="navTo('sec5')"><span class="toc-num">5</span>Pagamento</a>
+    <a href="#sec6" onclick="navTo('sec6')"><span class="toc-num">6</span>Judicializações</a>
+    <a href="#sec7" onclick="navTo('sec7')"><span class="toc-num">7</span>Jornada do Paciente</a>
+    <a href="#sec8" onclick="navTo('sec8')"><span class="toc-num">8</span>Governança</a>
+  </div>
+  <button class="toc-toggle" onclick="toggleTOC()" title="Navegar seções">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- Auto-save indicator -->
+<div class="autosave-indicator" id="autosaveIndicator">Rascunho salvo</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="pdfModal">
+  <div class="modal-box">
+    <h3>Gerar PDF do Formulário</h3>
+    <p id="pdfModalText">Preenchimento: 0% concluído. Deseja gerar o PDF agora?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closePdfModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="closePdfModal();generatePDF()">Gerar PDF</button>
+    </div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -1060,13 +1409,37 @@
 </div>
 
 <script>
-// Toggle sections
+// ============================================================
+// TOGGLE SECTIONS (with ARIA)
+// ============================================================
 function toggleSection(id) {
-  document.getElementById(id).classList.toggle('collapsed');
+  const sec = document.getElementById(id);
+  const header = sec.querySelector('.section-header');
+  const isCollapsed = sec.classList.toggle('collapsed');
+  header.setAttribute('aria-expanded', !isCollapsed);
   updateProgress();
 }
 
-// Add prestador
+// ============================================================
+// TOC NAVIGATION
+// ============================================================
+function toggleTOC() {
+  document.getElementById('tocMenu').classList.toggle('open');
+}
+function navTo(id) {
+  const sec = document.getElementById(id);
+  if (sec.classList.contains('collapsed')) toggleSection(id);
+  sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('tocMenu').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  const fab = document.getElementById('tocFab');
+  if (!fab.contains(e.target)) document.getElementById('tocMenu').classList.remove('open');
+});
+
+// ============================================================
+// ADD PRESTADOR
+// ============================================================
 let prestadorCount = 1;
 function addPrestador() {
   prestadorCount++;
@@ -1078,7 +1451,8 @@ function addPrestador() {
   entry.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <span style="font-size:0.82rem;font-weight:700;color:var(--ax-primary)">Profissional #${n}</span>
-      <button type="button" onclick="this.closest('.prestador-entry').remove()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>
+      <button type="button" onclick
+="this.closest('.prestador-entry').remove();updateProgress();saveDraft()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>
     </div>
     <div class="sub-q">
       <span class="sub-label">4.1 Nome do profissional:</span>
@@ -1110,7 +1484,21 @@ function addPrestador() {
   container.appendChild(entry);
 }
 
-// Progress bar
+// ============================================================
+// ADD DYNAMIC FIELDS (juízes / peritos)
+// ============================================================
+function addDynamicField(containerId, prefix, placeholder) {
+  const container = document.getElementById(containerId);
+  const list = container.querySelector('.numbered-list');
+  const count = list.querySelectorAll('li').length + 1;
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="num">${count}</span><input type="text" name="${prefix}_${count}" placeholder="${placeholder}">`;
+  list.appendChild(li);
+}
+
+// ============================================================
+// PROGRESS BAR + SECTION BADGES
+// ============================================================
 function updateProgress() {
   const form = document.getElementById('teaForm');
   const inputs = form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
@@ -1118,10 +1506,279 @@ function updateProgress() {
   inputs.forEach(i => { if (i.value.trim()) filled++; });
   const pct = inputs.length > 0 ? (filled / inputs.length) * 100 : 0;
   document.getElementById('progressBar').style.width = pct + '%';
-}
-document.addEventListener('input', updateProgress);
 
-// PDF Generation
+  // Update section badges
+  for (let s = 1; s <= 8; s++) {
+    const sec = document.getElementById('sec' + s);
+    if (!sec) continue;
+    const body = sec.querySelector('.section-body');
+    const secInputs = body.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
+    const secRadios = body.querySelectorAll('input[type="radio"]');
+    const secChecks = body.querySelectorAll('input[type="checkbox"]');
+    let secFilled = 0;
+    let secTotal = secInputs.length;
+    secInputs.forEach(i => { if (i.value.trim()) secFilled++; });
+    // Count radio groups
+    const radioGroups = new Set();
+    secRadios.forEach(r => radioGroups.add(r.name));
+    radioGroups.forEach(name => {
+      secTotal++;
+      if (body.querySelector(`input[name="${name}"]:checked`)) secFilled++;
+    });
+    // Count checkboxes
+    let anyChecked = false;
+    secChecks.forEach(c => { if (c.checked) anyChecked = true; });
+
+    const badge = document.getElementById('badge-sec' + s);
+    if (!badge) continue;
+    if (secFilled === 0 && !anyChecked) {
+      badge.className = 'section-badge empty';
+      badge.textContent = 'Vazio';
+    } else if (secFilled >= secTotal * 0.7) {
+      badge.className = 'section-badge complete';
+      badge.textContent = 'Completo';
+    } else {
+      badge.className = 'section-badge partial';
+      badge.textContent = 'Parcial';
+    }
+  }
+}
+
+// ============================================================
+// FILLED CLASS (visual feedback)
+// ============================================================
+function updateFilledClass(el) {
+  if (el.value && el.value.trim()) {
+    el.classList.add('filled');
+  } else {
+    el.classList.remove('filled');
+  }
+}
+
+// ============================================================
+// MONEY MASK (Brazilian format)
+// ============================================================
+function applyMoneyMask(e) {
+  let v = e.target.value.replace(/\D/g, '');
+  if (!v) { e.target.value = ''; return; }
+  v = (parseInt(v, 10) / 100).toFixed(2);
+  v = v.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  e.target.value = v;
+}
+
+// ============================================================
+// AUTO-SAVE (localStorage)
+// ============================================================
+const DRAFT_KEY = 'tea_dataset_draft_v2';
+let saveTimeout = null;
+
+function saveDraft() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(function() {
+    const form = document.getElementById('teaForm');
+    const data = {};
+    // Text/number/email/tel/date inputs
+    form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+      if (el.name) data[el.name] = el.value;
+    });
+    // Radio buttons
+    form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      data['__radio__' + el.name] = el.value;
+    });
+    // Checkboxes
+    form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+      if (el.name) data['__check__' + el.name] = el.checked;
+    });
+    data['__timestamp__'] = new Date().toISOString();
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+    // Show indicator
+    const ind = document.getElementById('autosaveIndicator');
+    ind.classList.add('show');
+    setTimeout(() => ind.classList.remove('show'), 1500);
+  }, 800);
+}
+
+function restoreDraft() {
+  const raw = localStorage.getItem(DRAFT_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+  const form = document.getElementById('teaForm');
+  Object.keys(data).forEach(key => {
+    if (key.startsWith('__')) return;
+    const el = form.querySelector(`[name="${key}"]`);
+    if (el) { el.value = data[key]; updateFilledClass(el); }
+  });
+  // Radios
+  Object.keys(data).forEach(key => {
+    if (!key.startsWith('__radio__')) return;
+    const name = key.replace('__radio__', '');
+    const el = form.querySelector(`input[name="${name}"][value="${data[key]}"]`);
+    if (el) el.checked = true;
+  });
+  // Checkboxes
+  Object.keys(data).forEach(key => {
+    if (!key.startsWith('__check__')) return;
+    const name = key.replace('__check__', '');
+    const el = form.querySelector(`input[name="${name}"]`);
+    if (el) el.checked = data[key];
+  });
+  document.getElementById('draftBar').classList.remove('visible');
+  updateProgress();
+}
+
+function dismissDraft() {
+  document.getElementById('draftBar').classList.remove('visible');
+}
+
+function checkDraft() {
+  const raw = localStorage.getItem(DRAFT_KEY);
+  if (raw) {
+    const data = JSON.parse(raw);
+    // Check if there's actual content
+    const hasContent = Object.keys(data).some(k => !k.startsWith('__') && data[k]);
+    if (hasContent) {
+      document.getElementById('draftBar').classList.add('visible');
+    }
+  }
+}
+
+// ============================================================
+// CLEAR FORM
+// ============================================================
+function clearForm() {
+  if (!confirm('Tem certeza que deseja limpar todo o formulário? Esta ação não pode ser desfeita.')) return;
+  const form = document.getElementById('teaForm');
+  form.reset();
+  form.querySelectorAll('.filled').forEach(el => el.classList.remove('filled'));
+  localStorage.removeItem(DRAFT_KEY);
+  updateProgress();
+}
+
+// ============================================================
+// PDF CONFIRMATION MODAL
+// ============================================================
+function confirmGeneratePDF() {
+  const form = document.getElementById('teaForm');
+  const inputs = form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
+  let filled = 0;
+  inputs.forEach(i => { if (i.value.trim()) filled++; });
+  const pct = inputs.length > 0 ? Math.round((filled / inputs.length) * 100) : 0;
+
+  // Check required fields
+  const requiredEmpty = [];
+  const pacTotal = form.querySelector('[name="pac_total"]');
+  if (!pacTotal || !pacTotal.value.trim()) requiredEmpty.push('Qtde pacientes TEA (2.1)');
+
+  let msg = `Preenchimento: ${pct}% concluído.`;
+  if (requiredEmpty.length > 0) {
+    msg += `\n\nCampos obrigatórios vazios:\n- ${requiredEmpty.join('\n- ')}`;
+  }
+  msg += '\n\nDeseja gerar o PDF agora?';
+
+  document.getElementById('pdfModalText').textContent = msg;
+  document.getElementById('pdfModal').classList.add('open');
+}
+function closePdfModal() {
+  document.getElementById('pdfModal').classList.remove('open');
+}
+
+// ============================================================
+// EXPORT CSV
+// ============================================================
+function exportCSV() {
+  const form = document.getElementById('teaForm');
+  const rows = [['Campo', 'Valor']];
+
+  // All named inputs
+  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+    if (el.name) rows.push([el.name, (el.value || '').replace(/"/g, '""')]);
+  });
+  // Radios
+  const radioGroups = new Set();
+  form.querySelectorAll('input[type="radio"]').forEach(r => radioGroups.add(r.name));
+  radioGroups.forEach(name => {
+    const checked = form.querySelector(`input[name="${name}"]:checked`);
+    rows.push([name, checked ? checked.value : '']);
+  });
+  // Checkboxes
+  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    if (el.name) rows.push([el.name, el.checked ? 'Sim' : 'Não']);
+  });
+
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'DataSet_TEA_Unimed_RioVerde.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ============================================================
+// MOBILE CARD TABLE (Seção 8.2)
+// ============================================================
+function buildMobileCards() {
+  const items = [
+    { label: 'Base de beneficiários (carteira)', prefix: 'gov_dado_benef' },
+    { label: 'Base de pacientes TEA', prefix: 'gov_dado_tea' },
+    { label: 'Utilização (consultas/terapias/exames)', prefix: 'gov_dado_util' },
+    { label: 'Custo por item', prefix: 'gov_dado_custo' },
+    { label: 'Rede de prestadores', prefix: 'gov_dado_rede' },
+    { label: 'Eventos cobertos', prefix: 'gov_dado_eventos' },
+    { label: 'Eventos alta complexidade', prefix: 'gov_dado_alta' },
+    { label: 'Indicadores assistenciais', prefix: 'gov_dado_indic' },
+    { label: 'Judicialização', prefix: 'gov_dado_jud' }
+  ];
+  const container = document.getElementById('govCardsMobile');
+  items.forEach(item => {
+    container.innerHTML += `
+      <div class="card-row">
+        <div class="card-row-title">${item.label}</div>
+        <div class="card-field"><label>Disponível?</label><select name="${item.prefix}_m"><option value="">—</option><option value="S">S</option><option value="N">N</option><option value="Parcial">Parcial</option></select></div>
+        <div class="card-field"><label>Fonte</label><input type="text" name="${item.prefix}_fonte_m" placeholder="Fonte"></div>
+        <div class="card-field"><label>Frequência</label><input type="text" name="${item.prefix}_freq_m" placeholder="Frequência"></div>
+        <div class="card-field"><label>Responsável</label><input type="text" name="${item.prefix}_resp_m" placeholder="Responsável"></div>
+      </div>
+    `;
+  });
+}
+
+// ============================================================
+// EVENT LISTENERS
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  // Build mobile cards
+  buildMobileCards();
+
+  // Check for draft
+  checkDraft();
+
+  // Money mask
+  document.querySelectorAll('.money-input').forEach(el => {
+    el.addEventListener('input', applyMoneyMask);
+  });
+
+  // Initial progress
+  updateProgress();
+});
+
+// Global input listener for auto-save, progress, and filled class
+document.addEventListener('input', function(e) {
+  updateProgress();
+  saveDraft();
+  if (e.target.matches('input, textarea, select')) {
+    updateFilledClass(e.target);
+  }
+});
+document.addEventListener('change', function(e) {
+  updateProgress();
+  saveDraft();
+});
+
+// ============================================================
+// PDF GENERATION (bug fix: line 1409 syntax corrected)
+// ============================================================
 function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF('p', 'mm', 'a4');
@@ -1247,15 +1904,18 @@ function generatePDF() {
   addSubLabel('2.1 Número de pacientes diagnosticados com TEA:');
   addValue(getVal('pac_total') || '(não preenchido)');
   addSubLabel('2.2 Instrumento utilizado para diagnóstico:');
-  addValue(getChecked(['pac_diag_cid', 'pac_diag_dsm', 'pac_diag_ambos', 'pac_diag_outro']));
+  let diagInstr = getRadio('pac_diag_instrumento');
+  if (diagInstr === 'outro') diagInstr = 'Outro: ' + (getVal('pac_diag_outro_txt') || '—');
+  addValue(diagInstr || '(não selecionado)');
   addSubLabel('2.3 Profissional que fechou o diagnóstico:');
   let profDiag = getRadio('pac_prof_diag');
   if (profDiag === 'medico') profDiag = 'Médico (especialidade: ' + (getVal('pac_prof_diag_esp') || '—') + ')';
   else if (profDiag === 'psicologo') profDiag = 'Psicólogo';
   else if (profDiag === 'outro') profDiag = 'Outro: ' + (getVal('pac_prof_diag_outro') || '—');
   addValue(profDiag);
-  addSubLabel('2.4 Dados clínicos gerais:');
-  addValue('Gênero: ' + (getRadio('pac_genero') || '—') + ' | DN: ' + (getVal('pac_dn') || '—') + ' | Idade no diagnóstico: ' + (getVal('pac_idade_diag') || '—'));
+  addSubLabel('2.4 Dados demográficos (agregados):');
+  addValue('Masculino: ' + (getVal('pac_genero_masc') || '—') + ' | Feminino: ' + (getVal('pac_genero_fem') || '—') + ' | Não informado: ' + (getVal('pac_genero_ni') || '—'));
+  addValue('Idade média no diagnóstico: ' + (getVal('pac_idade_diag') || '—') + ' | Faixa etária predominante: ' + (getVal('pac_faixa_etaria') || '—'));
   addSubLabel('Outras variáveis disponíveis:');
   addValue(getVal('pac_outras_vars'));
 
@@ -1292,17 +1952,30 @@ function generatePDF() {
     addValue('Vínculo: ' + (getVal('prest_vinculo_' + n) || '—'));
   });
 
-  // 5) PAGAMENTO
+  // 5) PAGAMENTO (atualizado para tabela por categoria)
   addTitle('5) Pagamento (remuneração / repasse)');
-  addSubLabel('5.1 Valor por atendimento:');
-  addValue('R$ ' + (getVal('pag_valor_unit') || '—'));
-  addSubLabel('5.2 Valor por mês (média):');
-  addValue('R$ ' + (getVal('pag_valor_mes') || '—'));
-  addSubLabel('5.3 Forma de pagamento:');
+  const pagCats = ['Médicos', 'Fisioterapeutas', 'Terapeutas Ocupacionais', 'Fonoaudiólogos', 'Psicólogos'];
+  const pagPrefixes = ['pag_med', 'pag_fisio', 'pag_to', 'pag_fono', 'pag_psi'];
+  const formaMap = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo' };
+  const pagRows = pagCats.map((cat, i) => {
+    const p = pagPrefixes[i];
+    return [cat, getVal(p + '_unit') || '—', getVal(p + '_mes') || '—', formaMap[getVal(p + '_forma')] || '—'];
+  });
+  doc.autoTable({
+    head: [['Categoria', 'R$ / atendimento', 'R$ / mês', 'Forma de pagamento']],
+    body: pagRows,
+    startY: y,
+    theme: 'grid',
+    headStyles: { fillColor: [25, 99, 150], fontSize: 8 },
+    styles: { fontSize: 8, cellPadding: 3 },
+    margin: { left: margin, right: margin }
+  });
+  y = doc.lastAutoTable.finalY + 4;
+  addSubLabel('Forma de pagamento predominante (geral):');
   let formaPag = getRadio('pag_forma');
-  const formaMap = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo', outro: 'Outro: ' + (getVal('pag_forma_outro') || '—') };
-  addValue(formaMap[formaPag] || '(não selecionado)');
-  addSubLabel('5.4 Observações:');
+  const formaMapGeral = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo', outro: 'Outro: ' + (getVal('pag_forma_outro') || '—') };
+  addValue(formaMapGeral[formaPag] || '(não selecionado)');
+  addSubLabel('Observações:');
   addValue(getVal('pag_obs'));
 
   // 6) JUDICIALIZAÇÕES
@@ -1312,9 +1985,11 @@ function generatePDF() {
   addSubLabel('6.2 Valor médio:');
   addValue('R$ ' + (getVal('jud_valor_medio') || '—') + ' (' + (getVal('jud_valor_ref') || '—') + ')');
   addSubLabel('6.3 Juízes da comarca:');
-  for (let i = 1; i <= 4; i++) { const v = getVal('jud_juiz_' + i); if (v) addValue(i + '. ' + v); }
+  const juizList = document.querySelectorAll('[name^="jud_juiz_"]:not([name$="_anexo"]):not([name$="_link"])');
+  juizList.forEach((el, i) => { if (el.value) addValue((i + 1) + '. ' + el.value); });
   addSubLabel('6.4 Peritos convocados:');
-  for (let i = 1; i <= 3; i++) { const v = getVal('jud_perito_' + i); if (v) addValue(i + '. ' + v); }
+  const peritoList = document.querySelectorAll('[name^="jud_perito_"]:not([name$="_anexo"]):not([name$="_link"])');
+  peritoList.forEach((el, i) => { if (el.value) addValue((i + 1) + '. ' + el.value); });
   addSubLabel('6.5 Base de dados por caso judicializado:');
   let judBase = getRadio('jud_base');
   if (judBase === 'sim') judBase = 'Sim — ' + (getVal('jud_base_onde') || '—');
@@ -1401,12 +2076,14 @@ function generatePDF() {
   addValue(getChecked(['gov_evid_relatorios', 'gov_evid_dashboard', 'gov_evid_planilha', 'gov_evid_outros']));
   if (getVal('gov_evid_link')) addValue('Link: ' + getVal('gov_evid_link'));
 
-  // Footer on last page
+  // Footer on all pages (BUG FIX: syntax corrected)
   const totalPages = doc.internal.getNumberOfPages();
   for (let i = 1; i <= totalPages; i++) {
     doc.setPage(i);
     doc.setFontSize(7);
-    doc.setTextColor(150, 150,doc.text('ICDS \u2014 Data Set TEA \u2014 Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' }); doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
+    doc.setTextColor(150, 150, 150);
+    doc.text('ICDS \u2014 Data Set TEA \u2014 Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' });
+    doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
   }
 
   doc.save('DataSet_TEA_Unimed_RioVerde.pdf');
