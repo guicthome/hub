@@ -70,6 +70,11 @@ jobs:
           # Copy root files
           cp CNAME "$DIST/" 2>/dev/null || true
           cp site.webmanifest "$DIST/" 2>/dev/null || true
+          # Adicione estas 3 linhas abaixo
+          cp llms.txt "$DIST/" 2>/dev/null || true
+          cp manifest.json "$DIST/" 2>/dev/null || true
+          cp completeness-checklist.md "$DIST/" 2>/dev/null || true
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
