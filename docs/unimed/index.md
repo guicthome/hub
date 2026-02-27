@@ -185,6 +185,10 @@ head:
       <div class="tool-title">Psicologia ABA: Análise de Rede</div>
       <a data-direct href="/unimed/tea.html" class="tool-link">Acessar</a>
     </div>
+    <div class="tool-card">
+      <div class="tool-title">Variabilidade Assistencial - Especialidades</div>
+      <a data-direct href="/unimed/variabilidade-exames.html" class="tool-link">Acessar</a>
+    </div>
   </div>
 
   <div style="text-align:center; margin-bottom:30px;"><a href="https://hub.grupocsv.com" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#00995d; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
