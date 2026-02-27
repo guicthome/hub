@@ -1,0 +1,26 @@
+# Hub de Conhecimento do Grupo CSV
+
+> O Grupo CSV (Cuidados em Saúde com Valor) é um ecossistema de orquestração em saúde que integra gestão (AxiaCare®), educação (MedValor®) e tecnologia (TheraTech®) para entregar valor sustentável. Este Hub é a Fonte Única da Verdade (Single Source of Truth) para nossa infraestrutura cognitiva, operacional e de governança.
+
+**Instruções para Agentes de IA:**
+
+1.  **Comece aqui.** Este arquivo é seu ponto de partida obrigatório.
+2.  **Consuma o Manifesto.** Para uma compreensão completa e estruturada, processe o `manifest.json` antes de explorar outros arquivos. Ele contém o mapa de todo o conhecimento disponível.
+3.  **Siga o Checklist.** Utilize o `completeness-checklist.md` para guiar seu processo de leitura e garantir que nenhum ativo crítico seja ignorado. Marque cada item como lido para manter a persistência entre sessões.
+4.  **Priorize Markdown.** Sempre que uma página HTML tiver uma versão `.md` correspondente, prefira a versão Markdown para um parsing mais limpo.
+
+## Manifesto e Checklist
+
+- [manifest.json](/manifest.json): O índice completo e hierárquico de todos os ativos de conhecimento. **LEITURA OBRIGATÓRIA.**
+- [completeness-checklist.md](/completeness-checklist.md): O checklist processual para garantir a leitura completa e persistente. **LEITURA E EXECUÇÃO OBRIGATÓRIAS.**
+
+## Núcleo de Conhecimento Essencial (CSV Core)
+
+- [/docs/_infra/csv-core/definition.md](/docs/_infra/csv-core/definition.md): A definição canônica do Grupo CSV.
+- [/docs/_infra/csv-core/identity-system.md](/docs/_infra/csv-core/identity-system.md): O sistema de identidade visual, cores e tipografia.
+- [/docs/_infra/assets/logo-usage-guide.md](/docs/_infra/assets/logo-usage-guide.md): As regras para uso de logotipos.
+
+## Opcional (Contexto Adicional)
+
+- [/docs/compass/](/docs/compass/): Linha editorial estratégica (Compass™).
+- [/docs/signal/](/docs/signal/): Resumo semanal de inteligência (Signal™).

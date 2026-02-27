@@ -1,0 +1,161 @@
+{
+  "manifestVersion": "1.0.0",
+  "lastUpdated": "2026-02-27T15:21:16.573308Z",
+  "knowledgeAssets": [
+    {
+      "id": "llms-entrypoint",
+      "priority": 0,
+      "title": "Llms",
+      "path": "/llms.txt",
+      "version": "1.0.0",
+      "sha256": "556f8f3a8c0d2767c70bdf556177c2eb90bc09b3c3937c3f8b4a5b74c0910f43",
+      "description": "Ponto de entrada principal para agentes de IA, fornecendo instru\u00e7\u00f5es iniciais e links para os artefatos de conhecimento.",
+      "tags": [
+        "entrypoint",
+        "meta",
+        "instruction"
+      ]
+    },
+    {
+      "id": "completeness-checklist",
+      "priority": 1,
+      "title": "Completeness Checklist",
+      "path": "/completeness-checklist.md",
+      "version": "1.0.0",
+      "sha256": "5fb52c690ae2ff7fd5114f68f507a8dad14d7149a22b5f8ce3749880551ed157",
+      "description": "Checklist processual para garantir a leitura completa e persistente de todos os ativos cr\u00edticos de conhecimento.",
+      "tags": [
+        "meta",
+        "checklist",
+        "persistence"
+      ]
+    },
+    {
+      "id": "csv-core-definition",
+      "priority": 2,
+      "title": "Definition",
+      "path": "/docs/_infra/csv-core/definition.md",
+      "version": "1.0.0",
+      "sha256": "652021dd6e00632d211307cac2164e14ca3659c2341d9c68039e6754c9d8632c",
+      "description": "A defini\u00e7\u00e3o can\u00f4nica do Grupo CSV, sua identidade fundamental, princ\u00edpios e estrutura de atua\u00e7\u00e3o (A Tr\u00edade).",
+      "tags": [
+        "core",
+        "strategy",
+        "definition"
+      ]
+    },
+    {
+      "id": "identity-system",
+      "priority": 3,
+      "title": "Identity System",
+      "path": "/docs/_infra/csv-core/identity-system.md",
+      "version": "1.0.0",
+      "sha256": "df49a27df87c9c944049665d5a010ecda9eb7e8b9558e89a3bceb9b256ca67ad",
+      "description": "O sistema de identidade visual, incluindo paleta de cores can\u00f4nica, tipografia e estrutura do sistema de logos.",
+      "tags": [
+        "core",
+        "design",
+        "branding"
+      ]
+    },
+    {
+      "id": "logo-usage-guide",
+      "priority": 4,
+      "title": "Logo Usage Guide",
+      "path": "/docs/_infra/assets/logo-usage-guide.md",
+      "version": "1.0.0",
+      "sha256": "922dc6e97c2c7d8558dec746098c8a4699bf1511523b16696aff4241871762b1",
+      "description": "Regras de ouro e guia de invent\u00e1rio para o uso correto de todas as varia\u00e7\u00f5es de logos do ecossistema.",
+      "tags": [
+        "core",
+        "design",
+        "assets",
+        "guide"
+      ]
+    },
+    {
+      "id": "axiacare-mandate",
+      "priority": 5,
+      "title": "Mandate",
+      "path": "/docs/_infra/axiacare/mandate.md",
+      "version": "1.0.0",
+      "sha256": "29cd8d69c77dd3840abadad5053a80c5d185b6049630873dc23bbb3fb2cad2e8",
+      "description": "O mandato institucional da AxiaCare\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "tags": [
+        "mandate",
+        "axiacare",
+        "strategy"
+      ]
+    },
+    {
+      "id": "medvalor-mandate",
+      "priority": 6,
+      "title": "Mandate",
+      "path": "/docs/_infra/medvalor/mandate.md",
+      "version": "1.0.0",
+      "sha256": "7e9a572bededd70af037b4538b79dda798e273889d28279e8f24b74407dc87ba",
+      "description": "O mandato institucional da MedValor\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "tags": [
+        "mandate",
+        "medvalor",
+        "education"
+      ]
+    },
+    {
+      "id": "thera-mandate",
+      "priority": 7,
+      "title": "Mandate",
+      "path": "/docs/_infra/thera/mandate.md",
+      "version": "1.0.0",
+      "sha256": "30b5fafe8fcb327c392fa6888c64ac705d00a091bb91ffd3a7fd3eb2063314a3",
+      "description": "O mandato institucional da TheraTech\u00ae, seu escopo de atua\u00e7\u00e3o e rela\u00e7\u00e3o com o ecossistema.",
+      "tags": [
+        "mandate",
+        "thera",
+        "technology"
+      ]
+    },
+    {
+      "id": "assets-catalog",
+      "priority": 8,
+      "title": "Assets",
+      "path": "/docs/_infra/csv-core/assets.md",
+      "version": "1.0.0",
+      "sha256": "66e68940ed29dae5ccc1255043a5b5be2b81dc80749f78b200c28a059765af9c",
+      "description": "Cat\u00e1logo de assets visuais, incluindo logos, wallpapers e criativos, com links para CDN e dados estruturados.",
+      "tags": [
+        "core",
+        "assets",
+        "catalog"
+      ]
+    },
+    {
+      "id": "hub-playbook",
+      "priority": 9,
+      "title": "Playbook Hub",
+      "path": "/docs/_infra/csv-core/playbook-hub.md",
+      "version": "1.0.0",
+      "sha256": "b00d32eef2c253c8e11f8979c80cda4e07d2543ff6107ca1bdf6ade67447235d",
+      "description": "Playbook operacional do Hub Central, explicando o conceito, a arquitetura da informa\u00e7\u00e3o e a governan\u00e7a.",
+      "tags": [
+        "core",
+        "playbook",
+        "governance"
+      ]
+    },
+    {
+      "id": "founder-info",
+      "priority": 10,
+      "title": "Founder",
+      "path": "/docs/_infra/csv-core/founder.md",
+      "version": "1.0.0",
+      "sha256": "196ac0e66528f732cf2427fa3ec2abb3f22406835382cc57c25e22c79a8eb984",
+      "description": "Informa\u00e7\u00f5es sobre o fundador do Grupo CSV, Guilherme Thom\u00e9.",
+      "tags": [
+        "core",
+        "founder",
+        "people"
+      ]
+    }
+  ]
+}

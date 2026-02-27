@@ -186,3 +186,15 @@ O workflow:
 © 2026 Grupo CSV. Todos os direitos reservados.
 
 **AxiaCare®**, **MedValor®** e **TheraTech®** são marcas registradas do Grupo CSV.
+
+---
+
+## Arquitetura de Consumo por IA
+
+Este repositório implementa uma arquitetura robusta para consumo de conhecimento por Agentes de IA, garantindo completude, persistência e eficiência. A estrutura é composta por três artefatos principais na raiz do projeto:
+
+1.  **`llms.txt`**: O ponto de entrada padronizado que fornece o contexto inicial e as instruções para o agente.
+2.  **`manifest.json`**: O mapa completo e hierárquico de todos os ativos de conhecimento, com metadados como prioridade, versão e checksum para validação.
+3.  **`completeness-checklist.md`**: Um guia processual com checkpoints que o agente deve seguir e marcar para garantir a leitura completa e criar um sinal de persistência entre sessões.
+
+Agentes de IA devem obrigatoriamente iniciar sua interação pelo `llms.txt` e seguir as instruções contidas nele para uma compreensão precisa e integral do ecossistema do Grupo CSV.
