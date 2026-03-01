@@ -182,7 +182,7 @@ head:
 .partner-header:hover { background: rgba(0,0,0,0.015); }
 .dark .partner-header:hover { background: rgba(255,255,255,0.03); }
 .dark .partner-header { border-color: var(--vp-c-divider); }
-.partner-header .p-logo-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s; }
+.partner-header .p-logo-link { display: inline-flex; align-items: center; text-decoration: none; transition: transform 0.2s; flex-shrink: 0; }
 .partner-header .p-logo-link:hover { transform: scale(1.05); }
 .partner-header .p-portal-btn {
   display: inline-flex;
@@ -431,12 +431,15 @@ head:
   .empresa-card { padding: 22px 18px; }
 
   /* Parceiros */
-  .partner-header { padding: 18px 16px; gap: 12px; }
-  .partner-header .p-logo { height: 44px; }
-  .partner-header .p-name { font-size: 1.05rem; word-wrap: break-word; }
-  .partner-header .p-portal-btn { padding: 5px 10px; font-size: 0.72rem; }
+  .partner-header { padding: 16px; gap: 10px; flex-wrap: wrap; }
+  .partner-header .p-logo-link { flex-shrink: 0; }
+  .partner-header .p-logo { height: 38px; }
+  .partner-header .p-info { flex: 1 1 0; min-width: 120px; }
+  .partner-header .p-name { font-size: 1rem; word-wrap: break-word; }
+  .partner-header .p-sub { font-size: 0.78rem; }
+  .partner-header .p-portal-btn { padding: 7px 12px; font-size: 0.75rem; flex-shrink: 0; }
   .partner-header .p-portal-btn svg { width: 11px; height: 11px; }
-  .partner-header .p-toggle { padding: 5px 10px; font-size: 0.72rem; }
+  .partner-header .p-toggle { padding: 7px 12px; font-size: 0.75rem; flex-shrink: 0; }
   .partner-header .p-toggle svg { width: 12px; height: 12px; }
   .partner-tools { padding: 14px 14px 18px; grid-template-columns: 1fr; gap: 8px; }
   .tool-item { padding: 12px 14px; font-size: 0.85rem; word-wrap: break-word; overflow-wrap: break-word; }
