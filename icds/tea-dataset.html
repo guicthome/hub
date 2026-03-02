@@ -666,8 +666,143 @@
       .toc-fab { bottom: 16px; right: 16px; }
     }
 
+    /* Login overlay */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: linear-gradient(135deg, #0f2a42 0%, #1B3A5C 50%, #2C5F8A 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease;
+    }
+    .login-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .login-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .login-box img { width: 160px; margin: 0 auto 20px; display: block; }
+    .login-box h2 { font-size: 1.2rem; font-weight: 700; color: var(--ax-primary); margin-bottom: 6px; }
+    .login-box .login-sub { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--ax-primary); box-shadow: 0 0 0 3px rgba(27,58,92,0.1); }
+    .login-box .btn-login {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    .login-box .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,58,92,0.35); }
+    .login-box .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .login-error {
+      color: var(--ax-red);
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      min-height: 1.2em;
+    }
+
+    /* User bar */
+    .user-bar {
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .user-bar .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .user-bar .user-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--ax-primary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .user-bar .user-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-bar .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+    }
+    .user-bar .sync-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ax-green);
+    }
+    .user-bar .sync-status .dot.syncing {
+      background: #f59e0b;
+      animation: pulse 1s infinite;
+    }
+    .user-bar .sync-status .dot.error {
+      background: var(--ax-red);
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .btn-logout {
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-logout:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+
+    @media (max-width: 768px) {
+      .user-bar { padding: 6px 12px; }
+    }
+
     @media print {
-      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay { display: none !important; }
+      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .login-overlay, .user-bar { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -675,6 +810,38 @@
   </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_positivo.png" alt="ICDS">
+    <h2>Data Set TEA</h2>
+    <p class="login-sub">Acesse com suas credenciais para preencher o formulário</p>
+    <div class="login-error" id="loginError"></div>
+    <input type="text" id="loginUser" placeholder="Usuário (ex: unimed_110)" autocomplete="username">
+    <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
+    <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
+  </div>
+</div>
+
+<!-- USER BAR -->
+<div class="user-bar" id="userBar" style="display:none">
+  <div class="user-info">
+    <div class="user-avatar" id="userAvatar">U</div>
+    <span id="userName">—</span>
+    <span style="opacity:0.5">|</span>
+    <span id="userOrg" style="font-weight:600">—</span>
+  </div>
+  <div class="user-actions">
+    <div class="sync-status" id="syncStatus">
+      <span class="dot" id="syncDot"></span>
+      <span id="syncText">Sincronizado</span>
+    </div>
+    <button class="btn-logout" onclick="doLogout()">Sair</button>
+  </div>
+</div>
+
+<div id="appContent" style="display:none">
 
 <div class="progress-bar" id="progressBar"></div>
 
@@ -1408,6 +1575,8 @@
   <div style="font-size:11px;color:#94a3b8">Copyright &copy; 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
 </div>
 
+</div><!-- /appContent -->
+
 <script>
 // ============================================================
 // TOGGLE SECTIONS (with ARIA)
@@ -1567,35 +1736,239 @@ function applyMoneyMask(e) {
 }
 
 // ============================================================
-// AUTO-SAVE (localStorage)
+// API CONFIGURATION
 // ============================================================
-const DRAFT_KEY = 'tea_dataset_draft_v2';
+const API_BASE = 'https://tea-dataset-api.guilherme-thom.workers.dev';
+let authToken = null;
+let currentUser = null;
+let currentSubmission = null;
 let saveTimeout = null;
+let isSyncing = false;
+const DRAFT_KEY = 'tea_dataset_draft_v2';
+const SESSION_KEY = 'tea_dataset_session';
+
+// ============================================================
+// LOGIN / LOGOUT / SESSION
+// ============================================================
+function doLogin() {
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('btnLogin');
+  if (!user || !pass) { errEl.textContent = 'Preencha usu\u00e1rio e senha.'; return; }
+  errEl.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Entrando...';
+  fetch(API_BASE + '/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: user, password: pass })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (!data.token) throw new Error(data.error || 'Credenciais inv\u00e1lidas');
+    authToken = data.token;
+    currentUser = data.user;
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: authToken, user: currentUser }));
+    showApp();
+    loadOrCreateSubmission();
+  })
+  .catch(err => {
+    errEl.textContent = err.message || 'Erro ao conectar. Tente novamente.';
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  });
+}
+
+function doLogout() {
+  authToken = null;
+  currentUser = null;
+  currentSubmission = null;
+  sessionStorage.removeItem(SESSION_KEY);
+  document.getElementById('appContent').style.display = 'none';
+  document.getElementById('userBar').style.display = 'none';
+  document.getElementById('loginOverlay').classList.remove('hidden');
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').textContent = '';
+  document.getElementById('btnLogin').disabled = false;
+  document.getElementById('btnLogin').textContent = 'Entrar';
+}
+
+function restoreSession() {
+  const raw = sessionStorage.getItem(SESSION_KEY);
+  if (!raw) return false;
+  try {
+    const s = JSON.parse(raw);
+    if (s.token && s.user) {
+      authToken = s.token;
+      currentUser = s.user;
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+function showApp() {
+  document.getElementById('loginOverlay').classList.add('hidden');
+  document.getElementById('appContent').style.display = 'block';
+  document.getElementById('userBar').style.display = 'flex';
+  // Update user bar
+  const initials = (currentUser.username || 'U').substring(0, 2).toUpperCase();
+  document.getElementById('userAvatar').textContent = initials;
+  document.getElementById('userName').textContent = currentUser.username;
+  document.getElementById('userOrg').textContent = currentUser.org_name || currentUser.organization_name || '\u2014';
+}
+
+// ============================================================
+// API HELPERS
+// ============================================================
+function apiCall(method, path, body) {
+  const opts = {
+    method: method,
+    headers: { 'Content-Type': 'application/json' }
+  };
+  if (authToken) opts.headers['Authorization'] = 'Bearer ' + authToken;
+  if (body) opts.body = JSON.stringify(body);
+  return fetch(API_BASE + path, opts).then(r => {
+    if (r.status === 401) { doLogout(); throw new Error('Sess\u00e3o expirada'); }
+    return r.json();
+  });
+}
+
+function setSyncStatus(status, text) {
+  const dot = document.getElementById('syncDot');
+  const txt = document.getElementById('syncText');
+  dot.className = 'dot' + (status === 'syncing' ? ' syncing' : status === 'error' ? ' error' : '');
+  txt.textContent = text || (status === 'syncing' ? 'Salvando...' : status === 'error' ? 'Erro ao salvar' : 'Sincronizado');
+}
+
+// ============================================================
+// SUBMISSION MANAGEMENT
+// ============================================================
+function loadOrCreateSubmission() {
+  apiCall('GET', '/api/submissions')
+  .then(data => {
+    const subs = data.submissions || [];
+    if (subs.length > 0) {
+      // Load the most recent submission
+      currentSubmission = subs[0];
+      return apiCall('GET', '/api/submissions/' + currentSubmission.id);
+    } else {
+      // Create a new submission
+      return apiCall('POST', '/api/submissions', { title: 'Data Set TEA - Coleta' }).then(d => {
+        currentSubmission = { id: d.id, status: d.status, version: d.version };
+        return { submission: currentSubmission, data: {} };
+      });
+    }
+  })
+  .then(data => {
+    if (data.data && Object.keys(data.data).length > 0) {
+      restoreFromAPI(data.data);
+    } else {
+      // Check localStorage fallback
+      checkDraft();
+    }
+    updateProgress();
+  })
+  .catch(err => {
+    console.error('Erro ao carregar submiss\u00e3o:', err);
+    setSyncStatus('error', 'Offline - dados locais');
+    checkDraft();
+  });
+}
+
+function restoreFromAPI(dataObj) {
+  const form = document.getElementById('teaForm');
+  Object.keys(dataObj).forEach(key => {
+    const val = dataObj[key];
+    if (key.startsWith('__radio__')) {
+      const name = key.replace('__radio__', '');
+      const el = form.querySelector('input[name="' + name + '"][value="' + val + '"]');
+      if (el) el.checked = true;
+    } else if (key.startsWith('__check__')) {
+      const name = key.replace('__check__', '');
+      const el = form.querySelector('input[name="' + name + '"]');
+      if (el) el.checked = (val === 'true');
+    } else {
+      const el = form.querySelector('[name="' + key + '"]');
+      if (el) { el.value = val; updateFilledClass(el); }
+    }
+  });
+  setSyncStatus('ok', 'Sincronizado');
+  updateProgress();
+}
+
+// ============================================================
+// AUTO-SAVE (API + localStorage fallback)
+// ============================================================
+function collectFormData() {
+  const form = document.getElementById('teaForm');
+  const data = {};
+  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+    if (el.name) data[el.name] = el.value;
+  });
+  form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    data['__radio__' + el.name] = el.value;
+  });
+  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    if (el.name) data['__check__' + el.name] = el.checked ? 'true' : 'false';
+  });
+  return data;
+}
 
 function saveDraft() {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(function() {
-    const form = document.getElementById('teaForm');
-    const data = {};
-    // Text/number/email/tel/date inputs
-    form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
-      if (el.name) data[el.name] = el.value;
-    });
-    // Radio buttons
-    form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
-      data['__radio__' + el.name] = el.value;
-    });
-    // Checkboxes
-    form.querySelectorAll('input[type="checkbox"]').forEach(el => {
-      if (el.name) data['__check__' + el.name] = el.checked;
-    });
+    const data = collectFormData();
+    // Always save to localStorage as fallback
     data['__timestamp__'] = new Date().toISOString();
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
-    // Show indicator
+
+    // Save to API if authenticated
+    if (authToken && currentSubmission) {
+      saveToAPI(data);
+    } else {
+      const ind = document.getElementById('autosaveIndicator');
+      ind.classList.add('show');
+      setTimeout(() => ind.classList.remove('show'), 1500);
+    }
+  }, 1200);
+}
+
+function saveToAPI(data) {
+  if (isSyncing) return;
+  isSyncing = true;
+  setSyncStatus('syncing');
+  // Convert form data to key-value object for the API
+  const apiData = {};
+  Object.keys(data).filter(k => k !== '__timestamp__').forEach(k => {
+    apiData[k] = String(data[k]);
+  });
+  apiCall('PUT', '/api/submissions/' + currentSubmission.id, { data: apiData })
+  .then(() => {
+    setSyncStatus('ok', 'Sincronizado');
     const ind = document.getElementById('autosaveIndicator');
     ind.classList.add('show');
     setTimeout(() => ind.classList.remove('show'), 1500);
-  }, 800);
+  })
+  .catch(err => {
+    console.error('Erro ao salvar:', err);
+    setSyncStatus('error', 'Erro - salvo localmente');
+  })
+  .finally(() => { isSyncing = false; });
+}
+
+function getSectionForField(key) {
+  if (key.startsWith('prof_')) return 1;
+  if (key.startsWith('pac_')) return 2;
+  if (key.startsWith('trat_')) return 3;
+  if (key.startsWith('prest_')) return 4;
+  if (key.startsWith('pag_')) return 5;
+  if (key.startsWith('jud_')) return 6;
+  if (key.startsWith('jorn_')) return 7;
+  if (key.startsWith('gov_')) return 8;
+  return 0;
 }
 
 function restoreDraft() {
@@ -1605,25 +1978,28 @@ function restoreDraft() {
   const form = document.getElementById('teaForm');
   Object.keys(data).forEach(key => {
     if (key.startsWith('__')) return;
-    const el = form.querySelector(`[name="${key}"]`);
+    const el = form.querySelector('[name="' + key + '"]');
     if (el) { el.value = data[key]; updateFilledClass(el); }
   });
-  // Radios
   Object.keys(data).forEach(key => {
     if (!key.startsWith('__radio__')) return;
     const name = key.replace('__radio__', '');
-    const el = form.querySelector(`input[name="${name}"][value="${data[key]}"]`);
+    const el = form.querySelector('input[name="' + name + '"][value="' + data[key] + '"]');
     if (el) el.checked = true;
   });
-  // Checkboxes
   Object.keys(data).forEach(key => {
     if (!key.startsWith('__check__')) return;
     const name = key.replace('__check__', '');
-    const el = form.querySelector(`input[name="${name}"]`);
-    if (el) el.checked = data[key];
+    const el = form.querySelector('input[name="' + name + '"]');
+    if (el) el.checked = (data[key] === 'true' || data[key] === true);
   });
   document.getElementById('draftBar').classList.remove('visible');
   updateProgress();
+  // Sync local draft to API
+  if (authToken && currentSubmission) {
+    const apiData = collectFormData();
+    saveToAPI(apiData);
+  }
 }
 
 function dismissDraft() {
@@ -1634,8 +2010,7 @@ function checkDraft() {
   const raw = localStorage.getItem(DRAFT_KEY);
   if (raw) {
     const data = JSON.parse(raw);
-    // Check if there's actual content
-    const hasContent = Object.keys(data).some(k => !k.startsWith('__') && data[k]);
+    const hasContent = Object.keys(data).some(k => !k.startsWith('__') && data[k] && data[k] !== 'false');
     if (hasContent) {
       document.getElementById('draftBar').classList.add('visible');
     }
@@ -1646,11 +2021,18 @@ function checkDraft() {
 // CLEAR FORM
 // ============================================================
 function clearForm() {
-  if (!confirm('Tem certeza que deseja limpar todo o formulário? Esta ação não pode ser desfeita.')) return;
+  if (!confirm('Tem certeza que deseja limpar todo o formul\u00e1rio? Esta a\u00e7\u00e3o n\u00e3o pode ser desfeita.')) return;
   const form = document.getElementById('teaForm');
   form.reset();
   form.querySelectorAll('.filled').forEach(el => el.classList.remove('filled'));
   localStorage.removeItem(DRAFT_KEY);
+  // Delete API submission and create a new one
+  if (authToken && currentSubmission) {
+    apiCall('DELETE', '/api/submissions/' + currentSubmission.id)
+    .then(() => apiCall('POST', '/api/submissions', { title: 'Data Set TEA - Coleta' }))
+    .then(d => { currentSubmission = { id: d.id, status: d.status, version: d.version }; setSyncStatus('ok', 'Limpo'); })
+    .catch(err => console.error('Erro ao limpar:', err));
+  }
   updateProgress();
 }
 
@@ -1751,13 +2133,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Build mobile cards
   buildMobileCards();
 
-  // Check for draft
-  checkDraft();
-
   // Money mask
   document.querySelectorAll('.money-input').forEach(el => {
     el.addEventListener('input', applyMoneyMask);
   });
+
+  // Login via Enter key
+  document.getElementById('loginPass').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('loginUser').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('loginPass').focus();
+  });
+
+  // Try to restore session
+  if (restoreSession()) {
+    showApp();
+    loadOrCreateSubmission();
+  }
 
   // Initial progress
   updateProgress();
