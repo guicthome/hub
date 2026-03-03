@@ -217,3 +217,15 @@ head:
     <div class="copyright">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
   </div>
 </div>
+
+<script setup>
+import { onMounted } from 'vue'
+onMounted(() => {
+  if (!document.querySelector('script[data-portal="unimed"]')) {
+    const s = document.createElement('script')
+    s.src = '/scripts/hub-auth.js'
+    s.setAttribute('data-portal', 'unimed')
+    document.body.appendChild(s)
+  }
+})
+</script>
