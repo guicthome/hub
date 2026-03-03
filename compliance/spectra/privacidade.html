@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidade – Linha Spectra™ | Grupo CSV</title>
+  <meta name="description" content="Política de Privacidade da Linha Spectra™ — como coletamos, tratamos e protegemos dados pessoais e dados sensíveis de saúde.">
+  <meta name="robots" content="index, follow">
+  <style>
+    :root{
+      --brand-primary:#0d9488; --brand-accent:#2dd4bf; --brand-dark:#0f172a; --brand-off:#f0fdfa; --white:#ffffff;
+      --text:#1b1e24; --muted:#5b6470; --radius:16px; --shadow:0 8px 24px rgba(0,0,0,.08);
+      --maxw:960px; --pad:24px;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      font-size:16px; line-height:1.7; color:var(--text);
+      background:linear-gradient(180deg,#ffffff 0%, var(--brand-off) 100%);
+      padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);
+    }
+    img{max-width:100%; height:auto; display:block}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    header{background:var(--white); border-bottom:1px solid rgba(0,0,0,.06); position:sticky; top:0; z-index:10; backdrop-filter:saturate(180%) blur(8px); padding-top:env(safe-area-inset-top)}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:12px var(--pad); display:flex; align-items:center; gap:16px}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit}
+    .brand img{height:56px}
+    .badge{margin-left:auto; display:inline-flex; align-items:center; gap:10px; font-size:.9rem; color:#fff; background:var(--brand-primary); padding:10px 14px; border-radius:999px; text-decoration:none; box-shadow:0 4px 12px rgba(13,38,76,.10)}
+    .badge:hover{filter:brightness(0.9)}
+    @media (max-width:480px){
+      .badge{background:transparent;color:var(--brand-primary);border:1px solid currentColor;padding:6px 10px;font-size:.85rem;border-radius:999px;box-shadow:none}
+      .wrap{gap:10px} .brand img{height:46px}
+    }
+    main{max-width:var(--maxw); margin:32px auto; padding:0 var(--pad)}
+    .back-link{display:inline-flex; align-items:center; gap:6px; font-size:.9rem; color:#196396; text-decoration:none; margin-bottom:16px}
+    .back-link:hover{text-decoration:underline}
+    .hero{background:var(--white); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:clamp(20px,4vw,32px); box-shadow:var(--shadow)}
+    .hero h1{margin:0 0 8px; font-size:clamp(1.5rem, 2.2vw + 1rem, 1.875rem); color:var(--brand-primary); line-height:1.3}
+    .hero p{margin:0; color:var(--muted); font-size:clamp(.95rem, 1vw, 1rem)}
+    section.card{background:var(--white); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); padding:clamp(16px, 3.2vw, 24px); margin:18px 0; box-shadow:var(--shadow)}
+    h2{font-size:clamp(1.15rem,1.4vw + .8rem,1.375rem); margin:0 0 8px; color:var(--brand-dark)}
+    h3{font-size:1.05rem; margin:12px 0 6px; color:var(--brand-dark)}
+    p{margin:0 0 10px} ul,ol{margin:0 0 10px 18px} li{margin:6px 0}
+    a{color:var(--brand-primary); text-decoration:none}
+    a:hover{color:var(--brand-accent); text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:2px}
+    .grupo-box{background:#f0fdfa; border-radius:12px; padding:16px; margin:12px 0; border-left:4px solid var(--brand-primary)}
+    .grupo-box p{margin:0; font-size:.92rem}
+    table{width:100%; border-collapse:collapse; margin:12px 0; font-size:.92rem}
+    th,td{padding:10px 12px; text-align:left; border-bottom:1px solid rgba(0,0,0,.08)}
+    th{background:var(--brand-off); font-weight:600; color:var(--brand-dark)}
+    footer{margin:42px 0 24px; text-align:center}
+    .footer{background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px}
+    .footer .brand-mini{display:flex; align-items:center; gap:10px}
+    .footer .brand-mini img{height:22px}
+    .footer .links{display:flex; gap:16px; flex-wrap:wrap; font-size:.92rem}
+    .footer .links a{color:var(--brand-primary)}
+    .footer .links a:hover{color:var(--brand-accent); text-decoration:underline; text-underline-offset:2px}
+    .small{font-size:.85rem; color:var(--muted)}
+    .btn-top{position:fixed; right:16px; bottom:16px; background:var(--brand-primary); color:#fff; border:none; border-radius:999px; padding:12px 16px; display:none; box-shadow:0 4px 12px rgba(13,38,76,.10)}
+    @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+    @media print{header,.btn-top{display:none !important} body{background:#fff} .hero,section.card{box-shadow:none; border-color:#ddd} a{color:#000; text-decoration:underline}}
+    .hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
+    .hub-back-btn:hover{background:#196396;color:#fff;box-shadow:0 4px 20px rgba(25,99,150,0.3);transform:translateY(-1px)}
+    @media print{.hub-back-btn{display:none!important}}
+  </style>
+  <link rel="icon" href="/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+</head>
+<body>
+<a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
+<header id="topo">
+  <div class="wrap">
+    <a class="brand" href="https://thera.tech" aria-label="Linha Spectra"><img src="/assets/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech — desenvolvedora da Linha Spectra" decoding="async" fetchpriority="high"><span class="sr-only">Linha Spectra™</span></a>
+    <a class="badge" href="mailto:compliance@thera.tech" title="Canal de Compliance">Canal de Compliance</a>
+  </div>
+</header>
+<main>
+  <a href="/compliance/" class="back-link">← Voltar para Central de Compliance do Grupo CSV</a>
+
+  <div class="hero" role="banner">
+    <h1>Política de Privacidade — Linha Spectra™</h1>
+    <p>Versão 1.0 — Março de 2026</p>
+    <p class="small">Como coletamos, tratamos e protegemos dados pessoais e dados sensíveis de saúde na plataforma.</p>
+  </div>
+
+  <section class="card">
+    <h2>1. Controlador e Operador</h2>
+    <p>Para fins da Lei Geral de Proteção de Dados (Lei n.º 13.709/2018 — "LGPD"):</p>
+    <table>
+      <tr><th>Papel</th><th>Entidade</th><th>Responsabilidade</th></tr>
+      <tr><td><strong>Controlador</strong></td><td>Operadora de plano de saúde contratante</td><td>Define as finalidades e meios do tratamento dos dados de seus beneficiários e prestadores.</td></tr>
+      <tr><td><strong>Operador</strong></td><td>Grupo CSV (por meio da TheraTech®)</td><td>Trata os dados em nome e por instrução da operadora controladora, nos limites do contrato.</td></tr>
+      <tr><td><strong>Suboperadores</strong></td><td>Supabase Inc., OpenAI Inc., Manus AI</td><td>Prestam serviços de infraestrutura e processamento sob contrato com o operador.</td></tr>
+    </table>
+    <div class="grupo-box">
+      <p><strong>Encarregado de Proteção de Dados (DPO):</strong> O Grupo CSV designa como canal de comunicação para assuntos de privacidade o e-mail <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a>. A operadora controladora deve indicar seu próprio DPO conforme Art. 41 da LGPD.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Dados que Coletamos</h2>
+    <h3>2.1 Dados fornecidos pela operadora (dados de saúde)</h3>
+    <p>Dados de sinistros, procedimentos, prestadores, beneficiários, indicadores assistenciais e financeiros, conforme definido no contrato de prestação de serviços. Esses dados são classificados como <strong>dados pessoais sensíveis</strong> (Art. 5º, II, LGPD).</p>
+    <h3>2.2 Dados do usuário da plataforma</h3>
+    <p>Nome, e-mail, papel funcional (role), instituição associada, histórico de conversas com a IA, consultas realizadas, feedback fornecido e registros de acesso (logs). Esses dados são coletados diretamente do usuário no momento do cadastro e durante a utilização da plataforma.</p>
+    <h3>2.3 Dados técnicos</h3>
+    <p>Endereço IP, tipo de navegador, sistema operacional, data e hora de acesso, páginas visitadas e cookies de sessão. Esses dados são coletados automaticamente para fins de segurança e melhoria do serviço.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Finalidades do Tratamento</h2>
+    <table>
+      <tr><th>Finalidade</th><th>Base Legal (LGPD)</th><th>Dados Utilizados</th></tr>
+      <tr><td>Gestão assistencial e análise de custos</td><td>Art. 11, II, "a" e "f"</td><td>Dados de saúde da operadora</td></tr>
+      <tr><td>Geração de consultas analíticas por IA</td><td>Art. 11, II, "a"</td><td>Perguntas do usuário + dados da operadora</td></tr>
+      <tr><td>Autenticação e controle de acesso</td><td>Art. 7º, V (execução de contrato)</td><td>Nome, e-mail, role, instituição</td></tr>
+      <tr><td>Auditoria e rastreabilidade</td><td>Art. 7º, II (obrigação legal) + Art. 37</td><td>Logs de acesso, consultas, exportações</td></tr>
+      <tr><td>Melhoria do serviço e correção de erros</td><td>Art. 7º, IX (legítimo interesse)</td><td>Feedback, métricas de uso agregadas</td></tr>
+      <tr><td>Comunicação operacional</td><td>Art. 7º, V (execução de contrato)</td><td>Nome, e-mail</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>4. Compartilhamento de Dados</h2>
+    <p>Os dados tratados pela Linha Spectra™ podem ser compartilhados exclusivamente com:</p>
+    <ul>
+      <li><strong>Suboperadores contratados</strong> (Seção 1), para fins estritamente necessários à prestação do serviço.</li>
+      <li><strong>Operadora controladora</strong>, que tem acesso integral aos dados de seu próprio tenant.</li>
+      <li><strong>Autoridades competentes</strong>, quando exigido por lei, decisão judicial ou determinação da Autoridade Nacional de Proteção de Dados (ANPD).</li>
+    </ul>
+    <p>A Linha Spectra™ <strong>não comercializa, vende ou cede</strong> dados pessoais a terceiros para fins de marketing, publicidade ou qualquer finalidade não prevista nesta Política.</p>
+  </section>
+
+  <section class="card">
+    <h2>5. Transferência Internacional de Dados</h2>
+    <p>O processamento de linguagem natural pode envolver transferência internacional de dados para servidores de provedores de IA localizados fora do Brasil (Art. 33, LGPD). As salvaguardas adotadas estão detalhadas na Seção 4 do <a href="/compliance/spectra/termos">Termo de Uso Responsável</a>.</p>
+    <p>Dados enviados às APIs externas são exclusivamente consultas analíticas em formato SQL e contexto semântico, sem identificação direta de beneficiários. Os dados armazenados (banco de dados da operadora) permanecem em infraestrutura com data center na região contratada.</p>
+  </section>
+
+  <section class="card">
+    <h2>6. Retenção e Eliminação</h2>
+    <p>Os prazos de retenção dos dados são definidos na <a href="/compliance/spectra/retencao">Política de Retenção de Dados</a> da Linha Spectra™. Em resumo:</p>
+    <ul>
+      <li><strong>Dados de saúde da operadora:</strong> mantidos enquanto vigente o contrato; eliminados em até 30 dias após o encerramento, salvo obrigação legal de guarda.</li>
+      <li><strong>Dados do usuário:</strong> mantidos enquanto a conta estiver ativa; anonimizados ou eliminados em até 30 dias após a desativação.</li>
+      <li><strong>Logs de auditoria:</strong> retidos por 5 anos para fins de compliance regulatório (ANS, LGPD).</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>7. Direitos do Titular</h2>
+    <p>Nos termos do Art. 18 da LGPD, o titular de dados pessoais pode exercer os seguintes direitos:</p>
+    <ul>
+      <li>Confirmação da existência de tratamento.</li>
+      <li>Acesso aos dados pessoais tratados.</li>
+      <li>Correção de dados incompletos, inexatos ou desatualizados.</li>
+      <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos.</li>
+      <li>Portabilidade dos dados a outro fornecedor de serviço.</li>
+      <li>Informação sobre compartilhamento de dados com terceiros.</li>
+      <li>Revogação do consentimento, quando aplicável.</li>
+    </ul>
+    <p>Para exercer esses direitos, o titular deve entrar em contato com a operadora controladora ou diretamente pelo canal <a href="mailto:compliance@thera.tech">compliance@thera.tech</a>. O prazo de resposta é de até 15 (quinze) dias, conforme Art. 18, §5º, da LGPD.</p>
+  </section>
+
+  <section class="card">
+    <h2>8. Segurança da Informação</h2>
+    <p>As medidas técnicas e organizacionais adotadas pela Linha Spectra™ estão detalhadas na Seção 6 do <a href="/compliance/spectra/termos">Termo de Uso Responsável</a>. Em caso de incidente de segurança, a TheraTech® seguirá o procedimento descrito na Seção 10 do mesmo documento, em conformidade com o Art. 48 da LGPD.</p>
+  </section>
+
+  <section class="card">
+    <h2>9. Cookies e Tecnologias de Rastreamento</h2>
+    <p>A Linha Spectra™ utiliza exclusivamente cookies de sessão para autenticação e manutenção do estado do usuário. Não são utilizados cookies de rastreamento, publicidade ou analytics de terceiros. Para mais detalhes, consulte a <a href="/compliance/cookies">Política de Cookies do Grupo CSV</a>.</p>
+  </section>
+
+  <section class="card">
+    <h2>10. Alterações nesta Política</h2>
+    <p>Esta Política pode ser atualizada periodicamente para refletir mudanças nos serviços, na legislação ou nas práticas de proteção de dados. A versão atualizada estará sempre disponível nesta página, com a data de última revisão. Alterações substanciais serão comunicadas aos usuários e à operadora controladora com antecedência mínima de 15 (quinze) dias.</p>
+  </section>
+
+  <section class="card">
+    <h2>11. Contato</h2>
+    <p>Para dúvidas, sugestões ou exercício de direitos relacionados à privacidade:</p>
+    <ul>
+      <li><strong>TheraTech® (Operadora da Linha Spectra™):</strong> <a href="mailto:compliance@thera.tech">compliance@thera.tech</a></li>
+      <li><strong>Grupo CSV (Controlador do ecossistema):</strong> <a href="mailto:compliance@grupocsv.com">compliance@grupocsv.com</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="footer">
+      <div class="brand-mini"><img src="/assets/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech"><strong>Linha Spectra™ — TheraTech®</strong></div>
+      <div class="links"><a href="https://thera.tech" rel="noopener">Site</a><span>•</span><a href="#topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Topo</a><span>•</span><a href="/compliance/">Central de Compliance</a></div>
+      <div class="small">© 2026 TheraTech®. Parte do Grupo CSV — Cuidados em Saúde com Valor. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+</main>
+<button class="btn-top" id="btnTop" aria-label="Voltar ao topo">Topo</button>
+<script>
+  const btn=document.getElementById('btnTop');
+  window.addEventListener('scroll',()=>{btn.style.display=window.scrollY>320?'block':'none';});
+  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>
