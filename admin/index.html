@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Hub Grupo CSV</title>
+    <link rel="icon" href="/favicons/favicon.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #196396;
+            --primary-dark: #0f2b46;
+            --green: #2DBF7F;
+            --red: #dc2626;
+            --orange: #f59e0b;
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Auth overlay */
+        #admin-auth-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+        }
+        #admin-auth-overlay.hidden { display: none; }
+        .auth-box {
+            background: white; border-radius: 20px; padding: 40px;
+            width: 100%; max-width: 400px; margin: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .auth-box h2 { text-align: center; color: var(--primary-dark); margin-bottom: 8px; font-size: 22px; }
+        .auth-box p { text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+        .auth-box label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .auth-box input {
+            width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+            border-radius: 10px; font-size: 15px; outline: none; margin-bottom: 16px;
+        }
+        .auth-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(25,99,150,0.15); }
+        .auth-box button {
+            width: 100%; padding: 13px; background: var(--primary); color: white;
+            border: none; border-radius: 10px; font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .auth-box button:hover { background: var(--primary-dark); }
+        .auth-error { color: var(--red); font-size: 13px; text-align: center; margin-bottom: 12px; display: none; }
+
+        /* Dashboard */
+        #dashboard { display: none; }
+        #dashboard.visible { display: block; }
+
+        .topbar {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 16px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            color: white;
+        }
+        .topbar h1 { font-size: 18px; font-weight: 700; }
+        .topbar-actions { display: flex; gap: 12px; align-items: center; }
+        .topbar-user { font-size: 13px; opacity: 0.8; }
+        .topbar-btn {
+            padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; text-decoration: none; border: none;
+        }
+        .topbar-btn.logout { background: rgba(255,255,255,0.15); color: white; }
+        .topbar-btn.logout:hover { background: rgba(255,255,255,0.25); }
+        .topbar-btn.hub { background: rgba(45,191,127,0.2); color: #2DBF7F; }
+        .topbar-btn.hub:hover { background: rgba(45,191,127,0.3); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+        /* Stats cards */
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card); border-radius: 14px; padding: 20px;
+            border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .stat-card .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        .stat-card .stat-value { font-size: 28px; font-weight: 800; color: var(--primary-dark); margin: 4px 0; }
+        .stat-card .stat-sub { font-size: 12px; color: var(--text-secondary); }
+
+        /* Filters */
+        .filters {
+            background: var(--card); border-radius: 14px; padding: 20px;
+            border: 1px solid var(--border); margin-bottom: 24px;
+            display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
+        }
+        .filter-group { display: flex; flex-direction: column; gap: 4px; }
+        .filter-group label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .filter-group select, .filter-group input {
+            padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+            font-size: 14px; outline: none; background: white;
+        }
+        .filter-group select:focus, .filter-group input:focus { border-color: var(--primary); }
+        .filter-btn {
+            padding: 8px 20px; background: var(--primary); color: white; border: none;
+            border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+        }
+        .filter-btn:hover { background: var(--primary-dark); }
+        .filter-btn.secondary { background: var(--border); color: var(--text); }
+        .filter-btn.secondary:hover { background: #d1d5db; }
+
+        /* Table */
+        .table-card {
+            background: var(--card); border-radius: 14px;
+            border: 1px solid var(--border); overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .table-header {
+            padding: 16px 20px; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .table-header h3 { font-size: 16px; font-weight: 700; }
+        .table-header .count { font-size: 13px; color: var(--text-secondary); }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            text-align: left; padding: 12px 16px; font-size: 12px;
+            font-weight: 700; color: var(--text-secondary); text-transform: uppercase;
+            letter-spacing: 0.05em; background: #f9fafb; border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border);
+        }
+        tr:hover td { background: #f9fafb; }
+        .badge {
+            display: inline-block; padding: 3px 10px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+        }
+        .badge.login { background: #dcfce7; color: #166534; }
+        .badge.login_failed { background: #fef2f2; color: #991b1b; }
+        .badge.logout { background: #f3f4f6; color: #4b5563; }
+        .badge.unimed { background: #dcfce7; color: #166534; }
+        .badge.unihealth { background: #e0f2fe; color: #075985; }
+        .badge.icds { background: #ede9fe; color: #5b21b6; }
+        .badge.admin { background: #fef3c7; color: #92400e; }
+
+        /* Sessions */
+        .sessions-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px; margin-bottom: 24px;
+        }
+        .session-card {
+            background: var(--card); border-radius: 12px; padding: 16px;
+            border: 1px solid var(--border); border-left: 3px solid var(--green);
+        }
+        .session-card .sc-portal { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--primary); }
+        .session-card .sc-email { font-size: 14px; font-weight: 600; margin: 4px 0; }
+        .session-card .sc-info { font-size: 12px; color: var(--text-secondary); }
+
+        /* Pagination */
+        .pagination {
+            display: flex; justify-content: center; gap: 8px; padding: 16px;
+        }
+        .page-btn {
+            padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
+            background: white; font-size: 13px; cursor: pointer; transition: all 0.2s;
+        }
+        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* Loading */
+        .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 16px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .filters { flex-direction: column; }
+            .table-card { overflow-x: auto; }
+            table { min-width: 600px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Auth Overlay -->
+<div id="admin-auth-overlay">
+    <div class="auth-box">
+        <h2>Painel Administrativo</h2>
+        <p>Hub Grupo CSV</p>
+        <div class="auth-error" id="auth-error"></div>
+        <form id="auth-form">
+            <label for="admin-email">E-mail</label>
+            <input type="email" id="admin-email" placeholder="seu@email.com" required autocomplete="email">
+            <label for="admin-password">Senha</label>
+            <input type="password" id="admin-password" placeholder="Senha do painel" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+    <div class="topbar">
+        <h1>Hub CSV - Painel Administrativo</h1>
+        <div class="topbar-actions">
+            <span class="topbar-user" id="topbar-user"></span>
+            <a href="/" class="topbar-btn hub">Hub CSV</a>
+            <button class="topbar-btn logout" id="btn-logout">Sair</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total de Acessos</div>
+                <div class="stat-value" id="stat-total">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Sessões Ativas</div>
+                <div class="stat-value" id="stat-sessions">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Tentativas Falhas</div>
+                <div class="stat-value" id="stat-failed">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Portais Ativos</div>
+                <div class="stat-value" id="stat-portals">-</div>
+            </div>
+        </div>
+
+        <!-- Active Sessions -->
+        <div style="margin-bottom: 24px;">
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Sessões Ativas</h3>
+            <div class="sessions-grid" id="sessions-grid">
+                <div class="loading">Carregando...</div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filter-group">
+                <label>Portal</label>
+                <select id="filter-portal">
+                    <option value="">Todos</option>
+                    <option value="unimed">Unimed</option>
+                    <option value="unihealth">Unihealth</option>
+                    <option value="icds">ICDS</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>E-mail</label>
+                <input type="text" id="filter-email" placeholder="Buscar e-mail...">
+            </div>
+            <div class="filter-group">
+                <label>De</label>
+                <input type="date" id="filter-from">
+            </div>
+            <div class="filter-group">
+                <label>Até</label>
+                <input type="date" id="filter-to">
+            </div>
+            <button class="filter-btn" id="btn-filter">Filtrar</button>
+            <button class="filter-btn secondary" id="btn-clear">Limpar</button>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3>Logs de Acesso</h3>
+                <span class="count" id="logs-count"></span>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Portal</th>
+                            <th>E-mail</th>
+                            <th>Ação</th>
+                            <th>Dispositivo</th>
+                            <th>IP</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-tbody">
+                        <tr><td colspan="6" class="loading">Carregando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    const AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
+    const TOKEN_KEY = 'hub_auth_admin_token';
+    const EMAIL_KEY = 'hub_auth_admin_email';
+    const EXPIRES_KEY = 'hub_auth_admin_expires';
+    const LIMIT = 50;
+    let currentOffset = 0;
+
+    // ===== Auth =====
+    function getToken() {
+        const token = localStorage.getItem(TOKEN_KEY);
+        const expires = localStorage.getItem(EXPIRES_KEY);
+        if (!token || !expires || new Date() > new Date(expires)) {
+            clearAuth();
+            return null;
+        }
+        return token;
+    }
+
+    function clearAuth() {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(EMAIL_KEY);
+        localStorage.removeItem(EXPIRES_KEY);
+    }
+
+    async function login(email, password) {
+        const resp = await fetch(AUTH_API + '/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ portal: 'admin', email, password }),
+        });
+        return resp.json();
+    }
+
+    // ===== Init =====
+    function init() {
+        const token = getToken();
+        if (token) {
+            showDashboard();
+        } else {
+            showAuth();
+        }
+    }
+
+    function showAuth() {
+        document.getElementById('admin-auth-overlay').classList.remove('hidden');
+        document.getElementById('dashboard').classList.remove('visible');
+    }
+
+    function showDashboard() {
+        document.getElementById('admin-auth-overlay').classList.add('hidden');
+        document.getElementById('dashboard').classList.add('visible');
+        document.getElementById('topbar-user').textContent = localStorage.getItem(EMAIL_KEY) || '';
+        loadStats();
+        loadLogs();
+    }
+
+    // ===== Auth form =====
+    document.getElementById('auth-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('admin-email').value.trim();
+        const password = document.getElementById('admin-password').value;
+        const errorEl = document.getElementById('auth-error');
+
+        try {
+            const result = await login(email, password);
+            if (result.success) {
+                localStorage.setItem(TOKEN_KEY, result.token);
+                localStorage.setItem(EMAIL_KEY, email);
+                localStorage.setItem(EXPIRES_KEY, result.expires_at);
+                showDashboard();
+            } else {
+                errorEl.textContent = result.error || 'Erro ao autenticar';
+                errorEl.style.display = 'block';
+            }
+        } catch (err) {
+            errorEl.textContent = 'Erro de conexão';
+            errorEl.style.display = 'block';
+        }
+    });
+
+    // ===== Logout =====
+    document.getElementById('btn-logout').addEventListener('click', function() {
+        const token = getToken();
+        if (token) {
+            fetch(AUTH_API + '/logout', { method: 'POST', headers: { 'X-Auth-Token': token } }).catch(() => {});
+        }
+        clearAuth();
+        showAuth();
+    });
+
+    // ===== Load Stats =====
+    async function loadStats() {
+        const token = getToken();
+        if (!token) return;
+
+        try {
+            const resp = await fetch(AUTH_API + '/admin/stats', {
+                headers: { 'X-Auth-Token': token },
+            });
+            const data = await resp.json();
+
+            document.getElementById('stat-total').textContent = data.total_logs || 0;
+            document.getElementById('stat-sessions').textContent = (data.active_sessions || []).length;
+            document.getElementById('stat-failed').textContent = (data.failed_attempts || []).reduce((sum, f) => sum + f.attempts, 0);
+            document.getElementById('stat-portals').textContent = (data.portal_stats || []).filter(p => p.portal !== 'admin').length;
+
+            // Render sessions
+            const sessionsGrid = document.getElementById('sessions-grid');
+            const sessions = data.active_sessions || [];
+            if (sessions.length === 0) {
+                sessionsGrid.innerHTML = '<div style="color:#6b7280;font-size:14px;">Nenhuma sessão ativa</div>';
+            } else {
+                sessionsGrid.innerHTML = sessions.map(s => `
+                    <div class="session-card">
+                        <div class="sc-portal">${s.portal}</div>
+                        <div class="sc-email">${s.email}</div>
+                        <div class="sc-info">${s.device_info || 'N/A'}</div>
+                        <div class="sc-info">Expira: ${formatDate(s.expires_at)}</div>
+                    </div>
+                `).join('');
+            }
+        } catch (err) {
+            console.error('Stats error:', err);
+        }
+    }
+
+    // ===== Load Logs =====
+    async function loadLogs(offset) {
+        const token = getToken();
+        if (!token) return;
+
+        currentOffset = offset || 0;
+        const portal = document.getElementById('filter-portal').value;
+        const email = document.getElementById('filter-email').value;
+        const from = document.getElementById('filter-from').value;
+        const to = document.getElementById('filter-to').value;
+
+        let url = `${AUTH_API}/admin/logs?limit=${LIMIT}&offset=${currentOffset}`;
+        if (portal) url += `&portal=${portal}`;
+        if (email) url += `&email=${encodeURIComponent(email)}`;
+        if (from) url += `&from=${from}`;
+        if (to) url += `&to=${to}T23:59:59`;
+
+        try {
+            const resp = await fetch(url, { headers: { 'X-Auth-Token': token } });
+            const data = await resp.json();
+
+            document.getElementById('logs-count').textContent = `${data.total || 0} registros`;
+
+            const tbody = document.getElementById('logs-tbody');
+            const logs = data.logs || [];
+
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:24px;">Nenhum registro encontrado</td></tr>';
+            } else {
+                tbody.innerHTML = logs.map(log => `
+                    <tr>
+                        <td>${formatDate(log.created_at)}</td>
+                        <td><span class="badge ${log.portal}">${log.portal}</span></td>
+                        <td>${log.email}</td>
+                        <td><span class="badge ${log.action}">${formatAction(log.action)}</span></td>
+                        <td style="font-size:12px;">${log.device_info || 'N/A'}</td>
+                        <td style="font-size:12px;">${log.ip_address || 'N/A'}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // Pagination
+            renderPagination(data.total || 0, currentOffset);
+        } catch (err) {
+            console.error('Logs error:', err);
+        }
+    }
+
+    function renderPagination(total, offset) {
+        const pag = document.getElementById('pagination');
+        const totalPages = Math.ceil(total / LIMIT);
+        const currentPage = Math.floor(offset / LIMIT) + 1;
+
+        if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+        let html = '';
+        html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="window._loadLogs(${(currentPage - 2) * LIMIT})">Anterior</button>`;
+        for (let i = 1; i <= Math.min(totalPages, 10); i++) {
+            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="window._loadLogs(${(i - 1) * LIMIT})">${i}</button>`;
+        }
+        html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="window._loadLogs(${currentPage * LIMIT})">Próximo</button>`;
+        pag.innerHTML = html;
+    }
+
+    // Expose for pagination onclick
+    window._loadLogs = loadLogs;
+
+    // ===== Filters =====
+    document.getElementById('btn-filter').addEventListener('click', () => loadLogs(0));
+    document.getElementById('btn-clear').addEventListener('click', () => {
+        document.getElementById('filter-portal').value = '';
+        document.getElementById('filter-email').value = '';
+        document.getElementById('filter-from').value = '';
+        document.getElementById('filter-to').value = '';
+        loadLogs(0);
+    });
+
+    // ===== Helpers =====
+    function formatDate(dateStr) {
+        if (!dateStr) return 'N/A';
+        try {
+            const d = new Date(dateStr.includes('T') ? dateStr : dateStr + 'Z');
+            return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        } catch (e) {
+            return dateStr;
+        }
+    }
+
+    function formatAction(action) {
+        const map = { login: 'Login', logout: 'Logout', login_failed: 'Falha' };
+        return map[action] || action;
+    }
+
+    // ===== Start =====
+    init();
+})();
+</script>
+</body>
+</html>

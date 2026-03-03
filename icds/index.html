@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unihealth - Hub de Ferramentas Profissionais</title>
+    <title>ICDS - Hub de Ferramentas</title>
     <style>
         * {
             margin: 0;
@@ -12,12 +12,12 @@
         }
 
         :root {
-            --unihealth-green: #013d19;
-            --unihealth-orange: #ec7106;
+            --icds-blue: #1B3A5C;
+            --icds-blue-light: #2a6496;
             --text-primary: #2d3748;
             --text-secondary: #718096;
             --bg-gradient-start: #f7f9fc;
-            --bg-gradient-end: #e8eef5;
+            --bg-gradient-end: #e8f0f8;
         }
 
         body {
@@ -36,11 +36,11 @@
         .header {
             text-align: center;
             padding: 50px 20px;
-            background: linear-gradient(135deg, rgba(1, 61, 25, 0.04) 0%, rgba(1, 61, 25, 0.02) 100%);
+            background: linear-gradient(135deg, rgba(27, 58, 92, 0.04) 0%, rgba(27, 58, 92, 0.02) 100%);
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             margin-bottom: 40px;
-            border: 1px solid rgba(1, 61, 25, 0.12);
+            border: 1px solid rgba(27, 58, 92, 0.12);
         }
 
         .logo-link {
@@ -56,10 +56,11 @@
             width: 280px;
             max-width: 90%;
             margin-bottom: 20px;
+            border-radius: 12px;
         }
 
         h1 {
-            color: var(--unihealth-green);
+            color: var(--icds-blue);
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 12px;
@@ -80,12 +81,12 @@
         }
 
         .tool-card {
-            background: linear-gradient(135deg, rgba(1, 61, 25, 0.03) 0%, rgba(1, 61, 25, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(27, 58, 92, 0.03) 0%, rgba(27, 58, 92, 0.05) 100%);
             border-radius: 16px;
             padding: 28px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(1, 61, 25, 0.1);
+            border: 1px solid rgba(27, 58, 92, 0.1);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -99,7 +100,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--unihealth-green) 0%, var(--unihealth-orange) 100%);
+            background: linear-gradient(90deg, var(--icds-blue) 0%, var(--icds-blue-light) 100%);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
@@ -111,33 +112,29 @@
 
         .tool-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(1, 61, 25, 0.15);
-            background: linear-gradient(135deg, rgba(1, 61, 25, 0.06) 0%, rgba(1, 61, 25, 0.08) 100%);
-            border-color: rgba(1, 61, 25, 0.2);
+            box-shadow: 0 12px 40px rgba(27, 58, 92, 0.15);
+            background: linear-gradient(135deg, rgba(27, 58, 92, 0.06) 0%, rgba(27, 58, 92, 0.08) 100%);
+            border-color: rgba(27, 58, 92, 0.2);
         }
 
         .tool-card.featured {
-            background: linear-gradient(135deg, var(--unihealth-green) 0%, #025a27 100%);
+            background: linear-gradient(135deg, var(--icds-blue) 0%, #143050 100%);
             color: white;
-            border-color: var(--unihealth-green);
+            border-color: var(--icds-blue);
         }
 
         .tool-card.featured .tool-title {
             color: white;
         }
 
-        .tool-card.featured .tool-date {
-            color: rgba(255, 255, 255, 0.85);
-        }
-
         .tool-card.featured .tool-link {
-            background: var(--unihealth-orange);
-            border: 2px solid var(--unihealth-orange);
+            background: var(--icds-blue-light);
+            border: 2px solid var(--icds-blue-light);
         }
 
         .tool-card.featured .tool-link:hover {
-            background: #ff8519;
-            border-color: #ff8519;
+            background: #3a7bc8;
+            border-color: #3a7bc8;
             transform: translateY(-2px);
         }
 
@@ -146,38 +143,30 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            background: var(--unihealth-orange);
+            background: var(--icds-blue-light);
             color: white;
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 900;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(236, 113, 6, 0.4);
+            box-shadow: 0 2px 8px rgba(42, 100, 150, 0.4);
         }
 
         .tool-title {
-            color: var(--unihealth-green);
+            color: var(--icds-blue);
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 20px;
             line-height: 1.3;
             flex-grow: 1;
-        }
-
-        .tool-date {
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            display: block;
         }
 
         .tool-link {
             display: inline-block;
             width: 100%;
             padding: 14px 24px;
-            background: var(--unihealth-green);
+            background: var(--icds-blue);
             color: white;
             text-decoration: none;
             border-radius: 10px;
@@ -185,87 +174,14 @@
             font-size: 14px;
             text-align: center;
             transition: all 0.3s ease;
-            border: 2px solid var(--unihealth-green);
+            border: 2px solid var(--icds-blue);
         }
 
         .tool-link:hover {
-            background: var(--unihealth-orange);
-            border-color: var(--unihealth-orange);
+            background: var(--icds-blue-light);
+            border-color: var(--icds-blue-light);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(236, 113, 6, 0.3);
-        }
-
-        .tool-link.disabled {
-            background: #94a3b8;
-            border-color: #94a3b8;
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .tool-link.disabled:hover {
-            background: #94a3b8;
-            border-color: #94a3b8;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding: 25px 15px;
-            background-color: #f8f5f0;
-            text-align: center;
-            font-family: Verdana, sans-serif;
-            border-top: 2px solid #006b68;
-            border-radius: 16px;
-        }
-
-        .footer-logo {
-            width: 140px;
-            margin: 0 auto 10px auto;
-            display: block;
-        }
-
-        .footer-title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0 18px;
-        }
-
-        .footer-links,
-        .footer-social {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .footer-links a,
-        .footer-social a {
-            color: #004E4C;
-            text-decoration: none;
-            position: relative;
-            padding: 0 4px;
-            transition: all 0.2s ease;
-        }
-
-        .footer-links a:hover,
-        .footer-social a:hover {
-            color: #002c2a;
-            text-decoration: underline;
-        }
-
-        .footer .separator {
-            color: #bbb;
-            margin: 0 4px;
-        }
-
-        .footer-copyright {
-            margin-top: 18px;
-            font-size: 11px;
-            color: #999;
+            box-shadow: 0 6px 20px rgba(42, 100, 150, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -308,10 +224,10 @@
             }
             
             .tool-card {
-                background: linear-gradient(135deg, rgba(1, 61, 25, 0.05) 0%, rgba(1, 61, 25, 0.07) 100%);
+                background: linear-gradient(135deg, rgba(27, 58, 92, 0.05) 0%, rgba(27, 58, 92, 0.07) 100%);
             }
         }
-    
+
 /* Hub CSV Back Button */
 .hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
 @media(max-width:768px){.hub-back-btn{position:relative;top:auto;left:auto;display:flex;width:fit-content;margin:12px auto 0;z-index:1;box-shadow:0 1px 6px rgba(0,0,0,0.06)}}
@@ -325,62 +241,33 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
 
     <!-- OpenGraph -->
-    <meta property="og:title" content="Unihealth - Hub de Ferramentas Profissionais">
-    <meta property="og:description" content="Ferramenta desenvolvida pela AxiaCare para o Hospital Unihealth Governador Valadares.">
-    <meta property="og:image" content="https://hub.grupocsv.com/og/og_unihealth.png">
-    <meta property="og:url" content="https://hub.grupocsv.com/unihealth/index.html">
+    <meta property="og:title" content="ICDS - Hub de Ferramentas">
+    <meta property="og:description" content="Ferramentas e dashboards desenvolvidos pela AxiaCare para o ICDS.">
+    <meta property="og:image" content="https://hub.grupocsv.com/og/og_hub.png">
+    <meta property="og:url" content="https://hub.grupocsv.com/icds/">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Unihealth GV | Hub Grupo CSV">
+    <meta property="og:site_name" content="ICDS | Hub Grupo CSV">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Unihealth - Hub de Ferramentas Profissionais">
-    <meta name="twitter:description" content="Ferramenta desenvolvida pela AxiaCare para o Hospital Unihealth Governador Valadares.">
-    <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_unihealth.png">
+    <meta name="twitter:title" content="ICDS - Hub de Ferramentas">
+    <meta name="twitter:description" content="Ferramentas e dashboards desenvolvidos pela AxiaCare para o ICDS.">
+    <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_hub.png">
 </head>
 <body>
 <a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
 
     <div class="container">
         <div class="header">
-            <a href="https://icds.org.br/hospital-unimed-governador-valadares/" target="_blank" class="logo-link">
-                <img src="https://i.imgur.com/ac2rphe.png" alt="Unihealth Logo" class="logo">
+            <a href="https://icds.org.br" target="_blank" class="logo-link">
+                <img src="/visual-identity/icds/logo/png/icds_horizontal_fundo_azul.png" alt="ICDS" class="logo">
             </a>
-            <h1>Hub Unihealth</h1>
-            <p class="subtitle">Gestão em Saúde Inteligente</p>
+            <h1>Hub ICDS</h1>
+            <p class="subtitle">Entidade Filantrópica e Gestora Assistencial</p>
         </div>
 
         <div class="tools-grid">
             <div class="tool-card featured">
-                <div class="tool-title">Calculadora Plantões Médicos</div>
-                <span class="tool-date">Outubro-25</span>
-                <a href="calc-plantao.html" class="tool-link">Acessar</a>
-            </div>
-
-
-
-            <div class="tool-card">
-                <div class="tool-title">Análise Reajuste Suturas</div>
-                <span class="tool-date">Julho-25</span>
-                <a href="fios.html" class="tool-link">Acessar</a>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-title">Análise Utilização PA</div>
-                <span class="tool-date">Março-25</span>
-                <a href="retornopa.html" class="tool-link">Acessar</a>
-            </div>
-
-
-
-            <div class="tool-card">
-                <div class="tool-title">Plano de Ação OPME</div>
-                <span class="tool-date">Março-25</span>
-                <a href="opme.html" class="tool-link">Acessar</a>
-            </div>
-
-            <div class="tool-card">
-                <div class="tool-title">ISC Cesarianas</div>
-                <span class="tool-date">Maio-25</span>
-                <a href="isc-cesarianas.html" class="tool-link">Acessar</a>
+                <div class="tool-title">TEA: Data Set Indicadores</div>
+                <a href="tea-dataset.html" class="tool-link">Acessar</a>
             </div>
         </div>
     </div>
@@ -410,6 +297,6 @@
       </div>
       <div style="font-size:11px;color:#94a3b8">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
     </div>
-<script src="/scripts/hub-auth.js" data-portal="unihealth"></script>
+<script src="/scripts/hub-auth.js" data-portal="icds"></script>
 </body>
 </html>

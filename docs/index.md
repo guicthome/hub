@@ -598,6 +598,11 @@ head:
           Psicologia ABA: Análise de Rede
           <span class="arrow">›</span>
         </a>
+        <a href="/unimed/variabilidade-exames.html" data-direct class="tool-item">
+          <span class="dot" style="background:#00995d;"></span>
+          Variabilidade Assistencial - Especialidades
+          <span class="arrow">›</span>
+        </a>
       </div>
       </div>
     </div>
