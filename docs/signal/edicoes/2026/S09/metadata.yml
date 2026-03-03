@@ -1,0 +1,23 @@
+id: "S09_2026"
+semana: 9
+ano: 2026
+periodo: "23/02/2026 - 01/03/2026"
+executivo: "Guilherme Thomé, MD, MBA"
+data_geracao: "2026-03-02"
+fontes_varredura:
+  - Notion
+  - Gmail
+fatos_estrategicos:
+  - tag: "ESTRATÉGIA"
+    titulo: "Software Spectra para Análise de Variabilidade Clínica"
+  - tag: "PROJETOS"
+    titulo: "Piloto do Projeto Axys-Teller com 8 Cirurgiões"
+  - tag: "ASSISTENCIAL"
+    titulo: "Protocolo Glicêmico Hospitalar"
+  - tag: "DADOS"
+    titulo: "Repositório Oncológico Centralizado e Visualizador Clínico"
+  - tag: "OPERAÇÕES"
+    titulo: "Refinamento da Calculadora de Valor e Coleta do PPE-15"
+  - tag: "GOVERNANÇA"
+    titulo: "Contrato Hi! Healthcare Intelligence Avança para Assinatura"
+demais_movimentacoes_count: 4
