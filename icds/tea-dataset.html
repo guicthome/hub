@@ -705,6 +705,33 @@
       transition: border-color 0.2s;
     }
     .login-box input:focus { border-color: var(--ax-primary); box-shadow: 0 0 0 3px rgba(27,58,92,0.1); }
+    .login-pw-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .login-pw-wrapper input {
+      margin-bottom: 0;
+      padding-right: 44px;
+    }
+    .login-pw-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      transition: color 0.2s;
+    }
+    .login-pw-toggle:hover { color: #374151; }
+    .login-pw-toggle svg { width: 20px; height: 20px; }
     .login-box .btn-login {
       width: 100%;
       padding: 12px;
@@ -819,7 +846,13 @@
     <p class="login-sub">Acesse com suas credenciais para preencher o formulário</p>
     <div class="login-error" id="loginError"></div>
     <input type="text" id="loginUser" placeholder="Usuário (ex: unimed_110)" autocomplete="username">
-    <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
+    <div class="login-pw-wrapper">
+      <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
+      <button type="button" class="login-pw-toggle" id="loginPwToggle" tabindex="-1" aria-label="Mostrar senha">
+        <svg id="loginEyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
+        <svg id="loginEyeOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
     <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
   </div>
 </div>
@@ -1750,6 +1783,29 @@ const SESSION_KEY = 'tea_dataset_session';
 // ============================================================
 // LOGIN / LOGOUT / SESSION
 // ============================================================
+
+// Toggle senha
+(function() {
+  var toggle = document.getElementById('loginPwToggle');
+  if (!toggle) return;
+  var passInput = document.getElementById('loginPass');
+  var eyeOff = document.getElementById('loginEyeOff');
+  var eyeOn = document.getElementById('loginEyeOn');
+  toggle.addEventListener('click', function() {
+    if (passInput.type === 'password') {
+      passInput.type = 'text';
+      eyeOff.style.display = 'none';
+      eyeOn.style.display = 'block';
+      toggle.setAttribute('aria-label', 'Ocultar senha');
+    } else {
+      passInput.type = 'password';
+      eyeOff.style.display = 'block';
+      eyeOn.style.display = 'none';
+      toggle.setAttribute('aria-label', 'Mostrar senha');
+    }
+  });
+})();
+
 function doLogin() {
   const user = document.getElementById('loginUser').value.trim();
   const pass = document.getElementById('loginPass').value;
