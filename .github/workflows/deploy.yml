@@ -52,6 +52,8 @@ jobs:
 
           # Copy standalone HTML modules (sub-pages, dashboards, policies)
           cp -r axia "$DIST/" 2>/dev/null || true
+          cp -r admin "$DIST/" 2>/dev/null || true
+          cp -r scripts "$DIST/" 2>/dev/null || true
           cp -r medvalor "$DIST/" 2>/dev/null || true
           cp -r thera "$DIST/" 2>/dev/null || true
           cp -r unimed "$DIST/" 2>/dev/null || true
