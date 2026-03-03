@@ -77,6 +77,42 @@
     .hero .hero-sub { font-size: 1rem; opacity: 0.85; font-weight: 400; margin-bottom: 8px; }
     .hero .hero-tag { font-size: 0.82rem; opacity: 0.6; }
 
+    /* Bloco cliente (replicável) */
+    .hero-client {
+      margin: 20px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 12px 24px;
+      max-width: 520px;
+    }
+    .hero-client-logo {
+      height: 56px;
+      border-radius: 8px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .hero-client-label {
+      font-size: 0.88rem;
+      opacity: 0.8;
+      text-align: left;
+      line-height: 1.4;
+    }
+    @media (max-width: 480px) {
+      .hero-client {
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 16px;
+        text-align: center;
+      }
+      .hero-client-logo { height: 48px; }
+      .hero-client-label { text-align: center; font-size: 0.82rem; }
+    }
+
     /* Container */
     .container { max-width: 900px; margin: 0 auto; padding: 0 20px 40px; }
 
@@ -891,9 +927,10 @@
   <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="hero-brand" style="width:180px">
   <h1>Data Set TEA</h1>
   <div class="hero-sub">Indicadores Mínimos de Assistência</div>
-  <div style="margin:12px auto 0;display:flex;align-items:center;justify-content:center;gap:10px">
-    <img src="/icds/logo_unimed_rioverde.png" alt="Unimed Rio Verde" style="height:44px;border-radius:8px;object-fit:contain">
-    <span style="font-size:0.82rem;opacity:0.7">Unimed Rio Verde (GO) — Questionário de Coleta</span>
+  <!-- BLOCO CLIENTE (replicável: trocar src, alt e texto) -->
+  <div class="hero-client">
+    <img src="/icds/logo_unimed_rioverde.png" alt="Unimed Rio Verde" class="hero-client-logo">
+    <span class="hero-client-label">Unimed Rio Verde (GO) — Questionário de Coleta</span>
   </div>
 </header>
 
