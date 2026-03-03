@@ -666,170 +666,215 @@
       .toc-fab { bottom: 16px; right: 16px; }
     }
 
-    /* Login overlay */
-    .login-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: linear-gradient(135deg, #0f2a42 0%, #1B3A5C 50%, #2C5F8A 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.4s ease;
-    }
-    .login-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .login-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 40px 36px;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    /* File upload zone (drag-and-drop) */
+    .file-upload-zone {
+      border: 2px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
       text-align: center;
-    }
-    .login-box img { width: 160px; margin: 0 auto 20px; display: block; }
-    .login-box h2 { font-size: 1.2rem; font-weight: 700; color: var(--ax-primary); margin-bottom: 6px; }
-    .login-box .login-sub { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
-    .login-box input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .login-box input:focus { border-color: var(--ax-primary); box-shadow: 0 0 0 3px rgba(27,58,92,0.1); }
-    .login-pw-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .login-pw-wrapper input {
-      margin-bottom: 0;
-      padding-right: 44px;
-    }
-    .login-pw-toggle {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #9ca3af;
-      transition: color 0.2s;
-    }
-    .login-pw-toggle:hover { color: #374151; }
-    .login-pw-toggle svg { width: 20px; height: 20px; }
-    .login-box .btn-login {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-light) 100%);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
+      background: var(--bg-secondary);
+      margin-top: 8px;
+    }
+    .file-upload-zone:hover,
+    .file-upload-zone.dragover {
+      border-color: var(--ax-primary);
+      background: rgba(27,58,92,0.04);
+    }
+    .file-upload-zone svg {
+      width: 32px;
+      height: 32px;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+    .file-upload-zone .upload-label {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .file-upload-zone .upload-hint {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
       margin-top: 4px;
     }
-    .login-box .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,58,92,0.35); }
-    .login-box .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .login-error {
-      color: var(--ax-red);
-      font-size: 0.82rem;
-      font-weight: 500;
-      margin-bottom: 10px;
-      min-height: 1.2em;
+    .file-upload-zone input[type="file"] {
+      display: none;
     }
-
-    /* User bar */
-    .user-bar {
-      background: var(--bg-primary);
-      border-bottom: 1px solid var(--border-color);
-      padding: 8px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      flex-wrap: wrap;
-      gap: 6px;
+    .file-list {
+      margin-top: 8px;
     }
-    .user-bar .user-info {
+    .file-item {
       display: flex;
       align-items: center;
       gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
     }
-    .user-bar .user-avatar {
-      width: 24px;
-      height: 24px;
+    .file-item .file-name {
+      flex: 1;
+      color: var(--text-primary);
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-item .file-size {
+      color: var(--text-tertiary);
+      font-size: 0.72rem;
+      flex-shrink: 0;
+    }
+    .file-item .file-remove {
+      background: none;
+      border: none;
+      color: var(--ax-red);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .file-item .file-remove:hover {
+      background: rgba(220,38,38,0.1);
+    }
+
+    /* Info balloon (contextual help) */
+    .info-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: var(--ax-primary);
       color: #fff;
-      display: flex;
+      font-size: 0.7rem;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      margin-left: 6px;
+      vertical-align: middle;
+      position: relative;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .info-btn:hover {
+      background: var(--ax-primary-light);
+      transform: scale(1.1);
+    }
+    .info-balloon {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 24px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      z-index: 10002;
+      font-size: 0.86rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .info-balloon.open { display: block; }
+    .info-balloon h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ax-primary);
+      margin-bottom: 10px;
+    }
+    .info-balloon .close-balloon {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      padding: 4px;
+    }
+    .info-balloon .close-balloon:hover { color: var(--text-primary); }
+    .info-balloon-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 10001;
+    }
+    .info-balloon-overlay.open { display: block; }
+
+    /* Clear confirmation modal */
+    .clear-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10001;
       align-items: center;
       justify-content: center;
-      font-size: 0.65rem;
+    }
+    .clear-modal-overlay.open { display: flex; }
+    .clear-modal-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .clear-modal-box h3 {
+      font-size: 1.1rem;
       font-weight: 700;
+      color: var(--ax-red);
+      margin-bottom: 12px;
     }
-    .user-bar .user-actions {
+    .clear-modal-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .clear-modal-box .modal-actions {
       display: flex;
-      align-items: center;
       gap: 10px;
+      justify-content: center;
     }
-    .user-bar .sync-status {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.72rem;
-    }
-    .user-bar .sync-status .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--ax-green);
-    }
-    .user-bar .sync-status .dot.syncing {
-      background: #f59e0b;
-      animation: pulse 1s infinite;
-    }
-    .user-bar .sync-status .dot.error {
-      background: var(--ax-red);
-    }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-    .btn-logout {
-      background: none;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 4px 10px;
+    .clear-modal-box .modal-actions button {
+      padding: 10px 24px;
+      border-radius: 10px;
+      border: none;
       font-family: inherit;
-      font-size: 0.72rem;
-      color: var(--text-tertiary);
+      font-size: 0.88rem;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
     }
-    .btn-logout:hover { background: var(--bg-tertiary); color: var(--text-primary); }
-
-    @media (max-width: 768px) {
-      .user-bar { padding: 6px 12px; }
+    .clear-modal-box .btn-clear-confirm {
+      background: var(--ax-red);
+      color: #fff;
+    }
+    .clear-modal-box .btn-clear-confirm:hover {
+      background: #b91c1c;
+    }
+    .clear-modal-box .btn-clear-cancel {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+    .clear-modal-box .btn-clear-cancel:hover {
+      background: var(--border-color);
     }
 
     @media print {
-      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .login-overlay, .user-bar { display: none !important; }
+      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -921,7 +966,7 @@
   <div class="form-section" id="sec1">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec1-body" onclick="toggleSection('sec1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec1')}">
       <div class="section-num">1</div>
-      <div class="section-title">Profissionais (por prestador / serviço)</div>
+      <div class="section-title">Profissionais (por prestador / serviço) <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec1')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec1">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -957,7 +1002,7 @@
   <div class="form-section" id="sec2">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec2-body" onclick="toggleSection('sec2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec2')}">
       <div class="section-num">2</div>
-      <div class="section-title">Pacientes</div>
+      <div class="section-title">Pacientes <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec2')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec2">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1029,7 +1074,7 @@
   <div class="form-section" id="sec3">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec3-body" onclick="toggleSection('sec3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec3')}">
       <div class="section-num">3</div>
-      <div class="section-title">Tratamento</div>
+      <div class="section-title">Tratamento <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec3')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec3">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1111,12 +1156,29 @@
   <div class="form-section" id="sec4">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec4-body" onclick="toggleSection('sec4')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec4')}">
       <div class="section-num">4</div>
-      <div class="section-title">Prestadores (cadastro para futuras capacitações)</div>
+      <div class="section-title">Prestadores (cadastro para futuras capacitações) <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec4')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec4">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="section-body" id="sec4-body" role="region">
-      <div class="sub-hint" style="margin-bottom:16px">Preencher para cada profissional (ou anexar lista).</div>
+      <div class="sub-hint" style="margin-bottom:16px">Preencha manualmente para cada profissional ou anexe uma lista (planilha, PDF, etc.).</div>
+
+      <!-- Upload de lista de prestadores -->
+      <div class="sub-q">
+        <span class="sub-label">Anexar lista de profissionais (opcional):</span>
+        <div class="sub-hint">Formatos aceitos: .xlsx, .xls, .csv, .pdf, .doc, .docx (máx. 10 MB por arquivo)</div>
+        <div class="file-upload-zone" id="uploadZonePrestadores" onclick="document.getElementById('fileInputPrestadores').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <div class="upload-label">Clique para selecionar ou arraste o arquivo aqui</div>
+          <div class="upload-hint">Planilha com nome, registro profissional, contato e vínculo</div>
+          <input type="file" id="fileInputPrestadores" accept=".xlsx,.xls,.csv,.pdf,.doc,.docx" multiple>
+        </div>
+        <div class="file-list" id="fileListPrestadores"></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="sub-hint" style="margin-bottom:12px">Ou preencha individualmente abaixo:</div>
+
       <div id="prestadores-container">
         <div class="prestador-entry" style="background:var(--bg-secondary);border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid var(--border-color)">
           <div class="sub-q">
@@ -1158,7 +1220,7 @@
   <div class="form-section" id="sec5">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec5-body" onclick="toggleSection('sec5')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec5')}">
       <div class="section-num">5</div>
-      <div class="section-title">Pagamento (remuneração / repasse)</div>
+      <div class="section-title">Pagamento (remuneração / repasse) <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec5')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec5">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1175,24 +1237,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="row-label">Médicos</td><td><input type="text" name="pag_med_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_med_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_med_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
-            <tr><td class="row-label">Fisioterapeutas</td><td><input type="text" name="pag_fisio_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fisio_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fisio_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
-            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="text" name="pag_to_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_to_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_to_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
-            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="text" name="pag_fono_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fono_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fono_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
-            <tr><td class="row-label">Psicólogos</td><td><input type="text" name="pag_psi_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_psi_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_psi_forma"><option value="">—</option><option value="fee_for_service">Fee for service</option><option value="pacote">Pacote</option><option value="capitation">Capitation</option><option value="salario">Salário</option><option value="fixo_prospectivo">Fixo prospectivo</option><option value="retrospectivo">Retrospectivo</option></select></td></tr>
+            <tr><td class="row-label">Médicos</td><td><input type="text" name="pag_med_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_med_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_med_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
+            <tr><td class="row-label">Fisioterapeutas</td><td><input type="text" name="pag_fisio_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fisio_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fisio_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
+            <tr><td class="row-label">Terapeutas Ocupacionais</td><td><input type="text" name="pag_to_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_to_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_to_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
+            <tr><td class="row-label">Fonoaudiólogos</td><td><input type="text" name="pag_fono_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_fono_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_fono_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
+            <tr><td class="row-label">Psicólogos</td><td><input type="text" name="pag_psi_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_psi_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_psi_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
           </tbody>
         </table>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
-        <span class="sub-label">5.2 Forma de pagamento predominante (geral): <span class="help-tip" data-tip="Fee for service = pagamento por procedimento realizado. Capitation = valor fixo per capita. Fixo prospectivo = valor definido antes da prestação.">?</span></span>
+        <span class="sub-label">5.2 Forma de pagamento predominante (geral): <span class="help-tip" data-tip="PF = pessoa física. PJ = pessoa jurídica. Variável = remuneração atrelada a metas/indicadores. Salário + Variável = componente fixo + variável.">?</span></span>
         <div class="option-group" style="flex-direction:column">
-          <label class="option-item"><input type="radio" name="pag_forma" value="fee_for_service"> Fee for service (por procedimento)</label>
-          <label class="option-item"><input type="radio" name="pag_forma" value="pacote"> Pacote</label>
-          <label class="option-item"><input type="radio" name="pag_forma" value="capitation"> Capitation (per capita)</label>
-          <label class="option-item"><input type="radio" name="pag_forma" value="salario"> Salário</label>
-          <label class="option-item"><input type="radio" name="pag_forma" value="fixo_prospectivo"> Fixo prospectivo</label>
-          <label class="option-item"><input type="radio" name="pag_forma" value="retrospectivo"> Retrospectivo</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="pf"> PF</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="pj"> PJ</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="variavel"> Variável</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="salario_variavel"> Salário + Variável</label>
+          <label class="option-item"><input type="radio" name="pag_forma" value="somente_salario"> Somente Salário</label>
           <label class="option-item"><input type="radio" name="pag_forma" value="outro"> Outro: <input type="text" class="other-text" name="pag_forma_outro" placeholder="Especifique"></label>
         </div>
       </div>
@@ -1208,7 +1269,7 @@
   <div class="form-section" id="sec6">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec6-body" onclick="toggleSection('sec6')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec6')}">
       <div class="section-num">6</div>
-      <div class="section-title">Dados das Judicializações</div>
+      <div class="section-title">Dados das Judicializações <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec6')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec6">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1241,10 +1302,14 @@
           </ol>
         </div>
         <button type="button" onclick="addDynamicField('juizes-container','jud_juiz','Nome do juiz')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar juiz</button>
-        <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_juiz_anexo"> Anexo lista</label>
-        <div class="field-group" style="margin-top:8px">
-          <label for="jud_juiz_link">Link do anexo (Google Drive, etc.):</label>
-          <input type="text" id="jud_juiz_link" name="jud_juiz_link" class="input-md" placeholder="URL do anexo">
+        <div style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem">Anexar lista de juízes (opcional):</span>
+          <div class="file-upload-zone" id="uploadZoneJuizes" onclick="document.getElementById('fileInputJuizes').click()" style="padding:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="upload-label">Clique ou arraste o arquivo aqui</div>
+            <input type="file" id="fileInputJuizes" accept=".xlsx,.xls,.csv,.pdf,.doc,.docx" multiple>
+          </div>
+          <div class="file-list" id="fileListJuizes"></div>
         </div>
       </div>
       <div class="divider"></div>
@@ -1258,10 +1323,14 @@
           </ol>
         </div>
         <button type="button" onclick="addDynamicField('peritos-container','jud_perito','Nome do perito')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar perito</button>
-        <label class="option-item" style="margin-top:6px"><input type="checkbox" name="jud_perito_anexo"> Anexo lista</label>
-        <div class="field-group" style="margin-top:8px">
-          <label for="jud_perito_link">Link do anexo (Google Drive, etc.):</label>
-          <input type="text" id="jud_perito_link" name="jud_perito_link" class="input-md" placeholder="URL do anexo">
+        <div style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem">Anexar lista de peritos (opcional):</span>
+          <div class="file-upload-zone" id="uploadZonePeritos" onclick="document.getElementById('fileInputPeritos').click()" style="padding:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="upload-label">Clique ou arraste o arquivo aqui</div>
+            <input type="file" id="fileInputPeritos" accept=".xlsx,.xls,.csv,.pdf,.doc,.docx" multiple>
+          </div>
+          <div class="file-list" id="fileListPeritos"></div>
         </div>
       </div>
       <div class="divider"></div>
@@ -1285,7 +1354,7 @@
   <div class="form-section" id="sec7">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec7-body" onclick="toggleSection('sec7')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec7')}">
       <div class="section-num">7</div>
-      <div class="section-title">Jornada Atual do Paciente (AS-IS) + Insumos para Desenho da Linha de Cuidado</div>
+      <div class="section-title">Jornada Atual do Paciente (AS-IS) + Insumos para Desenho da Linha de Cuidado <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec7')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec7">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1413,7 +1482,7 @@
   <div class="form-section" id="sec8">
     <div class="section-header" role="button" tabindex="0" aria-expanded="true" aria-controls="sec8-body" onclick="toggleSection('sec8')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSection('sec8')}">
       <div class="section-num">8</div>
-      <div class="section-title">Governança</div>
+      <div class="section-title">Governança <button type="button" class="info-btn" onclick="event.stopPropagation();openInfoBalloon('info-sec8')" title="Saiba mais">i</button></div>
       <span class="section-badge empty" id="badge-sec8">Vazio</span>
       <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -1522,9 +1591,15 @@
           <label class="option-item"><input type="checkbox" name="gov_evid_planilha"> Planilha</label>
           <label class="option-item"><input type="checkbox" name="gov_evid_outros"> Outros</label>
         </div>
-        <div class="field-group" style="margin-top:8px">
-          <label for="gov_evid_link">Anexo/Link:</label>
-          <input type="text" id="gov_evid_link" name="gov_evid_link" class="input-md" placeholder="URL ou referência do anexo">
+        <div style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem">Anexar evidências (opcional):</span>
+          <div class="file-upload-zone" id="uploadZoneEvidencias" onclick="document.getElementById('fileInputEvidencias').click()" style="padding:14px">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="upload-label">Clique ou arraste o arquivo aqui</div>
+            <div class="upload-hint">Relatórios, planilhas, dashboards exportados, etc.</div>
+            <input type="file" id="fileInputEvidencias" accept=".xlsx,.xls,.csv,.pdf,.doc,.docx,.pptx,.png,.jpg,.jpeg" multiple>
+          </div>
+          <div class="file-list" id="fileListEvidencias"></div>
         </div>
       </div>
 
@@ -1541,7 +1616,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Exportar CSV
     </button>
-    <button type="button" onclick="clearForm()" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);transition:all 0.2s">
+    <button type="button" onclick="showClearModal()" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);transition:all 0.2s">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
       Limpar formulário
     </button>
@@ -1580,6 +1655,96 @@
       <button class="btn-confirm" onclick="closePdfModal();generatePDF()">Gerar PDF</button>
     </div>
   </div>
+</div>
+
+<!-- Clear Confirmation Modal -->
+<div class="clear-modal-overlay" id="clearModal">
+  <div class="clear-modal-box">
+    <h3>Limpar todo o formulário?</h3>
+    <p>Todos os campos preenchidos serão apagados e o rascunho salvo será removido. Esta ação não pode ser desfeita.</p>
+    <div class="modal-actions">
+      <button class="btn-clear-cancel" onclick="closeClearModal()">Cancelar</button>
+      <button class="btn-clear-confirm" onclick="executeClear()">Sim, limpar tudo</button>
+    </div>
+  </div>
+</div>
+
+<!-- Info Balloon Overlay -->
+<div class="info-balloon-overlay" id="infoBalloonOverlay" onclick="closeInfoBalloon()"></div>
+
+<!-- Info Balloons -->
+<div class="info-balloon" id="info-sec1">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 1 — Profissionais</h4>
+  <p>Informe a quantidade de profissionais que atendem pacientes TEA na rede, separando por categoria (médicos, fisioterapeutas, terapeutas ocupacionais, fonoaudiólogos e psicólogos).</p>
+  <p><strong>Generalista:</strong> profissional sem formação específica em TEA, mas que atende essa população.</p>
+  <p><strong>Especialista:</strong> profissional com formação ou certificação específica em TEA/neurodesenvolvimento.</p>
+  <p>Caso tenha mais de um prestador, considere o total da rede credenciada.</p>
+</div>
+
+<div class="info-balloon" id="info-sec2">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 2 — Pacientes</h4>
+  <p>Informe dados agregados dos pacientes diagnosticados com TEA na carteira da operadora.</p>
+  <p><strong>Instrumento diagnóstico:</strong> CID-10 (F84.0) é a classificação internacional de doenças. DSM-5 é o manual diagnóstico e estatístico de transtornos mentais. Ambos são aceitos para diagnóstico formal.</p>
+  <p><strong>Dados demográficos:</strong> Informe quantidades absolutas (número de pacientes), não percentuais.</p>
+</div>
+
+<div class="info-balloon" id="info-sec3">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 3 — Tratamento</h4>
+  <p>Descreva como o tratamento TEA está estruturado atualmente na operadora.</p>
+  <p><strong>Protocolo estruturado:</strong> Documento formal que define critérios de elegibilidade, terapias indicadas, frequência e duração do tratamento.</p>
+  <p><strong>PTI (Plano Terapêutico Individual):</strong> Plano personalizado para cada paciente, definido pela equipe multidisciplinar, com metas e revisões periódicas.</p>
+  <p><strong>Carga horária:</strong> Média de horas de terapia por paciente. Se houver variação por nível de suporte (leve/moderado/severo), descreva no campo de variação.</p>
+</div>
+
+<div class="info-balloon" id="info-sec4">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 4 — Prestadores</h4>
+  <p>Cadastre os profissionais que atendem TEA na rede. Esses dados serão usados para futuras capacitações e comunicações.</p>
+  <p>Você pode preencher individualmente usando os campos abaixo, ou anexar uma planilha/lista com os dados de todos os profissionais de uma vez.</p>
+  <p><strong>Formatos aceitos para upload:</strong> Excel (.xlsx, .xls), CSV, PDF ou Word. A planilha deve conter: nome, registro profissional, e-mail, telefone e vínculo.</p>
+</div>
+
+<div class="info-balloon" id="info-sec5">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 5 — Pagamento</h4>
+  <p>Informe como os profissionais que atendem TEA são remunerados pela operadora.</p>
+  <p><strong>PF:</strong> Pagamento como pessoa física (autônomo).</p>
+  <p><strong>PJ:</strong> Pagamento via pessoa jurídica (clínica, cooperativa, empresa).</p>
+  <p><strong>Variável:</strong> Remuneração atrelada a metas, indicadores ou produção.</p>
+  <p><strong>Salário + Variável:</strong> Componente fixo (salário) mais componente variável.</p>
+  <p><strong>Somente Salário:</strong> Remuneração fixa mensal, sem componente variável.</p>
+  <p>Preencha o valor unitário (por sessão/atendimento) e o valor mensal médio para cada categoria.</p>
+</div>
+
+<div class="info-balloon" id="info-sec6">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 6 — Judicializações</h4>
+  <p>Informe dados sobre ações judiciais relacionadas ao TEA contra a operadora.</p>
+  <p><strong>Média mensal:</strong> Número médio de novas ações por mês no período informado.</p>
+  <p><strong>Valor médio:</strong> Custo médio por ação (honorários + tratamento deferido + custas).</p>
+  <p><strong>Juízes e peritos:</strong> Listar os principais nomes ajuda a mapear padrões de decisão e embasar estratégias de defesa técnica.</p>
+</div>
+
+<div class="info-balloon" id="info-sec7">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 7 — Jornada do Paciente</h4>
+  <p>Descreva como o paciente TEA percorre a rede hoje (AS-IS), desde a porta de entrada até o acompanhamento contínuo.</p>
+  <p><strong>Porta de entrada:</strong> Como o paciente chega (emergência, consulta eletiva, encaminhamento, judicialização).</p>
+  <p><strong>Gargalos:</strong> Pontos onde há atraso, retrabalho ou perda de qualidade.</p>
+  <p><strong>Pontos de dor:</strong> Problemas percebidos por cada stakeholder (família, operadora, prestador).</p>
+  <p><strong>Requisitos para Linha de Cuidado:</strong> O que seria necessário para estruturar uma linha de cuidado formal para TEA.</p>
+</div>
+
+<div class="info-balloon" id="info-sec8">
+  <button class="close-balloon" onclick="closeInfoBalloon()">&times;</button>
+  <h4>Seção 8 — Governança</h4>
+  <p>Informe como a operadora governa os dados e processos relacionados ao TEA.</p>
+  <p><strong>Compartilhamento de risco:</strong> Se existe modelo de remuneração que divide risco financeiro entre operadora e prestador.</p>
+  <p><strong>Conjunto mínimo de dados:</strong> Tabela com os dados essenciais para gestão do TEA. Informe se cada dado está disponível, de onde vem, com que frequência é atualizado e quem é responsável.</p>
+  <p><strong>Indicadores assistenciais:</strong> Métricas usadas para monitorar qualidade e resultado do cuidado TEA.</p>
 </div>
 
 <!-- FOOTER -->
@@ -2074,22 +2239,115 @@ function checkDraft() {
 }
 
 // ============================================================
-// CLEAR FORM
+// CLEAR FORM (with modal confirmation)
 // ============================================================
-function clearForm() {
-  if (!confirm('Tem certeza que deseja limpar todo o formul\u00e1rio? Esta a\u00e7\u00e3o n\u00e3o pode ser desfeita.')) return;
+function showClearModal() {
+  document.getElementById('clearModal').classList.add('open');
+}
+function closeClearModal() {
+  document.getElementById('clearModal').classList.remove('open');
+}
+function executeClear() {
+  closeClearModal();
   const form = document.getElementById('teaForm');
   form.reset();
   form.querySelectorAll('.filled').forEach(el => el.classList.remove('filled'));
   localStorage.removeItem(DRAFT_KEY);
-  // Delete API submission and create a new one
-  if (authToken && currentSubmission) {
-    apiCall('DELETE', '/api/submissions/' + currentSubmission.id)
-    .then(() => apiCall('POST', '/api/submissions', { title: 'Data Set TEA - Coleta' }))
-    .then(d => { currentSubmission = { id: d.id, status: d.status, version: d.version }; setSyncStatus('ok', 'Limpo'); })
-    .catch(err => console.error('Erro ao limpar:', err));
-  }
+  // Clear file lists
+  document.querySelectorAll('.file-list').forEach(fl => fl.innerHTML = '');
+  uploadedFiles = {};
   updateProgress();
+}
+
+// ============================================================
+// INFO BALLOONS
+// ============================================================
+function openInfoBalloon(id) {
+  closeInfoBalloon();
+  document.getElementById(id).classList.add('open');
+  document.getElementById('infoBalloonOverlay').classList.add('open');
+}
+function closeInfoBalloon() {
+  document.querySelectorAll('.info-balloon.open').forEach(b => b.classList.remove('open'));
+  document.getElementById('infoBalloonOverlay').classList.remove('open');
+}
+
+// ============================================================
+// FILE UPLOAD (drag-and-drop + click)
+// ============================================================
+let uploadedFiles = {};
+
+function initFileUpload(zoneId, inputId, listId) {
+  const zone = document.getElementById(zoneId);
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+  if (!zone || !input || !list) return;
+
+  if (!uploadedFiles[listId]) uploadedFiles[listId] = [];
+
+  // Prevent zone click from propagating to input twice
+  zone.addEventListener('click', function(e) {
+    if (e.target === input) return;
+  });
+
+  // Drag events
+  zone.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    zone.classList.add('dragover');
+  });
+  zone.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+  });
+  zone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files, listId, list);
+  });
+
+  // File input change
+  input.addEventListener('change', function() {
+    handleFiles(input.files, listId, list);
+    input.value = ''; // reset so same file can be re-selected
+  });
+}
+
+function handleFiles(fileList, listId, listEl) {
+  if (!uploadedFiles[listId]) uploadedFiles[listId] = [];
+  const maxSize = 10 * 1024 * 1024; // 10 MB
+
+  Array.from(fileList).forEach(file => {
+    if (file.size > maxSize) {
+      alert('Arquivo "' + file.name + '" excede o limite de 10 MB.');
+      return;
+    }
+    uploadedFiles[listId].push(file);
+    renderFileList(listId, listEl);
+  });
+}
+
+function renderFileList(listId, listEl) {
+  listEl.innerHTML = '';
+  uploadedFiles[listId].forEach((file, idx) => {
+    const size = file.size < 1024 ? file.size + ' B' :
+                 file.size < 1048576 ? (file.size / 1024).toFixed(1) + ' KB' :
+                 (file.size / 1048576).toFixed(1) + ' MB';
+    const item = document.createElement('div');
+    item.className = 'file-item';
+    item.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:18px;height:18px;flex-shrink:0;color:var(--ax-primary)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span class="file-name">${file.name}</span>
+      <span class="file-size">${size}</span>
+      <button type="button" class="file-remove" onclick="removeFile('${listId}', ${idx})" title="Remover">&times;</button>
+    `;
+    listEl.appendChild(item);
+  });
+}
+
+function removeFile(listId, idx) {
+  uploadedFiles[listId].splice(idx, 1);
+  const listEl = document.getElementById(listId);
+  renderFileList(listId, listEl);
 }
 
 // ============================================================
@@ -2194,19 +2452,20 @@ document.addEventListener('DOMContentLoaded', function() {
     el.addEventListener('input', applyMoneyMask);
   });
 
-  // Login via Enter key
-  document.getElementById('loginPass').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') doLogin();
-  });
-  document.getElementById('loginUser').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') document.getElementById('loginPass').focus();
-  });
+  // Initialize file uploads (drag-and-drop zones)
+  initFileUpload('uploadZonePrestadores', 'fileInputPrestadores', 'fileListPrestadores');
+  initFileUpload('uploadZoneJuizes', 'fileInputJuizes', 'fileListJuizes');
+  initFileUpload('uploadZonePeritos', 'fileInputPeritos', 'fileListPeritos');
+  initFileUpload('uploadZoneEvidencias', 'fileInputEvidencias', 'fileListEvidencias');
 
-  // Try to restore session
-  if (restoreSession()) {
-    showApp();
-    loadOrCreateSubmission();
-  }
+  // Close info balloon on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeInfoBalloon();
+      closeClearModal();
+      closePdfModal();
+    }
+  });
 
   // Initial progress
   updateProgress();
@@ -2405,7 +2664,7 @@ function generatePDF() {
   addTitle('5) Pagamento (remuneração / repasse)');
   const pagCats = ['Médicos', 'Fisioterapeutas', 'Terapeutas Ocupacionais', 'Fonoaudiólogos', 'Psicólogos'];
   const pagPrefixes = ['pag_med', 'pag_fisio', 'pag_to', 'pag_fono', 'pag_psi'];
-  const formaMap = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo' };
+  const formaMap = { pf: 'PF', pj: 'PJ', variavel: 'Variável', salario_variavel: 'Salário + Variável', somente_salario: 'Somente Salário' };
   const pagRows = pagCats.map((cat, i) => {
     const p = pagPrefixes[i];
     return [cat, getVal(p + '_unit') || '—', getVal(p + '_mes') || '—', formaMap[getVal(p + '_forma')] || '—'];
@@ -2422,7 +2681,7 @@ function generatePDF() {
   y = doc.lastAutoTable.finalY + 4;
   addSubLabel('Forma de pagamento predominante (geral):');
   let formaPag = getRadio('pag_forma');
-  const formaMapGeral = { fee_for_service: 'Fee for service', pacote: 'Pacote', capitation: 'Capitation', salario: 'Salário', fixo_prospectivo: 'Fixo prospectivo', retrospectivo: 'Retrospectivo', outro: 'Outro: ' + (getVal('pag_forma_outro') || '—') };
+  const formaMapGeral = { pf: 'PF', pj: 'PJ', variavel: 'Variável', salario_variavel: 'Salário + Variável', somente_salario: 'Somente Salário', outro: 'Outro: ' + (getVal('pag_forma_outro') || '—') };
   addValue(formaMapGeral[formaPag] || '(não selecionado)');
   addSubLabel('Observações:');
   addValue(getVal('pag_obs'));
