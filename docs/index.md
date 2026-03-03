@@ -558,6 +558,16 @@ head:
           Propostas Comerciais
           <span class="arrow">›</span>
         </a>
+        <a href="/axia/reembolso.html" data-direct class="tool-item">
+          <span class="dot" style="background:#196396;"></span>
+          Solicitação de Reembolso
+          <span class="arrow">›</span>
+        </a>
+        <a href="/axia/nota-fiscal.html" data-direct class="tool-item">
+          <span class="dot" style="background:#196396;"></span>
+          Solicitação de Emissão de NF
+          <span class="arrow">›</span>
+        </a>
       </div>
       </div>
     </div>
