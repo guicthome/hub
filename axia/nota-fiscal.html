@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitação de Emissão de NF | AxiaCare®</title>
+  <meta name="description" content="Solicitação de Emissão de Nota Fiscal — AxiaCare®">
+  <link rel="icon" href="/assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <style>
+    :root {
+      --blue-primary: #2c5f8a;
+      --blue-dark: #1e3a5f;
+      --blue-light: #e8f0f8;
+      --blue-accent: #3a7cbd;
+      --green-accent: #2dbf7f;
+      --green-light: #e6f9f0;
+      --red-accent: #e74c3c;
+      --red-light: #fdecea;
+      --yellow-accent: #f39c12;
+      --yellow-light: #fef9e7;
+      --gray-50: #f8f9fa;
+      --gray-100: #f1f3f5;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-500: #868e96;
+      --gray-700: #495057;
+      --gray-900: #212529;
+      --radius: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.5;
+    }
+
+    /* ── Top bar ── */
+    .top-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-bar-left { display: flex; align-items: center; gap: 16px; }
+    .top-bar-left a {
+      font-size: 13px;
+      color: var(--blue-accent);
+      text-decoration: none;
+    }
+    .top-bar-left a:hover { text-decoration: underline; }
+    .top-bar-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      background: #fff;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 24px;
+    }
+    .tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .tab:hover { color: var(--gray-700); }
+    .tab.active {
+      color: var(--blue-primary);
+      border-bottom-color: var(--blue-primary);
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 800px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+    .container-wide {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      padding: 14px 20px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--blue-dark);
+      border-bottom: 2px solid var(--blue-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .card-header .toggle-icon {
+      font-size: 12px;
+      color: var(--gray-500);
+      transition: transform 0.2s;
+    }
+    .card-header.collapsed .toggle-icon { transform: rotate(-90deg); }
+    .card-body { padding: 20px; }
+    .card-body.collapsed { display: none; }
+
+    /* ── Form ── */
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 4px;
+    }
+    .form-group label .required { color: var(--red-accent); }
+    .form-control {
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--gray-900);
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--blue-accent);
+      box-shadow: 0 0 0 3px rgba(58,124,189,0.15);
+    }
+    .form-control::placeholder { color: var(--gray-500); }
+    textarea.form-control { resize: vertical; min-height: 80px; }
+
+    /* ── Combobox ── */
+    .combobox-wrapper {
+      position: relative;
+    }
+    .combobox-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid var(--gray-300);
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 50;
+      display: none;
+      box-shadow: var(--shadow-md);
+    }
+    .combobox-dropdown.open { display: block; }
+    .combobox-option {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .combobox-option:hover, .combobox-option.highlighted {
+      background: var(--blue-light);
+    }
+    .combobox-option.add-new {
+      color: var(--blue-accent);
+      font-style: italic;
+    }
+
+    /* ── Emitente info ── */
+    .emitente-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 4px 12px;
+      font-size: 13px;
+    }
+    .emitente-grid dt { color: var(--gray-500); font-weight: 500; }
+    .emitente-grid dd { color: var(--gray-900); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--blue-primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-primary:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+    .btn-sm {
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    /* ── Status badges ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 12px;
+    }
+    .badge-aguardando {
+      background: var(--yellow-light);
+      color: var(--yellow-accent);
+    }
+    .badge-emitida {
+      background: var(--green-light);
+      color: var(--green-accent);
+    }
+    .badge-cancelada {
+      background: var(--red-light);
+      color: var(--red-accent);
+    }
+
+    /* ── Table ── */
+    .table-wrapper { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    thead th {
+      background: var(--blue-dark);
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    tbody tr:hover { background: var(--gray-50); }
+
+    /* ── Filters ── */
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .filters .form-group { margin-bottom: 0; flex: 1; min-width: 150px; }
+
+    /* ── Status select inline ── */
+    .status-select {
+      padding: 3px 8px;
+      font-size: 12px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* ── Confirmation ── */
+    .confirmation {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .confirmation .check-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .confirmation h2 {
+      font-size: 20px;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+    .confirmation p {
+      font-size: 14px;
+      color: var(--gray-700);
+      margin-bottom: 4px;
+    }
+    .confirmation .summary {
+      text-align: left;
+      margin: 24px auto;
+      max-width: 500px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .confirmation .summary dt { color: var(--gray-500); font-size: 12px; }
+    .confirmation .summary dd { font-size: 14px; margin-bottom: 8px; }
+
+    /* ── Overlay ── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .overlay.active { display: flex; }
+    .overlay-box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--gray-200);
+      border-top-color: var(--blue-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--gray-500);
+    }
+    .empty-state p { font-size: 14px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .container, .container-wide { padding: 0 12px; margin: 12px auto; }
+      .tabs { padding: 0 12px; }
+      .tab { padding: 10px 16px; font-size: 13px; }
+      .filters { flex-direction: column; }
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <a href="/axia/">&larr; Portal AxiaCare</a>
+    <span class="top-bar-title">Solicitação de Emissão de NF</span>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" data-tab="nova">Nova Solicitação</div>
+  <div class="tab" data-tab="lista">Solicitações</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Nova Solicitação -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-nova" class="container">
+
+  <!-- Emitente (colapsado por padrão) -->
+  <div class="card">
+    <div class="card-header collapsed" id="emitente-header" onclick="toggleCard('emitente')">
+      Emitente (Dados Fixos)
+      <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="card-body collapsed" id="emitente-body">
+      <dl class="emitente-grid">
+        <dt>Razão Social:</dt><dd>AXIA GESTAO EM SAUDE LTDA</dd>
+        <dt>CNPJ:</dt><dd>58.323.596/0001-40</dd>
+        <dt>Inscrição Municipal:</dt><dd>786091</dd>
+        <dt>Endereço:</dt><dd>R Dom Pedro II, 353, Centro, Governador Valadares - MG, CEP 35010-090</dd>
+        <dt>Telefone:</dt><dd>(33) 3279-8650</dd>
+        <dt>E-mail:</dt><dd>robson@tonziro.com.br</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- Tomador do Serviço -->
+  <div class="card">
+    <div class="card-header">Tomador do Serviço</div>
+    <div class="card-body">
+      <div class="form-group">
+        <label>CNPJ do Tomador <span class="required">*</span></label>
+        <div class="combobox-wrapper">
+          <input type="text" class="form-control" id="tomador-cnpj" placeholder="XX.XXX.XXX/XXXX-XX" maxlength="18" autocomplete="off">
+          <div class="combobox-dropdown" id="dropdown-cnpj"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Razão Social do Tomador <span class="required">*</span></label>
+        <div class="combobox-wrapper">
+          <input type="text" class="form-control" id="tomador-razao" placeholder="Nome da empresa" autocomplete="off">
+          <div class="combobox-dropdown" id="dropdown-razao"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Serviço Prestado -->
+  <div class="card">
+    <div class="card-header">Serviço Prestado</div>
+    <div class="card-body">
+      <div class="form-group">
+        <label>Descrição do Serviço <span class="required">*</span></label>
+        <div class="combobox-wrapper">
+          <input type="text" class="form-control" id="descricao-servico" placeholder="Ex: Apoio Técnico Consultivo" autocomplete="off">
+          <div class="combobox-dropdown" id="dropdown-servico"></div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="form-group">
+          <label>Valor do Serviço (R$) <span class="required">*</span></label>
+          <input type="text" class="form-control" id="valor-servico" placeholder="R$ 0,00" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Competência <span class="required">*</span></label>
+          <input type="month" class="form-control" id="competencia">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Dados Bancários para inclusão na descrição <span class="required">*</span></label>
+        <div class="combobox-wrapper">
+          <input type="text" class="form-control" id="dados-bancarios" placeholder="Ex: Ag: 0001 Conta: 639825225-5" autocomplete="off">
+          <div class="combobox-dropdown" id="dropdown-bancario"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Observações</label>
+        <textarea class="form-control" id="observacoes" placeholder="Informações adicionais (opcional)"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: right; margin-bottom: 40px;">
+    <button class="btn btn-primary" id="btn-solicitar">Solicitar Emissão</button>
+  </div>
+
+  <!-- Confirmation (hidden by default) -->
+  <div id="confirmation" class="hidden">
+    <div class="card">
+      <div class="card-body">
+        <div class="confirmation">
+          <div class="check-icon">&#10003;</div>
+          <h2>Solicitação Registrada</h2>
+          <p>Status: <span class="badge badge-aguardando">Aguardando Emissão</span></p>
+          <p id="email-status"></p>
+          <dl class="summary" id="confirmation-summary"></dl>
+          <button class="btn btn-primary" onclick="resetForm()" style="margin-top: 16px;">Nova Solicitação</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: Solicitações -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="tab-lista" class="container-wide hidden">
+
+  <div class="card">
+    <div class="card-header">Painel de Solicitações</div>
+    <div class="card-body">
+      <div class="filters">
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" id="filter-status">
+            <option value="">Todos</option>
+            <option value="aguardando_emissao">Aguardando Emissão</option>
+            <option value="emitida">Emitida</option>
+            <option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Competência</label>
+          <input type="month" class="form-control" id="filter-competencia">
+        </div>
+        <div class="form-group">
+          <label>Tomador</label>
+          <input type="text" class="form-control" id="filter-tomador" placeholder="Buscar por razão social">
+        </div>
+        <div class="form-group" style="flex: 0;">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary btn-sm" onclick="loadSolicitacoes()">Filtrar</button>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Tomador</th>
+              <th>Competência</th>
+              <th style="text-align:right;">Valor</th>
+              <th>Status</th>
+              <th style="text-align:center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="solicitacoes-tbody">
+          </tbody>
+        </table>
+      </div>
+
+      <div id="empty-state" class="empty-state hidden">
+        <p>Nenhuma solicitação encontrada.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="spinner"></div>
+    <p id="overlay-text">Processando...</p>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════════════════════
+const API_BASE = 'https://tea-dataset-api.guilherme-thom.workers.dev';
+const API_KEY = 'tea-dataset-jwt-secret-grupocsv-2026';
+
+function apiHeaders() {
+  return { 'Content-Type': 'application/json', 'X-Api-Key': API_KEY };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════════
+let tomadores = [];
+let servicos = [];
+let dadosBancarios = [];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════════════════════════════
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const target = tab.dataset.tab;
+    document.getElementById('tab-nova').classList.toggle('hidden', target !== 'nova');
+    document.getElementById('tab-lista').classList.toggle('hidden', target !== 'lista');
+    if (target === 'lista') loadSolicitacoes();
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CARD TOGGLE
+// ═══════════════════════════════════════════════════════════════════════════════
+function toggleCard(id) {
+  const header = document.getElementById(id + '-header');
+  const body = document.getElementById(id + '-body');
+  header.classList.toggle('collapsed');
+  body.classList.toggle('collapsed');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CNPJ MASK & VALIDATION
+// ═══════════════════════════════════════════════════════════════════════════════
+function maskCNPJ(v) {
+  v = v.replace(/\D/g, '').slice(0, 14);
+  if (v.length > 12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{1,2})/, '$1.$2.$3/$4-$5');
+  else if (v.length > 8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1,4})/, '$1.$2.$3/$4');
+  else if (v.length > 5) v = v.replace(/^(\d{2})(\d{3})(\d{1,3})/, '$1.$2.$3');
+  else if (v.length > 2) v = v.replace(/^(\d{2})(\d{1,3})/, '$1.$2');
+  return v;
+}
+
+function validateCNPJ(cnpj) {
+  cnpj = cnpj.replace(/\D/g, '');
+  if (cnpj.length !== 14) return false;
+  if (/^(\d)\1+$/.test(cnpj)) return false;
+  let sum = 0, weights = [5,4,3,2,9,8,7,6,5,4,3,2];
+  for (let i = 0; i < 12; i++) sum += parseInt(cnpj[i]) * weights[i];
+  let rem = sum % 11;
+  if (parseInt(cnpj[12]) !== (rem < 2 ? 0 : 11 - rem)) return false;
+  sum = 0; weights = [6,5,4,3,2,9,8,7,6,5,4,3,2];
+  for (let i = 0; i < 13; i++) sum += parseInt(cnpj[i]) * weights[i];
+  rem = sum % 11;
+  if (parseInt(cnpj[13]) !== (rem < 2 ? 0 : 11 - rem)) return false;
+  return true;
+}
+
+const $cnpj = document.getElementById('tomador-cnpj');
+$cnpj.addEventListener('input', () => {
+  const pos = $cnpj.selectionStart;
+  const oldLen = $cnpj.value.length;
+  $cnpj.value = maskCNPJ($cnpj.value);
+  const newLen = $cnpj.value.length;
+  $cnpj.setSelectionRange(pos + (newLen - oldLen), pos + (newLen - oldLen));
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CURRENCY MASK
+// ═══════════════════════════════════════════════════════════════════════════════
+const $valor = document.getElementById('valor-servico');
+$valor.addEventListener('input', () => {
+  let v = $valor.value.replace(/\D/g, '');
+  if (!v) { $valor.value = ''; return; }
+  v = (parseInt(v) / 100).toFixed(2);
+  $valor.value = 'R$ ' + v.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+});
+
+function parseValor(str) {
+  if (!str) return 0;
+  return parseFloat(str.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COMPETÊNCIA DEFAULT
+// ═══════════════════════════════════════════════════════════════════════════════
+const $competencia = document.getElementById('competencia');
+const now = new Date();
+$competencia.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COMBOBOX ENGINE
+// ═══════════════════════════════════════════════════════════════════════════════
+function setupCombobox(inputId, dropdownId, getOptions, onSelect) {
+  const input = document.getElementById(inputId);
+  const dropdown = document.getElementById(dropdownId);
+  let highlighted = -1;
+
+  function render(filter) {
+    const opts = getOptions();
+    const filtered = filter ? opts.filter(o => o.toLowerCase().includes(filter.toLowerCase())) : opts;
+    dropdown.innerHTML = '';
+    highlighted = -1;
+
+    filtered.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'combobox-option';
+      div.textContent = opt;
+      div.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        input.value = opt;
+        dropdown.classList.remove('open');
+        if (onSelect) onSelect(opt);
+      });
+      dropdown.appendChild(div);
+    });
+
+    // "Adicionar" option
+    if (filter && !opts.some(o => o.toLowerCase() === filter.toLowerCase())) {
+      const div = document.createElement('div');
+      div.className = 'combobox-option add-new';
+      div.textContent = `Adicionar: "${filter}"`;
+      div.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        input.value = filter;
+        dropdown.classList.remove('open');
+        if (onSelect) onSelect(filter);
+      });
+      dropdown.appendChild(div);
+    }
+
+    dropdown.classList.toggle('open', dropdown.children.length > 0);
+  }
+
+  input.addEventListener('focus', () => render(input.value));
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('blur', () => {
+    setTimeout(() => dropdown.classList.remove('open'), 150);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = dropdown.querySelectorAll('.combobox-option');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      highlighted = Math.min(highlighted + 1, items.length - 1);
+      items.forEach((it, i) => it.classList.toggle('highlighted', i === highlighted));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      highlighted = Math.max(highlighted - 1, 0);
+      items.forEach((it, i) => it.classList.toggle('highlighted', i === highlighted));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (highlighted >= 0 && items[highlighted]) {
+        items[highlighted].dispatchEvent(new Event('mousedown'));
+      }
+    } else if (e.key === 'Escape') {
+      dropdown.classList.remove('open');
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// INIT COMBOBOXES
+// ═══════════════════════════════════════════════════════════════════════════════
+setupCombobox('tomador-cnpj', 'dropdown-cnpj',
+  () => tomadores.map(t => t.cnpj),
+  (cnpj) => {
+    const t = tomadores.find(x => x.cnpj === cnpj);
+    if (t) document.getElementById('tomador-razao').value = t.razao_social;
+  }
+);
+
+setupCombobox('tomador-razao', 'dropdown-razao',
+  () => tomadores.map(t => t.razao_social),
+  (razao) => {
+    const t = tomadores.find(x => x.razao_social === razao);
+    if (t) document.getElementById('tomador-cnpj').value = t.cnpj;
+  }
+);
+
+setupCombobox('descricao-servico', 'dropdown-servico',
+  () => servicos.map(s => s.descricao),
+  null
+);
+
+setupCombobox('dados-bancarios', 'dropdown-bancario',
+  () => dadosBancarios.map(d => d.descricao),
+  null
+);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LOAD DATA FROM API
+// ═══════════════════════════════════════════════════════════════════════════════
+async function loadReferenceData() {
+  try {
+    const [tRes, sRes, bRes] = await Promise.all([
+      fetch(`${API_BASE}/api/nf/tomadores`, { headers: apiHeaders() }),
+      fetch(`${API_BASE}/api/nf/servicos`, { headers: apiHeaders() }),
+      fetch(`${API_BASE}/api/nf/dados-bancarios`, { headers: apiHeaders() })
+    ]);
+    const tData = await tRes.json();
+    const sData = await sRes.json();
+    const bData = await bRes.json();
+    tomadores = tData.tomadores || [];
+    servicos = sData.servicos || [];
+    dadosBancarios = bData.dados_bancarios || [];
+
+    // Set defaults if fields are empty
+    if (!document.getElementById('descricao-servico').value && servicos.length > 0) {
+      document.getElementById('descricao-servico').value = servicos[0].descricao;
+    }
+    if (!document.getElementById('dados-bancarios').value && dadosBancarios.length > 0) {
+      document.getElementById('dados-bancarios').value = dadosBancarios[0].descricao;
+    }
+  } catch (err) {
+    console.error('Erro ao carregar dados de referência:', err);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// SUBMIT SOLICITAÇÃO
+// ═══════════════════════════════════════════════════════════════════════════════
+document.getElementById('btn-solicitar').addEventListener('click', async () => {
+  const cnpj = document.getElementById('tomador-cnpj').value.trim();
+  const razao = document.getElementById('tomador-razao').value.trim();
+  const descricao = document.getElementById('descricao-servico').value.trim();
+  const valorStr = document.getElementById('valor-servico').value;
+  const valor = parseValor(valorStr);
+  const comp = document.getElementById('competencia').value;
+  const bancario = document.getElementById('dados-bancarios').value.trim();
+  const obs = document.getElementById('observacoes').value.trim();
+
+  // Validation
+  if (!cnpj || !razao || !descricao || !valor || !comp || !bancario) {
+    alert('Preencha todos os campos obrigatórios.');
+    return;
+  }
+  if (!validateCNPJ(cnpj)) {
+    alert('CNPJ inválido. Verifique os dígitos verificadores.');
+    return;
+  }
+
+  // Format competencia as MM/AAAA
+  const [y, m] = comp.split('-');
+  const competenciaFmt = `${m}/${y}`;
+
+  showOverlay('Enviando solicitação...');
+
+  try {
+    const resp = await fetch(`${API_BASE}/api/nf/solicitacoes`, {
+      method: 'POST',
+      headers: apiHeaders(),
+      body: JSON.stringify({
+        tomador_cnpj: cnpj,
+        tomador_razao_social: razao,
+        descricao_servico: descricao,
+        valor: valor,
+        competencia: competenciaFmt,
+        dados_bancarios: bancario,
+        observacoes: obs || null
+      })
+    });
+
+    const data = await resp.json();
+    hideOverlay();
+
+    if (!resp.ok) {
+      alert('Erro: ' + (data.error || 'Falha ao enviar solicitação'));
+      return;
+    }
+
+    // Show confirmation
+    document.querySelectorAll('#tab-nova > .card, #tab-nova > div[style]').forEach(el => {
+      if (el.id !== 'confirmation') el.style.display = 'none';
+    });
+
+    const summary = document.getElementById('confirmation-summary');
+    summary.innerHTML = `
+      <dt>Tomador</dt><dd>${razao}</dd>
+      <dt>CNPJ</dt><dd>${cnpj}</dd>
+      <dt>Serviço</dt><dd>${descricao}</dd>
+      <dt>Valor</dt><dd>${valorStr}</dd>
+      <dt>Competência</dt><dd>${competenciaFmt}</dd>
+      <dt>Dados Bancários</dt><dd>${bancario}</dd>
+      ${obs ? `<dt>Observações</dt><dd>${obs}</dd>` : ''}
+    `;
+    document.getElementById('email-status').textContent = 'E-mail de solicitação enviado para dragabrielaalvim@gmail.com';
+    document.getElementById('confirmation').classList.remove('hidden');
+
+    // Reload reference data (new tomador/servico may have been added)
+    await loadReferenceData();
+
+  } catch (err) {
+    hideOverlay();
+    alert('Erro de conexão: ' + err.message);
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// RESET FORM
+// ═══════════════════════════════════════════════════════════════════════════════
+function resetForm() {
+  document.getElementById('confirmation').classList.add('hidden');
+  document.querySelectorAll('#tab-nova .card, #tab-nova > div[style]').forEach(el => {
+    el.style.display = '';
+  });
+  document.getElementById('tomador-cnpj').value = '';
+  document.getElementById('tomador-razao').value = '';
+  document.getElementById('valor-servico').value = '';
+  document.getElementById('observacoes').value = '';
+  // Keep defaults for servico, bancario, competencia
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LOAD SOLICITAÇÕES (LISTA TAB)
+// ═══════════════════════════════════════════════════════════════════════════════
+async function loadSolicitacoes() {
+  const status = document.getElementById('filter-status').value;
+  const competencia = document.getElementById('filter-competencia').value;
+  const tomador = document.getElementById('filter-tomador').value.trim();
+
+  let url = `${API_BASE}/api/nf/solicitacoes?`;
+  if (status) url += `status=${encodeURIComponent(status)}&`;
+  if (competencia) {
+    const [y, m] = competencia.split('-');
+    url += `competencia=${encodeURIComponent(m + '/' + y)}&`;
+  }
+  if (tomador) url += `tomador=${encodeURIComponent(tomador)}&`;
+
+  try {
+    const resp = await fetch(url, { headers: apiHeaders() });
+    const data = await resp.json();
+    const rows = data.solicitacoes || [];
+
+    const tbody = document.getElementById('solicitacoes-tbody');
+    const empty = document.getElementById('empty-state');
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    empty.classList.add('hidden');
+    tbody.innerHTML = rows.map(r => {
+      const dt = new Date(r.created_at + 'Z');
+      const dateStr = dt.toLocaleDateString('pt-BR');
+      const valorFmt = parseFloat(r.valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      const badgeClass = r.status === 'emitida' ? 'badge-emitida' : r.status === 'cancelada' ? 'badge-cancelada' : 'badge-aguardando';
+      const statusLabel = r.status === 'emitida' ? 'Emitida' : r.status === 'cancelada' ? 'Cancelada' : 'Aguardando Emissão';
+
+      return `<tr>
+        <td>${dateStr}</td>
+        <td>${r.tomador_razao_social}</td>
+        <td>${r.competencia}</td>
+        <td style="text-align:right;">${valorFmt}</td>
+        <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+        <td style="text-align:center;">
+          <select class="status-select" onchange="updateStatus(${r.id}, this.value)" data-current="${r.status}">
+            <option value="aguardando_emissao" ${r.status === 'aguardando_emissao' ? 'selected' : ''}>Aguardando</option>
+            <option value="emitida" ${r.status === 'emitida' ? 'selected' : ''}>Emitida</option>
+            <option value="cancelada" ${r.status === 'cancelada' ? 'selected' : ''}>Cancelada</option>
+          </select>
+        </td>
+      </tr>`;
+    }).join('');
+
+  } catch (err) {
+    console.error('Erro ao carregar solicitações:', err);
+  }
+}
+
+async function updateStatus(id, newStatus) {
+  try {
+    await fetch(`${API_BASE}/api/nf/solicitacoes/${id}`, {
+      method: 'PUT',
+      headers: apiHeaders(),
+      body: JSON.stringify({ status: newStatus })
+    });
+    loadSolicitacoes();
+  } catch (err) {
+    console.error('Erro ao atualizar status:', err);
+    alert('Erro ao atualizar status.');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// OVERLAY
+// ═══════════════════════════════════════════════════════════════════════════════
+function showOverlay(text) {
+  document.getElementById('overlay-text').textContent = text || 'Processando...';
+  document.getElementById('overlay').classList.add('active');
+}
+function hideOverlay() {
+  document.getElementById('overlay').classList.remove('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════════
+loadReferenceData();
+</script>
+</body>
+</html>
