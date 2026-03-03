@@ -183,6 +183,19 @@ head:
   </div>
 
   <div class="frame">
+    <h2 class="section-title">Ferramentas</h2>
+    <p class="section-desc">Soluções digitais desenvolvidas pela AxiaCare para operações em saúde.</p>
+    <div style="display:grid; gap:16px; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));">
+      <div style="background:rgba(255,255,255,0.95); border:1px solid rgba(25,99,150,.10); border-radius:14px; padding:22px 20px; display:flex; flex-direction:column; gap:14px;">
+        <span style="display:inline-block; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; padding:3px 10px; border-radius:20px; width:fit-content; background:#d1fae5; color:#065f46;">Ativo</span>
+        <h4 style="margin:0; font-size:0.95rem; color:#196396; border:none; line-height:1.4;">Propostas Comerciais</h4>
+        <p style="margin:0; font-size:0.84rem; color:#5b6470; line-height:1.5; flex-grow:1;">Gerador de propostas comerciais padronizadas para consultoria e projetos.</p>
+        <a href="/axia/propostas.html" style="display:inline-block; padding:10px 0; background:linear-gradient(135deg, #196396, #2DBF7F); color:#fff; border-radius:10px; font-size:0.88rem; font-weight:600; text-align:center; text-decoration:none; transition:all 0.2s;">Acessar</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame">
     <h2 class="section-title">Áreas de Atuação</h2>
     <p class="section-desc">Soluções de consultoria para organizações de saúde orientadas a resultados.</p>
     <div class="service-grid">
