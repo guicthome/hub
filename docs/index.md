@@ -603,6 +603,11 @@ head:
           Variabilidade Assistencial - Especialidades
           <span class="arrow">›</span>
         </a>
+        <a href="/unimed/psiquiatria.html" data-direct class="tool-item">
+          <span class="dot" style="background:#00995d;"></span>
+          Psiquiatria: Modelo Assistencial Unificado
+          <span class="arrow">›</span>
+        </a>
       </div>
       </div>
     </div>
