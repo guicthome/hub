@@ -36,7 +36,23 @@ Este processo é executado semanalmente, tipicamente às segundas-feiras, para c
     ```
 3.  **Mover PDF:** Mover o arquivo PDF gerado (e.g., `Signal_S08_2026.pdf`) para a pasta `signal/edicoes/AAAA/SNN/assets/`.
 
-### Fase 5: Publicação no Hub
+### Fase 5: Geração do PDF e Publicação
+
+1.  **Executar Script de Geração:** Rodar o script `tools/signal-pdf/signal-pdf-gen.py` para gerar o PDF da nova edição.
+2.  **Mover PDF para Repositório:** Mover o arquivo PDF gerado (e.g., `Signal_S09_2026.pdf`) para o diretório `signal/{ano}/`.
+3.  **Commit & Push:** Fazer o commit do novo PDF com uma mensagem padronizada.
+    ```bash
+    git add .
+    git commit -m "feat(signal): add Signal S09/2026"
+    git push
+    ```
+
+### Fase 6: Envio por E-mail e Entrega
+
+1.  **Executar Script de Envio:** Rodar o script `signal_semana/send_signal.py`.
+2.  **Verificar Credenciais:** O script usará a skill `buscar-api-keys` para obter a chave do gateway (`API Key do Gateway`) do Notion.
+3.  **Enviar E-mail:** O script enviará o e-mail com layout HTML e o PDF anexo para a lista de distribuição.
+4.  **Confirmar e Entregar:** Após a confirmação do envio (ID do Resend), o PDF é disponibilizado ao usuário para download.
 
 1.  **Espelhar Arquivos:** Copiar a pasta da nova edição (`signal/edicoes/AAAA/SNN/`) para o diretório `docs/signal/edicoes/AAAA/SNN/`.
 2.  **Atualizar Índice:** Editar o arquivo `signal/README.md` e `docs/signal/index.md`, adicionando a nova edição à tabela de "Edições publicadas".
