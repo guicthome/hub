@@ -883,44 +883,6 @@
 </head>
 <body>
 
-<!-- LOGIN OVERLAY -->
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-box">
-    <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_positivo.png" alt="ICDS">
-    <h2>Data Set TEA</h2>
-    <p class="login-sub">Acesse com suas credenciais para preencher o formulário</p>
-    <div class="login-error" id="loginError"></div>
-    <input type="text" id="loginUser" placeholder="Usuário (ex: unimed_110)" autocomplete="username">
-    <div class="login-pw-wrapper">
-      <input type="password" id="loginPass" placeholder="Senha" autocomplete="current-password">
-      <button type="button" class="login-pw-toggle" id="loginPwToggle" tabindex="-1" aria-label="Mostrar senha">
-        <svg id="loginEyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>
-        <svg id="loginEyeOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-      </button>
-    </div>
-    <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
-  </div>
-</div>
-
-<!-- USER BAR -->
-<div class="user-bar" id="userBar" style="display:none">
-  <div class="user-info">
-    <div class="user-avatar" id="userAvatar">U</div>
-    <span id="userName">—</span>
-    <span style="opacity:0.5">|</span>
-    <span id="userOrg" style="font-weight:600">—</span>
-  </div>
-  <div class="user-actions">
-    <div class="sync-status" id="syncStatus">
-      <span class="dot" id="syncDot"></span>
-      <span id="syncText">Sincronizado</span>
-    </div>
-    <button class="btn-logout" onclick="doLogout()">Sair</button>
-  </div>
-</div>
-
-<div id="appContent" style="display:none">
-
 <div class="progress-bar" id="progressBar"></div>
 
 <a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
@@ -1773,8 +1735,6 @@
   <div style="font-size:11px;color:#94a3b8">Copyright &copy; 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
 </div>
 
-</div><!-- /appContent -->
-
 <script>
 // ============================================================
 // TOGGLE SECTIONS (with ARIA)
@@ -1934,262 +1894,35 @@ function applyMoneyMask(e) {
 }
 
 // ============================================================
-// API CONFIGURATION
+// AUTO-SAVE (localStorage)
 // ============================================================
-const API_BASE = 'https://tea-dataset-api.guilherme-thom.workers.dev';
-let authToken = null;
-let currentUser = null;
-let currentSubmission = null;
-let saveTimeout = null;
-let isSyncing = false;
 const DRAFT_KEY = 'tea_dataset_draft_v2';
-const SESSION_KEY = 'tea_dataset_session';
-
-// ============================================================
-// LOGIN / LOGOUT / SESSION
-// ============================================================
-
-// Toggle senha
-(function() {
-  var toggle = document.getElementById('loginPwToggle');
-  if (!toggle) return;
-  var passInput = document.getElementById('loginPass');
-  var eyeOff = document.getElementById('loginEyeOff');
-  var eyeOn = document.getElementById('loginEyeOn');
-  toggle.addEventListener('click', function() {
-    if (passInput.type === 'password') {
-      passInput.type = 'text';
-      eyeOff.style.display = 'none';
-      eyeOn.style.display = 'block';
-      toggle.setAttribute('aria-label', 'Ocultar senha');
-    } else {
-      passInput.type = 'password';
-      eyeOff.style.display = 'block';
-      eyeOn.style.display = 'none';
-      toggle.setAttribute('aria-label', 'Mostrar senha');
-    }
-  });
-})();
-
-function doLogin() {
-  const user = document.getElementById('loginUser').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  const errEl = document.getElementById('loginError');
-  const btn = document.getElementById('btnLogin');
-  if (!user || !pass) { errEl.textContent = 'Preencha usu\u00e1rio e senha.'; return; }
-  errEl.textContent = '';
-  btn.disabled = true;
-  btn.textContent = 'Entrando...';
-  fetch(API_BASE + '/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username: user, password: pass })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (!data.token) throw new Error(data.error || 'Credenciais inv\u00e1lidas');
-    authToken = data.token;
-    currentUser = data.user;
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ token: authToken, user: currentUser }));
-    showApp();
-    loadOrCreateSubmission();
-  })
-  .catch(err => {
-    errEl.textContent = err.message || 'Erro ao conectar. Tente novamente.';
-    btn.disabled = false;
-    btn.textContent = 'Entrar';
-  });
-}
-
-function doLogout() {
-  authToken = null;
-  currentUser = null;
-  currentSubmission = null;
-  sessionStorage.removeItem(SESSION_KEY);
-  document.getElementById('appContent').style.display = 'none';
-  document.getElementById('userBar').style.display = 'none';
-  document.getElementById('loginOverlay').classList.remove('hidden');
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginError').textContent = '';
-  document.getElementById('btnLogin').disabled = false;
-  document.getElementById('btnLogin').textContent = 'Entrar';
-}
-
-function restoreSession() {
-  const raw = sessionStorage.getItem(SESSION_KEY);
-  if (!raw) return false;
-  try {
-    const s = JSON.parse(raw);
-    if (s.token && s.user) {
-      authToken = s.token;
-      currentUser = s.user;
-      return true;
-    }
-  } catch(e) {}
-  return false;
-}
-
-function showApp() {
-  document.getElementById('loginOverlay').classList.add('hidden');
-  document.getElementById('appContent').style.display = 'block';
-  document.getElementById('userBar').style.display = 'flex';
-  // Update user bar
-  const initials = (currentUser.username || 'U').substring(0, 2).toUpperCase();
-  document.getElementById('userAvatar').textContent = initials;
-  document.getElementById('userName').textContent = currentUser.username;
-  document.getElementById('userOrg').textContent = currentUser.org_name || currentUser.organization_name || '\u2014';
-}
-
-// ============================================================
-// API HELPERS
-// ============================================================
-function apiCall(method, path, body) {
-  const opts = {
-    method: method,
-    headers: { 'Content-Type': 'application/json' }
-  };
-  if (authToken) opts.headers['Authorization'] = 'Bearer ' + authToken;
-  if (body) opts.body = JSON.stringify(body);
-  return fetch(API_BASE + path, opts).then(r => {
-    if (r.status === 401) { doLogout(); throw new Error('Sess\u00e3o expirada'); }
-    return r.json();
-  });
-}
-
-function setSyncStatus(status, text) {
-  const dot = document.getElementById('syncDot');
-  const txt = document.getElementById('syncText');
-  dot.className = 'dot' + (status === 'syncing' ? ' syncing' : status === 'error' ? ' error' : '');
-  txt.textContent = text || (status === 'syncing' ? 'Salvando...' : status === 'error' ? 'Erro ao salvar' : 'Sincronizado');
-}
-
-// ============================================================
-// SUBMISSION MANAGEMENT
-// ============================================================
-function loadOrCreateSubmission() {
-  apiCall('GET', '/api/submissions')
-  .then(data => {
-    const subs = data.submissions || [];
-    if (subs.length > 0) {
-      // Load the most recent submission
-      currentSubmission = subs[0];
-      return apiCall('GET', '/api/submissions/' + currentSubmission.id);
-    } else {
-      // Create a new submission
-      return apiCall('POST', '/api/submissions', { title: 'Data Set TEA - Coleta' }).then(d => {
-        currentSubmission = { id: d.id, status: d.status, version: d.version };
-        return { submission: currentSubmission, data: {} };
-      });
-    }
-  })
-  .then(data => {
-    if (data.data && Object.keys(data.data).length > 0) {
-      restoreFromAPI(data.data);
-    } else {
-      // Check localStorage fallback
-      checkDraft();
-    }
-    updateProgress();
-  })
-  .catch(err => {
-    console.error('Erro ao carregar submiss\u00e3o:', err);
-    setSyncStatus('error', 'Offline - dados locais');
-    checkDraft();
-  });
-}
-
-function restoreFromAPI(dataObj) {
-  const form = document.getElementById('teaForm');
-  Object.keys(dataObj).forEach(key => {
-    const val = dataObj[key];
-    if (key.startsWith('__radio__')) {
-      const name = key.replace('__radio__', '');
-      const el = form.querySelector('input[name="' + name + '"][value="' + val + '"]');
-      if (el) el.checked = true;
-    } else if (key.startsWith('__check__')) {
-      const name = key.replace('__check__', '');
-      const el = form.querySelector('input[name="' + name + '"]');
-      if (el) el.checked = (val === 'true');
-    } else {
-      const el = form.querySelector('[name="' + key + '"]');
-      if (el) { el.value = val; updateFilledClass(el); }
-    }
-  });
-  setSyncStatus('ok', 'Sincronizado');
-  updateProgress();
-}
-
-// ============================================================
-// AUTO-SAVE (API + localStorage fallback)
-// ============================================================
-function collectFormData() {
-  const form = document.getElementById('teaForm');
-  const data = {};
-  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
-    if (el.name) data[el.name] = el.value;
-  });
-  form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
-    data['__radio__' + el.name] = el.value;
-  });
-  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
-    if (el.name) data['__check__' + el.name] = el.checked ? 'true' : 'false';
-  });
-  return data;
-}
+let saveTimeout = null;
 
 function saveDraft() {
   clearTimeout(saveTimeout);
   saveTimeout = setTimeout(function() {
-    const data = collectFormData();
-    // Always save to localStorage as fallback
+    const form = document.getElementById('teaForm');
+    const data = {};
+    // Text/number/email/tel/date inputs
+    form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+      if (el.name) data[el.name] = el.value;
+    });
+    // Radio buttons
+    form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      data['__radio__' + el.name] = el.value;
+    });
+    // Checkboxes
+    form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+      if (el.name) data['__check__' + el.name] = el.checked;
+    });
     data['__timestamp__'] = new Date().toISOString();
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
-
-    // Save to API if authenticated
-    if (authToken && currentSubmission) {
-      saveToAPI(data);
-    } else {
-      const ind = document.getElementById('autosaveIndicator');
-      ind.classList.add('show');
-      setTimeout(() => ind.classList.remove('show'), 1500);
-    }
-  }, 1200);
-}
-
-function saveToAPI(data) {
-  if (isSyncing) return;
-  isSyncing = true;
-  setSyncStatus('syncing');
-  // Convert form data to key-value object for the API
-  const apiData = {};
-  Object.keys(data).filter(k => k !== '__timestamp__').forEach(k => {
-    apiData[k] = String(data[k]);
-  });
-  apiCall('PUT', '/api/submissions/' + currentSubmission.id, { data: apiData })
-  .then(() => {
-    setSyncStatus('ok', 'Sincronizado');
+    // Show indicator
     const ind = document.getElementById('autosaveIndicator');
     ind.classList.add('show');
     setTimeout(() => ind.classList.remove('show'), 1500);
-  })
-  .catch(err => {
-    console.error('Erro ao salvar:', err);
-    setSyncStatus('error', 'Erro - salvo localmente');
-  })
-  .finally(() => { isSyncing = false; });
-}
-
-function getSectionForField(key) {
-  if (key.startsWith('prof_')) return 1;
-  if (key.startsWith('pac_')) return 2;
-  if (key.startsWith('trat_')) return 3;
-  if (key.startsWith('prest_')) return 4;
-  if (key.startsWith('pag_')) return 5;
-  if (key.startsWith('jud_')) return 6;
-  if (key.startsWith('jorn_')) return 7;
-  if (key.startsWith('gov_')) return 8;
-  return 0;
+  }, 800);
 }
 
 function restoreDraft() {
@@ -2199,28 +1932,25 @@ function restoreDraft() {
   const form = document.getElementById('teaForm');
   Object.keys(data).forEach(key => {
     if (key.startsWith('__')) return;
-    const el = form.querySelector('[name="' + key + '"]');
+    const el = form.querySelector(`[name="${key}"]`);
     if (el) { el.value = data[key]; updateFilledClass(el); }
   });
+  // Radios
   Object.keys(data).forEach(key => {
     if (!key.startsWith('__radio__')) return;
     const name = key.replace('__radio__', '');
-    const el = form.querySelector('input[name="' + name + '"][value="' + data[key] + '"]');
+    const el = form.querySelector(`input[name="${name}"][value="${data[key]}"]`);
     if (el) el.checked = true;
   });
+  // Checkboxes
   Object.keys(data).forEach(key => {
     if (!key.startsWith('__check__')) return;
     const name = key.replace('__check__', '');
-    const el = form.querySelector('input[name="' + name + '"]');
-    if (el) el.checked = (data[key] === 'true' || data[key] === true);
+    const el = form.querySelector(`input[name="${name}"]`);
+    if (el) el.checked = data[key];
   });
   document.getElementById('draftBar').classList.remove('visible');
   updateProgress();
-  // Sync local draft to API
-  if (authToken && currentSubmission) {
-    const apiData = collectFormData();
-    saveToAPI(apiData);
-  }
 }
 
 function dismissDraft() {
@@ -2231,7 +1961,8 @@ function checkDraft() {
   const raw = localStorage.getItem(DRAFT_KEY);
   if (raw) {
     const data = JSON.parse(raw);
-    const hasContent = Object.keys(data).some(k => !k.startsWith('__') && data[k] && data[k] !== 'false');
+    // Check if there's actual content
+    const hasContent = Object.keys(data).some(k => !k.startsWith('__') && data[k]);
     if (hasContent) {
       document.getElementById('draftBar').classList.add('visible');
     }
@@ -2446,6 +2177,9 @@ function buildMobileCards() {
 document.addEventListener('DOMContentLoaded', function() {
   // Build mobile cards
   buildMobileCards();
+
+  // Check for draft
+  checkDraft();
 
   // Money mask
   document.querySelectorAll('.money-input').forEach(el => {
@@ -2797,6 +2531,5 @@ function generatePDF() {
   doc.save('DataSet_TEA_Unimed_RioVerde.pdf');
 }
 </script>
-<script src="/scripts/hub-auth.js" data-portal="icds"></script>
 </body>
 </html>
