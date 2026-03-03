@@ -51,7 +51,11 @@ Este processo é executado semanalmente, tipicamente às segundas-feiras, para c
 
 1.  **Executar Script de Envio:** Rodar o script `signal_semana/send_signal.py`.
 2.  **Verificar Credenciais:** O script usará a skill `buscar-api-keys` para obter a chave do gateway (`API Key do Gateway`) do Notion.
-3.  **Enviar E-mail:** O script enviará o e-mail com layout HTML e o PDF anexo para a lista de distribuição.
+3.  **Enviar E-mail:** O script enviará o e-mail com layout HTML e o PDF anexo para a lista de distribuição:
+    -   `guilherme@grupocsv.com`
+    -   `guilherme.thome@unimedgv.com.br`
+    -   `naline@grupocsv.com`
+    -   `naline.rocha@unimedgv.com.br`
 4.  **Confirmar e Entregar:** Após a confirmação do envio (ID do Resend), o PDF é disponibilizado ao usuário para download.
 
 1.  **Espelhar Arquivos:** Copiar a pasta da nova edição (`signal/edicoes/AAAA/SNN/`) para o diretório `docs/signal/edicoes/AAAA/SNN/`.
