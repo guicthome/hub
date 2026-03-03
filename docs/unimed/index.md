@@ -158,12 +158,12 @@ head:
 
   <div class="tools-grid">
     <div class="tool-card">
-      <div class="tool-title">Variabilidade Assistencial - Especialidades</div>
-      <a data-direct href="/unimed/variabilidade-exames.html" class="tool-link">Acessar</a>
-    </div>
-    <div class="tool-card">
       <div class="tool-title">Variabilidade Assistencial por Especialidade (v1)</div>
       <a data-direct href="/unimed/especialidades.html" class="tool-link">Acessar</a>
+    </div>
+    <div class="tool-card">
+      <div class="tool-title">Variabilidade Assistencial - Especialidades</div>
+      <a data-direct href="/unimed/variabilidade-exames.html" class="tool-link">Acessar</a>
     </div>
     <div class="tool-card">
       <div class="tool-title">Coordenação do Cuidado</div>

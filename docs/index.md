@@ -565,7 +565,12 @@ head:
       <div class="partner-tools">
         <a href="/unimed/especialidades.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
-          Variabilidade por Especialidade
+          Variabilidade Assistencial por Especialidade (v1)
+          <span class="arrow">›</span>
+        </a>
+        <a href="/unimed/variabilidade-exames.html" data-direct class="tool-item">
+          <span class="dot" style="background:#00995d;"></span>
+          Variabilidade Assistencial - Especialidades
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/cuidadocoordenado.html" data-direct class="tool-item">
@@ -580,27 +585,22 @@ head:
         </a>
         <a href="/unimed/ped-amb.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
-          Pediatria Ambulatorial
+          Pediatria Ambulatorial: Centro de Atendimento Integrado
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/vivapleno.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
-          Viva Pleno: Cuidados aos Idosos
+          Viva Pleno: Vertical de Cuidados aos Idosos
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/gce.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
-          GCE: Acompanhamento
+          GCE: Painel de Acompanhamento
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/tea.html" data-direct class="tool-item">
           <span class="dot" style="background:#00995d;"></span>
           Psicologia ABA: Análise de Rede
-          <span class="arrow">›</span>
-        </a>
-        <a href="/unimed/variabilidade-exames.html" data-direct class="tool-item">
-          <span class="dot" style="background:#00995d;"></span>
-          Variabilidade Assistencial - Especialidades
           <span class="arrow">›</span>
         </a>
         <a href="/unimed/psiquiatria.html" data-direct class="tool-item">
