@@ -27,6 +27,7 @@
       --axia-primary:#196396; --axia-accent:#2DBF7F;
       --medvalor-primary:#c2410c; --medvalor-accent:#ea580c;
       --thera-primary:#6B5B95; --thera-accent:#8B7CB5;
+      --spectra-primary:#0d9488; --spectra-accent:#2dd4bf;
     }
     *{box-sizing:border-box} html,body{height:100%}
     body{
@@ -92,6 +93,7 @@
     .btn.axia{background:linear-gradient(180deg,#1d6fa0,#195f86)}
     .btn.medvalor{background:linear-gradient(180deg,#ea580c,#c2410c)}
     .btn.thera{background:linear-gradient(180deg,#8B7CB5,#6B5B95)}
+    .btn.spectra{background:linear-gradient(180deg,#14b8a6,#0d9488)}
 
     footer{margin:42px 0 24px; text-align:center}
     .footer{background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px}
@@ -134,7 +136,7 @@
 <main>
   <div class="frame hero">
     <h1>Central de Compliance</h1>
-    <p>Última atualização: 01/2026</p>
+    <p>Última atualização: 03/2026</p>
     <p class="subtitle">Documentos institucionais do <strong>Grupo CSV</strong> e suas empresas sobre privacidade, termos e integridade.</p>
   </div>
 
@@ -202,6 +204,26 @@
         <a class="btn thera" role="listitem" href="/compliance/thera/privacidade"><span class="title">Política de Privacidade – Thera</span><span class="chev" aria-hidden="true"></span></a>
         <a class="btn thera" role="listitem" href="/compliance/thera/termos"><span class="title">Termos de Uso – Thera</span><span class="chev" aria-hidden="true"></span></a>
       </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="frame section" id="produtos">
+    <h2>Políticas por Produto</h2>
+    <p class="section-desc">Documentos específicos de produtos e plataformas do ecossistema Grupo CSV.</p>
+    
+    <div class="empresa-section" style="margin-top:0; padding-top:0; border-top:none">
+      <div class="empresa-header">
+        <img src="/assets/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="Linha Spectra — TheraTech">
+        <h3>Linha Spectra™ – Inteligência Clínica para Operadoras de Saúde</h3>
+      </div>
+      <div class="grid" role="list">
+        <a class="btn spectra" role="listitem" href="/compliance/spectra/termos"><span class="title">Termo de Uso Responsável – Spectra</span><span class="chev" aria-hidden="true"></span></a>
+        <a class="btn spectra" role="listitem" href="/compliance/spectra/privacidade"><span class="title">Política de Privacidade – Spectra</span><span class="chev" aria-hidden="true"></span></a>
+        <a class="btn spectra" role="listitem" href="/compliance/spectra/retencao"><span class="title">Política de Retenção de Dados – Spectra</span><span class="chev" aria-hidden="true"></span></a>
+      </div>
+      <p style="font-size:.85rem; color:var(--muted); margin-top:10px">Produto desenvolvido pela <strong>TheraTech®</strong> com apoio da <strong>AxiaCare®</strong> (governança clínica).</p>
     </div>
   </div>
 
