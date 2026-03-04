@@ -6,11 +6,11 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <title>Data Set TEA — Indicadores Mínimos de Assistência | ICDS</title>
+  <title>Data Set TEA — Panorama Assistencial do Cuidado | ICDS</title>
   <meta name="description" content="Questionário de coleta de dados para Transtorno do Espectro Autista (TEA) — Unimed Rio Verde (GO)">
   <meta name="theme-color" content="#1B3A5C">
 
-  <meta property="og:title" content="Data Set TEA — Indicadores Mínimos de Assistência | ICDS">
+  <meta property="og:title" content="Data Set TEA — Panorama Assistencial do Cuidado | ICDS">
   <meta property="og:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
@@ -18,7 +18,7 @@
   <meta property="og:url" content="https://hub.grupocsv.com/icds/tea-dataset.html">
   <meta property="og:site_name" content="ICDS | Hub Grupo CSV">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Data Set TEA — Indicadores Mínimos de Assistência">
+  <meta name="twitter:title" content="Data Set TEA — Panorama Assistencial do Cuidado">
   <meta name="twitter:description" content="Questionário de coleta de dados para TEA — Unimed Rio Verde (GO)">
   <meta name="twitter:image" content="https://hub.grupocsv.com/og/og_icds.png">
 
@@ -702,9 +702,18 @@
       .toc-fab { bottom: 16px; right: 16px; }
     }
 
+    /* Destaque para blocos de anexo */
+    .upload-highlight {
+      background: linear-gradient(135deg, #f0f7ff 0%, #f8fbff 100%);
+      border: 1px solid #d0e3f5;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
     /* File upload zone (drag-and-drop) */
     .file-upload-zone {
-      border: 2px dashed var(--border-color);
+      border: 2px dashed #b0cde6;
       border-radius: 12px;
       padding: 20px;
       text-align: center;
@@ -1263,7 +1272,7 @@
 <div class="login-screen" id="loginScreen">
   <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="login-brand" style="width:160px">
   <div class="login-title">Data Set TEA</div>
-  <div class="login-subtitle">Indicadores Mínimos de Assistência</div>
+  <div class="login-subtitle">Panorama Assistencial do Cuidado</div>
 
   <div class="login-card">
     <h3>Selecione a unidade</h3>
@@ -1324,7 +1333,7 @@
 <header class="hero">
   <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="hero-brand" style="width:180px">
   <h1>Data Set TEA</h1>
-  <div class="hero-sub">Indicadores Mínimos de Assistência</div>
+  <div class="hero-sub">Panorama Assistencial do Cuidado</div>
   <!-- BLOCO CLIENTE (dinâmico: preenchido pelo login) -->
   <div class="hero-client" id="heroClient">
     <img src="" alt="" class="hero-client-logo" id="heroClientLogo">
@@ -1348,16 +1357,22 @@
 
   <!-- Context Box -->
   <div class="context-box">
-    <h2>Objetivos da Coleta</h2>
+    <h2>Sobre esta ferramenta</h2>
+    <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.7;margin-bottom:18px">
+      O <strong>Data Set TEA</strong> é o instrumento que garante consistência e rastreabilidade na coleta de informações assistenciais sobre o cuidado ao paciente com Transtorno do Espectro Autista. Cada campo foi desenhado para capturar exatamente o que é necessário para mapear a realidade da operação — sem redundância e sem lacuna.
+    </p>
+    <p style="font-size:0.88rem;color:var(--text-tertiary);line-height:1.7;margin-bottom:20px">
+      Os dados coletados aqui alimentam a construção da linha de cuidado, a análise de rede, a revisão de contratos e a estruturação de modelos de remuneração. O preenchimento completo e preciso é o que permite transformar informação em decisão.
+    </p>
+    <h3 style="font-size:0.88rem;font-weight:700;color:var(--ax-primary);margin-bottom:12px">O que será coletado</h3>
     <ul>
-      <li><strong>Profissionais:</strong> saber se o prestador tem os cinco profissionais essenciais (médicos, fisioterapeutas, terapeutas ocupacionais, fonoaudiólogos e psicólogos), quantos são generalistas, quantos são especialistas, e em qual área.</li>
-      <li><strong>Pacientes:</strong> Coletar dados sobre o número de pacientes com diagnóstico de TEA, o instrumento utilizado para o diagnóstico (CID, DSM, ou outros), o profissional que o fechou, e dados gerais como gênero, data de nascimento e a idade em que receberam o diagnóstico.</li>
-      <li><strong>Tratamento:</strong> Coletar dados sobre onde o tratamento é realizado (clínica, instituto, prestador)? Quantas horas semanais/mensais são recebidas? Quais profissionais atendem cada paciente? Coletar o nome, o número de registro profissional (CREF, CRM, CRP, CFA) e o contato dos profissionais para futuras capacitações.</li>
-      <li><strong>Judicialização:</strong> Fazer análise das judicializações (já que há um alto volume de ações, muitas vezes solicitadas por uma única fonte, e algumas decisões judiciais parecem inexequíveis ou sem nexo técnico). Compreender como a judicialização está sendo processada internamente na Unimed e o que o serviço interno não consegue absorver. Verificar a existência de uma base de dados ou de um arquivo para cada caso judicializado. Levantar quem são os juízes da comarca e os peritos chamados para ajudar na judicialização.</li>
-      <li><strong>Dados dos Prestadores:</strong> Coletar informações sobre os contratos com os prestadores, o modelo de pagamento e o custo de cada procedimento.</li>
-      <li><strong>Alinhamento da Jornada do Paciente:</strong> Comparar a linha de cuidado desenhada pelo grupo com a jornada atual do paciente na Unimed, a fim de identificar o esforço necessário para alinhá-la ao modelo proposto.</li>
-      <li><strong>Modelos de Pagamento e Fluxo de Pagamento:</strong> Entender qual o modelo de pagamento atual da Unimed, o fluxo de pagamento, o tipo de contrato, a governança contratual, a unidade de pagamento (por paciente, por episódio) e o modelo de repasse (salário mensal, fixo prospectivo, retrospectivo). Verificar os protocolos e os detalhes de pagamento para cada tipo de profissional.</li>
-      <li><strong>Informações Adicionais Necessárias:</strong> saber se há compartilhamento de risco, processo de auditoria clínica, ou integração com regulação interna. Necessidade de um conjunto mínimo de informações, incluindo a base de beneficiários, a utilização e o custo por item, a rede de prestadores, eventos cobertos, eventos de alta complexidade (como internações), indicadores assistenciais e a situação da judicialização.</li>
+      <li><strong>Equipe assistencial:</strong> composição da equipe multiprofissional, perfil de formação (generalista ou especialista) e áreas de atuação.</li>
+      <li><strong>Perfil dos pacientes:</strong> número de pacientes com diagnóstico de TEA, instrumento diagnóstico utilizado, profissional responsável pelo fechamento, gênero e faixa etária.</li>
+      <li><strong>Estrutura do tratamento:</strong> local de realização, carga horária semanal/mensal, distribuição de profissionais por paciente e dados de contato para capacitações.</li>
+      <li><strong>Judicialização:</strong> volume de ações, padrões identificados, capacidade de absorver demandas internamente, juízes e peritos envolvidos.</li>
+      <li><strong>Rede de prestadores:</strong> contratos vigentes, modelo de pagamento e custo por procedimento.</li>
+      <li><strong>Jornada do paciente:</strong> comparação entre a linha de cuidado proposta e o fluxo atual, identificando lacunas e oportunidades de alinhamento.</li>
+      <li><strong>Remuneração e governança:</strong> modelo de pagamento, tipo de contrato, fluxo de repasse e existência de compartilhamento de risco ou auditoria clínica.</li>
     </ul>
   </div>
 
@@ -1565,8 +1580,8 @@
       <div class="sub-hint" style="margin-bottom:16px">Preencha manualmente para cada profissional ou anexe uma lista (planilha, PDF, etc.).</div>
 
       <!-- Upload de lista de prestadores -->
-      <div class="sub-q">
-        <span class="sub-label">Anexar lista de profissionais (opcional):</span>
+      <div class="sub-q upload-highlight">
+        <span class="sub-label" style="display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:18px;height:18px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar lista de profissionais (opcional)</span>
         <div class="sub-hint">Formatos aceitos: .xlsx, .xls, .csv, .pdf, .doc, .docx (máx. 10 MB por arquivo)</div>
         <div class="file-upload-zone" id="uploadZonePrestadores" onclick="document.getElementById('fileInputPrestadores').click()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -1703,8 +1718,8 @@
           </ol>
         </div>
         <button type="button" onclick="addDynamicField('juizes-container','jud_juiz','Nome do juiz')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar juiz</button>
-        <div style="margin-top:10px">
-          <span class="sub-label" style="font-size:0.78rem">Anexar lista de juízes (opcional):</span>
+        <div class="upload-highlight" style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem;display:flex;align-items:center;gap:5px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:15px;height:15px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar lista de juízes (opcional)</span>
           <div class="file-upload-zone" id="uploadZoneJuizes" onclick="document.getElementById('fileInputJuizes').click()" style="padding:14px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div class="upload-label">Clique ou arraste o arquivo aqui</div>
@@ -1724,8 +1739,8 @@
           </ol>
         </div>
         <button type="button" onclick="addDynamicField('peritos-container','jud_perito','Nome do perito')" style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--bg-tertiary);border:1px dashed var(--border-color);border-radius:8px;font-family:inherit;font-size:0.78rem;font-weight:600;color:var(--ax-primary);cursor:pointer;margin-top:6px">+ Adicionar perito</button>
-        <div style="margin-top:10px">
-          <span class="sub-label" style="font-size:0.78rem">Anexar lista de peritos (opcional):</span>
+        <div class="upload-highlight" style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem;display:flex;align-items:center;gap:5px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:15px;height:15px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar lista de peritos (opcional)</span>
           <div class="file-upload-zone" id="uploadZonePeritos" onclick="document.getElementById('fileInputPeritos').click()" style="padding:14px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div class="upload-label">Clique ou arraste o arquivo aqui</div>
@@ -1992,8 +2007,8 @@
           <label class="option-item"><input type="checkbox" name="gov_evid_planilha"> Planilha</label>
           <label class="option-item"><input type="checkbox" name="gov_evid_outros"> Outros</label>
         </div>
-        <div style="margin-top:10px">
-          <span class="sub-label" style="font-size:0.78rem">Anexar evidências (opcional):</span>
+        <div class="upload-highlight" style="margin-top:10px">
+          <span class="sub-label" style="font-size:0.78rem;display:flex;align-items:center;gap:5px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:15px;height:15px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar evidências (opcional)</span>
           <div class="file-upload-zone" id="uploadZoneEvidencias" onclick="document.getElementById('fileInputEvidencias').click()" style="padding:14px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div class="upload-label">Clique ou arraste o arquivo aqui</div>
@@ -2738,6 +2753,25 @@ function doLogout() {
 }
 
 function checkSession() {
+  // 1. Verificar query parameter ?unit= para link compartilhável por tenant
+  const urlParams = new URLSearchParams(window.location.search);
+  const unitParam = urlParams.get('unit');
+  if (unitParam) {
+    // Mapear código para chave interna
+    const codeToKey = {};
+    Object.keys(UNITS).forEach(k => { codeToKey[UNITS[k].code] = k; });
+    const unitKey = codeToKey[unitParam] || unitParam;
+    if (UNITS[unitKey]) {
+      // Filtrar tela de login para mostrar apenas esta unidade
+      document.querySelectorAll('.unit-option').forEach(opt => {
+        const radio = opt.querySelector('input[name="unit"]');
+        if (radio && radio.value !== unitKey) {
+          opt.style.display = 'none';
+        }
+      });
+    }
+  }
+  // 2. Restaurar sessão salva
   const saved = sessionStorage.getItem('tea_unit');
   if (saved && UNITS[saved]) {
     currentUnit = saved;
@@ -2786,7 +2820,7 @@ function buildEmailHTML() {
   let html = '<div style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;max-width:700px;margin:0 auto;padding:20px">';
   html += '<div style="background:#1B3A5C;color:#fff;padding:20px 24px;border-radius:12px 12px 0 0;text-align:center">';
   html += '<h2 style="margin:0 0 4px;font-size:18px">Data Set TEA</h2>';
-  html += '<p style="margin:0;opacity:0.8;font-size:13px">Indicadores M\u00ednimos de Assist\u00eancia</p>';
+  html += '<p style="margin:0;opacity:0.8;font-size:13px">Panorama Assistencial do Cuidado</p>';
   html += '<p style="margin:8px 0 0;font-size:14px;font-weight:600">' + unitLabel + '</p>';
   html += '</div>';
   html += '<div style="background:#f8fafc;padding:20px 24px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">';
@@ -3035,9 +3069,9 @@ function generatePDF() {
   doc.text('Data Set TEA', pageW / 2, 14, { align: 'center' });
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text('Indicadores Mínimos de Assistência', pageW / 2, 21, { align: 'center' });
+  doc.text('Panorama Assistencial do Cuidado', pageW / 2, 21, { align: 'center' });
   doc.setFontSize(8);
-  doc.text('Unimed Rio Verde (GO) — Questionário de Coleta', pageW / 2, 27, { align: 'center' });
+  doc.text(getUnitLabel() + ' \u2014 Question\u00e1rio de Coleta', pageW / 2, 27, { align: 'center' });
   doc.setFontSize(7);
   doc.text('Gerado em: ' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR'), pageW / 2, 32, { align: 'center' });
   doc.setTextColor(0, 0, 0);
