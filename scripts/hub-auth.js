@@ -1,13 +1,16 @@
 /**
- * Hub CSV - Portal Authentication System v1.1.0
- * Protege portais de clientes com autenticação por senha.
- * Inclui blur overlay, modal de login, gestão de sessão, toggle de senha.
+ * Hub CSV - Portal Authentication System v2.0.0
+ * Suporta autenticação individual (parceiros) e fixa (empresas)
+ * Inclui blur overlay, modal de login/registro, gestão de sessão, toggle de senha
  *
  * Uso: Adicionar ao final do <body> de cada portal protegido:
- *   <script src="/scripts/hub-auth.js" data-portal="unimed"></script>
+ *   <script src="/scripts/hub-auth-v2.js" data-portal="unimed"></script>
  *
- * O atributo data-portal define qual portal está sendo protegido.
- * Portais válidos: unimed, unihealth, icds
+ * Portais de Parceiros (autenticação individual):
+ *   - unimed, unihealth, icds
+ *
+ * Portais de Empresas (senha fixa compartilhada):
+ *   - axiacare, thera, medvalor
  */
 (function () {
   'use strict';
@@ -20,7 +23,7 @@
   const PORTAL = scriptTag ? scriptTag.getAttribute('data-portal') : null;
 
   if (!PORTAL) {
-    console.warn('[Hub Auth] Atributo data-portal não definido. Autenticação desativada.');
+    console.warn('[Hub Auth v2] Atributo data-portal não definido. Autenticação desativada.');
     return;
   }
 
@@ -28,10 +31,17 @@
   const EMAIL_KEY = STORAGE_PREFIX + PORTAL + '_email';
   const EXPIRES_KEY = STORAGE_PREFIX + PORTAL + '_expires';
 
+  // Tenants de parceiros (autenticação individual)
+  const PARTNER_TENANTS = ['unimed', 'unihealth', 'icds'];
+  // Tenants de empresas (senha fixa)
+  const COMPANY_TENANTS = ['axiacare', 'thera', 'medvalor'];
+
+  const IS_PARTNER = PARTNER_TENANTS.includes(PORTAL);
+  const IS_COMPANY = COMPANY_TENANTS.includes(PORTAL);
+
   // ===== Verificar sessão existente =====
   function getStoredSession() {
     try {
-      // Tentar localStorage primeiro, depois sessionStorage
       var token = localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY);
       var email = localStorage.getItem(EMAIL_KEY) || sessionStorage.getItem(EMAIL_KEY);
       var expires = localStorage.getItem(EXPIRES_KEY) || sessionStorage.getItem(EXPIRES_KEY);
@@ -52,7 +62,6 @@
       localStorage.setItem(EMAIL_KEY, email);
       localStorage.setItem(EXPIRES_KEY, expiresAt);
     } catch (e) {
-      // Fallback: sessionStorage
       sessionStorage.setItem(TOKEN_KEY, token);
       sessionStorage.setItem(EMAIL_KEY, email);
       sessionStorage.setItem(EXPIRES_KEY, expiresAt);
@@ -77,24 +86,47 @@
       var data = await resp.json();
       return data.valid === true;
     } catch (e) {
-      // Em caso de erro de rede, permitir acesso se token existe localmente
-      return true;
+      return true; // Em caso de erro de rede, permitir acesso
     }
   }
 
-  // ===== Login =====
+  // ===== Login (Individual ou Fixa) =====
   async function doLogin(email, password) {
+    var payload = { portal: PORTAL };
+    
+    if (IS_PARTNER) {
+      payload.email = email;
+      payload.password = password;
+    } else if (IS_COMPANY) {
+      payload.email = 'shared_' + PORTAL; // Email fictício para empresas
+      payload.password = password;
+    }
+
     var resp = await fetch(AUTH_API + '/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ portal: PORTAL, email: email, password: password }),
+      body: JSON.stringify(payload),
     });
     var data = await resp.json();
     if (data.success && data.token) {
-      saveSession(data.token, email, data.expires_at);
+      saveSession(data.token, email || 'shared_' + PORTAL, data.expires_at);
       return { success: true };
     }
     return { success: false, error: data.error || 'Erro ao autenticar' };
+  }
+
+  // ===== Request Access (Apenas Parceiros) =====
+  async function doRequestAccess(email, name, tenant_id) {
+    var resp = await fetch(AUTH_API + '/request-access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, name: name, tenant_id: tenant_id }),
+    });
+    var data = await resp.json();
+    if (data.success) {
+      return { success: true };
+    }
+    return { success: false, error: data.error || 'Erro ao solicitar acesso' };
   }
 
   // ===== Logout =====
@@ -117,6 +149,9 @@
     unimed: { primary: '#00995d', gradient: 'linear-gradient(135deg, #00995d, #8baf1f)', light: '#e8f4ee' },
     unihealth: { primary: '#013d19', gradient: 'linear-gradient(135deg, #013d19, #ec7106)', light: '#e8eef5' },
     icds: { primary: '#1B3A5C', gradient: 'linear-gradient(135deg, #1B3A5C, #2a6496)', light: '#e8f0f8' },
+    axiacare: { primary: '#196396', gradient: 'linear-gradient(135deg, #196396, #2DBF7F)', light: '#e8f4fc' },
+    thera: { primary: '#6B5B95', gradient: 'linear-gradient(135deg, #6B5B95, #7c3aed)', light: '#f3e8ff' },
+    medvalor: { primary: '#ea580c', gradient: 'linear-gradient(135deg, #ea580c, #f97316)', light: '#fff7ed' },
   };
 
   var colors = PORTAL_COLORS[PORTAL] || PORTAL_COLORS.unimed;
@@ -125,20 +160,24 @@
     unimed: 'Unimed Governador Valadares',
     unihealth: 'Unihealth Governador Valadares',
     icds: 'ICDS',
+    axiacare: 'AxiaCare',
+    thera: 'TheraTech',
+    medvalor: 'MedValor',
   };
 
   // ===== Criar overlay de autenticação =====
   function showAuthOverlay() {
-    // Remover overlay existente se houver
     var existing = document.getElementById('hub-auth-overlay');
     if (existing) existing.remove();
 
-    // Aplicar blur no conteúdo
     document.body.style.overflow = 'hidden';
 
     var overlay = document.createElement('div');
     overlay.id = 'hub-auth-overlay';
-    overlay.innerHTML = '\
+    
+    var loginMode = 'login'; // 'login' ou 'request'
+
+    var htmlContent = '\
       <style>\
         #hub-auth-overlay {\
           position: fixed;\
@@ -174,11 +213,6 @@
           background: ' + colors.gradient + ';\
           padding: 32px 28px 24px;\
           text-align: center;\
-        }\
-        .hub-auth-header svg {\
-          width: 48px;\
-          height: 48px;\
-          margin-bottom: 12px;\
         }\
         .hub-auth-header h2 {\
           color: white;\
@@ -248,10 +282,6 @@
         .hub-auth-pw-toggle:hover {\
           color: #374151;\
         }\
-        .hub-auth-pw-toggle svg {\
-          width: 20px;\
-          height: 20px;\
-        }\
         .hub-auth-error {\
           display: none;\
           color: #dc2626;\
@@ -261,6 +291,17 @@
           background: #fef2f2;\
           border-radius: 8px;\
           border: 1px solid #fecaca;\
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+        }\
+        .hub-auth-success {\
+          display: none;\
+          color: #059669;\
+          font-size: 13px;\
+          margin-bottom: 12px;\
+          padding: 10px 14px;\
+          background: #f0fdf4;\
+          border-radius: 8px;\
+          border: 1px solid #86efac;\
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
         }\
         .hub-auth-btn {\
@@ -287,6 +328,34 @@
           transform: none;\
           box-shadow: none;\
         }\
+        .hub-auth-tabs {\
+          display: flex;\
+          gap: 12px;\
+          margin-bottom: 20px;\
+          border-bottom: 1px solid #e5e7eb;\
+        }\
+        .hub-auth-tab {\
+          flex: 1;\
+          padding: 12px;\
+          background: none;\
+          border: none;\
+          border-bottom: 2px solid transparent;\
+          color: #6b7280;\
+          font-weight: 600;\
+          cursor: pointer;\
+          font-size: 14px;\
+          transition: all 0.2s;\
+        }\
+        .hub-auth-tab.active {\
+          color: ' + colors.primary + ';\
+          border-bottom-color: ' + colors.primary + ';\
+        }\
+        .hub-auth-tab-content {\
+          display: none;\
+        }\
+        .hub-auth-tab-content.active {\
+          display: block;\
+        }\
         .hub-auth-footer {\
           text-align: center;\
           padding: 0 28px 24px;\
@@ -297,6 +366,7 @@
         .hub-auth-footer a {\
           color: ' + colors.primary + ';\
           text-decoration: none;\
+          cursor: pointer;\
         }\
         .hub-auth-footer a:hover {\
           text-decoration: underline;\
@@ -308,142 +378,220 @@
           border: 2px solid rgba(255,255,255,0.3);\
           border-top-color: white;\
           border-radius: 50%;\
-          animation: hubAuthSpin 0.6s linear infinite;\
-          margin: 0 auto;\
+          animation: hubAuthSpin 0.8s linear infinite;\
+          margin-right: 8px;\
         }\
         @keyframes hubAuthSpin {\
           to { transform: rotate(360deg); }\
         }\
+        .hub-auth-btn.loading {\
+          display: flex;\
+          align-items: center;\
+          justify-content: center;\
+        }\
+        .hub-auth-btn.loading .hub-auth-spinner {\
+          display: inline-block;\
+        }\
+        @media print { #hub-auth-overlay { display: none !important; } }\
       </style>\
       <div class="hub-auth-modal">\
         <div class="hub-auth-header">\
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">\
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>\
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>\
-            <circle cx="12" cy="16" r="1"/>\
-          </svg>\
           <h2>Acesso Restrito</h2>\
-          <p>' + (PORTAL_NAMES[PORTAL] || PORTAL) + '</p>\
+          <p>' + PORTAL_NAMES[PORTAL] + '</p>\
         </div>\
-        <div class="hub-auth-body">\
-          <div class="hub-auth-error" id="hub-auth-error"></div>\
-          <form id="hub-auth-form" autocomplete="on">\
+        <div class="hub-auth-body">' + (IS_PARTNER ? '\
+          <div class="hub-auth-tabs">\
+            <button class="hub-auth-tab active" data-tab="login">Login</button>\
+            <button class="hub-auth-tab" data-tab="request">Solicitar Acesso</button>\
+          </div>\
+          <div class="hub-auth-tab-content active" data-tab="login">\
+            <div class="hub-auth-error" id="hub-auth-error"></div>\
             <div class="hub-auth-field">\
-              <label for="hub-auth-email">E-mail</label>\
-              <input type="email" id="hub-auth-email" name="email" placeholder="seu@email.com" required autocomplete="email">\
+              <label>E-mail</label>\
+              <input type="email" id="hub-auth-email" placeholder="seu@email.com">\
             </div>\
             <div class="hub-auth-field">\
-              <label for="hub-auth-password">Senha de acesso</label>\
+              <label>Senha</label>\
               <div class="hub-auth-pw-wrapper">\
-                <input type="password" id="hub-auth-password" name="password" placeholder="Senha do portal" required autocomplete="current-password">\
-                <button type="button" class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" tabindex="-1" aria-label="Mostrar senha">\
-                  <svg id="hub-auth-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/></svg>\
-                  <svg id="hub-auth-eye-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
+                <input type="password" id="hub-auth-password" placeholder="••••••••">\
+                <button class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" type="button">\
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
                 </button>\
               </div>\
             </div>\
-            <button type="submit" class="hub-auth-btn" id="hub-auth-submit">\
-              <span id="hub-auth-btn-text">Entrar</span>\
-              <div class="hub-auth-spinner" id="hub-auth-spinner"></div>\
+            <button class="hub-auth-btn" id="hub-auth-login-btn">\
+              <span class="hub-auth-spinner"></span>\
+              <span>Entrar</span>\
             </button>\
-          </form>\
-        </div>\
-        <div class="hub-auth-footer">\
-          <a href="/">Voltar ao Hub CSV</a>\
+          </div>\
+          <div class="hub-auth-tab-content" data-tab="request">\
+            <div class="hub-auth-error" id="hub-auth-error-request"></div>\
+            <div class="hub-auth-success" id="hub-auth-success-request"></div>\
+            <div class="hub-auth-field">\
+              <label>Nome Completo</label>\
+              <input type="text" id="hub-auth-request-name" placeholder="Seu Nome">\
+            </div>\
+            <div class="hub-auth-field">\
+              <label>E-mail</label>\
+              <input type="email" id="hub-auth-request-email" placeholder="seu@email.com">\
+            </div>\
+            <button class="hub-auth-btn" id="hub-auth-request-btn">\
+              <span class="hub-auth-spinner"></span>\
+              <span>Solicitar Acesso</span>\
+            </button>\
+          </div>\
+        ' : '\
+          <div class="hub-auth-error" id="hub-auth-error"></div>\
+          <div class="hub-auth-field">\
+            <label>Senha</label>\
+            <div class="hub-auth-pw-wrapper">\
+              <input type="password" id="hub-auth-password" placeholder="••••••••">\
+              <button class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" type="button">\
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
+              </button>\
+            </div>\
+          </div>\
+          <button class="hub-auth-btn" id="hub-auth-login-btn">\
+            <span class="hub-auth-spinner"></span>\
+            <span>Entrar</span>\
+          </button>\
+        ') + '\
         </div>\
       </div>\
     ';
 
+    overlay.innerHTML = htmlContent;
     document.body.appendChild(overlay);
 
-    // Toggle senha
-    var pwToggle = document.getElementById('hub-auth-pw-toggle');
-    var pwInput = document.getElementById('hub-auth-password');
-    var eyeOff = document.getElementById('hub-auth-eye-off');
-    var eyeOn = document.getElementById('hub-auth-eye-on');
+    // Event listeners para tabs (apenas parceiros)
+    if (IS_PARTNER) {
+      var tabs = overlay.querySelectorAll('.hub-auth-tab');
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var tabName = this.getAttribute('data-tab');
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          overlay.querySelectorAll('.hub-auth-tab-content').forEach(function(c) { c.classList.remove('active'); });
+          this.classList.add('active');
+          overlay.querySelector('[data-tab="' + tabName + '"]').classList.add('active');
+        });
+      });
+    }
 
-    pwToggle.addEventListener('click', function () {
-      if (pwInput.type === 'password') {
-        pwInput.type = 'text';
-        eyeOff.style.display = 'none';
-        eyeOn.style.display = 'block';
-        pwToggle.setAttribute('aria-label', 'Ocultar senha');
-      } else {
-        pwInput.type = 'password';
-        eyeOff.style.display = 'block';
-        eyeOn.style.display = 'none';
-        pwToggle.setAttribute('aria-label', 'Mostrar senha');
-      }
-    });
+    // Toggle de senha
+    var pwToggle = overlay.querySelector('#hub-auth-pw-toggle');
+    var pwInput = overlay.querySelector('#hub-auth-password');
+    if (pwToggle && pwInput) {
+      pwToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+      });
+    }
 
-    // Form handler
-    var form = document.getElementById('hub-auth-form');
-    var errorEl = document.getElementById('hub-auth-error');
-    var submitBtn = document.getElementById('hub-auth-submit');
-    var btnText = document.getElementById('hub-auth-btn-text');
-    var spinner = document.getElementById('hub-auth-spinner');
+    // Login
+    var loginBtn = overlay.querySelector('#hub-auth-login-btn');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', async function() {
+        var errorEl = overlay.querySelector('#hub-auth-error');
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
 
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      var email = document.getElementById('hub-auth-email').value.trim();
-      var password = document.getElementById('hub-auth-password').value;
+        var email = overlay.querySelector('#hub-auth-email');
+        var password = overlay.querySelector('#hub-auth-password');
 
-      if (!email || !password) {
-        errorEl.textContent = 'Preencha todos os campos.';
-        errorEl.style.display = 'block';
-        return;
-      }
+        if (IS_PARTNER && !email.value) {
+          errorEl.textContent = 'Por favor, preencha o e-mail';
+          errorEl.style.display = 'block';
+          return;
+        }
 
-      // Loading state
-      submitBtn.disabled = true;
-      btnText.style.display = 'none';
-      spinner.style.display = 'block';
-      errorEl.style.display = 'none';
+        if (!password.value) {
+          errorEl.textContent = 'Por favor, preencha a senha';
+          errorEl.style.display = 'block';
+          return;
+        }
 
-      try {
-        var result = await doLogin(email, password);
+        loginBtn.disabled = true;
+        loginBtn.classList.add('loading');
+
+        var result = await doLogin(email ? email.value : 'shared_' + PORTAL, password.value);
         if (result.success) {
-          removeAuthOverlay();
+          overlay.remove();
+          document.body.style.overflow = 'auto';
+          addLogoutButton();
         } else {
           errorEl.textContent = result.error;
           errorEl.style.display = 'block';
+          loginBtn.disabled = false;
+          loginBtn.classList.remove('loading');
         }
-      } catch (err) {
-        errorEl.textContent = 'Erro de conexão. Tente novamente.';
-        errorEl.style.display = 'block';
-      } finally {
-        submitBtn.disabled = false;
-        btnText.style.display = 'inline';
-        spinner.style.display = 'none';
+      });
+    }
+
+    // Request Access (apenas parceiros)
+    if (IS_PARTNER) {
+      var requestBtn = overlay.querySelector('#hub-auth-request-btn');
+      if (requestBtn) {
+        requestBtn.addEventListener('click', async function() {
+          var errorEl = overlay.querySelector('#hub-auth-error-request');
+          var successEl = overlay.querySelector('#hub-auth-success-request');
+          errorEl.style.display = 'none';
+          successEl.style.display = 'none';
+
+          var name = overlay.querySelector('#hub-auth-request-name');
+          var email = overlay.querySelector('#hub-auth-request-email');
+
+          if (!name.value) {
+            errorEl.textContent = 'Por favor, preencha o nome';
+            errorEl.style.display = 'block';
+            return;
+          }
+
+          if (!email.value) {
+            errorEl.textContent = 'Por favor, preencha o e-mail';
+            errorEl.style.display = 'block';
+            return;
+          }
+
+          requestBtn.disabled = true;
+          requestBtn.classList.add('loading');
+
+          var result = await doRequestAccess(email.value, name.value, PORTAL);
+          if (result.success) {
+            successEl.textContent = 'Solicitação enviada com sucesso! Você receberá um e-mail quando sua solicitação for aprovada.';
+            successEl.style.display = 'block';
+            name.value = '';
+            email.value = '';
+            setTimeout(function() {
+              requestBtn.disabled = false;
+              requestBtn.classList.remove('loading');
+            }, 2000);
+          } else {
+            errorEl.textContent = result.error;
+            errorEl.style.display = 'block';
+            requestBtn.disabled = false;
+            requestBtn.classList.remove('loading');
+          }
+        });
       }
-    });
+    }
 
-    // Focus email field
-    setTimeout(function () {
-      var emailInput = document.getElementById('hub-auth-email');
-      if (emailInput) emailInput.focus();
-    }, 400);
-  }
-
-  function removeAuthOverlay() {
-    var overlay = document.getElementById('hub-auth-overlay');
-    if (overlay) {
-      overlay.style.opacity = '0';
-      overlay.style.transition = 'opacity 0.3s ease';
-      setTimeout(function () {
-        overlay.remove();
-        document.body.style.overflow = '';
-      }, 300);
+    // Enter key para login
+    var passwordInput = overlay.querySelector('#hub-auth-password');
+    if (passwordInput) {
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          loginBtn.click();
+        }
+      });
     }
   }
 
-  // ===== Adicionar botão de logout =====
   function addLogoutButton() {
     var session = getStoredSession();
     if (!session) return;
 
-    // Não duplicar
-    if (document.getElementById('hub-auth-logout')) return;
+    var existing = document.getElementById('hub-auth-logout');
+    if (existing) return;
 
     var btn = document.createElement('div');
     btn.id = 'hub-auth-logout';
@@ -451,56 +599,40 @@
       <style>\
         #hub-auth-logout {\
           position: fixed;\
-          top: 16px;\
-          right: 16px;\
-          z-index: 9998;\
+          top: 20px;\
+          right: 20px;\
+          z-index: 99998;\
           display: flex;\
           align-items: center;\
-          gap: 8px;\
-        }\
-        @media(max-width:768px) {\
-          #hub-auth-logout {\
-            position: relative;\
-            top: auto;\
-            right: auto;\
-            justify-content: center;\
-            margin: 8px auto 0;\
-            z-index: 1;\
-          }\
+          gap: 12px;\
+          padding: 8px 16px;\
+          background: white;\
+          border-radius: 10px;\
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);\
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+          font-size: 13px;\
         }\
         .hub-auth-user-badge {\
-          display: inline-flex;\
+          display: flex;\
+          align-items: center;\
+          gap: 6px;\
+          color: #374151;\
+          font-weight: 500;\
+        }\
+        .hub-auth-logout-btn {\
+          display: flex;\
           align-items: center;\
           gap: 6px;\
           padding: 6px 12px;\
-          background: rgba(255,255,255,0.95);\
-          backdrop-filter: blur(12px);\
-          -webkit-backdrop-filter: blur(12px);\
-          border: 1px solid rgba(0,0,0,0.1);\
-          border-radius: 8px;\
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-          font-size: 12px;\
+          background: white;\
+          border: 1px solid #e5e7eb;\
+          border-radius: 6px;\
           color: #6b7280;\
-        }\
-        .hub-auth-logout-btn {\
-          display: inline-flex;\
-          align-items: center;\
-          gap: 4px;\
-          padding: 6px 12px;\
-          background: rgba(255,255,255,0.95);\
-          backdrop-filter: blur(12px);\
-          -webkit-backdrop-filter: blur(12px);\
-          border: 1px solid rgba(220,38,38,0.2);\
-          border-radius: 8px;\
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06);\
-          color: #dc2626;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-          font-size: 12px;\
-          font-weight: 600;\
           cursor: pointer;\
           transition: all 0.2s;\
           text-decoration: none;\
+          font-size: 13px;\
+          font-weight: 500;\
         }\
         .hub-auth-logout-btn:hover {\
           background: #dc2626;\
@@ -533,7 +665,6 @@
     var session = getStoredSession();
 
     if (session && session.token) {
-      // Verificar token no servidor (em background, não bloquear)
       verifyToken(session.token).then(function (valid) {
         if (!valid) {
           clearSession();
@@ -542,12 +673,10 @@
           if (logoutEl) logoutEl.remove();
         }
       });
-      // Sessão existe e não expirou localmente: liberar acesso imediato
       addLogoutButton();
       return;
     }
 
-    // Sem sessão válida: mostrar overlay
     showAuthOverlay();
   }
 
