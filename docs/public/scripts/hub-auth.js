@@ -7,7 +7,7 @@
  *   <script src="/scripts/hub-auth.js" data-portal="unimed"></script>
  *
  * O atributo data-portal define qual portal está sendo protegido.
- * Portais válidos: unimed, unihealth, icds
+ * Portais válidos: unimed, unihealth, icds, axia, thera, medvalor
  */
 (function () {
   'use strict';
@@ -117,6 +117,9 @@
     unimed: { primary: '#00995d', gradient: 'linear-gradient(135deg, #00995d, #8baf1f)', light: '#e8f4ee' },
     unihealth: { primary: '#013d19', gradient: 'linear-gradient(135deg, #013d19, #ec7106)', light: '#e8eef5' },
     icds: { primary: '#1B3A5C', gradient: 'linear-gradient(135deg, #1B3A5C, #2a6496)', light: '#e8f0f8' },
+    axia: { primary: '#196396', gradient: 'linear-gradient(135deg, #196396, #2DBF7F)', light: '#e8f0f8' },
+    thera: { primary: '#4c1d95', gradient: 'linear-gradient(135deg, #4c1d95, #7c3aed)', light: '#f3f0ff' },
+    medvalor: { primary: '#c2410c', gradient: 'linear-gradient(135deg, #c2410c, #f97316)', light: '#fff7ed' },
   };
 
   var colors = PORTAL_COLORS[PORTAL] || PORTAL_COLORS.unimed;
@@ -125,6 +128,9 @@
     unimed: 'Unimed Governador Valadares',
     unihealth: 'Unihealth Governador Valadares',
     icds: 'ICDS',
+    axia: 'AxiaCare\u00AE',
+    thera: 'TheraTech\u00AE',
+    medvalor: 'MedValor',
   };
 
   // ===== Criar overlay de autenticação =====
