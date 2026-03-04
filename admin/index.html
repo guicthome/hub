@@ -442,7 +442,7 @@
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
-                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+                document.querySelector(`.admin-tab-content[data-tab="${tabName}"]`).classList.add('active');
                 
                 if (tabName === 'requests') loadRequests(0);
                 else if (tabName === 'users') loadUsers(0);
