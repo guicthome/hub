@@ -61,6 +61,7 @@ jobs:
           cp -r compliance "$DIST/" 2>/dev/null || true
           cp -r founder "$DIST/" 2>/dev/null || true
           cp -r icds "$DIST/" 2>/dev/null || true
+          cp -r deck "$DIST/" 2>/dev/null || true
 
           # Restore VitePress-built index pages (preserve SPA navigation)
           for dir in axia medvalor thera compliance founder unimed unihealth icds; do
