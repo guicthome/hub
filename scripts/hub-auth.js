@@ -20,7 +20,10 @@
 
   // Detectar portal a partir do atributo data-portal do script
   const scriptTag = document.currentScript || document.querySelector('script[data-portal]');
-  const PORTAL = scriptTag ? scriptTag.getAttribute('data-portal') : null;
+  const PORTAL_RAW = scriptTag ? scriptTag.getAttribute('data-portal') : null;
+  // Mapeamento de aliases para compatibilidade com data-portal existentes
+  const PORTAL_ALIASES = { 'axia': 'axiacare' };
+  const PORTAL = PORTAL_ALIASES[PORTAL_RAW] || PORTAL_RAW;
 
   if (!PORTAL) {
     console.warn('[Hub Auth v2] Atributo data-portal não definido. Autenticação desativada.');
