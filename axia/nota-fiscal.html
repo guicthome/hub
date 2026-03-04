@@ -437,6 +437,10 @@
           <div class="combobox-dropdown" id="dropdown-razao"></div>
         </div>
       </div>
+      <div class="form-group">
+        <label>Endereço do Tomador</label>
+        <input type="text" class="form-control" id="tomador-endereco" placeholder="Endereço completo do tomador" autocomplete="off">
+      </div>
     </div>
   </div>
 
@@ -484,11 +488,11 @@
     <div class="card">
       <div class="card-body">
         <div class="confirmation">
-          <div class="check-icon">&#10003;</div>
-          <h2>Solicitação Registrada</h2>
-          <p>Status: <span class="badge badge-aguardando">Aguardando Emissão</span></p>
-          <p id="email-status"></p>
-          <dl class="summary" id="confirmation-summary"></dl>
+          <div class="check-icon" id="conf-icon">&#10003;</div>
+          <h2 id="conf-title">Solicitação Registrada</h2>
+          <p id="conf-status">Status: <span class="badge badge-aguardando">Aguardando Emissão</span></p>
+          <p id="conf-email"></p>
+          <dl class="summary" id="conf-summary"></dl>
           <button class="btn btn-primary" onclick="resetForm()" style="margin-top: 16px;">Nova Solicitação</button>
         </div>
       </div>
@@ -739,7 +743,10 @@ setupCombobox('tomador-cnpj', 'dropdown-cnpj',
   () => tomadores.map(t => t.cnpj),
   (cnpj) => {
     const t = tomadores.find(x => x.cnpj === cnpj);
-    if (t) document.getElementById('tomador-razao').value = t.razao_social;
+    if (t) {
+      document.getElementById('tomador-razao').value = t.razao_social;
+      document.getElementById('tomador-endereco').value = t.endereco || '';
+    }
   }
 );
 
@@ -747,7 +754,10 @@ setupCombobox('tomador-razao', 'dropdown-razao',
   () => tomadores.map(t => t.razao_social),
   (razao) => {
     const t = tomadores.find(x => x.razao_social === razao);
-    if (t) document.getElementById('tomador-cnpj').value = t.cnpj;
+    if (t) {
+      document.getElementById('tomador-cnpj').value = t.cnpj;
+      document.getElementById('tomador-endereco').value = t.endereco || '';
+    }
   }
 );
 
@@ -796,6 +806,7 @@ async function loadReferenceData() {
 document.getElementById('btn-solicitar').addEventListener('click', async () => {
   const cnpj = document.getElementById('tomador-cnpj').value.trim();
   const razao = document.getElementById('tomador-razao').value.trim();
+  const endereco = document.getElementById('tomador-endereco').value.trim();
   const descricao = document.getElementById('descricao-servico').value.trim();
   const valorStr = document.getElementById('valor-servico').value;
   const valor = parseValor(valorStr);
@@ -826,6 +837,7 @@ document.getElementById('btn-solicitar').addEventListener('click', async () => {
       body: JSON.stringify({
         tomador_cnpj: cnpj,
         tomador_razao_social: razao,
+        tomador_endereco: endereco || null,
         descricao_servico: descricao,
         valor: valor,
         competencia: competenciaFmt,
@@ -847,17 +859,21 @@ document.getElementById('btn-solicitar').addEventListener('click', async () => {
       if (el.id !== 'confirmation') el.style.display = 'none';
     });
 
-    const summary = document.getElementById('confirmation-summary');
+    document.getElementById('conf-title').textContent = 'Solicitação Registrada';
+    document.getElementById('conf-status').innerHTML = 'Status: <span class="badge badge-aguardando">Aguardando Emissão</span>';
+    document.getElementById('conf-icon').innerHTML = '&#10003;';
+    const summary = document.getElementById('conf-summary');
     summary.innerHTML = `
       <dt>Tomador</dt><dd>${razao}</dd>
       <dt>CNPJ</dt><dd>${cnpj}</dd>
+      ${endereco ? `<dt>Endereço</dt><dd>${endereco}</dd>` : ''}
       <dt>Serviço</dt><dd>${descricao}</dd>
       <dt>Valor</dt><dd>${valorStr}</dd>
       <dt>Competência</dt><dd>${competenciaFmt}</dd>
       <dt>Dados Bancários</dt><dd>${bancario}</dd>
       ${obs ? `<dt>Observações</dt><dd>${obs}</dd>` : ''}
     `;
-    document.getElementById('email-status').textContent = 'E-mail de solicitação enviado para dragabrielaalvim@gmail.com';
+    document.getElementById('conf-email').textContent = 'E-mail de solicitação enviado para dragabrielaalvim@gmail.com';
     document.getElementById('confirmation').classList.remove('hidden');
 
     // Reload reference data (new tomador/servico may have been added)
@@ -879,6 +895,7 @@ function resetForm() {
   });
   document.getElementById('tomador-cnpj').value = '';
   document.getElementById('tomador-razao').value = '';
+  document.getElementById('tomador-endereco').value = '';
   document.getElementById('valor-servico').value = '';
   document.getElementById('observacoes').value = '';
   // Keep defaults for servico, bancario, competencia
@@ -983,11 +1000,11 @@ async function handleTokenAction() {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
 
   const confirmation = document.getElementById('confirmation');
-  const confIcon = document.getElementById('conf-icon');
-  const confTitle = document.getElementById('conf-title');
-  const confStatus = document.getElementById('conf-status');
-  const confEmail = document.getElementById('conf-email');
-  const confSummary = document.getElementById('conf-summary');
+  const $confIcon = document.getElementById('conf-icon');
+  const $confTitle = document.getElementById('conf-title');
+  const $confStatus = document.getElementById('conf-status');
+  const $confEmail = document.getElementById('conf-email');
+  const $confSummary = document.getElementById('conf-summary');
 
   showOverlay(acao === 'emitida' ? 'Marcando como Emitida...' : 'Cancelando solicitação...');
 
@@ -999,22 +1016,22 @@ async function handleTokenAction() {
     if (data.ok) {
       const statusLabel = acao === 'emitida' ? 'Emitida' : 'Cancelada';
       const statusClass = acao === 'emitida' ? 'badge-emitida' : 'badge-cancelada';
-      confIcon.innerHTML = acao === 'emitida'
+      $confIcon.innerHTML = acao === 'emitida'
         ? '<svg viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
         : '<svg viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
-      confTitle.textContent = acao === 'emitida' ? 'NF Marcada como Emitida' : 'Solicitação Cancelada';
-      confStatus.innerHTML = `<span class="badge ${statusClass}">${statusLabel}</span>`;
-      confEmail.textContent = '';
-      confSummary.innerHTML = `
-        <div class="summary-row"><span class="summary-label">Tomador</span><span class="summary-value">${data.tomador || ''}</span></div>
-        <div class="summary-row"><span class="summary-label">Competência</span><span class="summary-value">${data.competencia || ''}</span></div>
+      $confTitle.textContent = acao === 'emitida' ? 'NF Marcada como Emitida' : 'Solicitação Cancelada';
+      $confStatus.innerHTML = `<span class="badge ${statusClass}">${statusLabel}</span>`;
+      $confEmail.textContent = '';
+      $confSummary.innerHTML = `
+        <dt>Tomador</dt><dd>${data.tomador || ''}</dd>
+        <dt>Competência</dt><dd>${data.competencia || ''}</dd>
       `;
     } else {
-      confIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
-      confTitle.textContent = 'Ação não realizada';
-      confStatus.textContent = data.message || data.error || 'Token inválido ou solicitação já processada.';
-      confEmail.textContent = '';
-      confSummary.innerHTML = '';
+      $confIcon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      $confTitle.textContent = 'Ação não realizada';
+      $confStatus.textContent = data.message || data.error || 'Token inválido ou solicitação já processada.';
+      $confEmail.textContent = '';
+      $confSummary.innerHTML = '';
     }
 
     // Show confirmation, hide form cards
