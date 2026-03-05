@@ -418,7 +418,8 @@ head:
   .hub-hero .hero-btn { width: 100%; max-width: 280px; text-align: center; padding: 12px 20px; font-size: 0.9rem; }
   .hub-hero .hero-groups { flex-direction: column; gap: 16px; }
   .hub-hero .hero-group-divider { display: none; }
-  .hub-hero .hero-group-btns { flex-direction: column; align-items: center; }
+  .hub-hero .hero-group-btns { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .hub-hero .hero-group-btns .hero-btn { width: 100%; text-align: center; max-width: none; }
 
   /* Body */
   .hub-body { padding: 0 16px 40px; }
@@ -506,6 +507,7 @@ head:
           <div class="hero-group-btns">
             <a href="/compliance/" class="hero-btn secondary">Compliance</a>
             <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
+            <a href="/admin/" class="hero-btn secondary">Admin</a>
           </div>
         </div>
       </div>
