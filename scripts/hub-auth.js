@@ -418,7 +418,7 @@
               <div class="hub-auth-pw-wrapper">\
                 <input type="password" id="hub-auth-password" placeholder="••••••••">\
                 <button class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" type="button">\
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
                 </button>\
               </div>\
             </div>\
@@ -472,10 +472,11 @@
       tabs.forEach(function(tab) {
         tab.addEventListener('click', function() {
           var tabName = this.getAttribute('data-tab');
-          tabs.forEach(function(t) { t.classList.remove('active'); });
+          overlay.querySelectorAll('.hub-auth-tab').forEach(function(t) { t.classList.remove('active'); });
           overlay.querySelectorAll('.hub-auth-tab-content').forEach(function(c) { c.classList.remove('active'); });
           this.classList.add('active');
-          overlay.querySelector('[data-tab="' + tabName + '"]').classList.add('active');
+          overlay.querySelector('.hub-auth-tab[data-tab="' + tabName + '"]').classList.add('active');
+          overlay.querySelector('.hub-auth-tab-content[data-tab="' + tabName + '"]').classList.add('active');
         });
       });
     }

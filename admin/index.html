@@ -54,6 +54,15 @@
         }
         .auth-box button:hover { background: var(--primary-dark); }
         .auth-error { color: var(--red); font-size: 13px; text-align: center; margin-bottom: 12px; display: none; }
+        .auth-pw-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 16px; }
+        .auth-pw-wrapper input { margin-bottom: 0; padding-right: 44px; }
+        .auth-pw-toggle {
+            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; padding: 4px;
+            display: flex; align-items: center; justify-content: center;
+            color: #9ca3af; transition: color 0.2s;
+        }
+        .auth-pw-toggle:hover { color: #374151; }
 
         /* Dashboard */
         #dashboard { display: none; }
@@ -241,7 +250,12 @@
             <label for="admin-email">E-mail</label>
             <input type="email" id="admin-email" placeholder="seu@email.com" required autocomplete="email">
             <label for="admin-password">Senha</label>
-            <input type="password" id="admin-password" placeholder="Senha do painel" required>
+            <div class="auth-pw-wrapper">
+                <input type="password" id="admin-password" placeholder="Senha do painel" required>
+                <button type="button" class="auth-pw-toggle" id="admin-pw-toggle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
             <button type="submit">Entrar</button>
         </form>
     </div>
@@ -463,6 +477,13 @@
         loadStats();
         loadLogs();
     }
+
+    // ===== Toggle de senha =====
+    document.getElementById('admin-pw-toggle').addEventListener('click', function(e) {
+        e.preventDefault();
+        var pwInput = document.getElementById('admin-password');
+        pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+    });
 
     // ===== Auth form =====
     document.getElementById('auth-form').addEventListener('submit', async function(e) {
