@@ -106,16 +106,26 @@ head:
   display: none;
 }
 .hub-hero .hero-btn.admin {
-  background: rgba(212,175,55,0.2);
-  color: #fde68a;
-  border: 1px solid rgba(212,175,55,0.4);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px dashed rgba(255,255,255,0.35);
   font-size: 0.82rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+  gap: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .hub-hero .hero-btn.admin:hover {
-  background: rgba(212,175,55,0.35);
-  border-color: rgba(212,175,55,0.6);
+  background: rgba(255,255,255,0.18);
+  color: white;
+  border-color: rgba(255,255,255,0.5);
   transform: translateY(-2px);
+}
+.hub-hero .hero-btn.admin svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.7;
 }
 
 /* ── Layout ── */
@@ -517,7 +527,7 @@ head:
           <div class="hero-group-btns">
             <a href="/compliance/" class="hero-btn secondary">Compliance</a>
             <a href="/_infra/" class="hero-btn secondary">Infraestrutura</a>
-            <a href="/admin/" class="hero-btn secondary admin">Admin</a>
+            <a href="/admin/" class="hero-btn admin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Admin</a>
           </div>
         </div>
       </div>
