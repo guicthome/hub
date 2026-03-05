@@ -53,6 +53,7 @@ export default defineConfig({
           items: [
             { text: 'Playbook do Hub', link: '/csv-core/playbook-hub' },
             { text: 'Definição Canônica', link: '/csv-core/definition' },
+            { text: 'Taxonomia de Produtos', link: '/csv-core/taxonomia-produtos' },
             { text: 'Sistema de Identidade', link: '/csv-core/identity-system' },
             { text: 'Central de Assets', link: '/csv-core/assets' },
             { text: 'Founder Profile', link: '/csv-core/founder' },
