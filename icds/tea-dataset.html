@@ -1259,10 +1259,211 @@
 
     @media print {
       .login-screen { display: none !important; }
-      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .btn-logout, .email-panel { display: none !important; }
+      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .btn-logout, .email-panel, .ai-chat-fab, .ai-chat-panel { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
+    }
+    /* ===== AI ASSISTANT CHAT ===== */
+    .ai-chat-fab {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 9999;
+    }
+    .ai-chat-fab-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ax-green), #00b36b);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,153,93,0.4);
+      transition: all 0.25s ease;
+    }
+    .ai-chat-fab-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,153,93,0.5); }
+    .ai-chat-fab-btn svg { width: 26px; height: 26px; }
+    .ai-chat-fab-btn.active { background: #64748b; box-shadow: 0 4px 16px rgba(100,116,139,0.35); }
+    .ai-chat-fab-label {
+      position: absolute;
+      left: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .ai-chat-fab:hover .ai-chat-fab-label { opacity: 1; }
+    .ai-chat-panel {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      left: 24px;
+      width: 380px;
+      max-height: 520px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      z-index: 9999;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+    .ai-chat-panel.open { display: flex; }
+    .ai-chat-header {
+      background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-light));
+      color: #fff;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .ai-chat-header-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ai-chat-header-icon svg { width: 18px; height: 18px; }
+    .ai-chat-header-text h4 { margin: 0; font-size: 14px; font-weight: 700; }
+    .ai-chat-header-text p { margin: 0; font-size: 11px; opacity: 0.8; }
+    .ai-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 200px;
+      max-height: 340px;
+      background: var(--bg-secondary);
+    }
+    .ai-msg {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.55;
+      word-wrap: break-word;
+    }
+    .ai-msg.assistant {
+      background: #fff;
+      color: var(--text-primary);
+      align-self: flex-start;
+      border: 1px solid var(--border-color);
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg.user {
+      background: var(--ax-primary);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-msg.system {
+      background: #fef9e7;
+      color: #7d6608;
+      align-self: center;
+      font-size: 12px;
+      text-align: center;
+      border: 1px solid #f9e79f;
+      max-width: 95%;
+    }
+    .ai-msg .typing-dots {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .ai-msg .typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: var(--text-tertiary);
+      border-radius: 50%;
+      animation: dotPulse 1.2s infinite;
+    }
+    .ai-msg .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .ai-msg .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+    .ai-chat-input-area {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-color);
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .ai-chat-input-area input {
+      flex: 1;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .ai-chat-input-area input:focus { border-color: var(--ax-green); }
+    .ai-chat-input-area input::placeholder { color: var(--text-tertiary); }
+    .ai-chat-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--ax-green);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .ai-chat-send:hover { background: #00b36b; }
+    .ai-chat-send:disabled { background: #cbd5e1; cursor: not-allowed; }
+    .ai-chat-send svg { width: 18px; height: 18px; }
+    .ai-chat-context {
+      padding: 6px 16px 0;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ai-chat-context .ctx-badge {
+      background: var(--bg-tertiary);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    @media (max-width: 480px) {
+      .ai-chat-panel {
+        left: 8px;
+        right: 8px;
+        bottom: 80px;
+        width: auto;
+        max-height: 70vh;
+      }
+      .ai-chat-fab { bottom: 16px; left: 16px; }
     }
   </style>
 </head>
@@ -2247,6 +2448,39 @@
 
 </div><!-- /app-content -->
 
+<!-- AI ASSISTANT CHAT -->
+<div class="ai-chat-fab" id="aiChatFab">
+  <button class="ai-chat-fab-btn" id="aiChatToggle" onclick="toggleAiChat()" aria-label="Assistente de preenchimento">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <span class="ai-chat-fab-label">Assistente de preenchimento</span>
+</div>
+
+<div class="ai-chat-panel" id="aiChatPanel">
+  <div class="ai-chat-header">
+    <div class="ai-chat-header-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    <div class="ai-chat-header-text">
+      <h4>Assistente Data Set TEA</h4>
+      <p>Tire dúvidas sobre o preenchimento</p>
+    </div>
+  </div>
+  <div class="ai-chat-context" id="aiChatContext">
+    <span>Contexto:</span>
+    <span class="ctx-badge" id="aiCtxBadge">Geral</span>
+  </div>
+  <div class="ai-chat-messages" id="aiChatMessages">
+    <div class="ai-msg assistant">Olá! Sou o assistente do Data Set TEA. Posso ajudar com dúvidas sobre o preenchimento de qualquer seção do formulário. Em que posso ajudar?</div>
+  </div>
+  <div class="ai-chat-input-area">
+    <input type="text" id="aiChatInput" placeholder="Digite sua dúvida..." onkeydown="if(event.key==='Enter')sendAiMessage()">
+    <button class="ai-chat-send" id="aiChatSendBtn" onclick="sendAiMessage()" aria-label="Enviar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
 <script>
 // ============================================================
 // TOGGLE SECTIONS (with ARIA)
@@ -2940,6 +3174,215 @@ async function sendDataSetEmail() {
 }
 
 // ============================================================
+// ============================================================
+// AI ASSISTANT
+// ============================================================
+const AI_ENDPOINT = 'https://csv-ai.guilherme-thom.workers.dev/chat';
+let aiChatOpen = false;
+let aiConversation = [];
+let aiIsLoading = false;
+
+const TEA_SYSTEM_PROMPT = `Voce e o assistente do Data Set TEA, uma ferramenta de coleta de dados sobre o Transtorno do Espectro Autista (TEA) desenvolvida pelo ICDS (Instituto de Cuidados e Desenvolvimento em Saude), parte do Grupo CSV.
+
+Seu papel e ajudar o usuario a preencher o formulario de coleta de dados corretamente. Responda SEMPRE em portugues do Brasil. Seja direto, objetivo e pratico. Nao use emojis.
+
+O formulario tem 8 secoes:
+
+1. PROFISSIONAIS: Quantidade de profissionais essenciais (medicos, fisioterapeutas, terapeutas ocupacionais, fonoaudiologos, psicologos). Diferenciar generalistas de especialistas. Informar a area de especializacao.
+
+2. PACIENTES: Numero total de pacientes com diagnostico de TEA. Instrumento utilizado para diagnostico (CID-10 F84, DSM-5, ou outros). Perfil do profissional que fechou o diagnostico (medico com especialidade, ou outro profissional). Dados demograficos: genero (quantidade masculino, feminino, nao informado), idade media no diagnostico, faixa etaria predominante.
+
+3. TRATAMENTO: Onde o tratamento e realizado (clinica, instituto, prestador). Horas semanais e mensais de terapia. Quais profissionais atendem cada paciente. Plano Terapeutico Individual (PTI): se existe, quem elabora, com que frequencia e revisado.
+
+4. PRESTADORES: Cadastro dos profissionais para futuras capacitacoes. Nome, registro profissional (CRM, CRP, CREF, CREFITO, CFa), contato e vinculo. Pode ser preenchido individualmente ou anexando uma lista.
+
+5. PAGAMENTO: Valores por categoria profissional (R$/atendimento e R$/mes). Forma de pagamento: PF, PJ, Variavel, Salario + Variavel, Somente Salario. Forma predominante geral.
+
+6. JUDICIALIZACAO: Numero de acoes judiciais relacionadas a TEA. Juizes da comarca envolvidos e peritos chamados. Analise qualitativa das decisoes judiciais.
+
+7. FLUXO ASSISTENCIAL: Porta de entrada do paciente TEA na operadora. Gargalos e pontos de dor no fluxo. Sugestoes de melhoria.
+
+8. GOVERNANCA E DADOS: Compartilhamento de risco entre operadora e prestador. Conjunto minimo de dados para gestao do TEA (disponibilidade, fonte, frequencia, responsavel). Indicadores assistenciais monitorados.
+
+Regras:
+- Se o usuario perguntar algo fora do escopo do formulario, redirecione educadamente para o preenchimento.
+- Se nao souber a resposta, diga que nao sabe e sugira que o usuario consulte a equipe tecnica.
+- Nao invente dados ou numeros.
+- Quando possivel, indique qual secao do formulario se refere a duvida.`;
+
+function toggleAiChat() {
+  aiChatOpen = !aiChatOpen;
+  const panel = document.getElementById('aiChatPanel');
+  const btn = document.getElementById('aiChatToggle');
+  if (aiChatOpen) {
+    panel.classList.add('open');
+    btn.classList.add('active');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    updateAiContext();
+    document.getElementById('aiChatInput').focus();
+  } else {
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  }
+}
+
+function getVisibleSection() {
+  const sections = document.querySelectorAll('.form-section');
+  let best = null;
+  let bestDist = Infinity;
+  const viewCenter = window.innerHeight / 2;
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const dist = Math.abs(rect.top + rect.height / 2 - viewCenter);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = sec;
+      }
+    }
+  });
+  return best;
+}
+
+function updateAiContext() {
+  const sec = getVisibleSection();
+  const badge = document.getElementById('aiCtxBadge');
+  if (sec) {
+    const header = sec.querySelector('.section-header span');
+    if (header) {
+      badge.textContent = header.textContent.trim();
+      return;
+    }
+  }
+  badge.textContent = 'Geral';
+}
+
+function addAiMessage(role, content) {
+  const container = document.getElementById('aiChatMessages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ' + role;
+  div.textContent = content;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function addTypingIndicator() {
+  const container = document.getElementById('aiChatMessages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg assistant';
+  div.id = 'aiTyping';
+  div.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('aiTyping');
+  if (el) el.remove();
+}
+
+function getSectionContext() {
+  const sec = getVisibleSection();
+  if (!sec) return '';
+  const header = sec.querySelector('.section-header span');
+  const sectionName = header ? header.textContent.trim() : '';
+  // Collect filled values from this section
+  const inputs = sec.querySelectorAll('input, textarea, select');
+  let filledData = [];
+  inputs.forEach(inp => {
+    if (inp.type === 'radio') {
+      if (inp.checked) filledData.push(inp.name + ': ' + (inp.nextSibling ? inp.nextSibling.textContent.trim() : inp.value));
+    } else if (inp.value && inp.value.trim()) {
+      const label = inp.previousElementSibling ? inp.previousElementSibling.textContent.trim() : (inp.placeholder || inp.name);
+      filledData.push(label + ': ' + inp.value.trim());
+    }
+  });
+  let ctx = 'O usuario esta na secao: ' + sectionName + '.';
+  if (filledData.length > 0) {
+    ctx += ' Dados ja preenchidos nesta secao: ' + filledData.slice(0, 10).join('; ') + '.';
+  }
+  return ctx;
+}
+
+async function sendAiMessage() {
+  if (aiIsLoading) return;
+  const input = document.getElementById('aiChatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  addAiMessage('user', text);
+  updateAiContext();
+
+  const sectionCtx = getSectionContext();
+  const unitName = currentUnit ? currentUnit.name : 'Nao identificada';
+
+  // Build messages array
+  const messages = [
+    { role: 'system', content: TEA_SYSTEM_PROMPT + '\n\nUnidade atual: ' + unitName + '.\n' + sectionCtx }
+  ];
+
+  // Add conversation history (last 6 messages for context window)
+  const recentHistory = aiConversation.slice(-6);
+  recentHistory.forEach(msg => messages.push(msg));
+
+  // Add current message
+  messages.push({ role: 'user', content: text });
+
+  aiIsLoading = true;
+  document.getElementById('aiChatSendBtn').disabled = true;
+  addTypingIndicator();
+
+  try {
+    const response = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Origin': 'https://hub.grupocsv.com' },
+      body: JSON.stringify({ messages, max_tokens: 512, temperature: 0.4 })
+    });
+
+    removeTypingIndicator();
+
+    if (!response.ok) {
+      throw new Error('Erro na resposta do servidor (' + response.status + ')');
+    }
+
+    const data = await response.json();
+    const reply = data.choices && data.choices[0] && data.choices[0].message
+      ? data.choices[0].message.content
+      : 'Desculpe, nao consegui processar sua pergunta. Tente reformular.';
+
+    addAiMessage('assistant', reply);
+
+    // Save to conversation history
+    aiConversation.push({ role: 'user', content: text });
+    aiConversation.push({ role: 'assistant', content: reply });
+
+    // Keep history manageable
+    if (aiConversation.length > 20) {
+      aiConversation = aiConversation.slice(-12);
+    }
+  } catch (err) {
+    removeTypingIndicator();
+    addAiMessage('system', 'Nao foi possivel conectar ao assistente. Verifique sua conexao e tente novamente.');
+    console.error('AI Chat error:', err);
+  } finally {
+    aiIsLoading = false;
+    document.getElementById('aiChatSendBtn').disabled = false;
+    document.getElementById('aiChatInput').focus();
+  }
+}
+
+// Update context badge on scroll
+let aiScrollTimer = null;
+window.addEventListener('scroll', function() {
+  if (aiChatOpen) {
+    clearTimeout(aiScrollTimer);
+    aiScrollTimer = setTimeout(updateAiContext, 300);
+  }
+});
+
+// ============================================================
 // EVENT LISTENERS
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -2968,6 +3411,7 @@ document.addEventListener('DOMContentLoaded', function() {
       closeInfoBalloon();
       closeClearModal();
       closePdfModal();
+      if (aiChatOpen) toggleAiChat();
     }
   });
 
