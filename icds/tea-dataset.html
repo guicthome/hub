@@ -2202,7 +2202,7 @@
       <div class="divider"></div>
 
       <div class="sub-q">
-        <span class="sub-label">8.5 Evidências / anexos disponíveis (relatórios, extrações, dashboards):</span>
+        <span class="sub-label">8.5 Arquivos de apoio disponíveis (relatórios, extrações, dashboards):</span>
         <div class="option-group">
           <label class="option-item"><input type="checkbox" name="gov_evid_relatorios"> Relatórios anexos</label>
           <label class="option-item"><input type="checkbox" name="gov_evid_dashboard"> Link para dashboard</label>
@@ -2210,7 +2210,7 @@
           <label class="option-item"><input type="checkbox" name="gov_evid_outros"> Outros</label>
         </div>
         <div class="upload-highlight" style="margin-top:10px">
-          <span class="sub-label" style="font-size:0.78rem;display:flex;align-items:center;gap:5px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:15px;height:15px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar evidências (opcional)</span>
+          <span class="sub-label" style="font-size:0.78rem;display:flex;align-items:center;gap:5px"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ax-primary)" stroke-width="2" style="width:15px;height:15px;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Anexar arquivos (opcional)</span>
           <div class="file-upload-zone" id="uploadZoneEvidencias" onclick="document.getElementById('fileInputEvidencias').click()" style="padding:14px">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div class="upload-label">Clique ou arraste o arquivo aqui</div>
@@ -3738,7 +3738,7 @@ function generatePDF() {
   for (let i = 1; i <= 3; i++) { const v = getVal('gov_indicador_' + i); if (v) addValue(i + '. ' + v); }
   addSubLabel('8.4 Observações sobre qualidade do dado:');
   addValue(getVal('gov_qualidade'));
-  addSubLabel('8.5 Evidências / anexos:');
+  addSubLabel('8.5 Arquivos de apoio:');
   addValue(getChecked(['gov_evid_relatorios', 'gov_evid_dashboard', 'gov_evid_planilha', 'gov_evid_outros']));
   if (getVal('gov_evid_link')) addValue('Link: ' + getVal('gov_evid_link'));
 
