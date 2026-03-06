@@ -1,5 +1,5 @@
 /**
- * Hub CSV - Portal Authentication System v2.1.0
+ * Hub CSV - Portal Authentication System v2.2.0
  * Suporta autenticação individual (parceiros) e fixa (empresas)
  * Design system padronizado: fundo gradiente, card branco, logo, cadeado, botão teal
  *
@@ -461,36 +461,68 @@
     var existing = document.getElementById('hub-auth-logout');
     if (existing) return;
 
+    // Truncar e-mail para exibição
+    var emailDisplay = session.email || '';
+    var emailShort = emailDisplay.length > 24 ? emailDisplay.substring(0, 22) + '...' : emailDisplay;
+
     var btn = document.createElement('div');
     btn.id = 'hub-auth-logout';
     btn.innerHTML = '\
 <style>\
 #hub-auth-logout {\
-  position: fixed; top: 20px; right: 20px; z-index: 99998;\
-  display: flex; align-items: center; gap: 12px;\
-  padding: 8px 16px; background: white; border-radius: 10px;\
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);\
+  position: fixed; top: 0; right: 0; z-index: 99998;\
+  display: flex; align-items: center; gap: 8px;\
+  padding: 6px 14px; height: 64px;\
+  background: transparent;\
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px;\
 }\
-.ha-user-badge { display: flex; align-items: center; gap: 6px; color: #374151; font-weight: 500; }\
-.ha-logout-btn {\
-  display: flex; align-items: center; gap: 6px;\
-  padding: 6px 12px; background: white; border: 1px solid #e5e7eb;\
-  border-radius: 6px; color: #6b7280; cursor: pointer;\
-  transition: all 0.2s; text-decoration: none; font-size: 13px; font-weight: 500;\
+.ha-user-badge {\
+  display: flex; align-items: center; gap: 6px; color: #374151;\
+  font-weight: 500; font-size: 12px; opacity: 0.7;\
 }\
+.ha-user-badge svg { width: 14px; height: 14px; flex-shrink: 0; }\
+.ha-logout-btn {\
+  display: flex; align-items: center; gap: 4px;\
+  padding: 5px 10px; background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);\
+  border-radius: 6px; color: #6b7280; cursor: pointer;\
+  transition: all 0.2s; text-decoration: none; font-size: 12px; font-weight: 500;\
+  white-space: nowrap;\
+}\
+.ha-logout-btn svg { width: 13px; height: 13px; flex-shrink: 0; }\
 .ha-logout-btn:hover { background: #dc2626; color: white; border-color: #dc2626; }\
+@media (max-width: 768px) {\
+  #hub-auth-logout { padding: 6px 10px; gap: 6px; height: 64px; }\
+  .ha-user-badge span { display: none; }\
+  .ha-logout-btn span { display: none; }\
+}\
 @media print { #hub-auth-logout { display: none !important; } }\
 </style>\
 <span class="ha-user-badge">\
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>\
-  ' + session.email + '\
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>\
+  <span title="' + emailDisplay + '">' + emailShort + '</span>\
 </span>\
-<a class="ha-logout-btn" id="ha-logout-btn">\
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>\
-  Sair\
+<a class="ha-logout-btn" id="ha-logout-btn" title="Encerrar sessão">\
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>\
+  <span>Sair</span>\
 </a>';
-    document.body.appendChild(btn);
+
+    // Tentar inserir dentro do header existente
+    var headerTarget = document.querySelector('.VPNav .VPNavBar .content') // VitePress
+      || document.querySelector('.VPNav .VPNavBar') // VitePress fallback
+      || document.querySelector('header')
+      || document.querySelector('.header');
+
+    if (headerTarget) {
+      // Ajustar para ficar inline no header
+      btn.style.position = 'absolute';
+      btn.style.top = '0';
+      btn.style.right = '0';
+      headerTarget.style.position = 'relative';
+      headerTarget.appendChild(btn);
+    } else {
+      // Fallback: fixo no topo direito
+      document.body.appendChild(btn);
+    }
 
     document.getElementById('ha-logout-btn').addEventListener('click', function(e) {
       e.preventDefault();
