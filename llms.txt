@@ -25,6 +25,12 @@
 - [/_infra/csv-core/taxonomia-produtos.md](/_infra/csv-core/taxonomia-produtos.md): Classificação oficial dos ativos digitais (WebApp, Ferramenta, Painel BI, Página Estática, Portal).
 - O `manifest.json` contém a seção `productAssets` com o mapeamento completo de cada ativo HTML, incluindo categoria, entidade e hash.
 
+## Infraestrutura de Paginas Publicas
+
+- [/skills/public-pages.md](/skills/public-pages.md): Skill operacional para criar paginas publicas em /p/. **LEITURA OBRIGATORIA antes de criar qualquer pagina publica.**
+- [/docs/public-pages.md](/docs/public-pages.md): Documentacao de referencia da infraestrutura (schema, componentes, padroes HTML).
+- [/p/registry.json](/p/registry.json): Catalogo de todas as paginas publicas. Deve ser atualizado ao criar ou desativar paginas.
+
 ## Opcional (Contexto Adicional)
 
 - [/docs/compass/](/docs/compass/): Linha editorial estratégica (Compass™).
