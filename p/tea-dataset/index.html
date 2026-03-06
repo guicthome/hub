@@ -1257,6 +1257,34 @@
     .btn-login:active {
       transform: translateY(0);
     }
+    .btn-share-link {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      margin-top: 8px;
+      background: transparent;
+      color: #64748b;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-share-link:hover {
+      color: #1B3A5C;
+      border-color: #1B3A5C;
+      background: rgba(27,58,92,0.04);
+    }
+    .btn-share-link.visible { display: flex; }
+    .btn-share-link.copied {
+      color: #059669;
+      border-color: #059669;
+      background: rgba(5,150,105,0.06);
+    }
     .login-card-footer {
       margin-top: 24px;
       padding-top: 20px;
@@ -1754,6 +1782,11 @@
       <div class="login-error" id="loginError">Senha incorreta. Tente novamente.</div>
 
       <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
+
+      <button class="btn-share-link" id="btnShareLink" onclick="copyShareLink()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span id="shareLinkText">Copiar link de compartilhamento</span>
+      </button>
 
       <div class="login-card-footer">
         <div class="login-card-footer-text">Conteúdo sob curadoria do responsável técnico</div>
@@ -3297,6 +3330,22 @@ const UNITS = {
 let selectedUnit = null;
 let currentUnit = null;
 
+function copyShareLink() {
+  if (!selectedUnit) return;
+  var code = UNITS[selectedUnit].code;
+  var url = window.location.origin + '/p/tea-dataset/#' + code;
+  navigator.clipboard.writeText(url).then(function() {
+    var btn = document.getElementById('btnShareLink');
+    var txt = document.getElementById('shareLinkText');
+    btn.classList.add('copied');
+    txt.textContent = 'Link copiado!';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      txt.textContent = 'Copiar link de compartilhamento';
+    }, 2500);
+  });
+}
+
 function selectUnit(el, unitKey) {
   selectedUnit = unitKey;
   // Highlight selected
@@ -3305,6 +3354,7 @@ function selectUnit(el, unitKey) {
   // Show password field and login button
   document.getElementById('passwordGroup').classList.add('visible');
   document.getElementById('btnLogin').classList.add('visible');
+  document.getElementById('btnShareLink').classList.add('visible');
   document.getElementById('loginError').classList.remove('visible');
   document.getElementById('loginPassword').value = '';
   document.getElementById('loginPassword').focus();
