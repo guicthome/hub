@@ -408,10 +408,25 @@
 
           var result = await doRequestAccess(email.value, name.value, PORTAL);
           if (result.success) {
-            successEl.textContent = 'Solicitação enviada com sucesso! Você receberá um e-mail quando sua solicitação for aprovada.';
+            successEl.innerHTML = 'Solicita\u00e7\u00e3o enviada com sucesso! Voc\u00ea receber\u00e1 um e-mail quando sua solicita\u00e7\u00e3o for aprovada.<br><a href="#" id="ha-back-to-login" style="display:inline-block;margin-top:10px;color:' + colors.accent + ';font-weight:600;text-decoration:none;font-size:14px;">\u2190 Voltar ao Login</a>';
             successEl.style.display = 'block';
             name.value = '';
             email.value = '';
+            requestBtn.style.display = 'none';
+            overlay.querySelectorAll('#ha-request-name, #ha-request-email').forEach(function(el) { el.closest('.ha-field').style.display = 'none'; });
+            var backLink = overlay.querySelector('#ha-back-to-login');
+            if (backLink) {
+              backLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                successEl.style.display = 'none';
+                requestBtn.style.display = '';
+                requestBtn.disabled = false;
+                requestBtn.classList.remove('loading');
+                overlay.querySelectorAll('#ha-request-name, #ha-request-email').forEach(function(el) { el.closest('.ha-field').style.display = ''; });
+                var loginTab = overlay.querySelector('.ha-tab[data-tab="login"]');
+                if (loginTab) loginTab.click();
+              });
+            }
             setTimeout(function() { requestBtn.disabled = false; requestBtn.classList.remove('loading'); }, 2000);
           } else {
             errorEl.textContent = result.error;
