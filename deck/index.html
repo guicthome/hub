@@ -1087,7 +1087,7 @@ function setupLockScreen() {
         if (rl) rl.onclick = handleResetPin;
         lockBtn.onclick = handleUnlock;
     }
-    pinInputs[0].focus();
+    clearPinInputs();
 }
 
 function getPinValue() { return pinInputs.map(i => i.value).join(''); }
@@ -1135,7 +1135,7 @@ function unlock() {
 
 pinInputs.forEach((inp, idx) => {
     inp.addEventListener('input', () => {
-        inp.value = inp.value.replace(/\\D/g, '').slice(0, 1);
+        inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
         if (inp.value && idx < 3) pinInputs[idx + 1].focus();
     });
     inp.addEventListener('keydown', (e) => {
