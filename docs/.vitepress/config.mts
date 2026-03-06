@@ -104,6 +104,7 @@ export default defineConfig({
             { text: 'AxiaCare Mandate', link: '/_infra/axiacare/mandate' },
             { text: 'MedValor Mandate', link: '/_infra/medvalor/mandate' },
             { text: 'TheraTech Mandate', link: '/_infra/thera/mandate' },
+            { text: 'AI Search', link: '/_infra/ai-search' },
             { text: 'Padrão de Footer', link: '/_infra/standards/footer' },
             { text: 'Arquivo de Páginas', link: '/_infra/archive/' },
           ]
