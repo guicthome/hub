@@ -1,13 +1,14 @@
 /**
- * deck-vision — Processador de Prints para o Deck™
+ * deck-vision — Processador de Prints e Texto para o Deck™
  * Hub CSV Backend | Cloudflare Worker (ES Module)
  *
- * Recebe uma imagem (base64) via POST, envia para a API de visão
- * do OpenAI (GPT-4o) via AI Gateway, e retorna um JSON estruturado
- * com título, plataforma provável e descrição para criar um card no Deck.
+ * Recebe imagem (base64) OU texto via POST, envia para GPT-4o
+ * via AI Gateway, e retorna JSON estruturado para criar um card no Deck.
  *
  * POST /
- * Body: { image: string (base64 data URL ou raw base64) }
+ * Body: { image: string (base64) }          — modo imagem
+ * Body: { text: string }                    — modo texto
+ * Body: { image: string, text: string }     — ambos (imagem + contexto)
  *
  * Response: {
  *   title: string,
@@ -57,6 +58,42 @@ function jsonResponse(status, data) {
   });
 }
 
+const SYSTEM_PROMPT = `Você é um assistente que transforma informações brutas (textos copiados de chats, e-mails, relatórios, ou capturas de tela) em cards de monitoramento ativo para um painel executivo chamado Deck™.
+
+Regras para gerar o card:
+
+TÍTULO (campo "title"):
+- Máximo 60 caracteres.
+- Formato: "{Contexto/Plataforma} — {estado real da situação}".
+- Identifique a plataforma ou projeto mencionado e o estado atual (pendente, em andamento, aguardando revisão, concluído, etc.).
+- NÃO copie texto literalmente. Interprete e resuma.
+- Use português do Brasil com acentuação correta.
+
+DESCRIÇÃO (campo "notes"):
+- Máximo 280 caracteres.
+- Separe o que já foi feito do que está pendente.
+- Registre o estado crítico: o que precisa de ação do usuário.
+- Seja objetivo e direto. Sem introduções, sem floreios.
+- Use português do Brasil com acentuação correta.
+
+PLATAFORMA (campo "platform"):
+- Identifique de onde veio o conteúdo ou qual ferramenta está envolvida.
+- Escolha EXATAMENTE uma: ${PLATFORMS.join(', ')}.
+- Se não reconhecer, use "outro".
+
+CONFIANÇA (campo "confidence"):
+- De 0.0 a 1.0, quão confiante você está na interpretação.
+
+Responda APENAS com JSON válido, sem markdown, sem explicações:
+{"title": "...", "platform": "...", "notes": "...", "confidence": 0.0}`;
+
+const IMAGE_INSTRUCTION = `Analise esta captura de tela e gere um card de monitoramento ativo seguindo as regras do sistema.`;
+
+const TEXT_INSTRUCTION = `Analise o texto a seguir (copiado de um chat, e-mail ou relatório) e gere um card de monitoramento ativo seguindo as regras do sistema.
+
+Texto:
+`;
+
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') {
@@ -68,37 +105,49 @@ export default {
 
     try {
       const body = await request.json();
+      const hasImage = !!body.image;
+      const hasText = !!body.text;
 
-      if (!body.image) {
-        return jsonResponse(400, { error: 'Campo "image" é obrigatório (base64).' });
+      if (!hasImage && !hasText) {
+        return jsonResponse(400, { error: 'Envie "image" (base64) e/ou "text" (string).' });
       }
 
-      let imageUrl = body.image;
-      if (!imageUrl.startsWith('data:')) {
-        imageUrl = `data:image/png;base64,${imageUrl}`;
+      // Construir mensagem do usuário
+      const userContent = [];
+
+      if (hasText) {
+        userContent.push({
+          type: 'text',
+          text: hasImage
+            ? `${IMAGE_INSTRUCTION}\n\nContexto adicional:\n${body.text.substring(0, 4000)}`
+            : `${TEXT_INSTRUCTION}${body.text.substring(0, 4000)}`
+        });
       }
 
-      const base64Part = imageUrl.split(',')[1] || imageUrl;
-      const approxBytes = (base64Part.length * 3) / 4;
-      if (approxBytes > 4 * 1024 * 1024) {
-        return jsonResponse(400, { error: 'Imagem excede 4MB. Reduza a resolução.' });
+      if (hasImage) {
+        let imageUrl = body.image;
+        if (!imageUrl.startsWith('data:')) {
+          imageUrl = `data:image/png;base64,${imageUrl}`;
+        }
+
+        const base64Part = imageUrl.split(',')[1] || imageUrl;
+        const approxBytes = (base64Part.length * 3) / 4;
+        if (approxBytes > 4 * 1024 * 1024) {
+          return jsonResponse(400, { error: 'Imagem excede 4MB. Reduza a resolução.' });
+        }
+
+        if (!hasText) {
+          userContent.push({ type: 'text', text: IMAGE_INSTRUCTION });
+        }
+
+        userContent.push({
+          type: 'image_url',
+          image_url: { url: imageUrl, detail: 'low' }
+        });
       }
-
-      const prompt = `Analise esta captura de tela e extraia as seguintes informações para criar um card de contexto ativo:
-
-1. **title**: Um título curto e claro (máximo 60 caracteres) que descreva o que está acontecendo na tela. Não copie texto literalmente — interprete e resuma o contexto principal. Use português do Brasil.
-
-2. **platform**: Identifique a plataforma/ferramenta visível na tela. Escolha EXATAMENTE uma destas opções: ${PLATFORMS.join(', ')}. Se não reconhecer, use "outro".
-
-3. **notes**: Uma descrição breve (máximo 200 caracteres) do contexto visível. O que o usuário estava fazendo? Qual o estado atual? Use português do Brasil.
-
-4. **confidence**: De 0.0 a 1.0, quão confiante você está na interpretação.
-
-Responda APENAS com JSON válido, sem markdown, sem explicações:
-{"title": "...", "platform": "...", "notes": "...", "confidence": 0.0}`;
 
       const aiResponse = await fetch(
-        'https://gateway.ai.cloudflare.com/v1/da0c29123f448f3c3892f784cd9f7cac/csv_ai_gateway/openai/chat/completions',
+        'https://api.openai.com/v1/chat/completions',
         {
           method: 'POST',
           headers: {
@@ -108,33 +157,25 @@ Responda APENAS com JSON válido, sem markdown, sem explicações:
           body: JSON.stringify({
             model: 'gpt-4o',
             messages: [
-              {
-                role: 'user',
-                content: [
-                  { type: 'text', text: prompt },
-                  {
-                    type: 'image_url',
-                    image_url: { url: imageUrl, detail: 'low' }
-                  }
-                ]
-              }
+              { role: 'system', content: SYSTEM_PROMPT },
+              { role: 'user', content: userContent }
             ],
-            max_tokens: 300,
-            temperature: 0.2
+            max_tokens: 400,
+            temperature: 0.15
           })
         }
       );
 
       if (!aiResponse.ok) {
         const errData = await aiResponse.text();
-        return jsonResponse(502, { error: 'Falha na API de visão.', details: errData });
+        return jsonResponse(502, { error: 'Falha na API.', details: errData });
       }
 
       const aiData = await aiResponse.json();
       const content = aiData.choices?.[0]?.message?.content;
 
       if (!content) {
-        return jsonResponse(502, { error: 'Resposta vazia da API de visão.' });
+        return jsonResponse(502, { error: 'Resposta vazia da API.' });
       }
 
       let parsed;
@@ -149,13 +190,14 @@ Responda APENAS com JSON válido, sem markdown, sem explicações:
       }
 
       if (!PLATFORMS.includes(parsed.platform)) {
-        parsed.platform = detectPlatformFromText(parsed.title + ' ' + parsed.notes);
+        const detectSource = (body.text || '') + ' ' + (parsed.title || '') + ' ' + (parsed.notes || '');
+        parsed.platform = detectPlatformFromText(detectSource);
       }
 
       const result = {
         title: (parsed.title || 'Sem título').substring(0, 80),
         platform: parsed.platform || 'outro',
-        notes: (parsed.notes || '').substring(0, 300),
+        notes: (parsed.notes || '').substring(0, 400),
         confidence: Math.min(1, Math.max(0, parsed.confidence || 0.5))
       };
 

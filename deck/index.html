@@ -1268,7 +1268,7 @@
 <!-- ══ Paste Hint (onboarding) ══ -->
 <div class="paste-hint dismissed" id="paste-hint">
     <svg class="paste-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-    Cole um print (<kbd>Ctrl+V</kbd>) para criar um registro automaticamente
+    Cole um print ou texto (<kbd>Ctrl+V</kbd>) para criar um registro automaticamente
 </div>
 
 <!-- ══ Toast ══ -->
@@ -2195,7 +2195,7 @@ function showPastePreview(result, imageDataUrl) {
     overlay.innerHTML = `
         <div class="paste-preview-card">
             <div class="paste-preview-header">
-                <img class="paste-preview-thumb" src="${imageDataUrl}" alt="Captura">
+                ${imageDataUrl ? `<img class="paste-preview-thumb" src="${imageDataUrl}" alt="Captura">` : `<div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--bg-input);border-radius:10px;font-size:22px">\u{1F4CB}</div>`}
                 <div>
                     <div class="paste-preview-badge" style="background:rgba(${r},${g},${b},0.14);color:${color}">
                         <span style="width:14px;height:14px;display:inline-flex;align-items:center">${icon}</span>
@@ -2304,18 +2304,58 @@ async function processImagePaste(imageDataUrl) {
     }
 }
 
+async function processTextPaste(text) {
+    if (pasteProcessing) return;
+    // Ignore short texts (likely just a word or URL copy)
+    if (text.trim().length < 40) return;
+    pasteProcessing = true;
+    showPasteProcessing();
+
+    try {
+        const res = await fetch(VISION_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
+
+        const data = await res.json();
+        hidePasteProcessing();
+
+        if (!res.ok || data.error) {
+            showToast(data.error || 'Erro ao analisar o texto');
+            return;
+        }
+
+        const allP = getAllPlatforms();
+        if (!allP.find(p => p.id === data.platform)) {
+            data.platform = 'outro';
+        }
+
+        // Show preview without thumbnail (text-only)
+        showPastePreview(data, null);
+
+    } catch (err) {
+        hidePasteProcessing();
+        showToast('Erro de conex\u00e3o ao processar o texto');
+        console.error('Paste text error:', err);
+    } finally {
+        pasteProcessing = false;
+    }
+}
+
 // Global paste listener
 document.addEventListener('paste', (e) => {
     // Only process when app is visible
     if (app.classList.contains('hidden')) return;
     // Don't intercept if a modal/overlay is open
-    if (!$('#paste-processing')?.classList?.contains('hidden') === false) return;
+    if ($('#paste-processing')) return;
     if ($('#paste-preview')) return;
     if (!cmdPalette.classList.contains('hidden')) return;
 
     const items = e.clipboardData?.items;
     if (!items) return;
 
+    // Check for image first
     for (const item of items) {
         if (item.type.startsWith('image/')) {
             e.preventDefault();
@@ -2330,6 +2370,21 @@ document.addEventListener('paste', (e) => {
             reader.readAsDataURL(blob);
             return;
         }
+    }
+
+    // Check for text (only if not typing in an input/textarea/contenteditable)
+    const activeEl = document.activeElement;
+    const isEditing = activeEl && (
+        activeEl.tagName === 'INPUT' ||
+        activeEl.tagName === 'TEXTAREA' ||
+        activeEl.isContentEditable
+    );
+    if (isEditing) return;
+
+    const text = e.clipboardData?.getData('text/plain');
+    if (text && text.trim().length >= 40) {
+        e.preventDefault();
+        processTextPaste(text);
     }
 });
 
