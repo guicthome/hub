@@ -3361,9 +3361,18 @@ function doLogout() {
 }
 
 function checkSession() {
-  // 1. Verificar query parameter ?unit= para link compartilhável por tenant
-  const urlParams = new URLSearchParams(window.location.search);
-  const unitParam = urlParams.get('unit');
+  // 1. Verificar código da singular no hash (#110) ou query param (?unit=)
+  let unitParam = null;
+  // Extrair código do hash: /p/tea-dataset/#110
+  const hashCode = window.location.hash.replace('#', '').trim();
+  if (/^\d{2,4}$/.test(hashCode)) {
+    unitParam = hashCode;
+  }
+  // Fallback para query param ?unit=
+  if (!unitParam) {
+    const urlParams = new URLSearchParams(window.location.search);
+    unitParam = urlParams.get('unit');
+  }
   if (unitParam) {
     // Mapear código para chave interna
     const codeToKey = {};
@@ -3905,6 +3914,22 @@ window.addEventListener('scroll', function() {
 document.addEventListener('DOMContentLoaded', function() {
   // Check session (auto-login if returning)
   checkSession();
+
+  // Listener para mudança de hash (ex.: navegar de #094 para #236)
+  window.addEventListener('hashchange', function() {
+    // Só reprocessar se não estiver logado
+    if (!currentUnit) {
+      // Resetar estado do login
+      document.querySelectorAll('.unit-option').forEach(o => { o.style.display = ''; o.classList.remove('selected'); });
+      document.querySelectorAll('input[name="unit"]').forEach(r => { r.checked = false; });
+      document.getElementById('passwordGroup').classList.remove('visible');
+      document.getElementById('btnLogin').classList.remove('visible');
+      document.getElementById('loginError').classList.remove('visible');
+      document.getElementById('loginPassword').value = '';
+      selectedUnit = null;
+      checkSession();
+    }
+  });
   // Build mobile cards
   buildMobileCards();
 
