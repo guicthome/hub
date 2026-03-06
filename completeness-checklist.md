@@ -8,6 +8,7 @@
 - [ ] **Definição Canônica:** Ler `/docs/_infra/csv-core/definition.md`.
 - [ ] **Sistema de Identidade:** Ler `/docs/_infra/csv-core/identity-system.md`.
 - [ ] **Guia de Logos:** Ler `/docs/_infra/assets/logo-usage-guide.md`.
+- [ ] **Taxonomia de Produtos:** Ler `/_infra/csv-core/taxonomia-produtos.md`.
 
 ## Fase 2: Mandatos das Empresas
 
@@ -20,12 +21,20 @@
 - [ ] **Catálogo de Assets:** Revisar `/docs/_infra/csv-core/assets.md`.
 - [ ] **Diretório de Logos:** Listar o conteúdo de `/assets/visual-identity/` para entender a estrutura de arquivos de logo.
 
-## Fase 4: Parceiros e Ferramentas (Se Relevante)
+## Fase 4: Taxonomia de Produtos Digitais
+
+- [ ] **Mapeamento de Produtos:** Revisar a seção `productAssets` do `/manifest.json` para entender a classificação de cada ativo HTML.
+- [ ] **WebApps:** Identificar os ativos com `category: "webapp"` (ex: Data Set TEA, Gerador de Propostas).
+- [ ] **Ferramentas:** Identificar os ativos com `category: "tool"` (ex: Nota Fiscal, Reembolso, Calculadora de Plantão).
+- [ ] **Painéis BI:** Identificar os ativos com `category: "dashboard"` (ex: Oncologia, Especialidades, FIOS).
+- [ ] **Páginas Estáticas:** Identificar os ativos com `category: "static"` (ex: Compliance, Founder, landings).
+
+## Fase 5: Parceiros e Ferramentas (Se Relevante)
 
 - [ ] **Unimed:** Revisar `/docs/unimed/index.md` e as ferramentas HTML vinculadas.
 - [ ] **Unihealth:** Revisar `/docs/unihealth/index.md` e as ferramentas HTML vinculadas.
 
 ---
 
-**Status de Completude:** 0/11
-*Última atualização do checklist: 2026-02-27*
+**Status de Completude:** 0/17
+*Última atualização do checklist: 2026-03-06*

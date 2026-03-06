@@ -626,17 +626,53 @@
       bottom: 80px;
       left: 24px;
       z-index: 9997;
-      background: rgba(0,153,93,0.9);
+      background: rgba(0,153,93,0.92);
       color: #fff;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: 20px;
       font-size: 0.72rem;
       font-weight: 600;
       opacity: 0;
-      transition: opacity 0.3s;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 12px rgba(0,153,93,0.25);
     }
-    .autosave-indicator.show { opacity: 1; }
+    .autosave-indicator.show { opacity: 1; transform: translateY(0); }
+    .autosave-indicator svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* Toast notification */
+    .toast-notification {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 10000;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(-12px) scale(0.96);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+      max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast-notification.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .toast-notification.success { background: linear-gradient(135deg, #059669, #10b981); }
+    .toast-notification.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .toast-notification.info { background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-light)); }
+    .toast-notification svg { width: 18px; height: 18px; flex-shrink: 0; }
 
     /* Modal */
     .modal-overlay {
@@ -1566,7 +1602,7 @@
     }
     @media print {
       .login-screen { display: none !important; }
-      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel, .ai-welcome-popup, .readonly-banner, .submission-success-modal { display: none !important; }
+      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .toast-notification, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel, .ai-welcome-popup, .readonly-banner, .submission-success-modal { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -2819,7 +2855,16 @@
 </div>
 
 <!-- Auto-save indicator -->
-<div class="autosave-indicator" id="autosaveIndicator">Rascunho salvo</div>
+<div class="autosave-indicator" id="autosaveIndicator">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="autosaveText">Rascunho salvo</span>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast-notification" id="toastNotification">
+  <svg id="toastIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+  <span id="toastText"></span>
+</div>
 
 <!-- Confirmation Modal -->
 <div class="modal-overlay" id="pdfModal">
@@ -3357,11 +3402,49 @@ function saveDraft() {
     data['__timestamp__'] = new Date().toISOString();
     data['__scrollY__'] = window.scrollY;
     localStorage.setItem(getDraftKey(), JSON.stringify(data));
-    // Show indicator
+    // Show indicator with timestamp
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const textEl = document.getElementById('autosaveText');
+    if (textEl) textEl.textContent = 'Salvo \u00e0s ' + timeStr;
     const ind = document.getElementById('autosaveIndicator');
     ind.classList.add('show');
-    setTimeout(() => ind.classList.remove('show'), 1500);
+    clearTimeout(saveDraft._hideTimer);
+    saveDraft._hideTimer = setTimeout(() => ind.classList.remove('show'), 2200);
   }, 800);
+}
+saveDraft._hideTimer = null;
+
+// ============================================================
+// TOAST NOTIFICATIONS
+// ============================================================
+let toastTimer = null;
+function showToast(message, type) {
+  type = type || 'info';
+  const el = document.getElementById('toastNotification');
+  const textEl = document.getElementById('toastText');
+  const iconEl = document.getElementById('toastIcon');
+  if (!el || !textEl || !iconEl) return;
+
+  // Set icon based on type
+  const icons = {
+    success: '<polyline points="20 6 9 17 4 12"/>',
+    error: '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>'
+  };
+  iconEl.innerHTML = icons[type] || icons.info;
+
+  textEl.textContent = message;
+  el.className = 'toast-notification ' + type;
+
+  // Force reflow for animation
+  void el.offsetWidth;
+  el.classList.add('show');
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() {
+    el.classList.remove('show');
+  }, 4000);
 }
 
 function restoreDraft() {
@@ -3390,6 +3473,7 @@ function restoreDraft() {
   });
   document.getElementById('draftBar').classList.remove('visible');
   updateProgress();
+  showToast('Rascunho restaurado com sucesso.', 'success');
   // Restore scroll position
   if (data['__scrollY__']) {
     setTimeout(function() { window.scrollTo(0, data['__scrollY__']); }, 100);
@@ -3432,6 +3516,7 @@ function executeClear() {
   document.querySelectorAll('.file-list').forEach(fl => fl.innerHTML = '');
   uploadedFiles = {};
   updateProgress();
+  showToast('Formul\u00e1rio limpo.', 'info');
 }
 
 // ============================================================
@@ -4115,15 +4200,18 @@ async function sendDataSetEmail() {
       status.className = 'email-status success';
       status.textContent = 'Enviado com sucesso (v' + submitData.version + ').';
       status.style.display = 'block';
+      showToast('Versão v' + submitData.version + ' enviada com sucesso.', 'success');
     } else {
       status.className = 'email-status error';
       status.textContent = 'Erro ao enviar: ' + (submitData.error || 'Tente novamente.');
       status.style.display = 'block';
+      showToast(submitData.error || 'Erro ao enviar. Tente novamente.', 'error');
     }
   } catch (err) {
     status.className = 'email-status error';
     status.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
     status.style.display = 'block';
+    showToast('Erro de conexão. Verifique sua internet.', 'error');
   }
 
   btn.disabled = false;

@@ -20,6 +20,11 @@
 - [/docs/_infra/csv-core/identity-system.md](/docs/_infra/csv-core/identity-system.md): O sistema de identidade visual, cores e tipografia.
 - [/docs/_infra/assets/logo-usage-guide.md](/docs/_infra/assets/logo-usage-guide.md): As regras para uso de logotipos.
 
+## Taxonomia de Produtos Digitais
+
+- [/_infra/csv-core/taxonomia-produtos.md](/_infra/csv-core/taxonomia-produtos.md): Classificação oficial dos ativos digitais (WebApp, Ferramenta, Painel BI, Página Estática, Portal).
+- O `manifest.json` contém a seção `productAssets` com o mapeamento completo de cada ativo HTML, incluindo categoria, entidade e hash.
+
 ## Opcional (Contexto Adicional)
 
 - [/docs/compass/](/docs/compass/): Linha editorial estratégica (Compass™).

@@ -55,6 +55,61 @@ TAG_DESCRIPTIONS = {
     "infra": "Documento de infraestrutura cognitiva do Hub.",
 }
 
+# ============================================================
+# TAXONOMIA DE PRODUTOS DIGITAIS
+# Classificação oficial dos ativos HTML do ecossistema Hub.
+# Referência: _infra/csv-core/taxonomia-produtos.md
+# ============================================================
+PRODUCT_TAXONOMY = {
+    # WebApps — Soluções de negócio completas com back-end
+    "p/tea-dataset/index.html":       {"category": "webapp",       "entity": "ICDS",       "title": "Data Set TEA"},
+    "axia/propostas.html":            {"category": "webapp",       "entity": "AxiaCare",   "title": "Gerador de Propostas"},
+
+    # Ferramentas — Tarefas específicas, escopo limitado
+    "axia/nota-fiscal.html":          {"category": "tool",         "entity": "AxiaCare",   "title": "Gerador de Nota Fiscal"},
+    "axia/reembolso.html":            {"category": "tool",         "entity": "AxiaCare",   "title": "Solicitação de Reembolso"},
+    "unihealth/calc-plantao.html":    {"category": "tool",         "entity": "Unihealth",  "title": "Calculadora de Plantão"},
+    "admin/index.html":               {"category": "tool",         "entity": "Grupo CSV",  "title": "Painel Administrativo"},
+
+    # Painéis BI — Visualização e análise de dados
+    "unimed/onco.html":               {"category": "dashboard",    "entity": "Unimed GV",  "title": "Painel de Oncologia"},
+    "unimed/painel-onco-vo.html":     {"category": "dashboard",    "entity": "Unimed GV",  "title": "Painel Onco (versão original)"},
+    "unimed/relatorios-onco.html":    {"category": "dashboard",    "entity": "Unimed GV",  "title": "Relatórios de Oncologia"},
+    "unimed/cuidadocoordenado.html":  {"category": "dashboard",    "entity": "Unimed GV",  "title": "Cuidado Coordenado"},
+    "unimed/especialidades.html":     {"category": "dashboard",    "entity": "Unimed GV",  "title": "Especialidades"},
+    "unimed/gce.html":                {"category": "dashboard",    "entity": "Unimed GV",  "title": "GCE"},
+    "unimed/tea.html":                {"category": "dashboard",    "entity": "Unimed GV",  "title": "TEA"},
+    "unimed/psiquiatria.html":        {"category": "dashboard",    "entity": "Unimed GV",  "title": "Psiquiatria"},
+    "unimed/ped-amb.html":            {"category": "dashboard",    "entity": "Unimed GV",  "title": "Pediatria Ambulatorial"},
+    "unimed/variabilidade-exames.html": {"category": "dashboard",  "entity": "Unimed GV",  "title": "Variabilidade de Exames"},
+    "unimed/vivapleno.html":          {"category": "dashboard",    "entity": "Unimed GV",  "title": "Viva Pleno"},
+    "unihealth/fios.html":            {"category": "dashboard",    "entity": "Unihealth",  "title": "FIOS"},
+    "unihealth/isc-cesarianas.html":  {"category": "dashboard",    "entity": "Unihealth",  "title": "ISC Cesarianas"},
+    "unihealth/opme.html":            {"category": "dashboard",    "entity": "Unihealth",  "title": "OPME"},
+    "unihealth/repasse.html":         {"category": "dashboard",    "entity": "Unihealth",  "title": "Repasse"},
+    "unihealth/retornopa.html":       {"category": "dashboard",    "entity": "Unihealth",  "title": "Retorno PA"},
+    "unihealth/julho25.html":         {"category": "dashboard",    "entity": "Unihealth",  "title": "Julho 2025"},
+
+    # Páginas Estáticas — Conteúdo informativo
+    "axia/index.html":                {"category": "static",       "entity": "AxiaCare",   "title": "AxiaCare (landing)"},
+    "medvalor/index.html":            {"category": "static",       "entity": "MedValor",   "title": "MedValor (landing)"},
+    "thera/index.html":               {"category": "static",       "entity": "Thera",      "title": "Thera (landing)"},
+    "icds/index.html":                {"category": "static",       "entity": "ICDS",       "title": "ICDS (landing)"},
+    "founder/index.html":             {"category": "static",       "entity": "Grupo CSV",  "title": "Fundador"},
+    "deck/index.html":                {"category": "static",       "entity": "Grupo CSV",  "title": "Deck Institucional"},
+    "unimed/index.html":              {"category": "static",       "entity": "Unimed GV",  "title": "Unimed GV (landing)"},
+    "unihealth/index.html":           {"category": "static",       "entity": "Unihealth",  "title": "Unihealth (landing)"},
+    "unimed/onco-antigo.html":        {"category": "static",       "entity": "Unimed GV",  "title": "Oncologia (versão antiga)"},
+    "p/index.html":                   {"category": "static",       "entity": "Grupo CSV",  "title": "Índice de Produtos"},
+}
+
+CATEGORY_DESCRIPTIONS = {
+    "webapp": "Aplicação web completa com autenticação, persistência e lógica de negócio.",
+    "tool": "Ferramenta focada em tarefa específica com escopo limitado.",
+    "dashboard": "Painel de visualização e análise de dados.",
+    "static": "Página estática com conteúdo informativo.",
+}
+
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -81,7 +136,7 @@ def get_priority_and_tag(rel_path):
 def make_id(rel_path):
     """Gera um ID legível a partir do caminho relativo."""
     name = rel_path.replace("docs/_infra/", "").replace("docs/", "")
-    name = name.replace("/", "-").replace(".md", "").replace(".txt", "")
+    name = name.replace("/", "-").replace(".md", "").replace(".txt", "").replace(".html", "")
     name = name.strip("-")
     return name
 
@@ -89,7 +144,7 @@ def make_id(rel_path):
 def make_title(rel_path):
     """Gera um título legível a partir do nome do arquivo."""
     basename = os.path.basename(rel_path)
-    name = basename.replace(".md", "").replace(".txt", "")
+    name = basename.replace(".md", "").replace(".txt", "").replace(".html", "")
     return name.replace("-", " ").replace("_", " ").title()
 
 
@@ -141,18 +196,36 @@ def main():
     # Ordenar por prioridade
     knowledge_assets.sort(key=lambda a: (a["priority"], a["path"]))
 
+    # Descobrir e classificar ativos HTML pela taxonomia
+    product_assets = []
+    for rel_path, meta in sorted(PRODUCT_TAXONOMY.items()):
+        fpath = os.path.join(repo_root, rel_path)
+        if os.path.isfile(fpath):
+            file_hash = sha256_file(fpath)
+            product_assets.append({
+                "id": make_id(rel_path),
+                "title": meta["title"],
+                "path": f"/{rel_path}",
+                "sha256": file_hash,
+                "category": meta["category"],
+                "entity": meta["entity"],
+                "description": CATEGORY_DESCRIPTIONS.get(meta["category"], "Ativo digital do Hub CSV."),
+            })
+
     manifest = {
-        "manifestVersion": "1.0.0",
+        "manifestVersion": "2.0.0",
         "lastUpdated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "totalAssets": len(knowledge_assets),
+        "totalProducts": len(product_assets),
         "knowledgeAssets": knowledge_assets,
+        "productAssets": product_assets,
     }
 
     output_path = os.path.join(repo_root, "manifest.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
 
-    print(f"manifest.json gerado com {len(knowledge_assets)} ativos.")
+    print(f"manifest.json gerado com {len(knowledge_assets)} ativos de conhecimento e {len(product_assets)} produtos digitais.")
 
 
 if __name__ == "__main__":

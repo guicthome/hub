@@ -1,7 +1,8 @@
 {
-  "manifestVersion": "1.0.0",
-  "lastUpdated": "2026-02-27T15:35:05Z",
+  "manifestVersion": "2.0.0",
+  "lastUpdated": "2026-03-06T04:43:05Z",
   "totalAssets": 26,
+  "totalProducts": 33,
   "knowledgeAssets": [
     {
       "id": "llms",
@@ -288,6 +289,305 @@
       "tags": [
         "infra"
       ]
+    }
+  ],
+  "productAssets": [
+    {
+      "id": "admin-index",
+      "title": "Painel Administrativo",
+      "path": "/admin/index.html",
+      "sha256": "0c83a05fe1df2928d933b8de830066201eef3a6f7f809c8a7e28a4739cab469e",
+      "category": "tool",
+      "entity": "Grupo CSV",
+      "description": "Ferramenta focada em tarefa específica com escopo limitado."
+    },
+    {
+      "id": "axia-index",
+      "title": "AxiaCare (landing)",
+      "path": "/axia/index.html",
+      "sha256": "f051c112bf9ee4997551ec99d23f479ed15a2b734fb718bc03065a45318963f9",
+      "category": "static",
+      "entity": "AxiaCare",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "axia-nota-fiscal",
+      "title": "Gerador de Nota Fiscal",
+      "path": "/axia/nota-fiscal.html",
+      "sha256": "ccfc5338123be4ce927a2f35f307fee05ff4e7c82021ee08a07ed4a6cf6f78df",
+      "category": "tool",
+      "entity": "AxiaCare",
+      "description": "Ferramenta focada em tarefa específica com escopo limitado."
+    },
+    {
+      "id": "axia-propostas",
+      "title": "Gerador de Propostas",
+      "path": "/axia/propostas.html",
+      "sha256": "381152b92026c120068fca8101b99424060ba6cc800708925e1b7b2ca17a6d2c",
+      "category": "webapp",
+      "entity": "AxiaCare",
+      "description": "Aplicação web completa com autenticação, persistência e lógica de negócio."
+    },
+    {
+      "id": "axia-reembolso",
+      "title": "Solicitação de Reembolso",
+      "path": "/axia/reembolso.html",
+      "sha256": "174e39261a1a7dd3dc51ce84509762a89f8b51e44d941ca38b7be0048deb7454",
+      "category": "tool",
+      "entity": "AxiaCare",
+      "description": "Ferramenta focada em tarefa específica com escopo limitado."
+    },
+    {
+      "id": "deck-index",
+      "title": "Deck Institucional",
+      "path": "/deck/index.html",
+      "sha256": "bf453cb2db2b5c4951a239c1bfeaa69c0625ef829b454114543584e277c53280",
+      "category": "static",
+      "entity": "Grupo CSV",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "founder-index",
+      "title": "Fundador",
+      "path": "/founder/index.html",
+      "sha256": "54829c32b9e20b97741f76a6075f64497bc5920f170d7f7b5beb1505b4c7b3ad",
+      "category": "static",
+      "entity": "Grupo CSV",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "icds-index",
+      "title": "ICDS (landing)",
+      "path": "/icds/index.html",
+      "sha256": "213084254bad151ad0242bcbd443801c9d2c0071d7cc1cf343f3ecf0fb476dec",
+      "category": "static",
+      "entity": "ICDS",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "medvalor-index",
+      "title": "MedValor (landing)",
+      "path": "/medvalor/index.html",
+      "sha256": "a3801d625f16c51fb8105a65c19d5ddde97654af116b586fc84ee78d195f4d4b",
+      "category": "static",
+      "entity": "MedValor",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "p-index",
+      "title": "Índice de Produtos",
+      "path": "/p/index.html",
+      "sha256": "d09b36328776579c005de97a440c88195710a4575ec0da6df85c06404ec66d42",
+      "category": "static",
+      "entity": "Grupo CSV",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "p-tea-dataset-index",
+      "title": "Data Set TEA",
+      "path": "/p/tea-dataset/index.html",
+      "sha256": "078c42235b6d37be495bd98eea50ba63b89c7400284c8d05c98613f4531021bd",
+      "category": "webapp",
+      "entity": "ICDS",
+      "description": "Aplicação web completa com autenticação, persistência e lógica de negócio."
+    },
+    {
+      "id": "thera-index",
+      "title": "Thera (landing)",
+      "path": "/thera/index.html",
+      "sha256": "3d549879628719d09570507e3a8f25fd07aa26e9c9953f13f1b124c24c982352",
+      "category": "static",
+      "entity": "Thera",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "unihealth-calc-plantao",
+      "title": "Calculadora de Plantão",
+      "path": "/unihealth/calc-plantao.html",
+      "sha256": "1fac29dd160222b78ae34e4d8aff27c89f185a6e3b1404115ba32a4f0b0665b7",
+      "category": "tool",
+      "entity": "Unihealth",
+      "description": "Ferramenta focada em tarefa específica com escopo limitado."
+    },
+    {
+      "id": "unihealth-fios",
+      "title": "FIOS",
+      "path": "/unihealth/fios.html",
+      "sha256": "7667d23e293ec1bd8340411cee2521b2040f28eb362ed07d6b4c29eea600fe3a",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unihealth-index",
+      "title": "Unihealth (landing)",
+      "path": "/unihealth/index.html",
+      "sha256": "2e630ba6d4496e158f345759c7120c0e5182b60071e7ec4562b51cdf877beac2",
+      "category": "static",
+      "entity": "Unihealth",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "unihealth-isc-cesarianas",
+      "title": "ISC Cesarianas",
+      "path": "/unihealth/isc-cesarianas.html",
+      "sha256": "a9915fc0595eed32eef25bdfcb258fc7888ba97b598f8022ce42df20ced099fd",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unihealth-julho25",
+      "title": "Julho 2025",
+      "path": "/unihealth/julho25.html",
+      "sha256": "3b1e8533759094bc1ab50dbec56231d30e36d9416ef5127b540f65fd3e2dd3c8",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unihealth-opme",
+      "title": "OPME",
+      "path": "/unihealth/opme.html",
+      "sha256": "4f9a8f35853b91a2d96744e80f6ecf9737cd9a1baba0b4e9ab45463ab55cd6f8",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unihealth-repasse",
+      "title": "Repasse",
+      "path": "/unihealth/repasse.html",
+      "sha256": "88d605325529d0581070a12613f7f67f6b10b148b35b25bbd14e54216f8b2f98",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unihealth-retornopa",
+      "title": "Retorno PA",
+      "path": "/unihealth/retornopa.html",
+      "sha256": "1af3e355934093275d93cd5c9a91df3a996c7482f19e10e03d84ee60b7972f9b",
+      "category": "dashboard",
+      "entity": "Unihealth",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-cuidadocoordenado",
+      "title": "Cuidado Coordenado",
+      "path": "/unimed/cuidadocoordenado.html",
+      "sha256": "20ff2cd17e5bcca3fb2d3048bda414c990adc84e89d99b3a966951f422168526",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-especialidades",
+      "title": "Especialidades",
+      "path": "/unimed/especialidades.html",
+      "sha256": "f9ace1f2640172c0bc9d0197dfd8b106ddc4ea11709a7153449c3f823d553d56",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-gce",
+      "title": "GCE",
+      "path": "/unimed/gce.html",
+      "sha256": "724cef13530b8981204c5cb223ab8a7d95cd3c93cbfd0dee34839f13d7792b29",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-index",
+      "title": "Unimed GV (landing)",
+      "path": "/unimed/index.html",
+      "sha256": "72856bd5f2f4c849c1dae8aff95a383ea0a699262cde3a96f6fe239df5eeeab4",
+      "category": "static",
+      "entity": "Unimed GV",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "unimed-onco-antigo",
+      "title": "Oncologia (versão antiga)",
+      "path": "/unimed/onco-antigo.html",
+      "sha256": "817ca1c9f61016aa1ce6e6ef46473a18190bfe1b65b4fdb5e96dc853a2006b9f",
+      "category": "static",
+      "entity": "Unimed GV",
+      "description": "Página estática com conteúdo informativo."
+    },
+    {
+      "id": "unimed-onco",
+      "title": "Painel de Oncologia",
+      "path": "/unimed/onco.html",
+      "sha256": "47b9145716305464271954eb4fe54cde1ac6a99d6eb3e74a7cd70a7c1c214437",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-painel-onco-vo",
+      "title": "Painel Onco (versão original)",
+      "path": "/unimed/painel-onco-vo.html",
+      "sha256": "b7002df6ed09a69e06be1794fc66b77362b1cf515f6c91a4652a12e82295ae6a",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-ped-amb",
+      "title": "Pediatria Ambulatorial",
+      "path": "/unimed/ped-amb.html",
+      "sha256": "52304d48bc08bc67149e9e0d1b68b7bdade5bd6f9998a556c1429b6b946fe8f7",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-psiquiatria",
+      "title": "Psiquiatria",
+      "path": "/unimed/psiquiatria.html",
+      "sha256": "039f9ce2c9d4c3a2b4d37f97b10aedfdf1f2f50558eaf4d160885b6076f4e3b7",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-relatorios-onco",
+      "title": "Relatórios de Oncologia",
+      "path": "/unimed/relatorios-onco.html",
+      "sha256": "323416a94eceb5a5b45b1376704960019d524e2b74be6bdd5bd92e12d72a212a",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-tea",
+      "title": "TEA",
+      "path": "/unimed/tea.html",
+      "sha256": "689780b0fe0c9159e6646b36a80a181fd505a6464f5b10bcf6bb30a8cbe88dbb",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-variabilidade-exames",
+      "title": "Variabilidade de Exames",
+      "path": "/unimed/variabilidade-exames.html",
+      "sha256": "72150907820c156083989802fed9caf622ab1107fddf8b2249aa002bd1b89e5c",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
+    },
+    {
+      "id": "unimed-vivapleno",
+      "title": "Viva Pleno",
+      "path": "/unimed/vivapleno.html",
+      "sha256": "86a81f5b4dae3d9614e79ca0bdaf981a587f3d2e8fab8777574e5c3569bac0ad",
+      "category": "dashboard",
+      "entity": "Unimed GV",
+      "description": "Painel de visualização e análise de dados."
     }
   ]
 }
