@@ -248,14 +248,14 @@
 <main class="page">
   <div class="section">
     <h1>Gerador de Propostas</h1>
-    <p class="sub">Preencha os dados, clique em Criar proposta. O sistema gera o HTML, hospeda em link permanente e envia notificacao por e-mail.</p>
+    <p class="sub">Preencha os dados, clique em Criar proposta. O sistema gera o HTML, hospeda em link permanente e envia notificação por e-mail.</p>
 
     <form id="form">
-      <!-- Etapa 1: Identificacao -->
+      <!-- Etapa 1: Identificação -->
       <div class="col-12">
         <div class="step-head">
           <span class="step-badge">Etapa 1</span>
-          <span class="step-title">Identificacao da empresa</span>
+          <span class="step-title">Identificação da empresa</span>
         </div>
       </div>
       <div class="col-6">
@@ -267,68 +267,68 @@
         <input id="logo_url" placeholder="https://cdn.exemplo.com/logo.png" required>
       </div>
       <div class="col-4">
-        <label for="data">Data da sensibilizacao</label>
+        <label for="data">Data da sensibilização</label>
         <input id="data" type="date">
       </div>
 
-      <!-- Etapa 2: Impressoes -->
+      <!-- Etapa 2: Impressões -->
       <div class="col-12">
         <div class="step-head">
           <span class="step-badge">Etapa 2</span>
-          <span class="step-title">Impressoes da sensibilizacao</span>
+          <span class="step-title">Impressões da sensibilização</span>
         </div>
       </div>
       <div class="col-4">
-        <label for="imp1">Impressao 1</label>
+        <label for="imp1">Impressão 1</label>
         <textarea id="imp1" class="two-lines" maxlength="220" placeholder="Alinhamento com diretrizes VBHC."></textarea>
       </div>
       <div class="col-4">
-        <label for="imp2">Impressao 2</label>
-        <textarea id="imp2" class="two-lines" maxlength="220" placeholder="Oportunidades em governanca clinica."></textarea>
+        <label for="imp2">Impressão 2</label>
+        <textarea id="imp2" class="two-lines" maxlength="220" placeholder="Oportunidades em governança clínica."></textarea>
       </div>
       <div class="col-4">
-        <label for="imp3">Impressao 3</label>
-        <textarea id="imp3" class="two-lines" maxlength="220" placeholder="Potencial para ambulatorizacao segura."></textarea>
+        <label for="imp3">Impressão 3</label>
+        <textarea id="imp3" class="two-lines" maxlength="220" placeholder="Potencial para ambulatorização segura."></textarea>
       </div>
 
-      <!-- Tipo de conteudo -->
+      <!-- Tipo de conteúdo -->
       <div class="col-6">
-        <label for="modeloSelect">Tipo de conteudo (Etapa 3)</label>
+        <label for="modeloSelect">Tipo de conteúdo (Etapa 3)</label>
         <select id="modeloSelect">
           <option value="matriz" selected>Matriz de Valor</option>
-          <option value="texto">Texto Livre (Pre-projeto)</option>
+          <option value="texto">Texto Livre (Pré-projeto)</option>
         </select>
       </div>
 
-      <!-- Etapa 3: Conteudo -->
+      <!-- Etapa 3: Conteúdo -->
       <div class="col-12">
         <div class="step-head">
           <span class="step-badge">Etapa 3</span>
-          <span class="step-title">Conteudo principal da proposta</span>
+          <span class="step-title">Conteúdo principal da proposta</span>
         </div>
       </div>
 
       <!-- Matriz -->
       <div id="secMatriz">
         <div class="col-4">
-          <label for="d1_term">Dimensao 1</label>
-          <input id="d1_term" placeholder="Ex.: Abrangencia">
-          <label for="d1_desc" class="hint">Descricao</label>
-          <textarea id="d1_desc" class="two-lines" placeholder="Capacidade de impactar diferentes condicoes..."></textarea>
+          <label for="d1_term">Dimensão 1</label>
+          <input id="d1_term" placeholder="Ex.: Abrangência">
+          <label for="d1_desc" class="hint">Descrição</label>
+          <textarea id="d1_desc" class="two-lines" placeholder="Capacidade de impactar diferentes condições..."></textarea>
         </div>
         <div class="col-4">
-          <label for="d2_term">Dimensao 2</label>
+          <label for="d2_term">Dimensão 2</label>
           <input id="d2_term" placeholder="Ex.: Retorno incremental">
-          <label for="d2_desc" class="hint">Descricao</label>
+          <label for="d2_desc" class="hint">Descrição</label>
           <textarea id="d2_desc" class="two-lines" placeholder="Ganho imediato somado a resultado acumulado..."></textarea>
         </div>
         <div class="col-4">
-          <label for="d3_term">Dimensao 3</label>
+          <label for="d3_term">Dimensão 3</label>
           <input id="d3_term" placeholder="Ex.: Escalabilidade">
-          <label for="d3_desc" class="hint">Descricao</label>
-          <textarea id="d3_desc" class="two-lines" placeholder="Replicavel em multiplos centros..."></textarea>
+          <label for="d3_desc" class="hint">Descrição</label>
+          <textarea id="d3_desc" class="two-lines" placeholder="Replicável em múltiplos centros..."></textarea>
         </div>
-        <div class="col-12"><p class="hint">Entregas por dimensao (A/B/C por cada dimensao):</p></div>
+        <div class="col-12"><p class="hint">Entregas por dimensão (A/B/C por cada dimensão):</p></div>
         <div class="col-12">
           <label>Entrega A</label>
           <div class="grid-3">
@@ -358,40 +358,40 @@
       <!-- Texto Livre -->
       <div id="secTexto" class="hidden">
         <div class="col-6">
-          <label for="textoTitulo">Titulo do bloco</label>
-          <input id="textoTitulo" value="Pre-projeto">
+          <label for="textoTitulo">Título do bloco</label>
+          <input id="textoTitulo" value="Pré-projeto">
         </div>
         <div class="col-12">
-          <label for="textoConteudo">Conteudo (texto livre)</label>
-          <textarea id="textoConteudo" class="two-lines" style="min-height:160px" placeholder="Escreva aqui o conteudo livre do pre-projeto. Suporta HTML basico."></textarea>
+          <label for="textoConteudo">Conteúdo (texto livre)</label>
+          <textarea id="textoConteudo" class="two-lines" style="min-height:160px" placeholder="Escreva aqui o conteúdo livre do pré-projeto. Suporta HTML básico."></textarea>
         </div>
       </div>
 
-      <!-- Etapa 4: Opcoes -->
+      <!-- Etapa 4: Opções -->
       <div class="col-12">
         <div class="step-head">
           <span class="step-badge">Etapa 4</span>
-          <span class="step-title">Opcoes da proposta</span>
+          <span class="step-title">Opções da proposta</span>
         </div>
       </div>
       <div class="col-6">
-        <label for="rotuloTarget">Aplicar rotulo em</label>
+        <label for="rotuloTarget">Aplicar rótulo em</label>
         <select id="rotuloTarget">
           <option value="nenhum">Nenhum</option>
-          <option value="Pre-projeto" selected>Pre-projeto</option>
-          <option value="Sensibilizacao (remota)">Sensibilizacao (remota)</option>
-          <option value="Sensibilizacao (onsite)">Sensibilizacao (onsite)</option>
+          <option value="Pré-projeto" selected>Pré-projeto</option>
+          <option value="Sensibilização (remota)">Sensibilização (remota)</option>
+          <option value="Sensibilização (onsite)">Sensibilização (onsite)</option>
           <option value="Hora avulsa (remota/offsite)">Hora avulsa (remota/offsite)</option>
           <option value="Hora presencial (onsite)">Hora presencial (onsite)</option>
-          <option value="Diaria presencial (onsite)">Diaria presencial (onsite)</option>
-          <option value="Diagnostico padrao (pacote)">Diagnostico padrao (pacote)</option>
+          <option value="Diária presencial (onsite)">Diária presencial (onsite)</option>
+          <option value="Diagnóstico padrão (pacote)">Diagnóstico padrão (pacote)</option>
           <option value="Trabalhos com Equipe Axia">Trabalhos com Equipe Axia</option>
           <option value="Gestor executivo interino">Gestor executivo interino</option>
           <option value="Deslocamentos e reembolsos">Deslocamentos e reembolsos</option>
         </select>
       </div>
       <div class="col-6">
-        <label for="rotulo">Texto do rotulo</label>
+        <label for="rotulo">Texto do rótulo</label>
         <input id="rotulo" value="*Proposta atual">
       </div>
       <div class="col-6">
@@ -415,7 +415,7 @@
         <a id="resultLink" href="#" target="_blank"></a>
         <button class="copy-btn" id="copyLink">Copiar</button>
       </div>
-      <p class="hint" style="margin-top: 8px;">E-mail de notificacao enviado para contato@grupocsv.com</p>
+      <p class="hint" style="margin-top: 8px;">E-mail de notificação enviado para contato@grupocsv.com</p>
     </div>
 
     <!-- Status Bar -->
@@ -444,9 +444,9 @@
 <!-- AXIACARE FOOTER -->
 <div style="max-width:960px;margin:0 auto 24px;padding:32px 20px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #196396;border-radius:16px">
   <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" style="width:140px;margin:0 auto 12px auto;display:block">
-  <div style="font-size:14px;font-weight:600;color:#2d3445;margin-bottom:14px">Gestao e Consultoria em Saude</div>
+  <div style="font-size:14px;font-weight:600;color:#2d3445;margin-bottom:14px">Gestão e Consultoria em Saúde</div>
   <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:6px">
-    <a href="https://linktr.ee/gui.thome" style="color:#196396;text-decoration:none">Conheca nossas solucoes</a>
+    <a href="https://linktr.ee/gui.thome" style="color:#196396;text-decoration:none">Conheça nossas soluções</a>
     <span style="color:#cbd5e1;font-size:11px">|</span>
     <a href="https://www.axcare.com.br" target="_blank" style="color:#196396;text-decoration:none">axcare.com.br</a>
   </div>
@@ -544,9 +544,9 @@
     const d3t = ($('#d3_term').value || '').trim(), d3d = ($('#d3_desc').value || '').trim();
     const dimensoesTerms = [d1t, d2t, d3t].every(v => v.length) ? [d1t, d2t, d3t] : undefined;
     const dimensoesDescs = (d1t || d1d || d2t || d2d || d3t || d3d) ? [
-      { termo: d1t || undefined, descricao: d1d || undefined },
-      { termo: d2t || undefined, descricao: d2d || undefined },
-      { termo: d3t || undefined, descricao: d3d || undefined }
+      { termo: d1t || undefined, descrição: d1d || undefined },
+      { termo: d2t || undefined, descrição: d2d || undefined },
+      { termo: d3t || undefined, descrição: d3d || undefined }
     ] : undefined;
     const linhas = {
       "Entrega A": [($('#a1').value || '').trim(), ($('#a2').value || '').trim(), ($('#a3').value || '').trim()],
@@ -560,7 +560,7 @@
 
     // TEXTO LIVRE
     const textoObj = {
-      titulo: ($('#textoTitulo')?.value || '').trim() || 'Pre-projeto',
+      titulo: ($('#textoTitulo')?.value || '').trim() || 'Pré-projeto',
       conteudo: ($('#textoConteudo')?.value || '').trim() || undefined
     };
     if (!textoObj.conteudo) delete textoObj.conteudo;

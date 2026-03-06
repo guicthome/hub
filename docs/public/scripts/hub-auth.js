@@ -1,10 +1,10 @@
 /**
- * Hub CSV - Portal Authentication System v2.0.0
+ * Hub CSV - Portal Authentication System v2.1.0
  * Suporta autenticação individual (parceiros) e fixa (empresas)
- * Inclui blur overlay, modal de login/registro, gestão de sessão, toggle de senha
+ * Design system padronizado: fundo gradiente, card branco, logo, cadeado, botão teal
  *
  * Uso: Adicionar ao final do <body> de cada portal protegido:
- *   <script src="/scripts/hub-auth-v2.js" data-portal="unimed"></script>
+ *   <script src="/scripts/hub-auth.js" data-portal="unimed"></script>
  *
  * Portais de Parceiros (autenticação individual):
  *   - unimed, unihealth, icds
@@ -15,48 +15,40 @@
 (function () {
   'use strict';
 
-  const AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
-  const STORAGE_PREFIX = 'hub_auth_';
+  var AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
+  var STORAGE_PREFIX = 'hub_auth_';
 
   // Detectar portal a partir do atributo data-portal do script
-  const scriptTag = document.currentScript || document.querySelector('script[data-portal]');
-  const PORTAL_RAW = scriptTag ? scriptTag.getAttribute('data-portal') : null;
-  // Mapeamento de aliases para compatibilidade com data-portal existentes
-  const PORTAL_ALIASES = { 'axia': 'axiacare' };
-  const PORTAL = PORTAL_ALIASES[PORTAL_RAW] || PORTAL_RAW;
+  var scriptTag = document.currentScript || document.querySelector('script[data-portal]');
+  var PORTAL_RAW = scriptTag ? scriptTag.getAttribute('data-portal') : null;
+  var PORTAL_ALIASES = { 'axia': 'axiacare' };
+  var PORTAL = PORTAL_ALIASES[PORTAL_RAW] || PORTAL_RAW;
 
   if (!PORTAL) {
-    console.warn('[Hub Auth v2] Atributo data-portal não definido. Autenticação desativada.');
+    console.warn('[Hub Auth v2.1] Atributo data-portal não definido. Autenticação desativada.');
     return;
   }
 
-  const TOKEN_KEY = STORAGE_PREFIX + PORTAL + '_token';
-  const EMAIL_KEY = STORAGE_PREFIX + PORTAL + '_email';
-  const EXPIRES_KEY = STORAGE_PREFIX + PORTAL + '_expires';
+  var TOKEN_KEY = STORAGE_PREFIX + PORTAL + '_token';
+  var EMAIL_KEY = STORAGE_PREFIX + PORTAL + '_email';
+  var EXPIRES_KEY = STORAGE_PREFIX + PORTAL + '_expires';
 
-  // Tenants de parceiros (autenticação individual)
-  const PARTNER_TENANTS = ['unimed', 'unihealth', 'icds'];
-  // Tenants de empresas (senha fixa)
-  const COMPANY_TENANTS = ['axiacare', 'thera', 'medvalor'];
+  var PARTNER_TENANTS = ['unimed', 'unihealth', 'icds'];
+  var COMPANY_TENANTS = ['axiacare', 'thera', 'medvalor'];
 
-  const IS_PARTNER = PARTNER_TENANTS.includes(PORTAL);
-  const IS_COMPANY = COMPANY_TENANTS.includes(PORTAL);
+  var IS_PARTNER = PARTNER_TENANTS.includes(PORTAL);
+  var IS_COMPANY = COMPANY_TENANTS.includes(PORTAL);
 
-  // ===== Verificar sessão existente =====
+  // ===== Session =====
   function getStoredSession() {
     try {
       var token = localStorage.getItem(TOKEN_KEY) || sessionStorage.getItem(TOKEN_KEY);
       var email = localStorage.getItem(EMAIL_KEY) || sessionStorage.getItem(EMAIL_KEY);
       var expires = localStorage.getItem(EXPIRES_KEY) || sessionStorage.getItem(EXPIRES_KEY);
       if (!token || !expires) return null;
-      if (new Date() > new Date(expires)) {
-        clearSession();
-        return null;
-      }
+      if (new Date() > new Date(expires)) { clearSession(); return null; }
       return { token: token, email: email, expires: expires };
-    } catch (e) {
-      return null;
-    }
+    } catch (e) { return null; }
   }
 
   function saveSession(token, email, expiresAt) {
@@ -72,38 +64,24 @@
   }
 
   function clearSession() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(EMAIL_KEY);
-    localStorage.removeItem(EXPIRES_KEY);
-    sessionStorage.removeItem(TOKEN_KEY);
-    sessionStorage.removeItem(EMAIL_KEY);
-    sessionStorage.removeItem(EXPIRES_KEY);
+    [localStorage, sessionStorage].forEach(function(s) {
+      s.removeItem(TOKEN_KEY); s.removeItem(EMAIL_KEY); s.removeItem(EXPIRES_KEY);
+    });
   }
 
-  // ===== Verificar token no servidor =====
+  // ===== API =====
   async function verifyToken(token) {
     try {
-      var resp = await fetch(AUTH_API + '/verify', {
-        headers: { 'X-Auth-Token': token },
-      });
+      var resp = await fetch(AUTH_API + '/verify', { headers: { 'X-Auth-Token': token } });
       var data = await resp.json();
       return data.valid === true;
-    } catch (e) {
-      return true; // Em caso de erro de rede, permitir acesso
-    }
+    } catch (e) { return true; }
   }
 
-  // ===== Login (Individual ou Fixa) =====
   async function doLogin(email, password) {
     var payload = { portal: PORTAL };
-    
-    if (IS_PARTNER) {
-      payload.email = email;
-      payload.password = password;
-    } else if (IS_COMPANY) {
-      payload.email = 'shared_' + PORTAL; // Email fictício para empresas
-      payload.password = password;
-    }
+    if (IS_PARTNER) { payload.email = email; payload.password = password; }
+    else if (IS_COMPANY) { payload.email = 'shared_' + PORTAL; payload.password = password; }
 
     var resp = await fetch(AUTH_API + '/login', {
       method: 'POST',
@@ -118,7 +96,6 @@
     return { success: false, error: data.error || 'Erro ao autenticar' };
   }
 
-  // ===== Request Access (Apenas Parceiros) =====
   async function doRequestAccess(email, name, tenant_id) {
     var resp = await fetch(AUTH_API + '/request-access', {
       method: 'POST',
@@ -126,39 +103,19 @@
       body: JSON.stringify({ email: email, name: name, tenant_id: tenant_id }),
     });
     var data = await resp.json();
-    if (data.success) {
-      return { success: true };
-    }
-    return { success: false, error: data.error || 'Erro ao solicitar acesso' };
+    return data.success ? { success: true } : { success: false, error: data.error || 'Erro ao solicitar acesso' };
   }
 
-  // ===== Logout =====
   async function doLogout() {
     var session = getStoredSession();
     if (session && session.token) {
-      try {
-        await fetch(AUTH_API + '/logout', {
-          method: 'POST',
-          headers: { 'X-Auth-Token': session.token },
-        });
-      } catch (e) { /* ignore */ }
+      try { await fetch(AUTH_API + '/logout', { method: 'POST', headers: { 'X-Auth-Token': session.token } }); } catch (e) {}
     }
     clearSession();
     showAuthOverlay();
   }
 
-  // ===== Cores por portal =====
-  var PORTAL_COLORS = {
-    unimed: { primary: '#00995d', gradient: 'linear-gradient(135deg, #00995d, #8baf1f)', light: '#e8f4ee' },
-    unihealth: { primary: '#013d19', gradient: 'linear-gradient(135deg, #013d19, #ec7106)', light: '#e8eef5' },
-    icds: { primary: '#1B3A5C', gradient: 'linear-gradient(135deg, #1B3A5C, #2a6496)', light: '#e8f0f8' },
-    axiacare: { primary: '#196396', gradient: 'linear-gradient(135deg, #196396, #2DBF7F)', light: '#e8f4fc' },
-    thera: { primary: '#6B5B95', gradient: 'linear-gradient(135deg, #6B5B95, #7c3aed)', light: '#f3e8ff' },
-    medvalor: { primary: '#ea580c', gradient: 'linear-gradient(135deg, #ea580c, #f97316)', light: '#fff7ed' },
-  };
-
-  var colors = PORTAL_COLORS[PORTAL] || PORTAL_COLORS.unimed;
-
+  // ===== Portal config =====
   var PORTAL_NAMES = {
     unimed: 'Unimed Governador Valadares',
     unihealth: 'Unihealth Governador Valadares',
@@ -168,7 +125,169 @@
     medvalor: 'MedValor',
   };
 
-  // ===== Criar overlay de autenticação =====
+  var PORTAL_COLORS = {
+    unimed:    { accent: '#00995d', gradient: 'linear-gradient(135deg, #00995d, #8baf1f)' },
+    unihealth: { accent: '#013d19', gradient: 'linear-gradient(135deg, #013d19, #ec7106)' },
+    icds:      { accent: '#1B3A5C', gradient: 'linear-gradient(135deg, #1B3A5C, #2a6496)' },
+    axiacare:  { accent: '#196396', gradient: 'linear-gradient(135deg, #196396, #2DBF7F)' },
+    thera:     { accent: '#6B5B95', gradient: 'linear-gradient(135deg, #6B5B95, #7c3aed)' },
+    medvalor:  { accent: '#ea580c', gradient: 'linear-gradient(135deg, #ea580c, #f97316)' },
+  };
+
+  var colors = PORTAL_COLORS[PORTAL] || PORTAL_COLORS.axiacare;
+
+  // ===== SVG icons =====
+  var ICON_LOCK = '<svg class="ha-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+  var ICON_EYE_OPEN = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  var ICON_EYE_CLOSED = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+
+  // ===== Build CSS =====
+  function buildCSS() {
+    return '\
+#hub-auth-overlay {\
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99999;\
+  display: flex; align-items: center; justify-content: center;\
+  background: linear-gradient(135deg, #0f2b46 0%, #196396 50%, #1a7a6d 100%);\
+  animation: haFadeIn 0.3s ease;\
+}\
+@keyframes haFadeIn { from { opacity: 0; } to { opacity: 1; } }\
+.ha-modal {\
+  background: white; border-radius: 20px;\
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);\
+  width: 100%; max-width: 400px; margin: 20px;\
+  padding: 48px 40px 40px; text-align: center;\
+  animation: haSlideUp 0.4s ease;\
+}\
+@keyframes haSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }\
+.ha-logo { height: 52px; margin-bottom: 20px; object-fit: contain; }\
+.ha-lock-icon { width: 44px; height: 44px; margin: 0 auto 16px; color: ' + colors.accent + '; display: block; }\
+.ha-title { font-size: 20px; font-weight: 700; color: #0f2b46; margin: 0 0 6px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }\
+.ha-subtitle { font-size: 13px; color: #6b7280; margin: 0 0 28px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }\
+.ha-field { margin-bottom: 16px; text-align: left; }\
+.ha-field label {\
+  display: block; font-size: 12px; font-weight: 600; color: #6b7280;\
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-field input {\
+  width: 100%; padding: 12px 14px; border: 1.5px solid #e5e7eb;\
+  border-radius: 10px; font-size: 15px; outline: none;\
+  background: #f8f9fa; transition: all 0.2s; box-sizing: border-box;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-field input:focus { border-color: ' + colors.accent + '; box-shadow: 0 0 0 3px ' + colors.accent + '1a; background: white; }\
+.ha-pw-wrap { position: relative; }\
+.ha-pw-wrap input { padding-right: 44px; }\
+.ha-pw-toggle {\
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);\
+  background: none; border: none; cursor: pointer; padding: 4px;\
+  display: flex; align-items: center; color: #9ca3af; transition: color 0.2s;\
+}\
+.ha-pw-toggle:hover { color: #374151; }\
+.ha-pw-toggle svg { width: 18px; height: 18px; }\
+.ha-error {\
+  display: none; color: #dc2626; font-size: 13px; margin-bottom: 12px;\
+  padding: 10px 14px; background: #fef2f2; border-radius: 8px; border: 1px solid #fecaca;\
+  text-align: left; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-success {\
+  display: none; color: #059669; font-size: 13px; margin-bottom: 12px;\
+  padding: 10px 14px; background: #f0fdf4; border-radius: 8px; border: 1px solid #86efac;\
+  text-align: left; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-btn {\
+  width: 100%; padding: 13px; color: white;\
+  background: ' + colors.gradient + ';\
+  border: none; border-radius: 10px; font-size: 15px; font-weight: 600;\
+  cursor: pointer; transition: all 0.2s; margin-top: 4px;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-btn:hover { opacity: 0.9; transform: translateY(-1px); }\
+.ha-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }\
+.ha-btn.loading { display: flex; align-items: center; justify-content: center; }\
+.ha-spinner {\
+  display: none; width: 18px; height: 18px;\
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: white;\
+  border-radius: 50%; animation: haSpin 0.8s linear infinite; margin-right: 8px;\
+}\
+@keyframes haSpin { to { transform: rotate(360deg); } }\
+.ha-btn.loading .ha-spinner { display: inline-block; }\
+.ha-tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1.5px solid #e5e7eb; }\
+.ha-tab {\
+  flex: 1; padding: 12px; background: none; border: none;\
+  border-bottom: 2px solid transparent; color: #6b7280; font-weight: 600;\
+  cursor: pointer; font-size: 14px; transition: all 0.2s;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-tab.active { color: ' + colors.accent + '; border-bottom-color: ' + colors.accent + '; }\
+.ha-tab-content { display: none; }\
+.ha-tab-content.active { display: block; }\
+.ha-footer {\
+  margin-top: 20px; font-size: 12px; color: #9ca3af;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+}\
+.ha-footer a { color: ' + colors.accent + '; text-decoration: none; cursor: pointer; }\
+.ha-footer a:hover { text-decoration: underline; }\
+@media (max-width: 480px) { .ha-modal { padding: 32px 24px 28px; margin: 12px; } }\
+@media print { #hub-auth-overlay { display: none !important; } }\
+';
+  }
+
+  // ===== Build HTML =====
+  function buildPartnerHTML() {
+    return '\
+<div class="ha-tabs">\
+  <button class="ha-tab active" data-tab="login">Login</button>\
+  <button class="ha-tab" data-tab="request">Solicitar Acesso</button>\
+</div>\
+<div class="ha-tab-content active" data-tab="login">\
+  <div class="ha-error" id="ha-error"></div>\
+  <div class="ha-field">\
+    <label>E-mail</label>\
+    <input type="email" id="ha-email" placeholder="seu@email.com" autocomplete="email">\
+  </div>\
+  <div class="ha-field">\
+    <label>Senha</label>\
+    <div class="ha-pw-wrap">\
+      <input type="password" id="ha-password" placeholder="Digite sua senha" autocomplete="current-password">\
+      <button class="ha-pw-toggle" id="ha-pw-toggle" type="button">\
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + ICON_EYE_OPEN + '</svg>\
+      </button>\
+    </div>\
+  </div>\
+  <button class="ha-btn" id="ha-login-btn"><span class="ha-spinner"></span><span>Entrar</span></button>\
+</div>\
+<div class="ha-tab-content" data-tab="request">\
+  <div class="ha-error" id="ha-error-request"></div>\
+  <div class="ha-success" id="ha-success-request"></div>\
+  <div class="ha-field">\
+    <label>Nome Completo</label>\
+    <input type="text" id="ha-request-name" placeholder="Seu nome completo">\
+  </div>\
+  <div class="ha-field">\
+    <label>E-mail</label>\
+    <input type="email" id="ha-request-email" placeholder="seu@email.com">\
+  </div>\
+  <button class="ha-btn" id="ha-request-btn"><span class="ha-spinner"></span><span>Solicitar Acesso</span></button>\
+</div>';
+  }
+
+  function buildCompanyHTML() {
+    return '\
+<div class="ha-error" id="ha-error"></div>\
+<div class="ha-field">\
+  <label>Senha</label>\
+  <div class="ha-pw-wrap">\
+    <input type="password" id="ha-password" placeholder="Digite a senha de acesso" autocomplete="current-password">\
+    <button class="ha-pw-toggle" id="ha-pw-toggle" type="button">\
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' + ICON_EYE_OPEN + '</svg>\
+    </button>\
+  </div>\
+</div>\
+<button class="ha-btn" id="ha-login-btn"><span class="ha-spinner"></span><span>Entrar</span></button>';
+  }
+
+  // ===== Show Auth Overlay =====
   function showAuthOverlay() {
     var existing = document.getElementById('hub-auth-overlay');
     if (existing) existing.remove();
@@ -177,338 +296,75 @@
 
     var overlay = document.createElement('div');
     overlay.id = 'hub-auth-overlay';
-    
-    var loginMode = 'login'; // 'login' ou 'request'
 
-    var htmlContent = '\
-      <style>\
-        #hub-auth-overlay {\
-          position: fixed;\
-          top: 0; left: 0; right: 0; bottom: 0;\
-          z-index: 99999;\
-          display: flex;\
-          align-items: center;\
-          justify-content: center;\
-          backdrop-filter: blur(12px);\
-          -webkit-backdrop-filter: blur(12px);\
-          background: rgba(255,255,255,0.7);\
-          animation: hubAuthFadeIn 0.3s ease;\
-        }\
-        @keyframes hubAuthFadeIn {\
-          from { opacity: 0; }\
-          to { opacity: 1; }\
-        }\
-        .hub-auth-modal {\
-          background: white;\
-          border-radius: 20px;\
-          box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);\
-          width: 100%;\
-          max-width: 400px;\
-          margin: 20px;\
-          overflow: hidden;\
-          animation: hubAuthSlideUp 0.4s ease;\
-        }\
-        @keyframes hubAuthSlideUp {\
-          from { opacity: 0; transform: translateY(20px); }\
-          to { opacity: 1; transform: translateY(0); }\
-        }\
-        .hub-auth-header {\
-          background: ' + colors.gradient + ';\
-          padding: 32px 28px 24px;\
-          text-align: center;\
-        }\
-        .hub-auth-header h2 {\
-          color: white;\
-          font-size: 20px;\
-          font-weight: 700;\
-          margin: 0 0 4px;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-header p {\
-          color: rgba(255,255,255,0.8);\
-          font-size: 13px;\
-          margin: 0;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-body {\
-          padding: 28px;\
-        }\
-        .hub-auth-field {\
-          margin-bottom: 16px;\
-        }\
-        .hub-auth-field label {\
-          display: block;\
-          font-size: 13px;\
-          font-weight: 600;\
-          color: #374151;\
-          margin-bottom: 6px;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-field input {\
-          width: 100%;\
-          padding: 12px 14px;\
-          border: 1.5px solid #e5e7eb;\
-          border-radius: 10px;\
-          font-size: 15px;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-          transition: border-color 0.2s, box-shadow 0.2s;\
-          outline: none;\
-          box-sizing: border-box;\
-        }\
-        .hub-auth-field input:focus {\
-          border-color: ' + colors.primary + ';\
-          box-shadow: 0 0 0 3px ' + colors.primary + '22;\
-        }\
-        .hub-auth-pw-wrapper {\
-          position: relative;\
-          display: flex;\
-          align-items: center;\
-        }\
-        .hub-auth-pw-wrapper input {\
-          padding-right: 44px;\
-        }\
-        .hub-auth-pw-toggle {\
-          position: absolute;\
-          right: 12px;\
-          top: 50%;\
-          transform: translateY(-50%);\
-          background: none;\
-          border: none;\
-          cursor: pointer;\
-          padding: 4px;\
-          display: flex;\
-          align-items: center;\
-          justify-content: center;\
-          color: #9ca3af;\
-          transition: color 0.2s;\
-        }\
-        .hub-auth-pw-toggle:hover {\
-          color: #374151;\
-        }\
-        .hub-auth-error {\
-          display: none;\
-          color: #dc2626;\
-          font-size: 13px;\
-          margin-bottom: 12px;\
-          padding: 10px 14px;\
-          background: #fef2f2;\
-          border-radius: 8px;\
-          border: 1px solid #fecaca;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-success {\
-          display: none;\
-          color: #059669;\
-          font-size: 13px;\
-          margin-bottom: 12px;\
-          padding: 10px 14px;\
-          background: #f0fdf4;\
-          border-radius: 8px;\
-          border: 1px solid #86efac;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-btn {\
-          width: 100%;\
-          padding: 13px;\
-          background: ' + colors.primary + ';\
-          color: white;\
-          border: none;\
-          border-radius: 10px;\
-          font-size: 15px;\
-          font-weight: 600;\
-          cursor: pointer;\
-          transition: all 0.2s;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-btn:hover {\
-          filter: brightness(1.1);\
-          transform: translateY(-1px);\
-          box-shadow: 0 4px 16px ' + colors.primary + '44;\
-        }\
-        .hub-auth-btn:disabled {\
-          opacity: 0.6;\
-          cursor: not-allowed;\
-          transform: none;\
-          box-shadow: none;\
-        }\
-        .hub-auth-tabs {\
-          display: flex;\
-          gap: 12px;\
-          margin-bottom: 20px;\
-          border-bottom: 1px solid #e5e7eb;\
-        }\
-        .hub-auth-tab {\
-          flex: 1;\
-          padding: 12px;\
-          background: none;\
-          border: none;\
-          border-bottom: 2px solid transparent;\
-          color: #6b7280;\
-          font-weight: 600;\
-          cursor: pointer;\
-          font-size: 14px;\
-          transition: all 0.2s;\
-        }\
-        .hub-auth-tab.active {\
-          color: ' + colors.primary + ';\
-          border-bottom-color: ' + colors.primary + ';\
-        }\
-        .hub-auth-tab-content {\
-          display: none;\
-        }\
-        .hub-auth-tab-content.active {\
-          display: block;\
-        }\
-        .hub-auth-footer {\
-          text-align: center;\
-          padding: 0 28px 24px;\
-          font-size: 12px;\
-          color: #9ca3af;\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-        }\
-        .hub-auth-footer a {\
-          color: ' + colors.primary + ';\
-          text-decoration: none;\
-          cursor: pointer;\
-        }\
-        .hub-auth-footer a:hover {\
-          text-decoration: underline;\
-        }\
-        .hub-auth-spinner {\
-          display: none;\
-          width: 18px;\
-          height: 18px;\
-          border: 2px solid rgba(255,255,255,0.3);\
-          border-top-color: white;\
-          border-radius: 50%;\
-          animation: hubAuthSpin 0.8s linear infinite;\
-          margin-right: 8px;\
-        }\
-        @keyframes hubAuthSpin {\
-          to { transform: rotate(360deg); }\
-        }\
-        .hub-auth-btn.loading {\
-          display: flex;\
-          align-items: center;\
-          justify-content: center;\
-        }\
-        .hub-auth-btn.loading .hub-auth-spinner {\
-          display: inline-block;\
-        }\
-        @media print { #hub-auth-overlay { display: none !important; } }\
-      </style>\
-      <div class="hub-auth-modal">\
-        <div class="hub-auth-header">\
-          <h2>Acesso Restrito</h2>\
-          <p>' + PORTAL_NAMES[PORTAL] + '</p>\
-        </div>\
-        <div class="hub-auth-body">' + (IS_PARTNER ? '\
-          <div class="hub-auth-tabs">\
-            <button class="hub-auth-tab active" data-tab="login">Login</button>\
-            <button class="hub-auth-tab" data-tab="request">Solicitar Acesso</button>\
-          </div>\
-          <div class="hub-auth-tab-content active" data-tab="login">\
-            <div class="hub-auth-error" id="hub-auth-error"></div>\
-            <div class="hub-auth-field">\
-              <label>E-mail</label>\
-              <input type="email" id="hub-auth-email" placeholder="seu@email.com">\
-            </div>\
-            <div class="hub-auth-field">\
-              <label>Senha</label>\
-              <div class="hub-auth-pw-wrapper">\
-                <input type="password" id="hub-auth-password" placeholder="••••••••">\
-                <button class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" type="button">\
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
-                </button>\
-              </div>\
-            </div>\
-            <button class="hub-auth-btn" id="hub-auth-login-btn">\
-              <span class="hub-auth-spinner"></span>\
-              <span>Entrar</span>\
-            </button>\
-          </div>\
-          <div class="hub-auth-tab-content" data-tab="request">\
-            <div class="hub-auth-error" id="hub-auth-error-request"></div>\
-            <div class="hub-auth-success" id="hub-auth-success-request"></div>\
-            <div class="hub-auth-field">\
-              <label>Nome Completo</label>\
-              <input type="text" id="hub-auth-request-name" placeholder="Seu Nome">\
-            </div>\
-            <div class="hub-auth-field">\
-              <label>E-mail</label>\
-              <input type="email" id="hub-auth-request-email" placeholder="seu@email.com">\
-            </div>\
-            <button class="hub-auth-btn" id="hub-auth-request-btn">\
-              <span class="hub-auth-spinner"></span>\
-              <span>Solicitar Acesso</span>\
-            </button>\
-          </div>\
-        ' : '\
-          <div class="hub-auth-error" id="hub-auth-error"></div>\
-          <div class="hub-auth-field">\
-            <label>Senha</label>\
-            <div class="hub-auth-pw-wrapper">\
-              <input type="password" id="hub-auth-password" placeholder="••••••••">\
-              <button class="hub-auth-pw-toggle" id="hub-auth-pw-toggle" type="button">\
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>\
-              </button>\
-            </div>\
-          </div>\
-          <button class="hub-auth-btn" id="hub-auth-login-btn">\
-            <span class="hub-auth-spinner"></span>\
-            <span>Entrar</span>\
-          </button>\
-        ') + '\
-        </div>\
-      </div>\
-    ';
+    var bodyHTML = IS_PARTNER ? buildPartnerHTML() : buildCompanyHTML();
 
-    overlay.innerHTML = htmlContent;
+    overlay.innerHTML = '\
+<style>' + buildCSS() + '</style>\
+<div class="ha-modal">\
+  <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" class="ha-logo">\
+  ' + ICON_LOCK + '\
+  <h2 class="ha-title">' + (PORTAL_NAMES[PORTAL] || PORTAL) + '</h2>\
+  <p class="ha-subtitle">' + (IS_PARTNER ? 'Acesso restrito a usuários autorizados' : 'Acesso restrito') + '</p>\
+  ' + bodyHTML + '\
+  <div class="ha-footer">Hub Grupo CSV</div>\
+</div>';
+
     document.body.appendChild(overlay);
+    bindEvents(overlay);
+  }
 
-    // Event listeners para tabs (apenas parceiros)
+  // ===== Bind Events =====
+  function bindEvents(overlay) {
+    // Tabs (parceiros)
     if (IS_PARTNER) {
-      var tabs = overlay.querySelectorAll('.hub-auth-tab');
+      var tabs = overlay.querySelectorAll('.ha-tab');
       tabs.forEach(function(tab) {
         tab.addEventListener('click', function() {
           var tabName = this.getAttribute('data-tab');
-          overlay.querySelectorAll('.hub-auth-tab').forEach(function(t) { t.classList.remove('active'); });
-          overlay.querySelectorAll('.hub-auth-tab-content').forEach(function(c) { c.classList.remove('active'); });
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          overlay.querySelectorAll('.ha-tab-content').forEach(function(c) { c.classList.remove('active'); });
           this.classList.add('active');
-          overlay.querySelector('.hub-auth-tab[data-tab="' + tabName + '"]').classList.add('active');
-          overlay.querySelector('.hub-auth-tab-content[data-tab="' + tabName + '"]').classList.add('active');
+          // Selecionar o tab-content correto (não o botão)
+          var contents = overlay.querySelectorAll('.ha-tab-content[data-tab="' + tabName + '"]');
+          if (contents.length > 0) contents[0].classList.add('active');
         });
       });
     }
 
-    // Toggle de senha
-    var pwToggle = overlay.querySelector('#hub-auth-pw-toggle');
-    var pwInput = overlay.querySelector('#hub-auth-password');
+    // Toggle senha
+    var pwToggle = overlay.querySelector('#ha-pw-toggle');
+    var pwInput = overlay.querySelector('#ha-password');
     if (pwToggle && pwInput) {
       pwToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+        var svg = this.querySelector('svg');
+        if (pwInput.type === 'password') {
+          pwInput.type = 'text';
+          svg.innerHTML = ICON_EYE_CLOSED;
+        } else {
+          pwInput.type = 'password';
+          svg.innerHTML = ICON_EYE_OPEN;
+        }
       });
     }
 
     // Login
-    var loginBtn = overlay.querySelector('#hub-auth-login-btn');
+    var loginBtn = overlay.querySelector('#ha-login-btn');
     if (loginBtn) {
       loginBtn.addEventListener('click', async function() {
-        var errorEl = overlay.querySelector('#hub-auth-error');
+        var errorEl = overlay.querySelector('#ha-error');
         errorEl.style.display = 'none';
-        errorEl.textContent = '';
 
-        var email = overlay.querySelector('#hub-auth-email');
-        var password = overlay.querySelector('#hub-auth-password');
+        var email = overlay.querySelector('#ha-email');
+        var password = overlay.querySelector('#ha-password');
 
-        if (IS_PARTNER && !email.value) {
+        if (IS_PARTNER && (!email || !email.value)) {
           errorEl.textContent = 'Por favor, preencha o e-mail';
           errorEl.style.display = 'block';
           return;
         }
-
-        if (!password.value) {
+        if (!password || !password.value) {
           errorEl.textContent = 'Por favor, preencha a senha';
           errorEl.style.display = 'block';
           return;
@@ -531,30 +387,21 @@
       });
     }
 
-    // Request Access (apenas parceiros)
+    // Request Access (parceiros)
     if (IS_PARTNER) {
-      var requestBtn = overlay.querySelector('#hub-auth-request-btn');
+      var requestBtn = overlay.querySelector('#ha-request-btn');
       if (requestBtn) {
         requestBtn.addEventListener('click', async function() {
-          var errorEl = overlay.querySelector('#hub-auth-error-request');
-          var successEl = overlay.querySelector('#hub-auth-success-request');
+          var errorEl = overlay.querySelector('#ha-error-request');
+          var successEl = overlay.querySelector('#ha-success-request');
           errorEl.style.display = 'none';
           successEl.style.display = 'none';
 
-          var name = overlay.querySelector('#hub-auth-request-name');
-          var email = overlay.querySelector('#hub-auth-request-email');
+          var name = overlay.querySelector('#ha-request-name');
+          var email = overlay.querySelector('#ha-request-email');
 
-          if (!name.value) {
-            errorEl.textContent = 'Por favor, preencha o nome';
-            errorEl.style.display = 'block';
-            return;
-          }
-
-          if (!email.value) {
-            errorEl.textContent = 'Por favor, preencha o e-mail';
-            errorEl.style.display = 'block';
-            return;
-          }
+          if (!name.value) { errorEl.textContent = 'Por favor, preencha o nome'; errorEl.style.display = 'block'; return; }
+          if (!email.value) { errorEl.textContent = 'Por favor, preencha o e-mail'; errorEl.style.display = 'block'; return; }
 
           requestBtn.disabled = true;
           requestBtn.classList.add('loading');
@@ -565,10 +412,7 @@
             successEl.style.display = 'block';
             name.value = '';
             email.value = '';
-            setTimeout(function() {
-              requestBtn.disabled = false;
-              requestBtn.classList.remove('loading');
-            }, 2000);
+            setTimeout(function() { requestBtn.disabled = false; requestBtn.classList.remove('loading'); }, 2000);
           } else {
             errorEl.textContent = result.error;
             errorEl.style.display = 'block';
@@ -579,17 +423,22 @@
       }
     }
 
-    // Enter key para login
-    var passwordInput = overlay.querySelector('#hub-auth-password');
-    if (passwordInput) {
+    // Enter key
+    var passwordInput = overlay.querySelector('#ha-password');
+    if (passwordInput && loginBtn) {
       passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          loginBtn.click();
-        }
+        if (e.key === 'Enter') loginBtn.click();
+      });
+    }
+    var emailInput = overlay.querySelector('#ha-email');
+    if (emailInput && loginBtn) {
+      emailInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') loginBtn.click();
       });
     }
   }
 
+  // ===== Logout Button =====
   function addLogoutButton() {
     var session = getStoredSession();
     if (!session) return;
@@ -600,63 +449,35 @@
     var btn = document.createElement('div');
     btn.id = 'hub-auth-logout';
     btn.innerHTML = '\
-      <style>\
-        #hub-auth-logout {\
-          position: fixed;\
-          top: 20px;\
-          right: 20px;\
-          z-index: 99998;\
-          display: flex;\
-          align-items: center;\
-          gap: 12px;\
-          padding: 8px 16px;\
-          background: white;\
-          border-radius: 10px;\
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);\
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
-          font-size: 13px;\
-        }\
-        .hub-auth-user-badge {\
-          display: flex;\
-          align-items: center;\
-          gap: 6px;\
-          color: #374151;\
-          font-weight: 500;\
-        }\
-        .hub-auth-logout-btn {\
-          display: flex;\
-          align-items: center;\
-          gap: 6px;\
-          padding: 6px 12px;\
-          background: white;\
-          border: 1px solid #e5e7eb;\
-          border-radius: 6px;\
-          color: #6b7280;\
-          cursor: pointer;\
-          transition: all 0.2s;\
-          text-decoration: none;\
-          font-size: 13px;\
-          font-weight: 500;\
-        }\
-        .hub-auth-logout-btn:hover {\
-          background: #dc2626;\
-          color: white;\
-          border-color: #dc2626;\
-        }\
-        @media print { #hub-auth-logout { display: none !important; } }\
-      </style>\
-      <span class="hub-auth-user-badge">\
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>\
-        ' + session.email + '\
-      </span>\
-      <a class="hub-auth-logout-btn" id="hub-auth-logout-btn">\
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>\
-        Sair\
-      </a>\
-    ';
+<style>\
+#hub-auth-logout {\
+  position: fixed; top: 20px; right: 20px; z-index: 99998;\
+  display: flex; align-items: center; gap: 12px;\
+  padding: 8px 16px; background: white; border-radius: 10px;\
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px;\
+}\
+.ha-user-badge { display: flex; align-items: center; gap: 6px; color: #374151; font-weight: 500; }\
+.ha-logout-btn {\
+  display: flex; align-items: center; gap: 6px;\
+  padding: 6px 12px; background: white; border: 1px solid #e5e7eb;\
+  border-radius: 6px; color: #6b7280; cursor: pointer;\
+  transition: all 0.2s; text-decoration: none; font-size: 13px; font-weight: 500;\
+}\
+.ha-logout-btn:hover { background: #dc2626; color: white; border-color: #dc2626; }\
+@media print { #hub-auth-logout { display: none !important; } }\
+</style>\
+<span class="ha-user-badge">\
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>\
+  ' + session.email + '\
+</span>\
+<a class="ha-logout-btn" id="ha-logout-btn">\
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>\
+  Sair\
+</a>';
     document.body.appendChild(btn);
 
-    document.getElementById('hub-auth-logout-btn').addEventListener('click', function (e) {
+    document.getElementById('ha-logout-btn').addEventListener('click', function(e) {
       e.preventDefault();
       doLogout();
       var logoutEl = document.getElementById('hub-auth-logout');
@@ -664,12 +485,11 @@
     });
   }
 
-  // ===== Inicialização =====
+  // ===== Init =====
   async function init() {
     var session = getStoredSession();
-
     if (session && session.token) {
-      verifyToken(session.token).then(function (valid) {
+      verifyToken(session.token).then(function(valid) {
         if (!valid) {
           clearSession();
           showAuthOverlay();
@@ -680,11 +500,9 @@
       addLogoutButton();
       return;
     }
-
     showAuthOverlay();
   }
 
-  // Executar quando DOM estiver pronto
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

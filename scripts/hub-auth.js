@@ -25,7 +25,7 @@
   var PORTAL = PORTAL_ALIASES[PORTAL_RAW] || PORTAL_RAW;
 
   if (!PORTAL) {
-    console.warn('[Hub Auth v2.1] Atributo data-portal nao definido. Autenticacao desativada.');
+    console.warn('[Hub Auth v2.1] Atributo data-portal não definido. Autenticação desativada.');
     return;
   }
 
@@ -305,7 +305,7 @@
   <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" class="ha-logo">\
   ' + ICON_LOCK + '\
   <h2 class="ha-title">' + (PORTAL_NAMES[PORTAL] || PORTAL) + '</h2>\
-  <p class="ha-subtitle">' + (IS_PARTNER ? 'Acesso restrito a usuarios autorizados' : 'Acesso restrito') + '</p>\
+  <p class="ha-subtitle">' + (IS_PARTNER ? 'Acesso restrito a usuários autorizados' : 'Acesso restrito') + '</p>\
   ' + bodyHTML + '\
   <div class="ha-footer">Hub Grupo CSV</div>\
 </div>';
@@ -408,7 +408,7 @@
 
           var result = await doRequestAccess(email.value, name.value, PORTAL);
           if (result.success) {
-            successEl.textContent = 'Solicitacao enviada com sucesso! Voce recebera um e-mail quando sua solicitacao for aprovada.';
+            successEl.textContent = 'Solicitação enviada com sucesso! Você receberá um e-mail quando sua solicitação for aprovada.';
             successEl.style.display = 'block';
             name.value = '';
             email.value = '';
