@@ -278,8 +278,8 @@
         .topbar-shortcut-hint {
             font-size: 10px;
             font-weight: 500;
-            color: var(--text-muted);
-            opacity: 0.6;
+            color: rgba(255,255,255,0.7);
+            opacity: 1;
             margin-left: 4px;
         }
         .topbar-center {
@@ -1218,6 +1218,17 @@
         <div class="modal-title" id="platform-modal-title">Nova plataforma</div>
         <label class="modal-label">Nome</label>
         <input class="modal-input" type="text" id="platform-name" placeholder="Ex.: Notion, Figma..." autocomplete="off">
+        <label class="modal-label">Logo / Favicon</label>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div id="platform-icon-preview" style="width:36px;height:36px;border-radius:6px;background:var(--surface);border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <label style="cursor:pointer;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:6px 14px;white-space:nowrap">
+                Escolher imagem
+                <input type="file" id="platform-icon-input" accept="image/*" style="display:none">
+            </label>
+            <button type="button" id="platform-icon-clear" style="display:none;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;text-decoration:underline">Remover</button>
+        </div>
         <label class="modal-label">Cor</label>
         <div class="color-row">
             <input type="color" id="platform-color" value="#2DBF7F">
@@ -1290,13 +1301,20 @@ const EMAIL_TO = 'guilherme@grupocsv.com';
 const UNDO_TIMEOUT = 7000;
 
 const DEFAULT_PLATFORMS = [
-    { id: 'manus',         name: 'Manus',          color: '#6C5CE7', builtin: true },
-    { id: 'chatgpt',       name: 'ChatGPT',        color: '#10A37F', builtin: true },
-    { id: 'claude',        name: 'Claude',          color: '#D97706', builtin: true },
-    { id: 'claude-cowork', name: 'Claude Cowork',   color: '#F59E0B', builtin: true },
-    { id: 'anti-gravity',  name: 'Anti-Gravity',    color: '#3B82F6', builtin: true },
+    { id: 'manus',         name: 'Manus',          color: '#1A1A1A', builtin: true },
+    { id: 'chatgpt',       name: 'ChatGPT',        color: '#74AA9C', builtin: true },
+    { id: 'claude',        name: 'Claude',          color: '#D4A27F', builtin: true },
+    { id: 'claude-cowork', name: 'Claude Cowork',   color: '#C4956A', builtin: true },
+    { id: 'anti-gravity',  name: 'Anti-Gravity',    color: '#4A90D9', builtin: true },
+    { id: 'notion',        name: 'Notion',          color: '#1A1A1A', builtin: true },
+    { id: 'cloudflare',    name: 'Cloudflare',      color: '#F38020', builtin: true },
+    { id: 'supabase',      name: 'Supabase',        color: '#3ECF8E', builtin: true },
+    { id: 'lovable',       name: 'Lovable',         color: '#FF385C', builtin: true },
+    { id: 'evolution',     name: 'Evolution API',   color: '#25D366', builtin: true },
+    { id: 'hubcsv',        name: 'Hub CSV',         color: '#0EA5A0', builtin: true },
+    { id: 'unimed',        name: 'Unimed',          color: '#00995D', builtin: true },
     { id: 'email',         name: 'E-mail',          color: '#EF4444', builtin: true },
-    { id: 'chrome',        name: 'Chrome (aba)',    color: '#4285F4', builtin: true },
+    { id: 'chrome',        name: 'Chrome',          color: '#4285F4', builtin: true },
     { id: 'whatsapp',      name: 'WhatsApp',        color: '#25D366', builtin: true },
     { id: 'outro',         name: 'Outro',           color: '#9CA3AF', builtin: true },
 ];
@@ -1444,11 +1462,18 @@ function getPlatformColor(id) { const p = getAllPlatforms().find(x => x.id === i
 function getPlatformName(id) { const p = getAllPlatforms().find(x => x.id === id); return p ? p.name : 'Outro'; }
 
 const PLATFORM_GRADIENTS = {
-    'manus':         'linear-gradient(180deg, #6C5CE7, #a855f7)',
-    'chatgpt':       'linear-gradient(180deg, #10A37F, #1a7f5a)',
-    'claude':        'linear-gradient(180deg, #D97706, #F59E0B)',
-    'claude-cowork': 'linear-gradient(180deg, #F59E0B, #FBBF24)',
-    'anti-gravity':  'linear-gradient(180deg, #3B82F6, #6366F1)',
+    'manus':         'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
+    'chatgpt':       'linear-gradient(180deg, #74AA9C, #5A8F82)',
+    'claude':        'linear-gradient(180deg, #D4A27F, #B8876A)',
+    'claude-cowork': 'linear-gradient(180deg, #C4956A, #A87D58)',
+    'anti-gravity':  'linear-gradient(180deg, #4A90D9, #3A6FB5)',
+    'notion':        'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
+    'cloudflare':    'linear-gradient(180deg, #F38020, #F9A825)',
+    'supabase':      'linear-gradient(180deg, #3ECF8E, #2DA06E)',
+    'lovable':       'linear-gradient(180deg, #FF385C, #9B59B6)',
+    'evolution':     'linear-gradient(180deg, #25D366, #128C7E)',
+    'hubcsv':        'linear-gradient(180deg, #0EA5A0, #0C7C78)',
+    'unimed':        'linear-gradient(180deg, #00995D, #006B3F)',
     'email':         'linear-gradient(180deg, #EF4444, #F97316)',
     'chrome':        'linear-gradient(180deg, #4285F4, #34A853, #FBBC04, #EA4335)',
     'whatsapp':      'linear-gradient(180deg, #25D366, #128C7E)',
@@ -1902,22 +1927,51 @@ function openPlatformModal(editPlatform = null) {
     const nameInput = $('#platform-name');
     const colorInput = $('#platform-color');
     const hexSpan = $('#platform-color-hex');
+    const iconInput = $('#platform-icon-input');
+    const iconPreview = $('#platform-icon-preview');
+    const iconClear = $('#platform-icon-clear');
+    let pendingIcon = null;
+    const defaultPreviewSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+    function setPreview(src) {
+        if (src) {
+            iconPreview.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:contain">`;
+            iconClear.style.display = '';
+        } else {
+            iconPreview.innerHTML = defaultPreviewSvg;
+            iconClear.style.display = 'none';
+        }
+    }
     if (editPlatform) {
         titleEl.textContent = 'Editar plataforma'; nameInput.value = editPlatform.name;
         colorInput.value = editPlatform.color; hexSpan.textContent = editPlatform.color;
+        pendingIcon = editPlatform.icon || null; setPreview(pendingIcon);
     } else {
         titleEl.textContent = 'Nova plataforma'; nameInput.value = '';
         colorInput.value = '#2DBF7F'; hexSpan.textContent = '#2DBF7F';
+        pendingIcon = null; setPreview(null);
     }
+    iconInput.value = '';
     modal.classList.remove('hidden'); nameInput.focus();
     colorInput.oninput = () => { hexSpan.textContent = colorInput.value.toUpperCase(); };
+    iconInput.onchange = () => {
+        const file = iconInput.files[0]; if (!file) return;
+        if (file.size > 200000) { showToast('Imagem muito grande (max 200 KB)'); return; }
+        const reader = new FileReader();
+        reader.onload = (e) => { pendingIcon = e.target.result; setPreview(pendingIcon); };
+        reader.readAsDataURL(file);
+    };
+    iconClear.onclick = () => { pendingIcon = null; setPreview(null); iconInput.value = ''; };
     $('#platform-cancel').onclick = () => modal.classList.add('hidden');
     modal.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
     $('#platform-save').onclick = () => {
         const name = nameInput.value.trim(); if (!name) { nameInput.focus(); return; }
         const color = colorInput.value;
-        if (editPlatform) { const p = state.platforms.find(x => x.id === editPlatform.id); if (p) { p.name = name; p.color = color; } }
-        else { state.platforms.push({ id: 'custom-' + uid(), name, color, builtin: false }); }
+        if (editPlatform) {
+            const p = state.platforms.find(x => x.id === editPlatform.id);
+            if (p) { p.name = name; p.color = color; p.icon = pendingIcon || undefined; }
+        } else {
+            state.platforms.push({ id: 'custom-' + uid(), name, color, icon: pendingIcon || undefined, builtin: false });
+        }
         saveState(); renderBoard(); modal.classList.add('hidden');
         showToast(editPlatform ? 'Plataforma atualizada' : 'Plataforma adicionada');
     };
@@ -1932,7 +1986,7 @@ function openManagePlatforms() {
     list.innerHTML = all.map(p => {
         const isCustom = !p.builtin;
         return `<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border)">
-            <div style="width:14px;height:14px;border-radius:4px;background:${p.color};flex-shrink:0"></div>
+            <div style="width:18px;height:18px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:${p.color}">${getPlatformIcon(p.id)}</div>
             <span style="flex:1;font-size:13px;color:var(--text)">${escapeHtml(p.name)}</span>
             <span style="font-size:11px;color:var(--text-muted)">${p.color}</span>
             ${isCustom ? `<button class="manage-edit" data-pid="${p.id}" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px 8px;border-radius:4px" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="manage-delete" data-pid="${p.id}" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 8px;border-radius:4px" title="Remover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:14px;height:14px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : '<span style="font-size:11px;color:var(--text-muted);padding:4px 8px">padr\u00e3o</span>'}
@@ -1988,20 +2042,31 @@ $('#btn-clear-all').addEventListener('click', () => {
     });
 });
 
-// ── Ícones SVG das marcas ──
+// ── Ícones das marcas ──
+const ICON_IMG = (file, alt, extra='') => `<img src="/deck/assets/icons/${file}.png" alt="${alt}" style="width:100%;height:100%;object-fit:contain${extra}">`;
 const PLATFORM_ICONS = {
-    'chatgpt': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.28 9.82a5.98 5.98 0 00-.52-4.91 6.05 6.05 0 00-6.51-2.9A6.07 6.07 0 004.98 4.18a5.98 5.98 0 00-4 2.9 6.05 6.05 0 00.74 7.1 5.98 5.98 0 00.51 4.91 6.05 6.05 0 006.51 2.9A5.98 5.98 0 0013.26 24a6.06 6.06 0 005.77-4.21 5.99 5.99 0 004-2.9 6.06 6.06 0 00-.75-7.07z"/></svg>',
-    'claude': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
+    'manus':         ICON_IMG('manus', 'Manus'),
+    'chatgpt':       ICON_IMG('chatgpt', 'ChatGPT', ';border-radius:3px'),
+    'claude':        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
     'claude-cowork': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
-    'chrome': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.21 0 4.83 1.76 2.63 4.5l3.95 6.85A5.45 5.45 0 0112 6.55h10.69A12 12 0 0012 0zM1.93 5.47A11.94 11.94 0 000 12c0 6.01 4.42 10.99 10.19 11.86l3.95-6.85a5.45 5.45 0 01-6.87-2.29zm13.34 2.17a5.45 5.45 0 011.45 7.09l-5.34 9.26c.21.01.41.02.62.02 6.63 0 12-5.37 12-12 0-1.54-.29-3.01-.82-4.36zM12 16.36a4.36 4.36 0 110-8.73 4.36 4.36 0 010 8.73z"/></svg>',
-    'whatsapp': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 012.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 00-3.48-8.41z"/></svg>',
-    'email': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.46v13.91c0 .9-.73 1.64-1.64 1.64h-3.82V11.73L12 16.64l-6.55-4.91v9.27H1.64A1.64 1.64 0 010 19.37V5.46c0-2.02 2.31-3.18 3.93-1.96L5.45 4.64 12 9.55l6.55-4.91 1.53-1.15C21.69 2.28 24 3.43 24 5.46z"/></svg>',
-    'manus': '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-    'anti-gravity': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M6 12h12"/></svg>',
-    'outro': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
+    'anti-gravity':  ICON_IMG('antigravity', 'Anti-Gravity'),
+    'notion':        ICON_IMG('notion', 'Notion'),
+    'cloudflare':    ICON_IMG('cloudflare', 'Cloudflare'),
+    'supabase':      ICON_IMG('supabase', 'Supabase'),
+    'lovable':       ICON_IMG('lovable', 'Lovable', ';border-radius:3px'),
+    'evolution':     ICON_IMG('evolution', 'Evolution API'),
+    'hubcsv':        ICON_IMG('hubcsv', 'Hub CSV'),
+    'unimed':        ICON_IMG('unimed', 'Unimed'),
+    'chrome':        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.21 0 4.83 1.76 2.63 4.5l3.95 6.85A5.45 5.45 0 0112 6.55h10.69A12 12 0 0012 0zM1.93 5.47A11.94 11.94 0 000 12c0 6.01 4.42 10.99 10.19 11.86l3.95-6.85a5.45 5.45 0 01-6.87-2.29zm13.34 2.17a5.45 5.45 0 011.45 7.09l-5.34 9.26c.21.01.41.02.62.02 6.63 0 12-5.37 12-12 0-1.54-.29-3.01-.82-4.36zM12 16.36a4.36 4.36 0 110-8.73 4.36 4.36 0 010 8.73z"/></svg>',
+    'whatsapp':      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 012.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 00-3.48-8.41z"/></svg>',
+    'email':         '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.46v13.91c0 .9-.73 1.64-1.64 1.64h-3.82V11.73L12 16.64l-6.55-4.91v9.27H1.64A1.64 1.64 0 010 19.37V5.46c0-2.02 2.31-3.18 3.93-1.96L5.45 4.64 12 9.55l6.55-4.91 1.53-1.15C21.69 2.28 24 3.43 24 5.46z"/></svg>',
+    'outro':         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
 };
 
 function getPlatformIcon(id) {
+    // Suporta icones customizados (base64) de plataformas do usuario
+    const p = getAllPlatforms().find(x => x.id === id);
+    if (p && p.icon) return `<img src="${p.icon}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:3px">`;
     return PLATFORM_ICONS[id] || PLATFORM_ICONS['outro'];
 }
 
