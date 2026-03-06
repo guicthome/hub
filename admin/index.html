@@ -31,38 +31,49 @@
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             z-index: 99999;
             display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background: linear-gradient(135deg, #0f2b46 0%, #196396 50%, #1a7a6d 100%);
         }
         #admin-auth-overlay.hidden { display: none; }
         .auth-box {
-            background: white; border-radius: 20px; padding: 40px;
+            background: white; border-radius: 20px; padding: 48px 40px 40px;
             width: 100%; max-width: 400px; margin: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
         }
-        .auth-box h2 { text-align: center; color: var(--primary-dark); margin-bottom: 8px; font-size: 22px; }
-        .auth-box p { text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
-        .auth-box label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
+        .auth-logo {
+            height: 52px; margin-bottom: 20px; object-fit: contain;
+        }
+        .auth-lock-icon {
+            width: 44px; height: 44px; margin: 0 auto 16px;
+            color: #2DBF7F;
+        }
+        .auth-box h2 { text-align: center; color: var(--primary-dark); margin-bottom: 6px; font-size: 20px; font-weight: 700; }
+        .auth-box .auth-subtitle { text-align: center; color: var(--text-secondary); font-size: 13px; margin-bottom: 28px; }
+        .auth-box label { display: block; font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 6px; text-align: left; text-transform: uppercase; letter-spacing: 0.04em; }
         .auth-box input {
-            width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+            width: 100%; padding: 12px 14px; border: 1.5px solid #e5e7eb;
             border-radius: 10px; font-size: 15px; outline: none; margin-bottom: 16px;
+            background: #f8f9fa; transition: all 0.2s;
         }
-        .auth-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(25,99,150,0.15); }
-        .auth-box button {
-            width: 100%; padding: 13px; background: var(--primary); color: white;
+        .auth-box input:focus { border-color: #2DBF7F; box-shadow: 0 0 0 3px rgba(45,191,127,0.12); background: white; }
+        .auth-field { position: relative; }
+        .auth-field input { padding-right: 44px; }
+        .auth-toggle-pw {
+            position: absolute; right: 12px; top: 36px;
+            background: none; border: none; cursor: pointer;
+            color: #9ca3af; padding: 4px; display: flex; align-items: center;
+            transition: color 0.2s;
+        }
+        .auth-toggle-pw:hover { color: #374151; }
+        .auth-toggle-pw svg { width: 18px; height: 18px; }
+        .auth-box .auth-submit {
+            width: 100%; padding: 13px; color: white;
+            background: linear-gradient(135deg, #196396, #2DBF7F);
             border: none; border-radius: 10px; font-size: 15px; font-weight: 600;
-            cursor: pointer; transition: all 0.2s;
+            cursor: pointer; transition: all 0.2s; margin-top: 4px;
         }
-        .auth-box button:hover { background: var(--primary-dark); }
+        .auth-box .auth-submit:hover { opacity: 0.9; transform: translateY(-1px); }
         .auth-error { color: var(--red); font-size: 13px; text-align: center; margin-bottom: 12px; display: none; }
-        .auth-pw-wrapper { position: relative; display: flex; align-items: center; margin-bottom: 16px; }
-        .auth-pw-wrapper input { margin-bottom: 0; padding-right: 44px; }
-        .auth-pw-toggle {
-            position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-            background: none; border: none; cursor: pointer; padding: 4px;
-            display: flex; align-items: center; justify-content: center;
-            color: #9ca3af; transition: color 0.2s;
-        }
-        .auth-pw-toggle:hover { color: #374151; }
 
         /* Dashboard */
         #dashboard { display: none; }
@@ -243,20 +254,28 @@
 <!-- Auth Overlay -->
 <div id="admin-auth-overlay">
     <div class="auth-box">
+        <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" class="auth-logo">
+        <svg class="auth-lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
         <h2>Painel Administrativo</h2>
-        <p>Hub Grupo CSV</p>
+        <p class="auth-subtitle">Acesso restrito ao administrador do Hub</p>
         <div class="auth-error" id="auth-error"></div>
         <form id="auth-form">
             <label for="admin-email">E-mail</label>
             <input type="email" id="admin-email" placeholder="seu@email.com" required autocomplete="email">
-            <label for="admin-password">Senha</label>
-            <div class="auth-pw-wrapper">
-                <input type="password" id="admin-password" placeholder="Senha do painel" required>
-                <button type="button" class="auth-pw-toggle" id="admin-pw-toggle">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <div class="auth-field">
+                <label for="admin-password">Senha</label>
+                <input type="password" id="admin-password" placeholder="Digite sua senha" required autocomplete="current-password">
+                <button type="button" class="auth-toggle-pw" onclick="toggleAdminPw()">
+                    <svg id="pw-eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
                 </button>
             </div>
-            <button type="submit">Entrar</button>
+            <button type="submit" class="auth-submit">Entrar</button>
         </form>
     </div>
 </div>
@@ -402,6 +421,19 @@
 </div>
 
 <script>
+// Toggle password visibility
+function toggleAdminPw() {
+    const pw = document.getElementById('admin-password');
+    const icon = document.getElementById('pw-eye-icon');
+    if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    } else {
+        pw.type = 'password';
+        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+}
+
 (function() {
     'use strict';
 
@@ -477,13 +509,6 @@
         loadStats();
         loadLogs();
     }
-
-    // ===== Toggle de senha =====
-    document.getElementById('admin-pw-toggle').addEventListener('click', function(e) {
-        e.preventDefault();
-        var pwInput = document.getElementById('admin-password');
-        pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
-    });
 
     // ===== Auth form =====
     document.getElementById('auth-form').addEventListener('submit', async function(e) {

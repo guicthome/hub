@@ -717,10 +717,10 @@
         <div class="lock-slogan">Seu painel de contexto ativo</div>
         <div id="lock-subtitle">Digite seu PIN de 4 dígitos para acessar</div>
         <div id="pin-group">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="1" autofocus>
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="2">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="3">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="4">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="1" autofocus>
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="2">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="3">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="4">
         </div>
         <button id="lock-btn">Desbloquear</button>
         <div id="lock-error"></div>
@@ -1104,21 +1104,79 @@ async function handleSetPin() {
     unlock();
 }
 
+const DECK_AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
+let tempPinHash = null;
+let forceNewPin = false;
+
 async function handleUnlock() {
     const pin = getPinValue();
-    if (pin.length !== 4) { lockError.textContent = 'Digite 4 d\u00edgitos.'; return; }
+
+    // Verificar PIN temporário (se ativo)
+    if (tempPinHash) {
+        const hashed = await hashPin(pin);
+        if (hashed === tempPinHash) {
+            tempPinHash = null;
+            forceNewPin = true;
+            localStorage.removeItem(PIN_KEY);
+            lockError.style.color = 'var(--accent)';
+            lockError.textContent = 'PIN temporário aceito. Defina um novo PIN.';
+            lockTitle.textContent = 'Novo PIN';
+            lockSubtitle.textContent = 'Defina um novo PIN de 4 dígitos';
+            lockBtn.textContent = 'Definir PIN';
+            lockBtn.onclick = async function() {
+                const newPin = getPinValue();
+                if (newPin.length !== 4 || !/^\d{4}$/.test(newPin)) {
+                    lockError.style.color = '#ef4444';
+                    lockError.textContent = 'Digite exatamente 4 dígitos numéricos.';
+                    return;
+                }
+                localStorage.setItem(PIN_KEY, await hashPin(newPin));
+                forceNewPin = false;
+                lockError.textContent = '';
+                unlock();
+            };
+            const footer = $('#lock-footer');
+            if (footer) footer.innerHTML = '';
+            clearPinInputs();
+            return;
+        } else {
+            lockError.style.color = '#ef4444';
+            lockError.textContent = 'PIN temporário incorreto.';
+            clearPinInputs();
+            return;
+        }
+    }
+
+    if (pin.length !== 4) { lockError.textContent = 'Digite 4 dígitos.'; return; }
     if (await hashPin(pin) === localStorage.getItem(PIN_KEY)) { lockError.textContent = ''; unlock(); }
     else { lockError.textContent = 'PIN incorreto.'; clearPinInputs(); }
 }
 
-function handleResetPin() {
-    if (confirm('Ao redefinir o PIN, todos os dados do Deck ser\u00e3o apagados. Deseja continuar?')) {
-        localStorage.removeItem(PIN_KEY);
-        localStorage.removeItem(STORAGE_KEY);
-        state = { cards: [], platforms: [] };
-        clearPinInputs();
-        setupLockScreen();
+async function handleResetPin() {
+    lockError.textContent = '';
+    const resetLink = $('#reset-pin-link');
+    if (resetLink) resetLink.textContent = 'Enviando...';
+
+    try {
+        const resp = await fetch(DECK_AUTH_API + '/deck/reset-pin', { method: 'POST' });
+        const data = await resp.json();
+
+        if (data.success && data.hashed_pin) {
+            tempPinHash = data.hashed_pin;
+            lockError.style.color = 'var(--accent)';
+            lockError.textContent = 'PIN temporário enviado para guilherme@grupocsv.com';
+            lockSubtitle.textContent = 'Digite o PIN temporário recebido por e-mail';
+            clearPinInputs();
+        } else {
+            lockError.style.color = '#ef4444';
+            lockError.textContent = data.error || 'Erro ao solicitar PIN temporário';
+        }
+    } catch (e) {
+        lockError.style.color = '#ef4444';
+        lockError.textContent = 'Erro de conexão. Tente novamente.';
     }
+
+    if (resetLink) resetLink.textContent = 'Esqueceu o PIN?';
 }
 
 function unlock() {
