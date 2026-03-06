@@ -449,9 +449,9 @@ title: AI Search — Ponto Neural do Hub CSV
         <span class="lang">HTTP</span>
       </div>
       <div class="code-body">
-<span class="kw">POST</span> /client/v4/accounts/<span class="str">{account_id}</span>/autorag/rags/<span class="str">hub-csv</span>/ai-search<br>
-<span class="kw">Host:</span> api.cloudflare.com<br>
-<span class="kw">Authorization:</span> Bearer <span class="str">{AI_SEARCH_TOKEN}</span><br>
+<span class="kw">POST</span> /client/v4/accounts/<span class="str">{account_id}</span>/autorag/rags/<span class="str">hub-csv</span>/ai-search<br/>
+<span class="kw">Host:</span> api.cloudflare.com<br/>
+<span class="kw">Authorization:</span> Bearer <span class="str">{AI_SEARCH_TOKEN}</span><br/>
 <span class="kw">Content-Type:</span> application/json
       </div>
     </div>
@@ -462,12 +462,12 @@ title: AI Search — Ponto Neural do Hub CSV
         <span class="lang">JSON</span>
       </div>
       <div class="code-body">
-{<br>
-&nbsp;&nbsp;<span class="str">"query"</span>: <span class="str">"Qual o mandato da AxiaCare?"</span>,<br>
-&nbsp;&nbsp;<span class="str">"system_prompt"</span>: <span class="str">"Assistente do Hub CSV. Responda em PT-BR, direto e preciso. Cite fontes."</span>,<br>
-&nbsp;&nbsp;<span class="str">"stream"</span>: <span class="num">false</span>,<br>
-&nbsp;&nbsp;<span class="str">"rewrite_query"</span>: <span class="num">true</span>,<br>
-&nbsp;&nbsp;<span class="str">"max_num_results"</span>: <span class="num">10</span><br>
+{<br/>
+&nbsp;&nbsp;<span class="str">"query"</span>: <span class="str">"Qual o mandato da AxiaCare?"</span>,<br/>
+&nbsp;&nbsp;<span class="str">"system_prompt"</span>: <span class="str">"Assistente do Hub CSV. Responda em PT-BR, direto e preciso. Cite fontes."</span>,<br/>
+&nbsp;&nbsp;<span class="str">"stream"</span>: <span class="num">false</span>,<br/>
+&nbsp;&nbsp;<span class="str">"rewrite_query"</span>: <span class="num">true</span>,<br/>
+&nbsp;&nbsp;<span class="str">"max_num_results"</span>: <span class="num">10</span><br/>
 }
       </div>
     </div>
@@ -480,8 +480,8 @@ title: AI Search — Ponto Neural do Hub CSV
         <span class="lang">HTTP</span>
       </div>
       <div class="code-body">
-<span class="kw">POST</span> /client/v4/accounts/<span class="str">{account_id}</span>/autorag/rags/<span class="str">hub-csv</span>/search<br>
-<span class="kw">Host:</span> api.cloudflare.com<br>
+<span class="kw">POST</span> /client/v4/accounts/<span class="str">{account_id}</span>/autorag/rags/<span class="str">hub-csv</span>/search<br/>
+<span class="kw">Host:</span> api.cloudflare.com<br/>
 <span class="cmt">// Mesmos headers. Retorna apenas documentos, sem geração LLM.</span>
       </div>
     </div>
@@ -519,14 +519,14 @@ title: AI Search — Ponto Neural do Hub CSV
         <span class="lang">Texto</span>
       </div>
       <div class="code-body">
-Você é o assistente de conhecimento do Hub CSV, o arsenal digital de<br>
-Guilherme Thomé, médico executivo e fundador do Grupo CSV. O Hub<br>
-centraliza dashboards, relatórios, calculadoras, dados clínicos,<br>
-mandatos, documentos estratégicos e ferramentas operacionais das<br>
-empresas AxiaCare, Thera, MedValor, e das instituições Unimed GV,<br>
-Unihealth GV e ICDS. Responda sempre em português do Brasil, de<br>
-forma direta e precisa. Cite os documentos-fonte quando relevante.<br>
-Se não encontrar a informação nos documentos indexados, diga<br>
+Você é o assistente de conhecimento do Hub CSV, o arsenal digital de<br/>
+Guilherme Thomé, médico executivo e fundador do Grupo CSV. O Hub<br/>
+centraliza dashboards, relatórios, calculadoras, dados clínicos,<br/>
+mandatos, documentos estratégicos e ferramentas operacionais das<br/>
+empresas AxiaCare, Thera, MedValor, e das instituições Unimed GV,<br/>
+Unihealth GV e ICDS. Responda sempre em português do Brasil, de<br/>
+forma direta e precisa. Cite os documentos-fonte quando relevante.<br/>
+Se não encontrar a informação nos documentos indexados, diga<br/>
 explicitamente que não há dados disponíveis.
       </div>
     </div>
@@ -656,18 +656,18 @@ explicitamente que não há dados disponíveis.
         <span class="lang">requests</span>
       </div>
       <div class="code-body">
-<span class="kw">import</span> requests<br><br>
-<span class="fn">ACCOUNT_ID</span> = <span class="str">"da0c29123f448f3c3892f784cd9f7cac"</span><br>
-<span class="fn">TOKEN</span> = <span class="str">"seu_ai_search_token"</span><br><br>
-<span class="kw">def</span> <span class="fn">hub_search</span>(query, system_prompt=<span class="num">None</span>):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;url = <span class="str">f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/autorag/rags/hub-csv/ai-search"</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;headers = {<span class="str">"Authorization"</span>: <span class="str">f"Bearer {TOKEN}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;body = {<span class="str">"query"</span>: query, <span class="str">"stream"</span>: <span class="num">False</span>, <span class="str">"rewrite_query"</span>: <span class="num">True</span>}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> system_prompt:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body[<span class="str">"system_prompt"</span>] = system_prompt<br>
-&nbsp;&nbsp;&nbsp;&nbsp;r = requests.post(url, headers=headers, json=body)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> r.json()[<span class="str">"result"</span>][<span class="str">"response"</span>]<br><br>
-<span class="cmt"># Uso</span><br>
+<span class="kw">import</span> requests<br/><br/>
+<span class="fn">ACCOUNT_ID</span> = <span class="str">"da0c29123f448f3c3892f784cd9f7cac"</span><br/>
+<span class="fn">TOKEN</span> = <span class="str">"seu_ai_search_token"</span><br/><br/>
+<span class="kw">def</span> <span class="fn">hub_search</span>(query, system_prompt=<span class="num">None</span>):<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;url = <span class="str">f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/autorag/rags/hub-csv/ai-search"</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;headers = {<span class="str">"Authorization"</span>: <span class="str">f"Bearer {TOKEN}"</span>, <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;body = {<span class="str">"query"</span>: query, <span class="str">"stream"</span>: <span class="num">False</span>, <span class="str">"rewrite_query"</span>: <span class="num">True</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> system_prompt:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body[<span class="str">"system_prompt"</span>] = system_prompt<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;r = requests.post(url, headers=headers, json=body)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> r.json()[<span class="str">"result"</span>][<span class="str">"response"</span>]<br/><br/>
+<span class="cmt"># Uso</span><br/>
 <span class="fn">print</span>(hub_search(<span class="str">"Qual o mandato da AxiaCare?"</span>))
       </div>
     </div>
