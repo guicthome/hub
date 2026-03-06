@@ -40,17 +40,14 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
         }
-        .auth-logo {
-            height: 52px; margin-bottom: 20px; object-fit: contain;
-        }
-        .auth-lock-icon {
-            width: 44px; height: 44px; margin: 0 auto 16px;
-            color: #2DBF7F;
-        }
-        .auth-box h2 { text-align: center; color: var(--primary-dark); margin-bottom: 6px; font-size: 20px; font-weight: 700; }
-        .auth-box .auth-subtitle { text-align: center; color: var(--text-secondary); font-size: 13px; margin-bottom: 28px; }
+        .auth-logo { height: 52px; margin-bottom: 20px; object-fit: contain; }
+        .auth-lock-icon { width: 44px; height: 44px; margin: 0 auto 16px; color: #2DBF7F; }
+        .auth-box h2 { color: var(--primary-dark); margin-bottom: 6px; font-size: 20px; font-weight: 700; }
+        .auth-box .auth-subtitle { color: var(--text-secondary); font-size: 13px; margin-bottom: 28px; }
         .auth-box label { display: block; font-size: 12px; font-weight: 600; color: #6b7280; margin-bottom: 6px; text-align: left; text-transform: uppercase; letter-spacing: 0.04em; }
-        .auth-box input {
+        .auth-box input[type="email"],
+        .auth-box input[type="password"],
+        .auth-box input[type="text"] {
             width: 100%; padding: 12px 14px; border: 1.5px solid #e5e7eb;
             border-radius: 10px; font-size: 15px; outline: none; margin-bottom: 16px;
             background: #f8f9fa; transition: all 0.2s;
@@ -97,155 +94,165 @@
         .topbar-btn.hub { background: rgba(45,191,127,0.2); color: #2DBF7F; }
         .topbar-btn.hub:hover { background: rgba(45,191,127,0.3); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+        /* Summary bar */
+        .summary-bar {
+            display: flex; gap: 24px; margin-bottom: 24px; padding: 16px 20px;
+            background: var(--card); border-radius: 14px; border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .summary-item { display: flex; align-items: baseline; gap: 8px; }
+        .summary-item .s-value { font-size: 22px; font-weight: 800; color: var(--primary-dark); }
+        .summary-item .s-label { font-size: 13px; color: var(--text-secondary); }
 
         /* Tabs */
         .admin-tabs {
-            display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid var(--border);
+            display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--border);
         }
         .admin-tab {
-            padding: 12px 20px; background: none; border: none; border-bottom: 3px solid transparent;
+            padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent;
             color: var(--text-secondary); font-weight: 600; cursor: pointer; transition: all 0.2s;
-            font-size: 14px;
+            font-size: 14px; position: relative;
         }
-        .admin-tab.active {
-            color: var(--primary); border-bottom-color: var(--primary);
+        .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .admin-tab .tab-badge {
+            background: var(--red); color: white; border-radius: 50%;
+            width: 20px; height: 20px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 11px; margin-left: 6px; font-weight: 700;
         }
+        .admin-tab .tab-badge:empty { display: none; }
         .admin-tab-content { display: none; }
         .admin-tab-content.active { display: block; }
 
-        /* Stats cards */
-        .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px; margin-bottom: 24px;
+        /* Section headers */
+        .section-header {
+            font-size: 15px; font-weight: 700; color: var(--primary-dark);
+            margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
         }
-        .stat-card {
-            background: var(--card); border-radius: 14px; padding: 20px;
-            border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .stat-card .stat-label { font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
-        .stat-card .stat-value { font-size: 28px; font-weight: 800; color: var(--primary-dark); margin: 4px 0; }
-        .stat-card .stat-sub { font-size: 12px; color: var(--text-secondary); }
-
-        /* Filters */
-        .filters {
-            background: var(--card); border-radius: 14px; padding: 20px;
-            border: 1px solid var(--border); margin-bottom: 24px;
-            display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
-        }
-        .filter-group { display: flex; flex-direction: column; gap: 4px; }
-        .filter-group label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
-        .filter-group select, .filter-group input {
-            padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-            font-size: 14px; outline: none; background: white;
-        }
-        .filter-group select:focus, .filter-group input:focus { border-color: var(--primary); }
-        .filter-btn {
-            padding: 8px 20px; background: var(--primary); color: white; border: none;
-            border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
-        }
-        .filter-btn:hover { background: var(--primary-dark); }
-        .filter-btn.secondary { background: var(--border); color: var(--text); }
-        .filter-btn.secondary:hover { background: #d1d5db; }
 
         /* Table */
         .table-card {
             background: var(--card); border-radius: 14px;
             border: 1px solid var(--border); overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 24px;
         }
-        .table-header {
+        .table-card .tc-header {
             padding: 16px 20px; border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .table-header h3 { font-size: 16px; font-weight: 700; }
-        .table-header .count { font-size: 13px; color: var(--text-secondary); }
+        .table-card .tc-header h3 { font-size: 15px; font-weight: 700; }
+        .table-card .tc-header .count { font-size: 13px; color: var(--text-secondary); }
         table { width: 100%; border-collapse: collapse; }
         th {
-            text-align: left; padding: 12px 16px; font-size: 12px;
+            text-align: left; padding: 10px 16px; font-size: 11px;
             font-weight: 700; color: var(--text-secondary); text-transform: uppercase;
             letter-spacing: 0.05em; background: #f9fafb; border-bottom: 1px solid var(--border);
         }
-        td {
-            padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border);
-        }
+        td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
         tr:hover td { background: #f9fafb; }
         .badge {
             display: inline-block; padding: 3px 10px; border-radius: 20px;
             font-size: 12px; font-weight: 600;
         }
-        .badge.login { background: #dcfce7; color: #166534; }
-        .badge.login_failed { background: #fef2f2; color: #991b1b; }
-        .badge.logout { background: #f3f4f6; color: #4b5563; }
-        .badge.unimed { background: #dcfce7; color: #166534; }
-        .badge.unihealth { background: #e0f2fe; color: #075985; }
-        .badge.icds { background: #ede9fe; color: #5b21b6; }
-        .badge.admin { background: #fef3c7; color: #92400e; }
+        .badge.active { background: #dcfce7; color: #166534; }
         .badge.pending { background: #fef3c7; color: #92400e; }
-        .badge.approved { background: #dcfce7; color: #166534; }
-        .badge.rejected { background: #fef2f2; color: #991b1b; }
+        .badge.revoked { background: #fef2f2; color: #991b1b; }
 
-        /* Sessions */
-        .sessions-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px; margin-bottom: 24px;
-        }
-        .session-card {
-            background: var(--card); border-radius: 12px; padding: 16px;
-            border: 1px solid var(--border); border-left: 3px solid var(--green);
-        }
-        .session-card .sc-portal { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--primary); }
-        .session-card .sc-email { font-size: 14px; font-weight: 600; margin: 4px 0; }
-        .session-card .sc-info { font-size: 12px; color: var(--text-secondary); }
-
-        /* Request Card */
+        /* Request card */
         .request-card {
-            background: var(--card); border-radius: 12px; padding: 16px;
+            background: var(--card); border-radius: 12px; padding: 16px 20px;
             border: 1px solid var(--border); border-left: 3px solid var(--orange);
-            margin-bottom: 12px;
+            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
         }
-        .request-card .rc-header {
-            display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;
-        }
+        .request-card .rc-info { flex: 1; min-width: 200px; }
         .request-card .rc-name { font-size: 14px; font-weight: 600; }
-        .request-card .rc-email { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-        .request-card .rc-tenant { font-size: 12px; font-weight: 600; color: var(--primary); margin-top: 4px; }
-        .request-card .rc-status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-        .request-card .rc-actions {
-            display: flex; gap: 8px; margin-top: 12px;
+        .request-card .rc-email { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .request-card .rc-meta { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .request-card .rc-meta strong { color: var(--primary); }
+        .request-card .rc-actions { display: flex; gap: 8px; }
+        .rc-btn {
+            padding: 8px 16px; border: none; border-radius: 8px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
         }
-        .request-card .rc-btn {
-            flex: 1; padding: 8px 12px; border: none; border-radius: 6px;
+        .rc-btn.approve { background: var(--green); color: white; }
+        .rc-btn.approve:hover { background: #1fa06e; }
+        .rc-btn.reject { background: #fee2e2; color: var(--red); }
+        .rc-btn.reject:hover { background: #fecaca; }
+
+        /* Password card */
+        .pw-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .pw-card {
+            background: var(--card); border-radius: 14px; padding: 20px;
+            border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .pw-card .pw-portal { font-size: 14px; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px; }
+        .pw-card .pw-field {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+        }
+        .pw-card .pw-field input {
+            flex: 1; padding: 10px 12px; border: 1.5px solid var(--border);
+            border-radius: 8px; font-size: 14px; font-family: monospace; outline: none;
+            background: #f8f9fa;
+        }
+        .pw-card .pw-field input:focus { border-color: var(--primary); background: white; }
+        .pw-card .pw-toggle {
+            background: none; border: 1px solid var(--border); border-radius: 8px;
+            padding: 8px 10px; cursor: pointer; color: var(--text-secondary);
+            transition: all 0.2s; display: flex; align-items: center;
+        }
+        .pw-card .pw-toggle:hover { border-color: var(--primary); color: var(--primary); }
+        .pw-card .pw-toggle svg { width: 18px; height: 18px; }
+        .pw-card .pw-save {
+            width: 100%; padding: 10px; background: var(--primary); color: white;
+            border: none; border-radius: 8px; font-size: 13px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .pw-card .pw-save:hover { background: var(--primary-dark); }
+        .pw-card .pw-save:disabled { opacity: 0.5; cursor: not-allowed; }
+        .pw-card .pw-status {
+            font-size: 12px; margin-top: 8px; text-align: center; min-height: 18px;
+        }
+        .pw-card .pw-status.success { color: var(--green); }
+        .pw-card .pw-status.error { color: var(--red); }
+
+        /* Action buttons */
+        .action-btn {
+            padding: 6px 12px; border: none; border-radius: 6px;
             font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
         }
-        .request-card .rc-btn.approve { background: var(--green); color: white; }
-        .request-card .rc-btn.approve:hover { background: #1fa06e; }
-        .request-card .rc-btn.reject { background: var(--red); color: white; }
-        .request-card .rc-btn.reject:hover { background: #b91c1c; }
+        .action-btn.revoke { background: #fee2e2; color: var(--red); }
+        .action-btn.revoke:hover { background: #fecaca; }
 
-        /* Pagination */
-        .pagination {
-            display: flex; justify-content: center; gap: 8px; padding: 16px;
+        /* Empty state */
+        .empty-state {
+            text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 14px;
         }
-        .page-btn {
-            padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
-            background: white; font-size: 13px; cursor: pointer; transition: all 0.2s;
-        }
-        .page-btn:hover { border-color: var(--primary); color: var(--primary); }
-        .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* Loading */
-        .loading { text-align: center; padding: 40px; color: var(--text-secondary); }
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; padding: 14px 24px;
+            border-radius: 10px; color: white; font-size: 14px; font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 99999;
+            transform: translateY(100px); opacity: 0; transition: all 0.3s;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { background: var(--green); }
+        .toast.error { background: var(--red); }
 
         /* Responsive */
         @media (max-width: 768px) {
             .container { padding: 16px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .filters { flex-direction: column; }
+            .summary-bar { flex-direction: column; gap: 12px; }
+            .pw-grid { grid-template-columns: 1fr; }
+            .request-card { flex-direction: column; align-items: stretch; }
             .table-card { overflow-x: auto; }
-            table { min-width: 600px; }
-            .admin-tabs { flex-wrap: wrap; }
+            table { min-width: 500px; }
+            .topbar { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
 </head>
@@ -283,145 +290,89 @@
 <!-- Dashboard -->
 <div id="dashboard">
     <div class="topbar">
-        <h1>Hub CSV - Painel Administrativo</h1>
+        <h1>Hub CSV - Admin</h1>
         <div class="topbar-actions">
             <span class="topbar-user" id="topbar-user"></span>
-            <a href="/" class="topbar-btn hub">Hub CSV</a>
+            <a href="/" class="topbar-btn hub">Hub</a>
             <button class="topbar-btn logout" id="btn-logout">Sair</button>
         </div>
     </div>
 
     <div class="container">
+        <!-- Summary -->
+        <div class="summary-bar">
+            <div class="summary-item">
+                <span class="s-value" id="s-users">-</span>
+                <span class="s-label">usuarios ativos</span>
+            </div>
+            <div class="summary-item">
+                <span class="s-value" id="s-pending">-</span>
+                <span class="s-label">solicitacoes pendentes</span>
+            </div>
+            <div class="summary-item">
+                <span class="s-value" id="s-sessions">-</span>
+                <span class="s-label">sessoes ativas</span>
+            </div>
+        </div>
+
         <!-- Tabs -->
         <div class="admin-tabs">
-            <button class="admin-tab active" data-tab="overview">Visão Geral</button>
-            <button class="admin-tab" data-tab="requests">Solicitações <span id="requests-badge" style="background:var(--red);color:white;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;margin-left:4px;"></span></button>
-            <button class="admin-tab" data-tab="users">Usuários</button>
-            <button class="admin-tab" data-tab="logs">Logs</button>
-        </div>
-
-        <!-- TAB: Overview -->
-        <div class="admin-tab-content active" data-tab="overview">
-            <div class="stats-grid" id="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total de Acessos</div>
-                    <div class="stat-value" id="stat-total">-</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Sessões Ativas</div>
-                    <div class="stat-value" id="stat-sessions">-</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Solicitações Pendentes</div>
-                    <div class="stat-value" id="stat-pending-requests">-</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Usuários Totais</div>
-                    <div class="stat-value" id="stat-total-users">-</div>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 24px;">
-                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Sessões Ativas</h3>
-                <div class="sessions-grid" id="sessions-grid">
-                    <div class="loading">Carregando...</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Requests -->
-        <div class="admin-tab-content" data-tab="requests">
-            <div class="table-card">
-                <div class="table-header">
-                    <h3>Solicitações de Acesso Pendentes</h3>
-                    <span class="count" id="requests-count"></span>
-                </div>
-                <div id="requests-list" style="padding:20px;">
-                    <div class="loading">Carregando...</div>
-                </div>
-            </div>
+            <button class="admin-tab active" data-tab="users">Usuarios e Acessos <span class="tab-badge" id="pending-badge"></span></button>
+            <button class="admin-tab" data-tab="passwords">Senhas dos Portais</button>
         </div>
 
         <!-- TAB: Users -->
-        <div class="admin-tab-content" data-tab="users">
-            <div class="table-card">
-                <div class="table-header">
-                    <h3>Usuários</h3>
-                    <span class="count" id="users-count"></span>
+        <div class="admin-tab-content active" data-tab="users">
+            <!-- Pending Requests -->
+            <div id="requests-section">
+                <h3 class="section-header">Solicitacoes Pendentes</h3>
+                <div id="requests-list">
+                    <div class="empty-state">Carregando...</div>
                 </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>E-mail</th>
-                                <th>Nome</th>
-                                <th>Status</th>
-                                <th>Tenants</th>
-                                <th>Criado em</th>
-                            </tr>
-                        </thead>
-                        <tbody id="users-tbody">
-                            <tr><td colspan="5" class="loading">Carregando...</td></tr>
-                        </tbody>
-                    </table>
+            </div>
+
+            <!-- Users Table -->
+            <div style="margin-top: 32px;">
+                <h3 class="section-header">Usuarios Aprovados</h3>
+                <div class="table-card">
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>E-mail</th>
+                                    <th>Nome</th>
+                                    <th>Status</th>
+                                    <th>Portais</th>
+                                    <th>Criado em</th>
+                                    <th>Acoes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-tbody">
+                                <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="pagination" id="users-pagination"></div>
             </div>
         </div>
 
-        <!-- TAB: Logs -->
-        <div class="admin-tab-content" data-tab="logs">
-            <div class="filters">
-                <div class="filter-group">
-                    <label>Tenant</label>
-                    <select id="filter-tenant">
-                        <option value="">Todos</option>
-                        <option value="unimed">Unimed</option>
-                        <option value="unihealth">Unihealth</option>
-                        <option value="icds">ICDS</option>
-                        <option value="axiacare">AxiaCare</option>
-                        <option value="thera">TheraTech</option>
-                        <option value="medvalor">MedValor</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>E-mail</label>
-                    <input type="text" id="filter-email" placeholder="Buscar e-mail...">
-                </div>
-                <button class="filter-btn" id="btn-filter">Filtrar</button>
-                <button class="filter-btn secondary" id="btn-clear">Limpar</button>
-            </div>
-
-            <div class="table-card">
-                <div class="table-header">
-                    <h3>Logs de Acesso</h3>
-                    <span class="count" id="logs-count"></span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Data/Hora</th>
-                                <th>Tenant</th>
-                                <th>E-mail</th>
-                                <th>Ação</th>
-                                <th>Dispositivo</th>
-                                <th>IP</th>
-                            </tr>
-                        </thead>
-                        <tbody id="logs-tbody">
-                            <tr><td colspan="6" class="loading">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pagination" id="pagination"></div>
+        <!-- TAB: Passwords -->
+        <div class="admin-tab-content" data-tab="passwords">
+            <h3 class="section-header">Senhas dos Portais</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Altere a senha de acesso de cada portal. A nova senha entra em vigor imediatamente.
+            </p>
+            <div class="pw-grid" id="pw-grid">
+                <div class="empty-state">Carregando...</div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
-// Toggle password visibility
 function toggleAdminPw() {
     const pw = document.getElementById('admin-password');
     const icon = document.getElementById('pw-eye-icon');
@@ -441,18 +392,30 @@ function toggleAdminPw() {
     const TOKEN_KEY = 'hub_auth_admin_token';
     const EMAIL_KEY = 'hub_auth_admin_email';
     const EXPIRES_KEY = 'hub_auth_admin_expires';
-    const LIMIT = 50;
-    let currentOffset = 0;
-    let currentRequestsOffset = 0;
-    let currentUsersOffset = 0;
+
+    const PORTAL_NAMES = {
+        unimed: 'Unimed GV',
+        unihealth: 'Unihealth GV',
+        icds: 'ICDS',
+        axia: 'AxiaCare',
+        thera: 'Thera',
+        medvalor: 'MedValor',
+    };
+
+    // ===== Toast =====
+    function showToast(msg, type) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type + ' show';
+        setTimeout(() => t.classList.remove('show'), 3500);
+    }
 
     // ===== Auth =====
     function getToken() {
         const token = localStorage.getItem(TOKEN_KEY);
         const expires = localStorage.getItem(EXPIRES_KEY);
         if (!token || !expires || new Date() > new Date(expires)) {
-            clearAuth();
-            return null;
+            clearAuth(); return null;
         }
         return token;
     }
@@ -463,36 +426,30 @@ function toggleAdminPw() {
         localStorage.removeItem(EXPIRES_KEY);
     }
 
-    async function login(email, password) {
-        const resp = await fetch(AUTH_API + '/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ portal: 'admin', email, password }),
+    async function apiCall(path, options = {}) {
+        const token = getToken();
+        if (!token) { showAuth(); return null; }
+        const resp = await fetch(AUTH_API + path, {
+            ...options,
+            headers: { 'Content-Type': 'application/json', 'X-Auth-Token': token, ...(options.headers || {}) },
         });
+        if (resp.status === 401 || resp.status === 403) { clearAuth(); showAuth(); return null; }
         return resp.json();
     }
 
     // ===== Init =====
     function init() {
-        const token = getToken();
-        if (token) {
-            showDashboard();
-        } else {
-            showAuth();
-        }
+        if (getToken()) showDashboard();
+        else showAuth();
 
-        // Tab switching
         document.querySelectorAll('.admin-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 const tabName = this.getAttribute('data-tab');
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
-                document.querySelector(`.admin-tab-content[data-tab="${tabName}"]`).classList.add('active');
-                
-                if (tabName === 'requests') loadRequests(0);
-                else if (tabName === 'users') loadUsers(0);
-                else if (tabName === 'logs') loadLogs(0);
+                document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]').classList.add('active');
+                if (tabName === 'passwords') loadPasswords();
             });
         });
     }
@@ -506,8 +463,11 @@ function toggleAdminPw() {
         document.getElementById('admin-auth-overlay').classList.add('hidden');
         document.getElementById('dashboard').classList.add('visible');
         document.getElementById('topbar-user').textContent = localStorage.getItem(EMAIL_KEY) || '';
-        loadStats();
-        loadLogs();
+        loadAll();
+    }
+
+    async function loadAll() {
+        await Promise.all([loadStats(), loadRequests(), loadUsers()]);
     }
 
     // ===== Auth form =====
@@ -516,9 +476,15 @@ function toggleAdminPw() {
         const email = document.getElementById('admin-email').value.trim();
         const password = document.getElementById('admin-password').value;
         const errorEl = document.getElementById('auth-error');
+        errorEl.style.display = 'none';
 
         try {
-            const result = await login(email, password);
+            const resp = await fetch(AUTH_API + '/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ portal: 'admin', email, password }),
+            });
+            const result = await resp.json();
             if (result.success) {
                 localStorage.setItem(TOKEN_KEY, result.token);
                 localStorage.setItem(EMAIL_KEY, email);
@@ -529,7 +495,7 @@ function toggleAdminPw() {
                 errorEl.style.display = 'block';
             }
         } catch (err) {
-            errorEl.textContent = 'Erro de conexão';
+            errorEl.textContent = 'Erro de conexao';
             errorEl.style.display = 'block';
         }
     });
@@ -537,278 +503,198 @@ function toggleAdminPw() {
     // ===== Logout =====
     document.getElementById('btn-logout').addEventListener('click', function() {
         const token = getToken();
-        if (token) {
-            fetch(AUTH_API + '/logout', { method: 'POST', headers: { 'X-Auth-Token': token } }).catch(() => {});
-        }
+        if (token) fetch(AUTH_API + '/logout', { method: 'POST', headers: { 'X-Auth-Token': token } }).catch(() => {});
         clearAuth();
         showAuth();
     });
 
     // ===== Load Stats =====
     async function loadStats() {
-        const token = getToken();
-        if (!token) return;
+        const data = await apiCall('/admin/stats');
+        if (!data) return;
+        document.getElementById('s-users').textContent = data.users_active || 0;
+        document.getElementById('s-pending').textContent = data.pending_requests || 0;
+        document.getElementById('s-sessions').textContent = data.active_sessions || 0;
 
-        try {
-            const resp = await fetch(AUTH_API + '/admin/stats', {
-                headers: { 'X-Auth-Token': token },
-            });
-            const data = await resp.json();
-
-            document.getElementById('stat-total').textContent = data.total_logs || 0;
-            document.getElementById('stat-sessions').textContent = (data.active_sessions || []).length;
-            document.getElementById('stat-pending-requests').textContent = data.pending_requests || 0;
-            document.getElementById('stat-total-users').textContent = data.total_users || 0;
-
-            // Update badge
-            const badge = document.getElementById('requests-badge');
-            const count = data.pending_requests || 0;
-            badge.textContent = count > 0 ? count : '';
-
-            // Render sessions
-            const sessionsGrid = document.getElementById('sessions-grid');
-            const sessions = data.active_sessions || [];
-            if (sessions.length === 0) {
-                sessionsGrid.innerHTML = '<div style="color:#6b7280;font-size:14px;">Nenhuma sessão ativa</div>';
-            } else {
-                sessionsGrid.innerHTML = sessions.map(s => `
-                    <div class="session-card">
-                        <div class="sc-portal">${s.tenant_id}</div>
-                        <div class="sc-email">${s.user_email}</div>
-                        <div class="sc-info">${s.device_info || 'N/A'}</div>
-                        <div class="sc-info">Expira: ${formatDate(s.expires_at)}</div>
-                    </div>
-                `).join('');
-            }
-        } catch (err) {
-            console.error('Stats error:', err);
-        }
+        const badge = document.getElementById('pending-badge');
+        const count = data.pending_requests || 0;
+        badge.textContent = count > 0 ? count : '';
     }
 
     // ===== Load Requests =====
-    async function loadRequests(offset) {
-        const token = getToken();
-        if (!token) return;
+    async function loadRequests() {
+        const data = await apiCall('/admin/pending-requests');
+        if (!data) return;
 
-        currentRequestsOffset = offset || 0;
+        const list = document.getElementById('requests-list');
+        const requests = data.requests || [];
 
-        try {
-            const resp = await fetch(`${AUTH_API}/admin/pending-requests?limit=${LIMIT}&offset=${currentRequestsOffset}`, {
-                headers: { 'X-Auth-Token': token },
-            });
-            const data = await resp.json();
-
-            document.getElementById('requests-count').textContent = `${data.total || 0} solicitações`;
-
-            const list = document.getElementById('requests-list');
-            const requests = data.requests || [];
-
-            if (requests.length === 0) {
-                list.innerHTML = '<div style="text-align:center;color:#6b7280;padding:24px;">Nenhuma solicitação pendente</div>';
-            } else {
-                list.innerHTML = requests.map(req => `
-                    <div class="request-card">
-                        <div class="rc-header">
-                            <div>
-                                <div class="rc-name">${req.user_email}</div>
-                                <div class="rc-email">Solicitado em: ${formatDate(req.requested_at)}</div>
-                                <div class="rc-tenant">Portal: ${req.tenant_id}</div>
-                            </div>
-                            <span class="badge ${req.status}">${req.status}</span>
-                        </div>
-                        <div class="rc-actions">
-                            <button class="rc-btn approve" onclick="window._approveRequest('${req.id}', '${req.request_token}')">Aprovar</button>
-                            <button class="rc-btn reject" onclick="window._rejectRequest('${req.id}', '${req.request_token}')">Rejeitar</button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-
-            renderRequestsPagination(data.total || 0, currentRequestsOffset);
-        } catch (err) {
-            console.error('Requests error:', err);
+        if (requests.length === 0) {
+            list.innerHTML = '<div class="empty-state">Nenhuma solicitacao pendente</div>';
+            return;
         }
+
+        list.innerHTML = requests.map(req => `
+            <div class="request-card">
+                <div class="rc-info">
+                    <div class="rc-name">${req.name || req.user_email}</div>
+                    <div class="rc-email">${req.user_email}</div>
+                    <div class="rc-meta">Portal: <strong>${PORTAL_NAMES[req.tenant_id] || req.tenant_id}</strong> | Solicitado em: ${formatDate(req.requested_at)}</div>
+                </div>
+                <div class="rc-actions">
+                    <button class="rc-btn approve" onclick="window._approve('${req.id}')">Aprovar</button>
+                    <button class="rc-btn reject" onclick="window._reject('${req.id}')">Rejeitar</button>
+                </div>
+            </div>
+        `).join('');
     }
 
     // ===== Load Users =====
-    async function loadUsers(offset) {
-        const token = getToken();
-        if (!token) return;
+    async function loadUsers() {
+        const data = await apiCall('/admin/users');
+        if (!data) return;
 
-        currentUsersOffset = offset || 0;
+        const tbody = document.getElementById('users-tbody');
+        const users = data.users || [];
 
-        try {
-            const resp = await fetch(`${AUTH_API}/admin/users?limit=${LIMIT}&offset=${currentUsersOffset}`, {
-                headers: { 'X-Auth-Token': token },
-            });
-            const data = await resp.json();
-
-            document.getElementById('users-count').textContent = `${data.total || 0} usuários`;
-
-            const tbody = document.getElementById('users-tbody');
-            const users = data.users || [];
-
-            if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#6b7280;padding:24px;">Nenhum usuário encontrado</td></tr>';
-            } else {
-                tbody.innerHTML = users.map(user => `
-                    <tr>
-                        <td>${user.email}</td>
-                        <td>${user.name || '-'}</td>
-                        <td><span class="badge ${user.status}">${user.status}</span></td>
-                        <td style="font-size:12px;">${user.tenants ? user.tenants.split(',').join(', ') : 'Nenhum'}</td>
-                        <td style="font-size:12px;">${formatDate(user.created_at)}</td>
-                    </tr>
-                `).join('');
-            }
-
-            renderUsersPagination(data.total || 0, currentUsersOffset);
-        } catch (err) {
-            console.error('Users error:', err);
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum usuario encontrado</td></tr>';
+            return;
         }
+
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td style="font-weight:600;">${u.email}</td>
+                <td>${u.name || '-'}</td>
+                <td><span class="badge ${u.status}">${u.status === 'active' ? 'Ativo' : u.status === 'pending' ? 'Pendente' : 'Revogado'}</span></td>
+                <td style="font-size:12px;">${u.tenants ? u.tenants.split(',').map(t => PORTAL_NAMES[t] || t).join(', ') : '-'}</td>
+                <td style="font-size:12px;">${formatDate(u.created_at)}</td>
+                <td>${u.status === 'active' ? '<button class="action-btn revoke" onclick="window._revoke(\'' + u.email + '\')">Revogar</button>' : ''}</td>
+            </tr>
+        `).join('');
     }
 
-    // ===== Load Logs =====
-    async function loadLogs(offset) {
-        const token = getToken();
-        if (!token) return;
+    // ===== Load Passwords =====
+    async function loadPasswords() {
+        const data = await apiCall('/admin/passwords');
+        if (!data) return;
 
-        currentOffset = offset || 0;
-        const tenant = document.getElementById('filter-tenant').value;
-        const email = document.getElementById('filter-email').value;
+        const grid = document.getElementById('pw-grid');
+        const portals = data.portals || [];
 
-        let url = `${AUTH_API}/admin/logs?limit=${LIMIT}&offset=${currentOffset}`;
-        if (tenant) url += `&tenant=${tenant}`;
-        if (email) url += `&email=${encodeURIComponent(email)}`;
-
-        try {
-            const resp = await fetch(url, { headers: { 'X-Auth-Token': token } });
-            const data = await resp.json();
-
-            document.getElementById('logs-count').textContent = `${data.total || 0} registros`;
-
-            const tbody = document.getElementById('logs-tbody');
-            const logs = data.logs || [];
-
-            if (logs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#6b7280;padding:24px;">Nenhum registro encontrado</td></tr>';
-            } else {
-                tbody.innerHTML = logs.map(log => `
-                    <tr>
-                        <td>${formatDate(log.timestamp)}</td>
-                        <td><span class="badge ${log.tenant_id}">${log.tenant_id}</span></td>
-                        <td>${log.user_email}</td>
-                        <td><span class="badge ${log.action}">${formatAction(log.action)}</span></td>
-                        <td style="font-size:12px;">${log.device_info || 'N/A'}</td>
-                        <td style="font-size:12px;">${log.ip_address || 'N/A'}</td>
-                    </tr>
-                `).join('');
-            }
-
-            renderPagination(data.total || 0, currentOffset);
-        } catch (err) {
-            console.error('Logs error:', err);
-        }
+        grid.innerHTML = portals.map(p => `
+            <div class="pw-card" data-portal="${p.portal_id}">
+                <div class="pw-portal">${p.portal_name}</div>
+                <div class="pw-field">
+                    <input type="password" id="pw-${p.portal_id}" value="${p.password}" spellcheck="false">
+                    <button class="pw-toggle" onclick="togglePw('${p.portal_id}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                </div>
+                <button class="pw-save" onclick="savePw('${p.portal_id}')">Salvar nova senha</button>
+                <div class="pw-status" id="pw-status-${p.portal_id}"></div>
+            </div>
+        `).join('');
     }
 
-    function renderPagination(total, offset) {
-        const pag = document.getElementById('pagination');
-        const totalPages = Math.ceil(total / LIMIT);
-        const currentPage = Math.floor(offset / LIMIT) + 1;
-
-        if (totalPages <= 1) { pag.innerHTML = ''; return; }
-
-        let html = '';
-        html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="window._loadLogs(${(currentPage - 2) * LIMIT})">Anterior</button>`;
-        for (let i = 1; i <= Math.min(totalPages, 10); i++) {
-            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="window._loadLogs(${(i - 1) * LIMIT})">${i}</button>`;
-        }
-        html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="window._loadLogs(${currentPage * LIMIT})">Próximo</button>`;
-        pag.innerHTML = html;
-    }
-
-    function renderRequestsPagination(total, offset) {
-        // Similar to renderPagination but for requests
-        // Omitted for brevity
-    }
-
-    function renderUsersPagination(total, offset) {
-        // Similar to renderPagination but for users
-        // Omitted for brevity
-    }
-
-    // Expose for pagination onclick
-    window._loadLogs = loadLogs;
-    window._loadRequests = loadRequests;
-    window._loadUsers = loadUsers;
-    window._approveRequest = async function(id, token) {
-        const adminToken = getToken();
-        if (!adminToken) return;
-        const password = prompt('Digite a senha do painel para confirmar:');
-        if (!password) return;
-        try {
-            const resp = await fetch(`${AUTH_API}/admin/approve`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Auth-Token': adminToken },
-                body: JSON.stringify({ request_token: token, password }),
-            });
-            const data = await resp.json();
-            if (data.success) {
-                alert('Solicitação aprovada com sucesso!');
-                loadRequests(0);
-                loadStats();
-            } else {
-                alert('Erro: ' + (data.error || 'Falha ao aprovar'));
-            }
-        } catch (err) {
-            alert('Erro de conexão');
-        }
-    };
-    window._rejectRequest = async function(id, token) {
-        const adminToken = getToken();
-        if (!adminToken) return;
-        if (!confirm('Tem certeza que deseja rejeitar esta solicitação?')) return;
-        try {
-            const resp = await fetch(`${AUTH_API}/admin/reject`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Auth-Token': adminToken },
-                body: JSON.stringify({ request_token: token }),
-            });
-            const data = await resp.json();
-            if (data.success) {
-                alert('Solicitação rejeitada!');
-                loadRequests(0);
-                loadStats();
-            } else {
-                alert('Erro: ' + (data.error || 'Falha ao rejeitar'));
-            }
-        } catch (err) {
-            alert('Erro de conexão');
+    // ===== Actions =====
+    window._approve = async function(requestId) {
+        if (!confirm('Aprovar esta solicitacao de acesso?')) return;
+        const data = await apiCall('/admin/approve', {
+            method: 'POST',
+            body: JSON.stringify({ request_id: requestId }),
+        });
+        if (data && data.success) {
+            showToast('Acesso aprovado', 'success');
+            loadAll();
+        } else {
+            showToast(data?.error || 'Erro ao aprovar', 'error');
         }
     };
 
-    // ===== Filters =====
-    document.getElementById('btn-filter').addEventListener('click', () => loadLogs(0));
-    document.getElementById('btn-clear').addEventListener('click', () => {
-        document.getElementById('filter-tenant').value = '';
-        document.getElementById('filter-email').value = '';
-        loadLogs(0);
-    });
+    window._reject = async function(requestId) {
+        if (!confirm('Rejeitar esta solicitacao?')) return;
+        const data = await apiCall('/admin/reject', {
+            method: 'POST',
+            body: JSON.stringify({ request_id: requestId }),
+        });
+        if (data && data.success) {
+            showToast('Solicitacao rejeitada', 'success');
+            loadAll();
+        } else {
+            showToast(data?.error || 'Erro ao rejeitar', 'error');
+        }
+    };
+
+    window._revoke = async function(email) {
+        if (!confirm('Revogar todos os acessos de ' + email + '?')) return;
+        const data = await apiCall('/admin/revoke', {
+            method: 'POST',
+            body: JSON.stringify({ email }),
+        });
+        if (data && data.success) {
+            showToast('Acesso revogado', 'success');
+            loadAll();
+        } else {
+            showToast(data?.error || 'Erro ao revogar', 'error');
+        }
+    };
+
+    window.togglePw = function(portalId) {
+        const input = document.getElementById('pw-' + portalId);
+        input.type = input.type === 'password' ? 'text' : 'password';
+    };
+
+    window.savePw = async function(portalId) {
+        const input = document.getElementById('pw-' + portalId);
+        const statusEl = document.getElementById('pw-status-' + portalId);
+        const newPw = input.value.trim();
+
+        if (!newPw || newPw.length < 6) {
+            statusEl.textContent = 'Senha deve ter no minimo 6 caracteres';
+            statusEl.className = 'pw-status error';
+            return;
+        }
+
+        const btn = input.closest('.pw-card').querySelector('.pw-save');
+        btn.disabled = true;
+        btn.textContent = 'Salvando...';
+
+        const data = await apiCall('/admin/update-password', {
+            method: 'POST',
+            body: JSON.stringify({ portal_id: portalId, new_password: newPw }),
+        });
+
+        btn.disabled = false;
+        btn.textContent = 'Salvar nova senha';
+
+        if (data && data.success) {
+            statusEl.textContent = 'Senha atualizada com sucesso';
+            statusEl.className = 'pw-status success';
+            showToast('Senha atualizada', 'success');
+        } else {
+            statusEl.textContent = data?.error || 'Erro ao atualizar';
+            statusEl.className = 'pw-status error';
+        }
+
+        setTimeout(() => { statusEl.textContent = ''; }, 4000);
+    };
 
     // ===== Helpers =====
-    function formatDate(dateStr) {
-        if (!dateStr) return 'N/A';
+    function formatDate(val) {
+        if (!val) return '-';
         try {
-            const d = new Date(dateStr.includes('T') ? dateStr : dateStr + 'Z');
+            // Handle unix timestamp (seconds)
+            if (typeof val === 'number' || /^\d+$/.test(val)) {
+                const ts = typeof val === 'number' ? val : parseInt(val);
+                const d = new Date(ts > 1e12 ? ts : ts * 1000);
+                return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+            }
+            const d = new Date(val.includes('T') ? val : val + 'Z');
             return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-        } catch (e) {
-            return dateStr;
-        }
-    }
-
-    function formatAction(action) {
-        const map = { login: 'Login', logout: 'Logout', login_failed: 'Falha' };
-        return map[action] || action;
+        } catch (e) { return val; }
     }
 
     // ===== Start =====
