@@ -10,13 +10,13 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
     <meta name="description" content="Deck™ — Painel de contexto ativo | Grupo CSV">
     <meta property="og:title" content="Deck™ — Grupo CSV">
-    <meta property="og:description" content="Seu painel de contexto ativo. Organize o que está em aberto agora.">
+    <meta property="og:description" content="Deck™ — Seu painel de contexto ativo. Grupo CSV.">
     <meta property="og:image" content="https://hub.grupocsv.com/og/og_hub.png">
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* ══ Reset ══ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,8 +39,8 @@
             --bg-card: #161c28;
             --bg-input: #0f1319;
             --text: #e8ebf2;
-            --text-secondary: #94a0b8;
-            --text-muted: #4a5268;
+            --text-secondary: #b0bdd0;
+            --text-muted: #6b7a94;
             --border: #1e2538;
             --border-hover: #2e3650;
             --accent: #2DBF7F;
@@ -114,9 +114,9 @@
             text-align: center;
         }
         .lock-logo {
-            height: 30px;
+            height: 38px;
             margin-bottom: 28px;
-            opacity: 0.5;
+            opacity: 0.75;
             display: block;
             margin-left: auto;
             margin-right: auto;
@@ -138,8 +138,10 @@
             background-clip: text;
         }
         .lock-slogan {
-            font-size: 12px; color: var(--text-muted);
-            margin-bottom: 6px; letter-spacing: 0.03em;
+            font-size: 12.5px; color: var(--text-secondary);
+            margin-bottom: 6px; letter-spacing: 0.12em;
+            font-weight: 500;
+            text-transform: uppercase;
         }
         #lock-subtitle {
             font-size: 13px; color: var(--text-secondary);
@@ -229,12 +231,12 @@
             text-decoration: none;
         }
         .topbar-brand-logo {
-            height: 20px;
-            opacity: 0.45;
+            height: 24px;
+            opacity: 0.7;
             transition: opacity var(--transition);
         }
         [data-theme="dark"] .topbar-brand-logo { content: url('/assets/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png'); }
-        .topbar-brand:hover .topbar-brand-logo { opacity: 0.65; }
+        .topbar-brand:hover .topbar-brand-logo { opacity: 0.9; }
         .topbar-divider {
             width: 1px; height: 22px;
             background: var(--border);
@@ -260,13 +262,14 @@
             margin-left: 8px;
         }
         .topbar-slogan {
-            font-size: 10.5px;
-            font-weight: 400;
-            letter-spacing: 0.06em;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-left: 16px;
             display: none;
+            opacity: 0.8;
         }
         @media (min-width: 900px) {
             .topbar-slogan { display: block; }
@@ -280,9 +283,19 @@
         }
         .topbar-date-sep { color: var(--text-muted); margin: 0 1px; }
         .topbar-clock {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 13px; font-weight: 500;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             font-variant-numeric: tabular-nums;
+            letter-spacing: 0.04em;
+        }
+        .clock-separator {
+            animation: clockBlink 1.2s ease-in-out infinite;
+            display: inline;
+        }
+        @keyframes clockBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
         .topbar-right {
             display: flex; align-items: center; gap: 6px;
@@ -354,10 +367,17 @@
             display: flex; flex-direction: column; gap: 14px;
             position: relative;
             transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-            border-left: 5px solid var(--card-color, var(--accent));
+            border-left: none;
             min-height: 250px;
             box-shadow: var(--card-glow);
             cursor: grab;
+            overflow: hidden;
+        }
+        .card-accent-bar {
+            position: absolute;
+            top: 0; left: 0; width: 5px; height: 100%;
+            border-radius: var(--radius) 0 0 var(--radius);
+            z-index: 2;
         }
         .card::before {
             content: '';
@@ -495,10 +515,10 @@
         .card-notes::placeholder { color: var(--text-muted); }
         .card-footer {
             display: flex; align-items: center; justify-content: space-between;
-            font-size: 10.5px;
-            color: var(--text-muted);
+            font-size: 11px;
+            color: var(--text-secondary);
             letter-spacing: 0.01em;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         /* ══ Botão novo card ══ */
@@ -907,7 +927,7 @@ const DEFAULT_PLATFORMS = [
     { id: 'claude-cowork', name: 'Claude Cowork',   color: '#F59E0B', builtin: true },
     { id: 'anti-gravity',  name: 'Anti-Gravity',    color: '#3B82F6', builtin: true },
     { id: 'email',         name: 'E-mail',          color: '#EF4444', builtin: true },
-    { id: 'chrome',        name: 'Chrome (aba)',    color: '#6B7280', builtin: true },
+    { id: 'chrome',        name: 'Chrome (aba)',    color: '#4285F4', builtin: true },
     { id: 'whatsapp',      name: 'WhatsApp',        color: '#25D366', builtin: true },
     { id: 'outro',         name: 'Outro',           color: '#9CA3AF', builtin: true },
 ];
@@ -995,7 +1015,7 @@ function formatDateTimeShort() {
 function formatCardTimestamp(ts) {
     const d = new Date(ts);
     const pad = n => String(n).padStart(2, '0');
-    return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    return `${pad(d.getHours())}:${pad(d.getMinutes())} \u2022 ${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
 }
 
 // ── Data e relógio ──
@@ -1011,7 +1031,7 @@ function updateDateTime() {
     if (clockEl) {
         const h = String(now.getHours()).padStart(2, '0');
         const m = String(now.getMinutes()).padStart(2, '0');
-        clockEl.textContent = `${h}:${m}`;
+        clockEl.innerHTML = `${h}<span class="clock-separator">:</span>${m}`;
     }
 }
 
@@ -1053,6 +1073,19 @@ function loadState() {
 function getAllPlatforms() { return [...DEFAULT_PLATFORMS, ...state.platforms]; }
 function getPlatformColor(id) { const p = getAllPlatforms().find(x => x.id === id); return p ? p.color : '#9CA3AF'; }
 function getPlatformName(id) { const p = getAllPlatforms().find(x => x.id === id); return p ? p.name : 'Outro'; }
+
+const PLATFORM_GRADIENTS = {
+    'manus':         'linear-gradient(180deg, #6C5CE7, #a855f7)',
+    'chatgpt':       'linear-gradient(180deg, #10A37F, #1a7f5a)',
+    'claude':        'linear-gradient(180deg, #D97706, #F59E0B)',
+    'claude-cowork': 'linear-gradient(180deg, #F59E0B, #FBBF24)',
+    'anti-gravity':  'linear-gradient(180deg, #3B82F6, #6366F1)',
+    'email':         'linear-gradient(180deg, #EF4444, #F97316)',
+    'chrome':        'linear-gradient(180deg, #4285F4, #34A853, #FBBC04, #EA4335)',
+    'whatsapp':      'linear-gradient(180deg, #25D366, #128C7E)',
+    'outro':         'linear-gradient(180deg, #9CA3AF, #6B7280)',
+};
+function getPlatformGradient(id) { return PLATFORM_GRADIENTS[id] || `linear-gradient(180deg, ${getPlatformColor(id)}, ${getPlatformColor(id)})`; }
 
 function hexToRgb(hex) {
     const r = parseInt(hex.slice(1,3), 16);
@@ -1245,6 +1278,7 @@ function createCardElement(card) {
     const createdStr = card.created ? formatCardTimestamp(card.created) : '';
 
     el.innerHTML = `
+        <div class="card-accent-bar" style="background:${getPlatformGradient(card.platform)}"></div>
         <div class="card-header">
             <div class="card-platform-wrapper">
                 <div class="card-platform-badge" style="${badgeStyle}">
@@ -1255,17 +1289,17 @@ function createCardElement(card) {
             </div>
             <div class="card-actions">
                 <button class="card-action-btn btn-highlight ${card.highlighted ? 'active' : ''}" title="Destacar">
-                    <svg viewBox="0 0 24 24" fill="${card.highlighted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="${card.highlighted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 </button>
                 <button class="card-action-btn btn-remove" title="Remover">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
         </div>
-        <input class="card-title" type="text" placeholder="O que est\u00e1 em aberto agora" value="${escapeHtml(card.title || '')}" data-field="title" autocomplete="off">
+        <input class="card-title" type="text" placeholder="O que est\u00e1 ativo agora" value="${escapeHtml(card.title || '')}" data-field="title" autocomplete="off">
         <textarea class="card-notes" placeholder="Descri\u00e7\u00e3o" data-field="notes">${escapeHtml(card.notes || '')}</textarea>
         <div class="card-footer">
-            <span>Aberto em ${createdStr}</span>
+            <span>Ativado em ${createdStr}</span>
         </div>
     `;
 
@@ -1279,6 +1313,7 @@ function createCardElement(card) {
         el.style.setProperty('--card-color-rgb', `${nr},${ng},${nb}`);
         $('.card-platform-badge', el).setAttribute('style', platformBadgeStyle(nc));
         $('.badge-name', el).textContent = getPlatformName(card.platform);
+        $('.card-accent-bar', el).style.background = getPlatformGradient(card.platform);
         saveState();
     });
 
