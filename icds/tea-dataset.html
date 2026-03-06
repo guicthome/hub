@@ -500,7 +500,7 @@
     /* Floating TOC nav */
     .toc-fab {
       position: fixed;
-      bottom: 24px;
+      bottom: 88px;
       right: 24px;
       z-index: 9998;
       display: flex;
@@ -1259,7 +1259,7 @@
 
     @media print {
       .login-screen { display: none !important; }
-      .hub-back-btn, .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .btn-logout, .email-panel, .ai-chat-fab, .ai-chat-panel { display: none !important; }
+      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -1268,7 +1268,7 @@
     .ai-chat-fab {
       position: fixed;
       bottom: 24px;
-      left: 24px;
+      right: 24px;
       z-index: 9999;
     }
     .ai-chat-fab-btn {
@@ -1290,7 +1290,7 @@
     .ai-chat-fab-btn.active { background: #64748b; box-shadow: 0 4px 16px rgba(100,116,139,0.35); }
     .ai-chat-fab-label {
       position: absolute;
-      left: 64px;
+      right: 64px;
       top: 50%;
       transform: translateY(-50%);
       background: #fff;
@@ -1306,22 +1306,28 @@
       transition: opacity 0.3s;
     }
     .ai-chat-fab:hover .ai-chat-fab-label { opacity: 1; }
+    /* Desktop: sidebar fixa na direita */
     .ai-chat-panel {
       display: none;
       position: fixed;
-      bottom: 90px;
-      left: 24px;
+      right: 0;
+      top: 0;
+      bottom: 0;
       width: 380px;
-      max-height: 520px;
+      max-height: 100vh;
       background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      border-radius: 0;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.08);
       z-index: 9999;
       flex-direction: column;
       overflow: hidden;
-      border: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
     }
     .ai-chat-panel.open { display: flex; }
+    .ai-sidebar-open .container { margin-right: 380px; transition: margin-right 0.3s ease; }
+    .ai-sidebar-open .toc-fab { right: 404px; transition: right 0.3s ease; }
+    .ai-sidebar-open .ai-chat-fab { display: none; }
+    .ai-sidebar-open .autosave-indicator { right: 404px; transition: right 0.3s ease; }
     .ai-chat-header {
       background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-light));
       color: #fff;
@@ -1331,6 +1337,27 @@
       gap: 10px;
       flex-shrink: 0;
     }
+    .ai-chat-header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-chat-header-actions button {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .ai-chat-header-actions button:hover { background: rgba(255,255,255,0.3); }
+    .ai-chat-header-actions button svg { width: 16px; height: 16px; }
     .ai-chat-header-icon {
       width: 32px;
       height: 32px;
@@ -1341,7 +1368,8 @@
       justify-content: center;
     }
     .ai-chat-header-icon svg { width: 18px; height: 18px; }
-    .ai-chat-header-text h4 { margin: 0; font-size: 14px; font-weight: 700; }
+    .ai-chat-header-text h4 { margin: 0; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .ai-chat-header-text h4 .ai-badge { background: rgba(255,255,255,0.2); border-radius: 6px; font-size: 10px; padding: 2px 6px; font-weight: 600; }
     .ai-chat-header-text p { margin: 0; font-size: 11px; opacity: 0.8; }
     .ai-chat-messages {
       flex: 1;
@@ -1351,7 +1379,6 @@
       flex-direction: column;
       gap: 12px;
       min-height: 200px;
-      max-height: 340px;
       background: var(--bg-secondary);
     }
     .ai-msg {
@@ -1455,15 +1482,25 @@
       font-weight: 600;
       color: var(--text-secondary);
     }
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .ai-chat-panel {
+        position: fixed;
         left: 8px;
         right: 8px;
         bottom: 80px;
+        top: auto;
         width: auto;
         max-height: 70vh;
+        border-radius: 16px;
+        border-left: none;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.18);
       }
-      .ai-chat-fab { bottom: 16px; left: 16px; }
+      .ai-sidebar-open .container { margin-right: 0; }
+      .ai-sidebar-open .toc-fab { right: 24px; }
+      .ai-sidebar-open .ai-chat-fab { display: block; }
+      .ai-sidebar-open .autosave-indicator { right: 24px; }
+      .ai-chat-fab { bottom: 16px; right: 16px; }
     }
   </style>
 </head>
@@ -1472,7 +1509,7 @@
 <!-- ==================== TELA DE LOGIN ==================== -->
 <div class="login-screen" id="loginScreen">
   <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="login-brand" style="width:160px">
-  <div class="login-title">Data Set TEA</div>
+  <div class="login-title" style="font-weight:400">Data Set <strong style="font-weight:800">TEA</strong></div>
   <div class="login-subtitle">Panorama Assistencial do Cuidado</div>
 
   <div class="login-card">
@@ -1529,21 +1566,18 @@
 
 <div class="progress-bar" id="progressBar"></div>
 
-<a href="/" class="hub-back-btn" title="Voltar ao Hub CSV"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub CSV</a>
+
 
 <header class="hero">
   <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="hero-brand" style="width:180px">
-  <h1>Data Set TEA</h1>
+  <h1 style="font-weight:400">Data Set <strong style="font-weight:800">TEA</strong></h1>
   <div class="hero-sub">Panorama Assistencial do Cuidado</div>
   <!-- BLOCO CLIENTE (dinâmico: preenchido pelo login) -->
   <div class="hero-client" id="heroClient">
     <img src="" alt="" class="hero-client-logo" id="heroClientLogo">
     <span class="hero-client-label" id="heroClientLabel"></span>
   </div>
-  <button type="button" class="btn-logout" onclick="doLogout()" title="Trocar unidade">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-    Trocar unidade
-  </button>
+
 </header>
 
 <div class="container">
@@ -1560,7 +1594,7 @@
   <div class="context-box">
     <h2>Sobre esta ferramenta</h2>
     <p style="font-size:0.92rem;color:var(--text-secondary);line-height:1.7;margin-bottom:18px">
-      O <strong>Data Set TEA</strong> é o instrumento que garante consistência e rastreabilidade na coleta de informações assistenciais sobre o cuidado ao paciente com Transtorno do Espectro Autista. Cada campo foi desenhado para capturar exatamente o que é necessário para mapear a realidade da operação — sem redundância e sem lacuna.
+      O Data Set <strong>TEA</strong> é o instrumento que garante consistência e rastreabilidade na coleta de informações assistenciais sobre o cuidado ao paciente com Transtorno do Espectro Autista. Cada campo foi desenhado para capturar exatamente o que é necessário para mapear a realidade da operação — sem redundância e sem lacuna.
     </p>
     <p style="font-size:0.88rem;color:var(--text-tertiary);line-height:1.7;margin-bottom:20px">
       Os dados coletados aqui alimentam a construção da linha de cuidado, a análise de rede, a revisão de contratos e a estruturação de modelos de remuneração. O preenchimento completo e preciso é o que permite transformar informação em decisão.
@@ -1590,7 +1624,7 @@
     <div class="section-body" id="sec1-body" role="region" aria-labelledby="sec1-title">
       <div class="sub-q">
         <span class="sub-label">Preencher a quantidade de profissionais por categoria: <span class="required">*</span></span>
-        <table class="data-table">
+        <table class="data-table desktop-table">
           <thead>
             <tr>
               <th>Profissionais</th>
@@ -1607,6 +1641,13 @@
             <tr><td class="row-label">Psicólogos</td><td><input type="number" min="0" id="prof_psi_gen" name="prof_psi_gen"></td><td><input type="number" min="0" id="prof_psi_esp" name="prof_psi_esp"></td><td><input type="text" id="prof_psi_area" name="prof_psi_area"></td></tr>
           </tbody>
         </table>
+        <div class="card-table-mobile">
+          <div class="card-row"><div class="card-row-title">Médicos</div><div class="card-field"><label>Generalista (Qtde)</label><input type="number" min="0" data-sync="prof_med_gen" oninput="syncField(this)"></div><div class="card-field"><label>Especialista (Qtde)</label><input type="number" min="0" data-sync="prof_med_esp" oninput="syncField(this)"></div><div class="card-field"><label>Área de especialidade</label><input type="text" data-sync="prof_med_area" oninput="syncField(this)"></div></div>
+          <div class="card-row"><div class="card-row-title">Fisioterapeutas</div><div class="card-field"><label>Generalista (Qtde)</label><input type="number" min="0" data-sync="prof_fisio_gen" oninput="syncField(this)"></div><div class="card-field"><label>Especialista (Qtde)</label><input type="number" min="0" data-sync="prof_fisio_esp" oninput="syncField(this)"></div><div class="card-field"><label>Área de especialidade</label><input type="text" data-sync="prof_fisio_area" oninput="syncField(this)"></div></div>
+          <div class="card-row"><div class="card-row-title">Terapeutas Ocupacionais</div><div class="card-field"><label>Generalista (Qtde)</label><input type="number" min="0" data-sync="prof_to_gen" oninput="syncField(this)"></div><div class="card-field"><label>Especialista (Qtde)</label><input type="number" min="0" data-sync="prof_to_esp" oninput="syncField(this)"></div><div class="card-field"><label>Área de especialidade</label><input type="text" data-sync="prof_to_area" oninput="syncField(this)"></div></div>
+          <div class="card-row"><div class="card-row-title">Fonoaudiólogos</div><div class="card-field"><label>Generalista (Qtde)</label><input type="number" min="0" data-sync="prof_fono_gen" oninput="syncField(this)"></div><div class="card-field"><label>Especialista (Qtde)</label><input type="number" min="0" data-sync="prof_fono_esp" oninput="syncField(this)"></div><div class="card-field"><label>Área de especialidade</label><input type="text" data-sync="prof_fono_area" oninput="syncField(this)"></div></div>
+          <div class="card-row"><div class="card-row-title">Psicólogos</div><div class="card-field"><label>Generalista (Qtde)</label><input type="number" min="0" data-sync="prof_psi_gen" oninput="syncField(this)"></div><div class="card-field"><label>Especialista (Qtde)</label><input type="number" min="0" data-sync="prof_psi_esp" oninput="syncField(this)"></div><div class="card-field"><label>Área de especialidade</label><input type="text" data-sync="prof_psi_area" oninput="syncField(this)"></div></div>
+        </div>
       </div>
       <div class="sub-q">
         <span class="sub-label">Observações (opcional):</span>
@@ -1845,7 +1886,7 @@
     <div class="section-body" id="sec5-body" role="region">
       <div class="sub-q">
         <span class="sub-label">5.1 Valores por categoria profissional: <span class="required">*</span> <span class="help-tip" data-tip="Preencha o valor unitário (por atendimento/sessão) e o valor mensal médio para cada categoria profissional envolvida no cuidado TEA.">?</span></span>
-        <table class="data-table">
+        <table class="data-table desktop-table">
           <thead>
             <tr>
               <th>Categoria</th>
@@ -1862,6 +1903,13 @@
             <tr><td class="row-label">Psicólogos</td><td><input type="text" name="pag_psi_unit" class="money-input" placeholder="0,00"></td><td><input type="text" name="pag_psi_mes" class="money-input" placeholder="0,00"></td><td><select name="pag_psi_forma"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></td></tr>
           </tbody>
         </table>
+        <div class="card-table-mobile">
+          <div class="card-row"><div class="card-row-title">Médicos</div><div class="card-field"><label>R$ / atendimento</label><input type="text" data-sync="pag_med_unit" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>R$ / mês (média)</label><input type="text" data-sync="pag_med_mes" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>Forma de pagamento</label><select data-sync="pag_med_forma" onchange="syncField(this)"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></div></div>
+          <div class="card-row"><div class="card-row-title">Fisioterapeutas</div><div class="card-field"><label>R$ / atendimento</label><input type="text" data-sync="pag_fisio_unit" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>R$ / mês (média)</label><input type="text" data-sync="pag_fisio_mes" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>Forma de pagamento</label><select data-sync="pag_fisio_forma" onchange="syncField(this)"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></div></div>
+          <div class="card-row"><div class="card-row-title">Terapeutas Ocupacionais</div><div class="card-field"><label>R$ / atendimento</label><input type="text" data-sync="pag_to_unit" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>R$ / mês (média)</label><input type="text" data-sync="pag_to_mes" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>Forma de pagamento</label><select data-sync="pag_to_forma" onchange="syncField(this)"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></div></div>
+          <div class="card-row"><div class="card-row-title">Fonoaudiólogos</div><div class="card-field"><label>R$ / atendimento</label><input type="text" data-sync="pag_fono_unit" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>R$ / mês (média)</label><input type="text" data-sync="pag_fono_mes" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>Forma de pagamento</label><select data-sync="pag_fono_forma" onchange="syncField(this)"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></div></div>
+          <div class="card-row"><div class="card-row-title">Psicólogos</div><div class="card-field"><label>R$ / atendimento</label><input type="text" data-sync="pag_psi_unit" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>R$ / mês (média)</label><input type="text" data-sync="pag_psi_mes" class="money-input" placeholder="0,00" oninput="syncField(this)"></div><div class="card-field"><label>Forma de pagamento</label><select data-sync="pag_psi_forma" onchange="syncField(this)"><option value="">—</option><option value="pf">PF</option><option value="pj">PJ</option><option value="variavel">Variável</option><option value="salario_variavel">Salário + Variável</option><option value="somente_salario">Somente Salário</option></select></div></div>
+        </div>
       </div>
       <div class="divider"></div>
       <div class="sub-q">
@@ -2450,28 +2498,37 @@
 
 <!-- AI ASSISTANT CHAT -->
 <div class="ai-chat-fab" id="aiChatFab">
-  <button class="ai-chat-fab-btn" id="aiChatToggle" onclick="toggleAiChat()" aria-label="Assistente de preenchimento">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <button class="ai-chat-fab-btn" id="aiChatToggle" onclick="toggleAiChat()" aria-label="Assistente IA">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
   </button>
-  <span class="ai-chat-fab-label">Assistente de preenchimento</span>
+  <span class="ai-chat-fab-label">Assistente IA</span>
 </div>
 
-<div class="ai-chat-panel" id="aiChatPanel">
+<div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="Assistente de IA">
   <div class="ai-chat-header">
     <div class="ai-chat-header-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
     </div>
     <div class="ai-chat-header-text">
-      <h4>Assistente Data Set TEA</h4>
+      <h4>Assistente Data Set TEA <span class="ai-badge">IA</span></h4>
       <p>Tire dúvidas sobre o preenchimento</p>
+    </div>
+    <div class="ai-chat-header-actions">
+      <button onclick="clearAiChat()" title="Limpar conversa" aria-label="Limpar conversa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </button>
+      <button onclick="toggleAiChat()" title="Fechar assistente" aria-label="Fechar assistente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
   </div>
   <div class="ai-chat-context" id="aiChatContext">
     <span>Contexto:</span>
     <span class="ctx-badge" id="aiCtxBadge">Geral</span>
   </div>
-  <div class="ai-chat-messages" id="aiChatMessages">
-    <div class="ai-msg assistant">Olá! Sou o assistente do Data Set TEA. Posso ajudar com dúvidas sobre o preenchimento de qualquer seção do formulário. Em que posso ajudar?</div>
+  <div class="ai-chat-messages" id="aiChatMessages" role="log" aria-live="polite">
+    <div class="ai-msg assistant">Sou o assistente do Data Set TEA. Posso ajudar com dúvidas sobre o preenchimento de qualquer seção do formulário. Em que posso ajudar?</div>
+    <div class="ai-msg system">As respostas são geradas por inteligência artificial e podem conter imprecisões. Use como apoio ao preenchimento.</div>
   </div>
   <div class="ai-chat-input-area">
     <input type="text" id="aiChatInput" placeholder="Digite sua dúvida..." onkeydown="if(event.key==='Enter')sendAiMessage()">
@@ -2485,6 +2542,27 @@
 // ============================================================
 // TOGGLE SECTIONS (with ARIA)
 // ============================================================
+// Sync mobile card fields with desktop table fields
+function syncField(el) {
+  const syncId = el.getAttribute('data-sync');
+  if (!syncId) return;
+  const target = document.querySelector('[name="' + syncId + '"]') || document.getElementById(syncId);
+  if (target) {
+    target.value = el.value;
+    target.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+}
+// Also sync desktop -> mobile on input
+document.addEventListener('input', function(e) {
+  const el = e.target;
+  const name = el.name || el.id;
+  if (!name) return;
+  const mobileField = document.querySelector('[data-sync="' + name + '"]');
+  if (mobileField && mobileField !== el) {
+    mobileField.value = el.value;
+  }
+});
+
 function toggleSection(id) {
   const sec = document.getElementById(id);
   const header = sec.querySelector('.section-header');
@@ -2643,6 +2721,9 @@ function applyMoneyMask(e) {
 // AUTO-SAVE (localStorage)
 // ============================================================
 const DRAFT_KEY = 'tea_dataset_draft_v2';
+function getDraftKey() {
+  return 'tea_dataset_draft_' + (currentUnit || 'unknown');
+}
 let saveTimeout = null;
 
 function saveDraft() {
@@ -2663,7 +2744,8 @@ function saveDraft() {
       if (el.name) data['__check__' + el.name] = el.checked;
     });
     data['__timestamp__'] = new Date().toISOString();
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+    data['__scrollY__'] = window.scrollY;
+    localStorage.setItem(getDraftKey(), JSON.stringify(data));
     // Show indicator
     const ind = document.getElementById('autosaveIndicator');
     ind.classList.add('show');
@@ -2672,7 +2754,7 @@ function saveDraft() {
 }
 
 function restoreDraft() {
-  const raw = localStorage.getItem(DRAFT_KEY);
+  const raw = localStorage.getItem(getDraftKey()) || localStorage.getItem(DRAFT_KEY);
   if (!raw) return;
   const data = JSON.parse(raw);
   const form = document.getElementById('teaForm');
@@ -2697,6 +2779,10 @@ function restoreDraft() {
   });
   document.getElementById('draftBar').classList.remove('visible');
   updateProgress();
+  // Restore scroll position
+  if (data['__scrollY__']) {
+    setTimeout(function() { window.scrollTo(0, data['__scrollY__']); }, 100);
+  }
 }
 
 function dismissDraft() {
@@ -2704,7 +2790,7 @@ function dismissDraft() {
 }
 
 function checkDraft() {
-  const raw = localStorage.getItem(DRAFT_KEY);
+  const raw = localStorage.getItem(getDraftKey()) || localStorage.getItem(DRAFT_KEY);
   if (raw) {
     const data = JSON.parse(raw);
     // Check if there's actual content
@@ -2729,6 +2815,7 @@ function executeClear() {
   const form = document.getElementById('teaForm');
   form.reset();
   form.querySelectorAll('.filled').forEach(el => el.classList.remove('filled'));
+  localStorage.removeItem(getDraftKey());
   localStorage.removeItem(DRAFT_KEY);
   // Clear file lists
   document.querySelectorAll('.file-list').forEach(fl => fl.innerHTML = '');
@@ -2971,16 +3058,27 @@ function doLogin() {
     document.getElementById('loginPassword').focus();
     return;
   }
-  // Login success
-  currentUnit = selectedUnit;
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('appContent').classList.add('visible');
-  // Update hero
-  document.getElementById('heroClientLogo').src = unit.logo;
-  document.getElementById('heroClientLogo').alt = unit.name;
-  document.getElementById('heroClientLabel').textContent = unit.name + ' (' + unit.state + ') \u2014 Question\u00e1rio de Coleta';
-  // Store session
-  sessionStorage.setItem('tea_unit', selectedUnit);
+  // Show loading
+  const btn = document.getElementById('btnLogin');
+  btn.disabled = true;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Carregando...';
+  // Small delay for perceived loading
+  setTimeout(function() {
+    currentUnit = selectedUnit;
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appContent').classList.add('visible');
+    // Update hero
+    document.getElementById('heroClientLogo').src = unit.logo;
+    document.getElementById('heroClientLogo').alt = unit.name;
+    document.getElementById('heroClientLabel').textContent = unit.name + ' (' + unit.state + ') \u2014 Question\u00e1rio de Coleta';
+    // Store session
+    sessionStorage.setItem('tea_unit', selectedUnit);
+    // Restore draft if available
+    restoreDraft();
+    // Reset button
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  }, 400);
 }
 
 function doLogout() {
@@ -3015,6 +3113,12 @@ function checkSession() {
           opt.style.display = 'none';
         }
       });
+      // Auto-selecionar a unidade (usuário só precisa digitar senha e clicar Entrar)
+      const targetOpt = document.querySelector('.unit-option input[value="' + unitKey + '"]');
+      if (targetOpt) {
+        const optEl = targetOpt.closest('.unit-option');
+        if (optEl) selectUnit(optEl, unitKey);
+      }
     }
   }
   // 2. Restaurar sessão salva
@@ -3054,6 +3158,84 @@ function getUnitLabel() {
   return u.name + ' (' + u.state + ')';
 }
 
+const FIELD_LABELS = {
+  prof_med_gen: 'M\u00e9dicos \u2014 Generalista (Qtde)',
+  prof_med_esp: 'M\u00e9dicos \u2014 Especialista (Qtde)',
+  prof_med_area: 'M\u00e9dicos \u2014 \u00c1rea de especialidade',
+  prof_fisio_gen: 'Fisioterapeutas \u2014 Generalista (Qtde)',
+  prof_fisio_esp: 'Fisioterapeutas \u2014 Especialista (Qtde)',
+  prof_fisio_area: 'Fisioterapeutas \u2014 \u00c1rea de especialidade',
+  prof_to_gen: 'Terapeutas Ocupacionais \u2014 Generalista (Qtde)',
+  prof_to_esp: 'Terapeutas Ocupacionais \u2014 Especialista (Qtde)',
+  prof_to_area: 'Terapeutas Ocupacionais \u2014 \u00c1rea de especialidade',
+  prof_fono_gen: 'Fonoaudi\u00f3logos \u2014 Generalista (Qtde)',
+  prof_fono_esp: 'Fonoaudi\u00f3logos \u2014 Especialista (Qtde)',
+  prof_fono_area: 'Fonoaudi\u00f3logos \u2014 \u00c1rea de especialidade',
+  prof_psi_gen: 'Psic\u00f3logos \u2014 Generalista (Qtde)',
+  prof_psi_esp: 'Psic\u00f3logos \u2014 Especialista (Qtde)',
+  prof_psi_area: 'Psic\u00f3logos \u2014 \u00c1rea de especialidade',
+  prof_obs: 'Profissionais \u2014 Observa\u00e7\u00f5es',
+  pac_total: 'Total de pacientes TEA',
+  pac_masc: 'Pacientes masculinos',
+  pac_fem: 'Pacientes femininas',
+  pac_0a3: 'Faixa et\u00e1ria 0\u20133 anos',
+  pac_4a6: 'Faixa et\u00e1ria 4\u20136 anos',
+  pac_7a12: 'Faixa et\u00e1ria 7\u201312 anos',
+  pac_13a17: 'Faixa et\u00e1ria 13\u201317 anos',
+  pac_18mais: 'Faixa et\u00e1ria 18+ anos',
+  pac_leve: 'N\u00edvel 1 (leve)',
+  pac_moderado: 'N\u00edvel 2 (moderado)',
+  pac_severo: 'N\u00edvel 3 (severo)',
+  pac_sem_class: 'Sem classifica\u00e7\u00e3o',
+  pac_obs: 'Pacientes \u2014 Observa\u00e7\u00f5es',
+  atend_sessoes_sem: 'Sess\u00f5es por semana (m\u00e9dia)',
+  atend_duracao: 'Dura\u00e7\u00e3o m\u00e9dia da sess\u00e3o (min)',
+  atend_modelo: 'Modelo de atendimento',
+  atend_local: 'Local de atendimento',
+  atend_obs: 'Atendimento \u2014 Observa\u00e7\u00f5es',
+  cred_nome: 'Credenciado \u2014 Nome',
+  cred_registro: 'Credenciado \u2014 Registro',
+  cred_contato: 'Credenciado \u2014 Contato',
+  cred_vinculo: 'Credenciado \u2014 V\u00ednculo',
+  cred_obs: 'Credenciados \u2014 Observa\u00e7\u00f5es',
+  pag_med_unit: 'M\u00e9dicos \u2014 R$/atendimento',
+  pag_med_mes: 'M\u00e9dicos \u2014 R$/m\u00eas',
+  pag_med_forma: 'M\u00e9dicos \u2014 Forma de pagamento',
+  pag_fisio_unit: 'Fisioterapeutas \u2014 R$/atendimento',
+  pag_fisio_mes: 'Fisioterapeutas \u2014 R$/m\u00eas',
+  pag_fisio_forma: 'Fisioterapeutas \u2014 Forma de pagamento',
+  pag_to_unit: 'Terapeutas Ocupacionais \u2014 R$/atendimento',
+  pag_to_mes: 'Terapeutas Ocupacionais \u2014 R$/m\u00eas',
+  pag_to_forma: 'Terapeutas Ocupacionais \u2014 Forma de pagamento',
+  pag_fono_unit: 'Fonoaudi\u00f3logos \u2014 R$/atendimento',
+  pag_fono_mes: 'Fonoaudi\u00f3logos \u2014 R$/m\u00eas',
+  pag_fono_forma: 'Fonoaudi\u00f3logos \u2014 Forma de pagamento',
+  pag_psi_unit: 'Psic\u00f3logos \u2014 R$/atendimento',
+  pag_psi_mes: 'Psic\u00f3logos \u2014 R$/m\u00eas',
+  pag_psi_forma: 'Psic\u00f3logos \u2014 Forma de pagamento',
+  pag_forma: 'Forma de pagamento predominante',
+  pag_forma_outro: 'Forma de pagamento (outro)',
+  pag_obs: 'Pagamento \u2014 Observa\u00e7\u00f5es',
+  jud_total: 'Total de a\u00e7\u00f5es judiciais TEA',
+  jud_ativas: 'A\u00e7\u00f5es ativas',
+  jud_custo_mensal: 'Custo mensal estimado (R$)',
+  jud_temas: 'Principais temas das a\u00e7\u00f5es',
+  jud_obs: 'Judicializa\u00e7\u00e3o \u2014 Observa\u00e7\u00f5es',
+  desfechos_instrumento: 'Instrumento de medi\u00e7\u00e3o de desfechos',
+  desfechos_frequencia: 'Frequ\u00eancia de medi\u00e7\u00e3o',
+  desfechos_obs: 'Desfechos \u2014 Observa\u00e7\u00f5es',
+  gov_comite: 'Comit\u00ea/grupo de trabalho TEA',
+  gov_protocolo: 'Protocolo cl\u00ednico formalizado',
+  gov_fluxo: 'Fluxo de autoriza\u00e7\u00e3o definido',
+  gov_indicadores: 'Indicadores de desempenho',
+  gov_capacitacao: 'Programa de capacita\u00e7\u00e3o',
+  gov_obs: 'Governan\u00e7a \u2014 Observa\u00e7\u00f5es'
+};
+
+function getFieldLabel(name) {
+  return FIELD_LABELS[name] || name.replace(/_/g, ' ');
+}
+
 function buildEmailHTML() {
   const form = document.getElementById('teaForm');
   const inputs = form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
@@ -3080,7 +3262,7 @@ function buildEmailHTML() {
   form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
     if (el.name && el.value.trim()) {
       const bg = rowIdx % 2 === 0 ? '#fff' : '#f1f5f9';
-      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + el.name + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + el.value.replace(/</g, '&lt;') + '</td></tr>';
+      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + getFieldLabel(el.name) + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + el.value.replace(/</g, '&lt;') + '</td></tr>';
       rowIdx++;
     }
   });
@@ -3091,7 +3273,7 @@ function buildEmailHTML() {
     const checked = form.querySelector('input[name="' + name + '"]:checked');
     if (checked) {
       const bg = rowIdx % 2 === 0 ? '#fff' : '#f1f5f9';
-      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + name + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + checked.value + '</td></tr>';
+      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + getFieldLabel(name) + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + checked.value + '</td></tr>';
       rowIdx++;
     }
   });
@@ -3099,7 +3281,7 @@ function buildEmailHTML() {
   form.querySelectorAll('input[type="checkbox"]').forEach(el => {
     if (el.name && el.checked) {
       const bg = rowIdx % 2 === 0 ? '#fff' : '#f1f5f9';
-      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + el.name + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">Sim</td></tr>';
+      html += '<tr style="background:' + bg + '"><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">' + getFieldLabel(el.name) + '</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0">Sim</td></tr>';
       rowIdx++;
     }
   });
@@ -3227,14 +3409,20 @@ function toggleAiChat() {
   if (aiChatOpen) {
     panel.classList.add('open');
     btn.classList.add('active');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    document.body.classList.add('ai-sidebar-open');
     updateAiContext();
     document.getElementById('aiChatInput').focus();
   } else {
     panel.classList.remove('open');
     btn.classList.remove('active');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    document.body.classList.remove('ai-sidebar-open');
   }
+}
+
+function clearAiChat() {
+  aiConversation = [];
+  const container = document.getElementById('aiChatMessages');
+  container.innerHTML = '<div class="ai-msg assistant">Sou o assistente do Data Set TEA. Posso ajudar com d\u00favidas sobre o preenchimento de qualquer se\u00e7\u00e3o do formul\u00e1rio. Em que posso ajudar?</div><div class="ai-msg system">As respostas s\u00e3o geradas por intelig\u00eancia artificial e podem conter imprecis\u00f5es. Use como apoio ao preenchimento.</div>';
 }
 
 function getVisibleSection() {
@@ -3259,9 +3447,12 @@ function updateAiContext() {
   const sec = getVisibleSection();
   const badge = document.getElementById('aiCtxBadge');
   if (sec) {
-    const header = sec.querySelector('.section-header span');
-    if (header) {
-      badge.textContent = header.textContent.trim();
+    const titleEl = sec.querySelector('.section-title');
+    if (titleEl) {
+      const clone = titleEl.cloneNode(true);
+      const btns = clone.querySelectorAll('button');
+      btns.forEach(b => b.remove());
+      badge.textContent = clone.textContent.trim();
       return;
     }
   }
@@ -3295,8 +3486,14 @@ function removeTypingIndicator() {
 function getSectionContext() {
   const sec = getVisibleSection();
   if (!sec) return '';
-  const header = sec.querySelector('.section-header span');
-  const sectionName = header ? header.textContent.trim() : '';
+  const titleEl = sec.querySelector('.section-title');
+  let sectionName = '';
+  if (titleEl) {
+    const clone = titleEl.cloneNode(true);
+    const btns = clone.querySelectorAll('button');
+    btns.forEach(b => b.remove());
+    sectionName = clone.textContent.trim();
+  }
   // Collect filled values from this section
   const inputs = sec.querySelectorAll('input, textarea, select');
   let filledData = [];
@@ -3326,7 +3523,7 @@ async function sendAiMessage() {
   updateAiContext();
 
   const sectionCtx = getSectionContext();
-  const unitName = currentUnit ? currentUnit.name : 'Nao identificada';
+  const unitName = currentUnit && UNITS[currentUnit] ? UNITS[currentUnit].name : 'N\u00e3o identificada';
 
   // Build messages array
   const messages = [
@@ -3348,7 +3545,7 @@ async function sendAiMessage() {
     const response = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Origin': 'https://hub.grupocsv.com' },
-      body: JSON.stringify({ messages, max_tokens: 512, temperature: 0.4 })
+      body: JSON.stringify({ messages, max_tokens: 800, temperature: 0.4 })
     });
 
     removeTypingIndicator();
@@ -3748,11 +3945,12 @@ function generatePDF() {
     doc.setPage(i);
     doc.setFontSize(7);
     doc.setTextColor(150, 150, 150);
-    doc.text('ICDS \u2014 Data Set TEA \u2014 Unimed Rio Verde (GO)', pageW / 2, pageH - 8, { align: 'center' });
+    doc.text('ICDS \u2014 Data Set TEA \u2014 ' + getUnitLabel(), pageW / 2, pageH - 8, { align: 'center' });
     doc.text('Página ' + i + ' de ' + totalPages, pageW - margin, pageH - 8, { align: 'right' });
   }
 
-  doc.save('DataSet_TEA_Unimed_RioVerde.pdf');
+  const pdfUnitName = currentUnit && UNITS[currentUnit] ? UNITS[currentUnit].name.replace(/\s+/g, '_') : 'Unimed';
+  doc.save('DataSet_TEA_' + pdfUnitName + '.pdf');
 }
 </script>
 </body>
