@@ -228,6 +228,21 @@
         .action-btn.revoke { background: #fee2e2; color: var(--red); }
         .action-btn.revoke:hover { background: #fecaca; }
 
+        /* Public links action buttons */
+        .pl-actions { display: flex; gap: 6px; }
+        .pl-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 8px;
+            background: var(--card); color: var(--text-secondary); cursor: pointer;
+            transition: all 0.2s; text-decoration: none;
+        }
+        .pl-btn:hover { border-color: var(--primary); color: var(--primary); background: #f0f7ff; }
+        .pl-btn svg { width: 15px; height: 15px; }
+        .pl-btn.copied { border-color: var(--green); color: var(--green); background: #f0fdf4; }
+        .badge.inactive { background: #f3f4f6; color: #6b7280; }
+        .pl-origin { font-size: 12px; color: var(--text-secondary); }
+        .pl-url { font-size: 12px; color: var(--primary); word-break: break-all; }
+
         /* Empty state */
         .empty-state {
             text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 14px;
@@ -313,12 +328,17 @@
                 <span class="s-value" id="s-sessions">-</span>
                 <span class="s-label">sessoes ativas</span>
             </div>
+            <div class="summary-item">
+                <span class="s-value" id="s-public">-</span>
+                <span class="s-label">links publicos</span>
+            </div>
         </div>
 
         <!-- Tabs -->
         <div class="admin-tabs">
             <button class="admin-tab active" data-tab="users">Usuarios e Acessos <span class="tab-badge" id="pending-badge"></span></button>
             <button class="admin-tab" data-tab="passwords">Senhas dos Portais</button>
+            <button class="admin-tab" data-tab="public-links">Links Publicos</button>
         </div>
 
         <!-- TAB: Users -->
@@ -352,6 +372,37 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Public Links -->
+        <div class="admin-tab-content" data-tab="public-links">
+            <h3 class="section-header">Paginas Publicas</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Paginas de portais protegidos publicadas em <code>/p/</code> para acesso sem autenticacao.
+            </p>
+            <div class="table-card">
+                <div class="tc-header">
+                    <h3>Registry</h3>
+                    <span class="count" id="pl-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Portal</th>
+                                <th>URL</th>
+                                <th>Status</th>
+                                <th>Criado em</th>
+                                <th>Acoes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pl-tbody">
+                            <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -450,6 +501,7 @@ function toggleAdminPw() {
                 this.classList.add('active');
                 document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]').classList.add('active');
                 if (tabName === 'passwords') loadPasswords();
+                if (tabName === 'public-links') loadPublicLinks();
             });
         });
     }
@@ -467,7 +519,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks()]);
     }
 
     // ===== Auth form =====
@@ -681,6 +733,64 @@ function toggleAdminPw() {
 
         setTimeout(() => { statusEl.textContent = ''; }, 4000);
     };
+
+    // ===== Load Public Links =====
+    async function loadPublicLinks() {
+        try {
+            const resp = await fetch('/p/registry.json');
+            const data = await resp.json();
+            const pages = data.pages || [];
+
+            document.getElementById('s-public').textContent = pages.filter(function(p) { return p.status === 'active'; }).length;
+            document.getElementById('pl-count').textContent = pages.length + (pages.length === 1 ? ' pagina' : ' paginas');
+
+            const tbody = document.getElementById('pl-tbody');
+            if (pages.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhuma pagina publica registrada</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = pages.map(function(p) {
+                return '<tr>' +
+                    '<td style="font-weight:600;">' + esc(p.title) + '<br><span class="pl-origin">' + esc(p.description) + '</span></td>' +
+                    '<td>' + (PORTAL_NAMES[p.origin_portal] || esc(p.origin_portal)) + '</td>' +
+                    '<td><span class="pl-url">' + esc(p.public_url) + '</span></td>' +
+                    '<td><span class="badge ' + p.status + '">' + (p.status === 'active' ? 'Ativo' : 'Inativo') + '</span></td>' +
+                    '<td style="font-size:12px;">' + (p.created_at || '-') + '</td>' +
+                    '<td>' +
+                        '<div class="pl-actions">' +
+                            '<button class="pl-btn" title="Copiar link" onclick="window._copyPL(\'' + esc(p.public_url) + '\', this)">' +
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+                            '</button>' +
+                            '<a class="pl-btn" title="Abrir em nova aba" href="' + esc(p.public_url) + '" target="_blank" rel="noopener">' +
+                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>' +
+                            '</a>' +
+                        '</div>' +
+                    '</td>' +
+                '</tr>';
+            }).join('');
+        } catch (err) {
+            document.getElementById('pl-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Erro ao carregar registry.json</td></tr>';
+            document.getElementById('pl-count').textContent = 'Erro';
+        }
+    }
+
+    window._copyPL = function(url, btn) {
+        navigator.clipboard.writeText(url).then(function() {
+            btn.classList.add('copied');
+            showToast('Link copiado', 'success');
+            setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+        }).catch(function() {
+            showToast('Erro ao copiar', 'error');
+        });
+    };
+
+    function esc(str) {
+        if (!str) return '';
+        var d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
 
     // ===== Helpers =====
     function formatDate(val) {
