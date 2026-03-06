@@ -29,12 +29,18 @@
 - [ ] **Painéis BI:** Identificar os ativos com `category: "dashboard"` (ex: Oncologia, Especialidades, FIOS).
 - [ ] **Páginas Estáticas:** Identificar os ativos com `category: "static"` (ex: Compliance, Founder, landings).
 
-## Fase 5: Parceiros e Ferramentas (Se Relevante)
+## Fase 5: Paginas Publicas
+
+- [ ] **Skill:** Ler `/skills/public-pages.md` (instrucao operacional para criar paginas publicas em /p/).
+- [ ] **Documentacao:** Ler `/docs/public-pages.md` (referencia da infraestrutura: schema, componentes, padroes HTML).
+- [ ] **Registry:** Consultar `/p/registry.json` para conhecer as paginas publicas existentes.
+
+## Fase 6: Parceiros e Ferramentas (Se Relevante)
 
 - [ ] **Unimed:** Revisar `/docs/unimed/index.md` e as ferramentas HTML vinculadas.
 - [ ] **Unihealth:** Revisar `/docs/unihealth/index.md` e as ferramentas HTML vinculadas.
 
 ---
 
-**Status de Completude:** 0/17
+**Status de Completude:** 0/20
 *Última atualização do checklist: 2026-03-06*
