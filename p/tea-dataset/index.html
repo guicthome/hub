@@ -312,6 +312,32 @@
     input.filled, textarea.filled, select.filled {
       border-left: 3px solid var(--ax-green);
     }
+    /* C2: Validation error */
+    input.field-error, textarea.field-error, select.field-error {
+      border-color: var(--ax-red) !important;
+      border-left: 3px solid var(--ax-red) !important;
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.1) !important;
+      animation: shake 0.4s ease;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+    .validation-banner {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      color: #991b1b;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .validation-banner svg { flex-shrink: 0; }
     textarea { resize: vertical; min-height: 70px; }
     .input-sm { max-width: 200px; }
     .input-md { max-width: 400px; }
@@ -2943,51 +2969,124 @@ function addDynamicField(containerId, prefix, placeholder) {
 }
 
 // ============================================================
-// PROGRESS BAR + SECTION BADGES
+// C1: BARRA DE PROGRESSO REAL POR SEÇÃO
 // ============================================================
+const SECTION_NAMES = {
+  sec1: 'Profissionais', sec2: 'Pacientes', sec3: 'Tratamento', sec4: 'Prestadores',
+  sec5: 'Pagamento', sec6: 'Judicializa\u00e7\u00f5es', sec7: 'Jornada do Paciente', sec8: 'Governan\u00e7a'
+};
+
+function getSectionProgress(secId) {
+  const sec = document.getElementById(secId);
+  if (!sec) return { filled: 0, total: 0, pct: 0 };
+  const body = sec.querySelector('.section-body');
+  if (!body) return { filled: 0, total: 0, pct: 0 };
+
+  const inputs = body.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not(.extra-cc-input), textarea, select');
+  let filled = 0, total = inputs.length;
+  inputs.forEach(i => { if (i.value && i.value.trim()) filled++; });
+
+  const radioGroups = new Set();
+  body.querySelectorAll('input[type="radio"]').forEach(r => radioGroups.add(r.name));
+  radioGroups.forEach(name => {
+    total++;
+    if (body.querySelector('input[name="' + name + '"]:checked')) filled++;
+  });
+
+  const checkGroups = new Set();
+  body.querySelectorAll('input[type="checkbox"]').forEach(c => checkGroups.add(c.name.replace(/_[^_]+$/, '')));
+  checkGroups.forEach(group => {
+    total++;
+    if (body.querySelector('input[type="checkbox"][name^="' + group + '"]:checked')) filled++;
+  });
+
+  return { filled, total, pct: total > 0 ? Math.round((filled / total) * 100) : 0 };
+}
+
 function updateProgress() {
-  const form = document.getElementById('teaForm');
-  const inputs = form.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
-  let filled = 0;
-  inputs.forEach(i => { if (i.value.trim()) filled++; });
-  const pct = inputs.length > 0 ? (filled / inputs.length) * 100 : 0;
-  document.getElementById('progressBar').style.width = pct + '%';
+  let totalFilled = 0, totalFields = 0;
+  const tooltipLines = [];
 
-  // Update section badges
   for (let s = 1; s <= 8; s++) {
-    const sec = document.getElementById('sec' + s);
-    if (!sec) continue;
-    const body = sec.querySelector('.section-body');
-    const secInputs = body.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea, select');
-    const secRadios = body.querySelectorAll('input[type="radio"]');
-    const secChecks = body.querySelectorAll('input[type="checkbox"]');
-    let secFilled = 0;
-    let secTotal = secInputs.length;
-    secInputs.forEach(i => { if (i.value.trim()) secFilled++; });
-    // Count radio groups
-    const radioGroups = new Set();
-    secRadios.forEach(r => radioGroups.add(r.name));
-    radioGroups.forEach(name => {
-      secTotal++;
-      if (body.querySelector(`input[name="${name}"]:checked`)) secFilled++;
-    });
-    // Count checkboxes
-    let anyChecked = false;
-    secChecks.forEach(c => { if (c.checked) anyChecked = true; });
+    const secId = 'sec' + s;
+    const prog = getSectionProgress(secId);
+    totalFilled += prog.filled;
+    totalFields += prog.total;
+    tooltipLines.push(SECTION_NAMES[secId] + ': ' + prog.pct + '%');
 
-    const badge = document.getElementById('badge-sec' + s);
+    const badge = document.getElementById('badge-' + secId);
     if (!badge) continue;
-    if (secFilled === 0 && !anyChecked) {
+    if (prog.pct === 0) {
       badge.className = 'section-badge empty';
       badge.textContent = 'Vazio';
-    } else if (secFilled >= secTotal * 0.7) {
+    } else if (prog.pct >= 80) {
       badge.className = 'section-badge complete';
-      badge.textContent = 'Completo';
+      badge.textContent = prog.pct + '%';
     } else {
       badge.className = 'section-badge partial';
-      badge.textContent = 'Parcial';
+      badge.textContent = prog.pct + '%';
     }
   }
+
+  const globalPct = totalFields > 0 ? (totalFilled / totalFields) * 100 : 0;
+  const bar = document.getElementById('progressBar');
+  bar.style.width = globalPct + '%';
+  bar.title = 'Progresso geral: ' + Math.round(globalPct) + '%\n' + tooltipLines.join('\n');
+}
+
+// ============================================================
+// C2: VALIDA\u00c7\u00c3O VISUAL ANTES DO ENVIO
+// ============================================================
+const REQUIRED_FIELD_NAMES = [
+  'prof_med_gen','prof_med_esp','prof_fisio_gen','prof_fisio_esp',
+  'prof_to_gen','prof_to_esp','prof_fono_gen','prof_fono_esp',
+  'prof_psico_gen','prof_psico_esp',
+  'pac_total','pac_masc','pac_fem','pac_outro_genero',
+  'pay_med_unit','pay_med_month','pay_fisio_unit','pay_fisio_month',
+  'pay_to_unit','pay_to_month','pay_fono_unit','pay_fono_month',
+  'pay_psico_unit','pay_psico_month'
+];
+
+function validateBeforeSend() {
+  document.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+  document.querySelectorAll('.validation-banner').forEach(el => el.remove());
+
+  const errors = [];
+  const form = document.getElementById('teaForm');
+
+  REQUIRED_FIELD_NAMES.forEach(name => {
+    const field = form.querySelector('[name="' + name + '"]');
+    if (field && (!field.value || !field.value.trim())) {
+      field.classList.add('field-error');
+      errors.push(field);
+    }
+  });
+
+  if (errors.length > 0) {
+    const firstError = errors[0];
+    const sec = firstError.closest('.form-section');
+    if (sec && sec.classList.contains('collapsed')) {
+      toggleSection(sec.id);
+    }
+    setTimeout(() => {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      firstError.focus();
+    }, 300);
+
+    // Show banner
+    const banner = document.createElement('div');
+    banner.className = 'validation-banner';
+    banner.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ' + errors.length + ' campo(s) obrigat\u00f3rio(s) n\u00e3o preenchido(s). Os campos est\u00e3o destacados em vermelho.';
+    const emailPanel = document.querySelector('.email-panel');
+    if (emailPanel) emailPanel.parentNode.insertBefore(banner, emailPanel);
+
+    return false;
+  }
+  return true;
+}
+
+function clearFieldError(el) {
+  if (el) el.classList.remove('field-error');
 }
 
 // ============================================================
@@ -3646,6 +3745,9 @@ function buildEmailHTML() {
 }
 
 async function sendDataSetEmail() {
+  // C2: Validar campos obrigatórios antes de enviar
+  if (!validateBeforeSend()) return;
+
   const btn = document.getElementById('btnSendEmail');
   const status = document.getElementById('emailStatus');
   const unitLabel = getUnitLabel();
@@ -3996,12 +4098,13 @@ document.addEventListener('DOMContentLoaded', function() {
   updateProgress();
 });
 
-// Global input listener for auto-save, progress, and filled class
+// Global input listener for auto-save, progress, filled class, and clear errors
 document.addEventListener('input', function(e) {
   updateProgress();
   saveDraft();
   if (e.target.matches('input, textarea, select')) {
     updateFilledClass(e.target);
+    clearFieldError(e.target);
   }
 });
 document.addEventListener('change', function(e) {
@@ -4013,6 +4116,9 @@ document.addEventListener('change', function(e) {
 // PDF GENERATION (bug fix: line 1409 syntax corrected)
 // ============================================================
 function generatePDF() {
+  // C2: Validar campos obrigatórios antes de gerar PDF
+  if (!validateBeforeSend()) return;
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF('p', 'mm', 'a4');
   const pageW = doc.internal.pageSize.getWidth();
