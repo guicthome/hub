@@ -38,6 +38,7 @@
       color: white;
       text-align: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -185,6 +186,63 @@
       margin-top: 30px;
       font-size: 0.8rem;
       opacity: 0.6;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .container {
+        padding: 30px 20px;
+        border-radius: 16px;
+      }
+
+      .profile-img {
+        width: 90px;
+        height: 90px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .title {
+        font-size: 0.95rem;
+      }
+
+      .bio {
+        font-size: 0.88rem;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .link-card {
+        padding: 14px 16px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .contact-item a {
+        font-size: 0.82rem;
+        word-break: break-all;
+      }
+
+      .btn-back {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+
+      .footer {
+        font-size: 0.75rem;
+      }
     }
   </style>
 </head>

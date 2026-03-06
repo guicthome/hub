@@ -859,6 +859,88 @@
 
         /* ══ Input file oculto ══ */
         #import-file { display: none; }
+
+        /* ══ Responsividade mobile ══ */
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0 12px;
+                height: 48px;
+                gap: 6px;
+            }
+            .topbar-left {
+                gap: 8px;
+                min-width: 0;
+            }
+            .topbar-brand-logo {
+                height: 20px;
+            }
+            .topbar-divider {
+                display: none;
+            }
+            .topbar-title {
+                font-size: 15px;
+            }
+            .topbar-center {
+                display: none;
+            }
+            .topbar-right {
+                gap: 4px;
+            }
+            .topbar-btn {
+                padding: 6px 10px;
+                font-size: 0;
+                gap: 0;
+            }
+            .topbar-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+            .topbar-shortcut-hint {
+                display: none;
+            }
+            .topbar-btn-primary {
+                font-size: 12px;
+                padding: 6px 12px;
+                gap: 6px;
+            }
+            .topbar-btn-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .topbar-btn-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .topbar-badge {
+                font-size: 10px;
+                padding: 2px 8px;
+            }
+            /* Modais */
+            .modal {
+                width: 94vw;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .settings-menu {
+                right: 8px;
+                left: 8px;
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topbar-btn#btn-screenshot {
+                display: none;
+            }
+            .topbar-btn-primary {
+                font-size: 0;
+                padding: 8px;
+            }
+            .topbar-btn-primary svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 </head>
 <body>
