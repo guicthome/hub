@@ -36,18 +36,43 @@ const ALLOWED_FROM_DOMAINS = ['mail.grupocsv.com'];
 const MAX_RECIPIENTS = 10;
 const MAX_ATTACHMENT_SIZE_MB = 10;
 
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
+async function verifyToken(request, env) {
+  const authHeader = request.headers.get('Authorization');
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
+  const token = authHeader.slice(7);
+  try {
+    const row = await env.DB.prepare(
+      'SELECT tenant_id, user_email, expires_at FROM auth_sessions WHERE token = ? AND is_active = 1'
+    ).bind(token).first();
+    if (!row) return null;
+    if (new Date(row.expires_at) < new Date()) return null;
+    return { valid: true, portal: row.tenant_id, email: row.user_email };
+  } catch (e) {
+    return null;
+  }
+}
 
-async function handleRequest(request) {
+export default {
+  async fetch(request, env) {
+    return handleRequest(request, env);
+  }
+};
+async function handleRequest(request, env) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
   if (request.method !== 'POST') {
     return jsonResponse(405, { error: 'Método não permitido. Use POST.' });
   }
-
+  // Verificar autenticação
+  const session = await verifyToken(request, env);
+  if (!session) {
+    return jsonResponse(401, { error: 'Token de autenticação ausente ou inválido.' });
+  }
+  const RESEND_API_KEY = env.RESEND_API_KEY;
+  if (!RESEND_API_KEY) {
+    return jsonResponse(500, { error: 'Configuração de e-mail ausente.' });
+  }
   try {
     const body = await request.json();
 

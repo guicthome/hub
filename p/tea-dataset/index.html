@@ -3309,26 +3309,28 @@ const UNITS = {
     code: '110',
     state: 'GO',
     logo: 'logo_unimed_rioverde.png',
-    password: '12345678'
+    portal: 'tea-110'
   },
   ourinhos: {
     name: 'Unimed Ourinhos',
     code: '094',
     state: 'SP',
     logo: 'logo_unimed_ourinhos.png',
-    password: '12345678'
+    portal: 'tea-094'
   },
   govvaladares: {
     name: 'Unimed Governador Valadares',
     code: '236',
     state: 'MG',
     logo: 'logo_unimed_govvaladares.png',
-    password: '12345678'
+    portal: 'tea-236'
   }
 };
 
 let selectedUnit = null;
 let currentUnit = null;
+let authToken = null;
+const AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
 
 function copyShareLink() {
   if (!selectedUnit) return;
@@ -3360,22 +3362,37 @@ function selectUnit(el, unitKey) {
   document.getElementById('loginPassword').focus();
 }
 
-function doLogin() {
+async function doLogin() {
   if (!selectedUnit) return;
   const unit = UNITS[selectedUnit];
   const pwd = document.getElementById('loginPassword').value;
-  if (pwd !== unit.password) {
-    document.getElementById('loginError').classList.add('visible');
-    document.getElementById('loginPassword').value = '';
-    document.getElementById('loginPassword').focus();
-    return;
-  }
+  if (!pwd) return;
   // Show loading
   const btn = document.getElementById('btnLogin');
+  const errEl = document.getElementById('loginError');
   btn.disabled = true;
-  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Carregando...';
-  // Small delay for perceived loading
-  setTimeout(function() {
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Verificando...';
+  errEl.classList.remove('visible');
+  try {
+    const resp = await fetch(AUTH_API + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ portal: unit.portal, email: 'parceiro@' + unit.portal, password: pwd })
+    });
+    const data = await resp.json();
+    if (!resp.ok || !data.success) {
+      errEl.classList.add('visible');
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginPassword').focus();
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+      return;
+    }
+    // Armazenar token
+    authToken = data.token;
+    sessionStorage.setItem('tea_auth_token', data.token);
+    sessionStorage.setItem('tea_auth_expires', data.expires_at);
+    // Entrar na aplicação
     currentUnit = selectedUnit;
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('appContent').classList.add('visible');
@@ -3389,16 +3406,25 @@ function doLogin() {
     restoreDraft();
     // Mostrar popup de boas-vindas da IA após 1.5s
     setTimeout(showWelcomePopup, 1500);
-    // Reset button
-    btn.disabled = false;
-    btn.textContent = 'Entrar';
-  }, 400);
+  } catch (err) {
+    errEl.textContent = 'Erro de conex\u00e3o. Tente novamente.';
+    errEl.classList.add('visible');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Entrar';
 }
 
 function doLogout() {
+  // Encerrar sessão no servidor
+  if (authToken) {
+    fetch(AUTH_API + '/logout', { method: 'POST', headers: { 'X-Auth-Token': authToken } }).catch(function(){});
+  }
+  authToken = null;
   currentUnit = null;
   selectedUnit = null;
   sessionStorage.removeItem('tea_unit');
+  sessionStorage.removeItem('tea_auth_token');
+  sessionStorage.removeItem('tea_auth_expires');
   document.getElementById('appContent').classList.remove('visible');
   document.getElementById('loginScreen').style.display = '';
   // Reset login form
@@ -3444,9 +3470,11 @@ function checkSession() {
       }
     }
   }
-  // 2. Restaurar sessão salva
+  // 2. Restaurar sessão salva (com verificação de token)
   const saved = sessionStorage.getItem('tea_unit');
-  if (saved && UNITS[saved]) {
+  const savedToken = sessionStorage.getItem('tea_auth_token');
+  if (saved && UNITS[saved] && savedToken) {
+    authToken = savedToken;
     currentUnit = saved;
     selectedUnit = saved;
     const unit = UNITS[saved];
@@ -3648,9 +3676,10 @@ async function sendDataSetEmail() {
   status.style.display = 'none';
 
   try {
-    const response = await fetch(EMAIL_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+const authToken = sessionStorage.getItem('tea_auth_token');
+     const response = await fetch(EMAIL_API, {
+       method: 'POST',
+       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + (authToken || '') },
       body: JSON.stringify({
         to: 'contato@grupocsv.com',
         cc: ccList,
@@ -3684,48 +3713,12 @@ async function sendDataSetEmail() {
 // ============================================================
 // AI ASSISTANT
 // ============================================================
-const AI_ENDPOINT = 'https://csv-ai.guilherme-thom.workers.dev/chat';
+const AI_ENDPOINT = 'https://csv-ai.guilherme-thom.workers.dev';
 let aiChatOpen = false;
 let aiConversation = [];
 let aiIsLoading = false;
 
-const TEA_SYSTEM_PROMPT = `Voc\u00ea \u00e9 o assistente do Data Set TEA, uma ferramenta de coleta de dados sobre o Transtorno do Espectro Autista (TEA) desenvolvida pelo ICDS (Instituto de Cuidados e Desenvolvimento em Sa\u00fade), parte do Grupo CSV.
-
-Seu papel \u00e9 ajudar o usu\u00e1rio a preencher o formul\u00e1rio de coleta de dados corretamente. Responda SEMPRE em portugu\u00eas do Brasil, com acentua\u00e7\u00e3o e cedilha corretas. Seja direto, objetivo e pr\u00e1tico. N\u00e3o use emojis. Sempre que poss\u00edvel, ofere\u00e7a exemplos concretos de como preencher o campo.
-
-O formul\u00e1rio tem 8 se\u00e7\u00f5es. Para cada uma, segue a descri\u00e7\u00e3o e um exemplo de padr\u00e3o de resposta:
-
-1. PROFISSIONAIS: Quantidade de profissionais essenciais (m\u00e9dicos, fisioterapeutas, terapeutas ocupacionais, fonoaudi\u00f3logos, psic\u00f3logos). Diferenciar generalistas de especialistas. Informar a \u00e1rea de especializa\u00e7\u00e3o.
-Exemplo de preenchimento: M\u00e9dicos \u2014 2 generalistas, 3 especialistas (2 neuropediatras, 1 psiquiatra infantil). Fisioterapeutas \u2014 0 generalistas, 4 especialistas (neurofuncional). Terapeutas Ocupacionais \u2014 0 generalistas, 3 especialistas (integra\u00e7\u00e3o sensorial). Fonoaudi\u00f3logos \u2014 1 generalista, 2 especialistas (linguagem infantil). Psic\u00f3logos \u2014 0 generalistas, 5 especialistas (3 ABA, 2 neuropsicologia).
-
-2. PACIENTES: N\u00famero total de pacientes com diagn\u00f3stico de TEA. Instrumento utilizado para diagn\u00f3stico (CID-10 F84, DSM-5, ou outros). Perfil do profissional que fechou o diagn\u00f3stico. Dados demogr\u00e1ficos: g\u00eanero, idade m\u00e9dia no diagn\u00f3stico, faixa et\u00e1ria predominante.
-Exemplo de preenchimento: Total de pacientes: 127. Instrumento: Ambos (CID-10 F84.0 + DSM-5). Profissional que fechou: M\u00e9dico neuropediatra. G\u00eanero: 98 masculino, 26 feminino, 3 n\u00e3o informado. Idade m\u00e9dia no diagn\u00f3stico: 3 anos e 4 meses. Faixa et\u00e1ria predominante: 2 a 6 anos.
-
-3. TRATAMENTO: Onde o tratamento \u00e9 realizado (cl\u00ednica, instituto, prestador). Horas semanais e mensais de terapia. Quais profissionais atendem cada paciente. Plano Terap\u00eautico Individual (PTI): se existe, quem elabora, com que frequ\u00eancia \u00e9 revisado.
-Exemplo de preenchimento: Local: Cl\u00ednica credenciada + Instituto. Carga hor\u00e1ria: 15 horas/semana, 60 horas/m\u00eas. Profissionais: TO, fono, psic\u00f3logo ABA, neuropediatra. Defini\u00e7\u00e3o: via PTI elaborado pelo neuropediatra e revisado trimestralmente pela equipe multidisciplinar.
-
-4. PRESTADORES: Cadastro dos profissionais para futuras capacita\u00e7\u00f5es. Nome, registro profissional (CRM, CRP, CREF, CREFITO, CFa), contato e v\u00ednculo. Pode ser preenchido individualmente ou anexando uma lista.
-Exemplo de preenchimento: Nome: Dra. Maria Silva. Registro: CRM-GO 12345. Contato: maria@clinica.com / (62) 99999-0000. V\u00ednculo: Cl\u00ednica Desenvolver \u2014 Goi\u00e2nia. Ou: anexar planilha Excel com colunas Nome, Registro, E-mail, Telefone, V\u00ednculo.
-
-5. PAGAMENTO: Valores por categoria profissional (R$/atendimento e R$/m\u00eas). Forma de pagamento: PF, PJ, Vari\u00e1vel, Sal\u00e1rio + Vari\u00e1vel, Somente Sal\u00e1rio. Forma predominante geral.
-Exemplo de preenchimento: M\u00e9dicos \u2014 R$ 180,00/atendimento, R$ 12.000,00/m\u00eas, forma PJ. Fisioterapeutas \u2014 R$ 85,00/atendimento, R$ 6.800,00/m\u00eas, forma PJ. Psic\u00f3logos \u2014 R$ 95,00/atendimento, R$ 7.600,00/m\u00eas, forma PF. Forma predominante geral: PJ.
-
-6. JUDICIALIZA\u00c7\u00c3O: N\u00famero de a\u00e7\u00f5es judiciais relacionadas a TEA. Ju\u00edzes da comarca envolvidos e peritos chamados. An\u00e1lise qualitativa das decis\u00f5es judiciais.
-Exemplo de preenchimento: M\u00e9dia de 8 a\u00e7\u00f5es/m\u00eas, per\u00edodo jan/2025 a dez/2025. Valor m\u00e9dio: R$ 45.000,00. Ju\u00edzes: Dr. Jo\u00e3o Pereira (2\u00aa Vara C\u00edvel), Dra. Ana Costa (1\u00aa Vara da Fam\u00edlia). Peritos: Dr. Carlos Mendes (CRM-GO 54321, neuropediatra).
-
-7. FLUXO ASSISTENCIAL: Porta de entrada do paciente TEA na operadora. Gargalos e pontos de dor no fluxo. Sugest\u00f5es de melhoria. Jornada atual (AS-IS) e insumos para desenho da Linha de Cuidado.
-Exemplo de preenchimento: Porta de entrada: pediatra da rede solicita avalia\u00e7\u00e3o com neuropediatra. Triagem: neuropediatra aplica M-CHAT e encaminha para avalia\u00e7\u00e3o multidisciplinar. Gargalos: fila de 4 meses para primeira consulta com neuropediatra; aus\u00eancia de protocolo padronizado para defini\u00e7\u00e3o de carga hor\u00e1ria terap\u00eautica.
-
-8. GOVERNAN\u00c7A E DADOS: Compartilhamento de risco entre operadora e prestador. Conjunto m\u00ednimo de dados para gest\u00e3o do TEA (disponibilidade, fonte, frequ\u00eancia, respons\u00e1vel). Indicadores assistenciais monitorados.
-Exemplo de preenchimento: Compartilhamento de risco: n\u00e3o existe atualmente, em discuss\u00e3o. Auditoria cl\u00ednica: sim, trimestral, feita pelo m\u00e9dico auditor. Base de pacientes TEA: dispon\u00edvel, fonte sistema Tasy, frequ\u00eancia mensal, respons\u00e1vel: setor de regula\u00e7\u00e3o. Indicadores: taxa de ades\u00e3o ao PTI, tempo m\u00e9dio at\u00e9 primeiro atendimento, custo m\u00e9dio por paciente/m\u00eas.
-
-Regras:
-- Sempre ofere\u00e7a exemplos concretos de preenchimento quando o usu\u00e1rio perguntar o que preencher ou como preencher.
-- Se o usu\u00e1rio perguntar algo fora do escopo do formul\u00e1rio, redirecione educadamente para o preenchimento.
-- Se n\u00e3o souber a resposta, diga que n\u00e3o sabe e sugira que o usu\u00e1rio consulte a equipe t\u00e9cnica do ICDS.
-- N\u00e3o invente dados ou n\u00fameros reais. Os exemplos s\u00e3o fict\u00edcios e servem apenas para ilustrar o padr\u00e3o esperado.
-- Quando poss\u00edvel, indique qual se\u00e7\u00e3o do formul\u00e1rio se refere \u00e0 d\u00favida.
-- Responda sempre em portugu\u00eas do Brasil com acentua\u00e7\u00e3o e pontua\u00e7\u00e3o corretas.`;
+// System prompt movido para o Worker csv-ai (endpoint /tea-chat)
 
 // ============================================================
 // POPUP DE BOAS-VINDAS DA IA
@@ -3894,27 +3887,21 @@ async function sendAiMessage() {
   const sectionCtx = getSectionContext();
   const unitName = currentUnit && UNITS[currentUnit] ? UNITS[currentUnit].name : 'N\u00e3o identificada';
 
-  // Build messages array
-  const messages = [
-    { role: 'system', content: TEA_SYSTEM_PROMPT + '\n\nUnidade atual: ' + unitName + '.\n' + sectionCtx }
-  ];
-
-  // Add conversation history (last 6 messages for context window)
-  const recentHistory = aiConversation.slice(-6);
-  recentHistory.forEach(msg => messages.push(msg));
-
-  // Add current message
-  messages.push({ role: 'user', content: text });
-
   aiIsLoading = true;
   document.getElementById('aiChatSendBtn').disabled = true;
   addTypingIndicator();
 
   try {
-    const response = await fetch(AI_ENDPOINT, {
+    const response = await fetch(AI_ENDPOINT + '/tea-chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Origin': 'https://hub.grupocsv.com' },
-      body: JSON.stringify({ messages, max_tokens: 800, temperature: 0.4 })
+      body: JSON.stringify({
+        message: text,
+        unit_name: unitName,
+        section_context: sectionCtx,
+        history: aiConversation.slice(-6),
+        max_tokens: 800
+      })
     });
 
     removeTypingIndicator();
@@ -3924,9 +3911,7 @@ async function sendAiMessage() {
     }
 
     const data = await response.json();
-    const reply = data.choices && data.choices[0] && data.choices[0].message
-      ? data.choices[0].message.content
-      : 'Desculpe, nao consegui processar sua pergunta. Tente reformular.';
+    const reply = data.reply || 'Desculpe, n\u00e3o consegui processar sua pergunta. Tente reformular.';
 
     addAiMessage('assistant', reply);
 
