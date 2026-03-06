@@ -1385,9 +1385,188 @@
       .login-footer-logo { height: 22px; }
     }
 
+    /* C5: Read-only mode */
+    body.readonly-mode input,
+    body.readonly-mode textarea,
+    body.readonly-mode select {
+      pointer-events: none !important;
+      background: var(--bg-tertiary) !important;
+      opacity: 0.85;
+      cursor: default !important;
+    }
+    body.readonly-mode .action-buttons,
+    body.readonly-mode .email-panel,
+    body.readonly-mode .draft-bar,
+    body.readonly-mode .btn-add-cc,
+    body.readonly-mode .file-upload-zone,
+    body.readonly-mode .ai-chat-fab,
+    body.readonly-mode .ai-welcome-popup,
+    body.readonly-mode .toc-fab { display: none !important; }
+    .readonly-banner {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.86rem;
+      color: #92400e;
+      box-shadow: 0 2px 8px rgba(245,158,11,0.15);
+    }
+    .readonly-banner svg { flex-shrink: 0; }
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 6px 14px;
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .version-badge strong { color: #fff; font-weight: 700; }
+    /* C6: Dashboard */
+    .dashboard-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .dashboard-header h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ax-primary);
+      margin-bottom: 4px;
+    }
+    .dashboard-header p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+    .dashboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .dashboard-table th {
+      background: var(--ax-primary);
+      color: #fff;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+    .dashboard-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--bg-tertiary);
+      vertical-align: middle;
+    }
+    .dashboard-table tr:last-child td { border-bottom: none; }
+    .dashboard-table tr:hover td { background: var(--bg-secondary); }
+    .dashboard-table a {
+      color: var(--ax-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .dashboard-table a:hover { text-decoration: underline; }
+    .dashboard-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-tertiary);
+      font-size: 0.92rem;
+    }
+    .submission-success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 10002;
+      align-items: center;
+      justify-content: center;
+    }
+    .submission-success-modal.open { display: flex; }
+    .submission-success-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .submission-success-box h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ax-green);
+      margin-bottom: 12px;
+    }
+    .submission-success-box p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .submission-link-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .submission-link-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      font-family: monospace;
+      outline: none;
+    }
+    .submission-link-box button {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: none;
+      background: var(--ax-primary);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .submission-link-box button:hover { background: var(--ax-primary-light); }
+    .submission-success-box .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .submission-success-box .modal-actions button {
+      padding: 10px 24px;
+      border-radius: 10px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
     @media print {
       .login-screen { display: none !important; }
-      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel, .ai-welcome-popup { display: none !important; }
+      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel, .ai-welcome-popup, .readonly-banner, .submission-success-modal { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -1847,6 +2026,35 @@
   </div>
 </div>
 
+<!-- C6: Dashboard container (mostrado quando ?dashboard=1) -->
+<div id="dashboardView" style="display:none">
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" style="width:140px;margin:0 auto 16px;display:block;filter:brightness(0) saturate(100%) invert(18%) sepia(30%) saturate(1200%) hue-rotate(180deg) brightness(95%) contrast(95%)">
+      <h1>Data Set TEA</h1>
+      <p>Painel de envios</p>
+    </div>
+    <div id="dashboardContent"><p style="text-align:center;color:var(--text-tertiary)">Carregando...</p></div>
+  </div>
+</div>
+
+<!-- C7: Modal de sucesso do envio -->
+<div class="submission-success-modal" id="submissionSuccessModal">
+  <div class="submission-success-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#00995d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;margin-bottom:12px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <h3>Formulário enviado com sucesso</h3>
+    <p id="submissionSuccessText">O formulário foi salvo e o e-mail de notificação foi enviado.</p>
+    <div class="submission-link-box">
+      <input type="text" id="submissionViewLink" readonly>
+      <button onclick="copySubmissionLink()">Copiar link</button>
+    </div>
+    <p style="font-size:0.78rem;color:var(--text-tertiary);margin-bottom:16px">Use este link para visualizar o formulário a qualquer momento.</p>
+    <div class="modal-actions">
+      <button onclick="closeSubmissionModal()" style="background:var(--ax-primary);color:#fff">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== CONTEÚDO DO APP ==================== -->
 <div class="app-content" id="appContent">
 
@@ -1863,7 +2071,15 @@
     <img src="" alt="" class="hero-client-logo" id="heroClientLogo">
     <span class="hero-client-label" id="heroClientLabel"></span>
   </div>
-
+  <!-- C4: Badge de versão -->
+  <div class="version-badge" id="versionBadge" style="display:none">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+    <span id="versionText"></span>
+  </div>
+  <button class="btn-logout" onclick="doLogout()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Sair
+  </button>
 </header>
 
 <div class="container">
@@ -3792,6 +4008,37 @@ function buildEmailHTML() {
   return html;
 }
 
+// ============================================================
+// C4: COLETA DE DADOS DO FORMULÁRIO (JSON)
+// ============================================================
+function collectAllFormData() {
+  const form = document.getElementById('teaForm');
+  const data = {};
+  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+    if (el.name && !el.classList.contains('extra-cc-input')) data[el.name] = el.value;
+  });
+  form.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+    data['__radio__' + el.name] = el.value;
+  });
+  form.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    if (el.name) data['__check__' + el.name] = el.checked;
+  });
+  return data;
+}
+
+function getGlobalProgress() {
+  let totalFilled = 0, totalFields = 0;
+  for (let s = 1; s <= 8; s++) {
+    const prog = getSectionProgress('sec' + s);
+    totalFilled += prog.filled;
+    totalFields += prog.total;
+  }
+  return totalFields > 0 ? Math.round((totalFilled / totalFields) * 100) : 0;
+}
+
+// ============================================================
+// C7: ENVIAR FORMULÁRIO (e-mail + /submit)
+// ============================================================
 async function sendDataSetEmail() {
   // C2: Validar campos obrigatórios antes de enviar
   if (!validateBeforeSend()) return;
@@ -3799,6 +4046,7 @@ async function sendDataSetEmail() {
   const btn = document.getElementById('btnSendEmail');
   const status = document.getElementById('emailStatus');
   const unitLabel = getUnitLabel();
+  const unit = UNITS[currentUnit];
 
   // Collect CCs
   const ccList = ['guilherme@grupocsv.com'];
@@ -3826,37 +4074,213 @@ async function sendDataSetEmail() {
   status.style.display = 'none';
 
   try {
-const authToken = sessionStorage.getItem('tea_auth_token');
-     const response = await fetch(EMAIL_API, {
-       method: 'POST',
-       headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + (authToken || '') },
+    const tkn = sessionStorage.getItem('tea_auth_token');
+    const progressPct = getGlobalProgress();
+    const formData = collectAllFormData();
+
+    // Chamar /submit (salva no D1 + envia notificação interna)
+    const submitResp = await fetch(EMAIL_API + '/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + (tkn || '') },
       body: JSON.stringify({
-        to: 'contato@grupocsv.com',
-        cc: ccList,
-        subject: 'Data Set TEA \u2014 ' + unitLabel,
-        html: buildEmailHTML(),
-        from_name: 'Data Set TEA',
-        from_email: 'hub@mail.grupocsv.com',
-        tags: [{ name: 'tool', value: 'tea-dataset' }, { name: 'unit', value: currentUnit || 'unknown' }]
+        unit_code: unit.code,
+        unit_name: unit.name + ' (' + unit.state + ')',
+        progress_pct: progressPct,
+        form_data: formData,
+        email_payload: {
+          to: 'contato@grupocsv.com',
+          cc: ccList,
+          subject: 'Data Set TEA \u2014 ' + unitLabel,
+          html: buildEmailHTML(),
+          from_name: 'Data Set TEA',
+          from_email: 'hub@mail.grupocsv.com',
+          tags: [{ name: 'tool', value: 'tea-dataset' }, { name: 'unit', value: currentUnit || 'unknown' }]
+        }
       })
     });
 
-    const data = await response.json();
+    const submitData = await submitResp.json();
 
-    if (response.ok && data.success) {
+    if (submitResp.ok && submitData.success) {
+      // Atualizar badge de versão
+      showVersionBadge(submitData.version, new Date().toLocaleString('pt-BR'));
+
+      // Mostrar modal de sucesso com link de visualização
+      const viewUrl = submitData.view_url || ('https://hub.grupocsv.com/p/tea-dataset/?view=' + submitData.hash);
+      document.getElementById('submissionViewLink').value = viewUrl;
+      document.getElementById('submissionSuccessText').textContent =
+        'Versão ' + submitData.version + ' salva com sucesso. O e-mail de notificação foi enviado para ' + allEmails.length + ' destinatário(s).';
+      document.getElementById('submissionSuccessModal').classList.add('open');
+
       status.className = 'email-status success';
-      status.textContent = 'E-mail enviado com sucesso para ' + allEmails.length + ' destinat\u00e1rio(s).';
+      status.textContent = 'Enviado com sucesso (v' + submitData.version + ').';
+      status.style.display = 'block';
     } else {
       status.className = 'email-status error';
-      status.textContent = 'Erro ao enviar: ' + (data.error || 'Tente novamente.');
+      status.textContent = 'Erro ao enviar: ' + (submitData.error || 'Tente novamente.');
+      status.style.display = 'block';
     }
   } catch (err) {
     status.className = 'email-status error';
-    status.textContent = 'Erro de conex\u00e3o. Verifique sua internet e tente novamente.';
+    status.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+    status.style.display = 'block';
   }
 
   btn.disabled = false;
   btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar por E-mail';
+}
+
+function showVersionBadge(version, dateStr) {
+  const badge = document.getElementById('versionBadge');
+  const text = document.getElementById('versionText');
+  if (badge && text) {
+    text.innerHTML = 'Versão <strong>v' + version + '</strong> — ' + dateStr;
+    badge.style.display = 'inline-flex';
+  }
+}
+
+function copySubmissionLink() {
+  const input = document.getElementById('submissionViewLink');
+  input.select();
+  navigator.clipboard.writeText(input.value).then(function() {
+    const btn = input.nextElementSibling;
+    btn.textContent = 'Copiado!';
+    setTimeout(function() { btn.textContent = 'Copiar link'; }, 2000);
+  });
+}
+
+function closeSubmissionModal() {
+  document.getElementById('submissionSuccessModal').classList.remove('open');
+}
+
+// ============================================================
+// C5: MODO READ-ONLY (visualização por ?view=hash)
+// ============================================================
+let isReadOnlyMode = false;
+
+async function initReadOnlyMode(hash) {
+  try {
+    const resp = await fetch(EMAIL_API + '/view/' + hash);
+    if (!resp.ok) {
+      document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:Inter,sans-serif"><h2 style="color:#1B3A5C">Formulário não encontrado</h2><p style="color:#64748b;margin-top:12px">O link de visualização pode estar incorreto ou expirado.</p><a href="/p/tea-dataset/" style="display:inline-block;margin-top:20px;padding:10px 24px;background:#1B3A5C;color:#fff;border-radius:10px;text-decoration:none;font-weight:600">Voltar ao início</a></div>';
+      return;
+    }
+    const data = await resp.json();
+    isReadOnlyMode = true;
+    document.body.classList.add('readonly-mode');
+
+    // Esconder login, mostrar app
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appContent').classList.add('visible');
+
+    // Configurar hero
+    const unitCode = data.unit_code;
+    const codeToKey = {};
+    Object.keys(UNITS).forEach(k => { codeToKey[UNITS[k].code] = k; });
+    const unitKey = codeToKey[unitCode];
+    if (unitKey && UNITS[unitKey]) {
+      const unit = UNITS[unitKey];
+      document.getElementById('heroClientLogo').src = unit.logo;
+      document.getElementById('heroClientLogo').alt = unit.name;
+      document.getElementById('heroClientLabel').textContent = data.unit_name + ' — Visualização';
+    } else {
+      document.getElementById('heroClientLabel').textContent = data.unit_name + ' — Visualização';
+    }
+
+    // Mostrar badge de versão
+    const submittedDate = new Date(data.submitted_at).toLocaleString('pt-BR');
+    showVersionBadge(data.version, submittedDate);
+
+    // Inserir banner read-only
+    const container = document.querySelector('.container');
+    const banner = document.createElement('div');
+    banner.className = 'readonly-banner';
+    banner.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> <span>Modo de visualização — Versão v' + data.version + ' enviada em ' + submittedDate + ' (' + data.progress_pct + '% preenchido)</span>';
+    container.insertBefore(banner, container.firstChild);
+
+    // Preencher formulário com os dados
+    const formData = data.form_data;
+    const form = document.getElementById('teaForm');
+    Object.keys(formData).forEach(key => {
+      if (key.startsWith('__radio__')) {
+        const name = key.replace('__radio__', '');
+        const el = form.querySelector('input[name="' + name + '"][value="' + formData[key] + '"]');
+        if (el) el.checked = true;
+      } else if (key.startsWith('__check__')) {
+        const name = key.replace('__check__', '');
+        const el = form.querySelector('input[name="' + name + '"]');
+        if (el) el.checked = formData[key];
+      } else if (!key.startsWith('__')) {
+        const el = form.querySelector('[name="' + key + '"]');
+        if (el) {
+          el.value = formData[key];
+          updateFilledClass(el);
+        }
+      }
+    });
+
+    updateProgress();
+  } catch (err) {
+    document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;font-family:Inter,sans-serif"><h2 style="color:#dc2626">Erro ao carregar</h2><p style="color:#64748b;margin-top:12px">' + err.message + '</p><a href="/p/tea-dataset/" style="display:inline-block;margin-top:20px;padding:10px 24px;background:#1B3A5C;color:#fff;border-radius:10px;text-decoration:none;font-weight:600">Voltar ao início</a></div>';
+  }
+}
+
+// ============================================================
+// C6: DASHBOARD DE ENVIOS (?dashboard=1)
+// ============================================================
+async function initDashboard() {
+  // Esconder login e app, mostrar dashboard
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboardView').style.display = 'block';
+
+  const content = document.getElementById('dashboardContent');
+  const tkn = sessionStorage.getItem('tea_auth_token');
+
+  if (!tkn) {
+    content.innerHTML = '<div class="dashboard-empty"><p>Acesso restrito. Faça login primeiro e depois acesse o dashboard.</p><a href="/p/tea-dataset/" style="display:inline-block;margin-top:16px;padding:10px 24px;background:#1B3A5C;color:#fff;border-radius:10px;text-decoration:none;font-weight:600">Fazer login</a></div>';
+    return;
+  }
+
+  try {
+    const resp = await fetch(EMAIL_API + '/submissions', {
+      headers: { 'Authorization': 'Bearer ' + tkn }
+    });
+
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      content.innerHTML = '<div class="dashboard-empty"><p>Erro ao carregar: ' + (errData.error || 'Acesso negado') + '</p></div>';
+      return;
+    }
+
+    const data = await resp.json();
+    const submissions = data.submissions || [];
+
+    if (submissions.length === 0) {
+      content.innerHTML = '<div class="dashboard-empty"><p>Nenhum envio registrado ainda.</p></div>';
+      return;
+    }
+
+    let html = '<table class="dashboard-table"><thead><tr>';
+    html += '<th>Unidade</th><th>Versão</th><th>Progresso</th><th>Data do envio</th><th>Ação</th>';
+    html += '</tr></thead><tbody>';
+
+    submissions.forEach(sub => {
+      const dt = new Date(sub.submitted_at).toLocaleString('pt-BR');
+      const viewUrl = '/p/tea-dataset/?view=' + sub.hash;
+      html += '<tr>';
+      html += '<td><strong>' + sub.unit_name + '</strong><br><span style="font-size:0.75rem;color:var(--text-tertiary)">Código ' + sub.unit_code + '</span></td>';
+      html += '<td>v' + sub.version + '</td>';
+      html += '<td>' + sub.progress_pct + '%</td>';
+      html += '<td>' + dt + '</td>';
+      html += '<td><a href="' + viewUrl + '" target="_blank">Visualizar</a></td>';
+      html += '</tr>';
+    });
+
+    html += '</tbody></table>';
+    content.innerHTML = html;
+  } catch (err) {
+    content.innerHTML = '<div class="dashboard-empty"><p>Erro de conexão: ' + err.message + '</p></div>';
+  }
 }
 
 // ============================================================
@@ -4097,6 +4521,20 @@ window.addEventListener('scroll', function() {
 // EVENT LISTENERS
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
+  // C5: Verificar se é modo de visualização (?view=hash)
+  const urlParams = new URLSearchParams(window.location.search);
+  const viewHash = urlParams.get('view');
+  if (viewHash) {
+    initReadOnlyMode(viewHash);
+    return; // Não executar o restante da inicialização
+  }
+
+  // C6: Verificar se é dashboard (?dashboard=1)
+  if (urlParams.get('dashboard') === '1') {
+    initDashboard();
+    return; // Não executar o restante da inicialização
+  }
+
   // Check session (auto-login if returning)
   checkSession();
 
