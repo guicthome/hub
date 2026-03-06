@@ -717,10 +717,10 @@
         <div class="lock-slogan">Seu painel de contexto ativo</div>
         <div id="lock-subtitle">Digite seu PIN de 4 dígitos para acessar</div>
         <div id="pin-group">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off">
-            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="1" autofocus>
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="2">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="3">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="off" tabindex="4">
         </div>
         <button id="lock-btn">Desbloquear</button>
         <div id="lock-error"></div>
@@ -1091,7 +1091,10 @@ function setupLockScreen() {
 }
 
 function getPinValue() { return pinInputs.map(i => i.value).join(''); }
-function clearPinInputs() { pinInputs.forEach(i => { i.value = ''; }); pinInputs[0].focus(); }
+function clearPinInputs() {
+    pinInputs.forEach(i => { i.value = ''; });
+    setTimeout(() => { pinInputs[0].focus(); }, 50);
+}
 
 async function handleSetPin() {
     const pin = getPinValue();
