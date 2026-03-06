@@ -114,7 +114,7 @@
     }
 
     /* Container */
-    .container { max-width: 900px; margin: 0 auto; padding: 0 20px 40px; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px 40px; transition: margin-right 0.3s ease; }
 
     /* Context box */
     .context-box {
@@ -491,21 +491,22 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 3px;
-      background: var(--ax-green);
+      height: 4px;
+      background: linear-gradient(90deg, var(--ax-green), #00d68f);
       z-index: 10000;
-      transition: width 0.3s ease;
+      transition: width 0.4s ease;
+      border-radius: 0 2px 2px 0;
     }
 
     /* Floating TOC nav */
     .toc-fab {
       position: fixed;
-      bottom: 88px;
-      right: 24px;
+      bottom: 24px;
+      left: 24px;
       z-index: 9998;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 8px;
     }
     .toc-toggle {
@@ -699,7 +700,7 @@
       .input-md { max-width: 100%; }
       .action-buttons { flex-direction: column; align-items: stretch; }
       .btn-action { justify-content: center; }
-      .toc-fab { bottom: 16px; right: 16px; }
+      .toc-fab { bottom: 16px; left: 16px; }
     }
 
     /* Destaque para blocos de anexo */
@@ -1259,7 +1260,7 @@
 
     @media print {
       .login-screen { display: none !important; }
-      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel { display: none !important; }
+      .action-buttons, .progress-bar, .toc-fab, .draft-bar, .autosave-indicator, .modal-overlay, .clear-modal-overlay, .info-balloon, .info-balloon-overlay, .info-btn, .email-panel, .ai-chat-fab, .ai-chat-panel, .ai-welcome-popup { display: none !important; }
       .form-section.collapsed .section-body { max-height: none; opacity: 1; padding: 24px; }
       .section-chevron, .section-badge { display: none; }
       .form-section { page-break-inside: avoid; break-inside: avoid; }
@@ -1325,7 +1326,7 @@
     }
     .ai-chat-panel.open { display: flex; }
     .ai-sidebar-open .container { margin-right: 380px; transition: margin-right 0.3s ease; }
-    .ai-sidebar-open .toc-fab { right: 404px; transition: right 0.3s ease; }
+    .ai-sidebar-open .toc-fab { left: 24px; transition: none; }
     .ai-sidebar-open .ai-chat-fab { display: none; }
     .ai-sidebar-open .autosave-indicator { right: 404px; transition: right 0.3s ease; }
     .ai-chat-header {
@@ -1497,11 +1498,135 @@
         box-shadow: 0 8px 40px rgba(0,0,0,0.18);
       }
       .ai-sidebar-open .container { margin-right: 0; }
-      .ai-sidebar-open .toc-fab { right: 24px; }
+      .ai-sidebar-open .toc-fab { left: 16px; }
       .ai-sidebar-open .ai-chat-fab { display: block; }
       .ai-sidebar-open .autosave-indicator { right: 24px; }
       .ai-chat-fab { bottom: 16px; right: 16px; }
+      .ai-welcome-popup { right: auto; left: 16px; bottom: 80px; }
     }
+
+    /* Popup de boas-vindas da IA */
+    .ai-welcome-popup {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      width: 320px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06);
+      z-index: 10000;
+      overflow: hidden;
+      animation: welcomeSlideUp 0.4s ease-out;
+      border: 1px solid var(--border-color);
+    }
+    @keyframes welcomeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ai-welcome-popup::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      right: 30px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      transform: rotate(45deg);
+    }
+    .ai-welcome-header {
+      background: linear-gradient(135deg, var(--ax-primary), var(--ax-primary-light));
+      color: #fff;
+      padding: 16px 18px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-welcome-header .ai-welcome-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ai-welcome-header .ai-welcome-icon svg { width: 20px; height: 20px; }
+    .ai-welcome-header h4 { margin: 0; font-size: 14px; font-weight: 700; }
+    .ai-welcome-header p { margin: 2px 0 0; font-size: 11px; opacity: 0.85; }
+    .ai-welcome-header .ai-welcome-close {
+      margin-left: auto;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .ai-welcome-header .ai-welcome-close:hover { background: rgba(255,255,255,0.3); }
+    .ai-welcome-body {
+      padding: 16px 18px;
+    }
+    .ai-welcome-body p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0 0 14px;
+    }
+    .ai-welcome-body .ai-welcome-examples {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .ai-welcome-body .ai-welcome-example {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ai-welcome-body .ai-welcome-example:hover {
+      background: #e8f4fd;
+      border-color: var(--ax-primary);
+      color: var(--ax-primary);
+    }
+    .ai-welcome-cta {
+      display: flex;
+      gap: 8px;
+    }
+    .ai-welcome-cta button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .ai-welcome-cta .btn-welcome-open {
+      background: linear-gradient(135deg, var(--ax-green), #00b36b);
+      color: #fff;
+      border: none;
+    }
+    .ai-welcome-cta .btn-welcome-open:hover { box-shadow: 0 4px 16px rgba(0,153,93,0.35); }
+    .ai-welcome-cta .btn-welcome-dismiss {
+      background: #fff;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+    .ai-welcome-cta .btn-welcome-dismiss:hover { background: var(--bg-secondary); }
   </style>
 </head>
 <body>
@@ -1609,6 +1734,14 @@
       <li><strong>Jornada do paciente:</strong> comparação entre a linha de cuidado proposta e o fluxo atual, identificando lacunas e oportunidades de alinhamento.</li>
       <li><strong>Remuneração e governança:</strong> modelo de pagamento, tipo de contrato, fluxo de repasse e existência de compartilhamento de risco ou auditoria clínica.</li>
     </ul>
+    <div style="margin-top:20px;padding:16px 18px;background:linear-gradient(135deg,#f0f7ff 0%,#f8fbff 100%);border:1px solid #d0e3f7;border-radius:12px">
+      <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.7;margin:0 0 10px">
+        <strong style="color:var(--ax-primary)">Envio e anexos:</strong> ao final do formulário, há uma seção dedicada para anexar relatórios, planilhas, dashboards e outros arquivos de apoio. Após o preenchimento, você pode enviar o formulário completo por e-mail diretamente para a sua equipe e para a consultoria.
+      </p>
+      <p style="font-size:0.86rem;color:var(--text-secondary);line-height:1.7;margin:0">
+        <strong style="color:var(--ax-primary)">Segurança dos dados:</strong> todas as informações são processadas localmente no seu navegador e não são armazenadas em servidores externos. A transmissão por e-mail utiliza criptografia TLS padrão de mercado. Seu rascunho é salvo automaticamente no próprio dispositivo para que você possa retomar o preenchimento a qualquer momento.
+      </p>
+    </div>
   </div>
 
   <form id="teaForm" novalidate>
@@ -2430,7 +2563,7 @@
     </div>
     <div class="email-recipient-row">
       <label>Cc:</label>
-      <input type="email" id="emailCcUser" placeholder="Seu e-mail (para receber cópia)">
+      <input type="email" id="emailCcUser" placeholder="Ex: coordenacao@unimed.com.br">
     </div>
     <button type="button" class="btn-add-cc" onclick="toggleExtraCc()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -2440,7 +2573,7 @@
       <div id="extraCcContainer">
         <div class="email-recipient-row">
           <label>Cc:</label>
-          <input type="email" class="extra-cc-input" placeholder="email@exemplo.com">
+          <input type="email" class="extra-cc-input" placeholder="Ex: diretoria@unimed.com.br">
           <button type="button" onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>
         </div>
       </div>
@@ -2502,6 +2635,34 @@
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
   </button>
   <span class="ai-chat-fab-label">Assistente IA</span>
+</div>
+
+<!-- Popup de boas-vindas da IA -->
+<div class="ai-welcome-popup" id="aiWelcomePopup" style="display:none">
+  <div class="ai-welcome-header">
+    <div class="ai-welcome-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+    </div>
+    <div>
+      <h4>Assistente de preenchimento</h4>
+      <p>Inteligência artificial integrada</p>
+    </div>
+    <button class="ai-welcome-close" onclick="dismissWelcome()" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="ai-welcome-body">
+    <p>Este formulário conta com um assistente inteligente para ajudá-lo no preenchimento. Ele identifica automaticamente a seção em que você está e oferece orientações, exemplos e esclarecimentos.</p>
+    <div class="ai-welcome-examples">
+      <div class="ai-welcome-example" onclick="openWelcomeChat('O que devo preencher na seção de profissionais?')">&ldquo;O que devo preencher na seção de profissionais?&rdquo;</div>
+      <div class="ai-welcome-example" onclick="openWelcomeChat('Me dê um exemplo de preenchimento da seção de pagamento')">&ldquo;Me dê um exemplo de preenchimento de pagamento&rdquo;</div>
+      <div class="ai-welcome-example" onclick="openWelcomeChat('Qual a diferença entre generalista e especialista?')">&ldquo;Qual a diferença entre generalista e especialista?&rdquo;</div>
+    </div>
+    <div class="ai-welcome-cta">
+      <button class="btn-welcome-open" onclick="openWelcomeChat()">Abrir assistente</button>
+      <button class="btn-welcome-dismiss" onclick="dismissWelcome()">Agora não</button>
+    </div>
+  </div>
 </div>
 
 <div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="Assistente de IA">
@@ -3075,6 +3236,8 @@ function doLogin() {
     sessionStorage.setItem('tea_unit', selectedUnit);
     // Restore draft if available
     restoreDraft();
+    // Mostrar popup de boas-vindas da IA após 1.5s
+    setTimeout(showWelcomePopup, 1500);
     // Reset button
     btn.disabled = false;
     btn.textContent = 'Entrar';
@@ -3132,6 +3295,8 @@ function checkSession() {
     document.getElementById('heroClientLogo').src = unit.logo;
     document.getElementById('heroClientLogo').alt = unit.name;
     document.getElementById('heroClientLabel').textContent = unit.name + ' (' + unit.state + ') \u2014 Question\u00e1rio de Coleta';
+    // Mostrar popup de boas-vindas da IA
+    setTimeout(showWelcomePopup, 1500);
   }
 }
 
@@ -3148,7 +3313,7 @@ function addExtraCcField() {
   const container = document.getElementById('extraCcContainer');
   const row = document.createElement('div');
   row.className = 'email-recipient-row';
-  row.innerHTML = '<label>Cc:</label><input type="email" class="extra-cc-input" placeholder="email@exemplo.com"><button type="button" onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>';
+  row.innerHTML = '<label>Cc:</label><input type="email" class="extra-cc-input" placeholder="Ex: gestor@unimed.com.br"><button type="button" onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:1.2rem;padding:4px">&times;</button>';
   container.appendChild(row);
 }
 
@@ -3402,7 +3567,51 @@ Regras:
 - Quando poss\u00edvel, indique qual se\u00e7\u00e3o do formul\u00e1rio se refere \u00e0 d\u00favida.
 - Responda sempre em portugu\u00eas do Brasil com acentua\u00e7\u00e3o e pontua\u00e7\u00e3o corretas.`;
 
+// ============================================================
+// POPUP DE BOAS-VINDAS DA IA
+// ============================================================
+function showWelcomePopup() {
+  if (sessionStorage.getItem('tea_welcome_dismissed')) return;
+  const popup = document.getElementById('aiWelcomePopup');
+  if (popup) {
+    popup.style.display = 'block';
+  }
+}
+
+function dismissWelcome() {
+  const popup = document.getElementById('aiWelcomePopup');
+  if (popup) popup.style.display = 'none';
+  sessionStorage.setItem('tea_welcome_dismissed', '1');
+}
+
+function openWelcomeChat(question) {
+  dismissWelcome();
+  // Abrir o chat
+  if (!aiChatOpen) {
+    aiChatOpen = true;
+    var panel = document.getElementById('aiChatPanel');
+    var btn = document.getElementById('aiChatToggle');
+    panel.classList.add('open');
+    btn.classList.add('active');
+    document.body.classList.add('ai-sidebar-open');
+    updateAiContext();
+  }
+  // Se veio com pergunta, enviar automaticamente
+  if (question) {
+    setTimeout(function() {
+      var input = document.getElementById('aiChatInput');
+      input.value = question;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      setTimeout(function() { sendAiMessage(); }, 200);
+    }, 500);
+  } else {
+    document.getElementById('aiChatInput').focus();
+  }
+}
+
 function toggleAiChat() {
+  // Fechar popup de boas-vindas se estiver aberto
+  dismissWelcome();
   aiChatOpen = !aiChatOpen;
   const panel = document.getElementById('aiChatPanel');
   const btn = document.getElementById('aiChatToggle');
