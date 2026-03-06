@@ -581,8 +581,8 @@ head:
           <div class="p-name">Unimed Governador Valadares</div>
           <div class="p-sub">Operadora de Planos de Saúde</div>
         </div>
-        <a href="/unimed/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
         <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        <a href="/unimed/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
@@ -642,8 +642,8 @@ head:
           <div class="p-name">Unihealth Governador Valadares</div>
           <div class="p-sub">Hospital de Média/Alta Complexidade</div>
         </div>
-        <a href="/unihealth/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
         <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        <a href="/unihealth/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
@@ -683,8 +683,8 @@ head:
           <div class="p-name">ICDS</div>
           <div class="p-sub">Entidade Filantrópica e Gestora Assistencial</div>
         </div>
-        <a href="/icds/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
         <span class="p-toggle"><span class="toggle-label-expand">Ver ferramentas</span><span class="toggle-label-collapse">Ocultar</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+        <a href="/icds/" class="p-portal-btn">Acessar portal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
