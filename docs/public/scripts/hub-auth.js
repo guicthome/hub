@@ -557,10 +557,25 @@
 
           var result = await doRequestAccess(email.value, name.value, PORTAL);
           if (result.success) {
-            successEl.textContent = 'Solicitação enviada com sucesso! Você receberá um e-mail quando sua solicitação for aprovada.';
+            successEl.innerHTML = 'Solicitação enviada com sucesso! Você receberá um e-mail quando sua solicitação for aprovada.<br><a href="#" id="hub-auth-back-to-login" style="display:inline-block;margin-top:10px;color:' + colors.primary + ';font-weight:600;text-decoration:none;font-size:14px;">Voltar ao Login</a>';
             successEl.style.display = 'block';
             name.value = '';
             email.value = '';
+            requestBtn.style.display = 'none';
+            overlay.querySelectorAll('#hub-auth-request-name, #hub-auth-request-email').forEach(function(el) { el.closest('.hub-auth-field').style.display = 'none'; });
+            var backLink = overlay.querySelector('#hub-auth-back-to-login');
+            if (backLink) {
+              backLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                successEl.style.display = 'none';
+                requestBtn.style.display = '';
+                requestBtn.disabled = false;
+                requestBtn.classList.remove('loading');
+                overlay.querySelectorAll('#hub-auth-request-name, #hub-auth-request-email').forEach(function(el) { el.closest('.hub-auth-field').style.display = ''; });
+                var loginTab = overlay.querySelector('.hub-auth-tab[data-tab="login"]');
+                if (loginTab) loginTab.click();
+              });
+            }
             setTimeout(function() {
               requestBtn.disabled = false;
               requestBtn.classList.remove('loading');
