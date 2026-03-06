@@ -33,6 +33,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
   <style>
     :root {
@@ -2571,9 +2572,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       Gerar PDF
     </button>
-    <button type="button" class="btn-action btn-csv" onclick="exportCSV()">
+    <button type="button" class="btn-action btn-csv" onclick="exportExcel()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Exportar CSV
+      Exportar Excel
     </button>
     <button type="button" onclick="showClearModal()" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;font-family:inherit;font-size:0.95rem;font-weight:700;cursor:pointer;background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border-color);transition:all 0.2s">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -3337,37 +3338,84 @@ function closePdfModal() {
 }
 
 // ============================================================
-// EXPORT CSV
+// C3: EXPORT EXCEL (.xlsx) com SheetJS
 // ============================================================
-function exportCSV() {
-  const form = document.getElementById('teaForm');
-  const rows = [['Campo', 'Valor']];
+function collectSectionData(secId) {
+  const sec = document.getElementById(secId);
+  if (!sec) return [];
+  const body = sec.querySelector('.section-body');
+  if (!body) return [];
+  const rows = [];
 
-  // All named inputs
-  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
-    if (el.name) rows.push([el.name, (el.value || '').replace(/"/g, '""')]);
+  body.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+    if (el.name && !el.classList.contains('extra-cc-input')) {
+      rows.push([getFieldLabel(el.name), el.value || '']);
+    }
   });
-  // Radios
+
+  const radioGroups = new Set();
+  body.querySelectorAll('input[type="radio"]').forEach(r => radioGroups.add(r.name));
+  radioGroups.forEach(name => {
+    const checked = body.querySelector('input[name="' + name + '"]:checked');
+    rows.push([getFieldLabel(name), checked ? checked.value : '']);
+  });
+
+  body.querySelectorAll('input[type="checkbox"]').forEach(el => {
+    if (el.name) rows.push([getFieldLabel(el.name), el.checked ? 'Sim' : 'N\u00e3o']);
+  });
+
+  return rows;
+}
+
+function exportExcel() {
+  const wb = XLSX.utils.book_new();
+  const unitLabel = getUnitLabel();
+  const now = new Date().toLocaleString('pt-BR');
+
+  // Aba Resumo
+  const resumoData = [['Data Set TEA', ''], ['Unidade', unitLabel], ['Data de exporta\u00e7\u00e3o', now], []];
+  for (let s = 1; s <= 8; s++) {
+    const prog = getSectionProgress('sec' + s);
+    resumoData.push([SECTION_NAMES['sec' + s], prog.pct + '% preenchido']);
+  }
+  const wsResumo = XLSX.utils.aoa_to_sheet(resumoData);
+  wsResumo['!cols'] = [{ wch: 40 }, { wch: 30 }];
+  XLSX.utils.book_append_sheet(wb, wsResumo, 'Resumo');
+
+  // Uma aba por se\u00e7\u00e3o
+  for (let s = 1; s <= 8; s++) {
+    const secId = 'sec' + s;
+    const data = collectSectionData(secId);
+    const header = [['Campo', 'Valor']];
+    const ws = XLSX.utils.aoa_to_sheet(header.concat(data));
+    ws['!cols'] = [{ wch: 45 }, { wch: 40 }];
+    const sheetName = s + '. ' + SECTION_NAMES[secId].substring(0, 28);
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  }
+
+  // Aba completa (todos os campos)
+  const allRows = [['Campo', 'Valor']];
+  const form = document.getElementById('teaForm');
+  form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="date"], textarea, select').forEach(el => {
+    if (el.name && !el.classList.contains('extra-cc-input')) {
+      allRows.push([getFieldLabel(el.name), el.value || '']);
+    }
+  });
   const radioGroups = new Set();
   form.querySelectorAll('input[type="radio"]').forEach(r => radioGroups.add(r.name));
   radioGroups.forEach(name => {
-    const checked = form.querySelector(`input[name="${name}"]:checked`);
-    rows.push([name, checked ? checked.value : '']);
+    const checked = form.querySelector('input[name="' + name + '"]:checked');
+    allRows.push([getFieldLabel(name), checked ? checked.value : '']);
   });
-  // Checkboxes
   form.querySelectorAll('input[type="checkbox"]').forEach(el => {
-    if (el.name) rows.push([el.name, el.checked ? 'Sim' : 'Não']);
+    if (el.name) allRows.push([getFieldLabel(el.name), el.checked ? 'Sim' : 'N\u00e3o']);
   });
+  const wsAll = XLSX.utils.aoa_to_sheet(allRows);
+  wsAll['!cols'] = [{ wch: 45 }, { wch: 40 }];
+  XLSX.utils.book_append_sheet(wb, wsAll, 'Dados Completos');
 
-  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  const csvUnitName = currentUnit && UNITS[currentUnit] ? UNITS[currentUnit].name.replace(/\s+/g, '_') : 'Unimed';
-  a.download = 'DataSet_TEA_' + csvUnitName + '.csv';
-  a.click();
-  URL.revokeObjectURL(url);
+  const xlsxUnitName = currentUnit && UNITS[currentUnit] ? UNITS[currentUnit].name.replace(/\s+/g, '_') : 'Unimed';
+  XLSX.writeFile(wb, 'DataSet_TEA_' + xlsxUnitName + '.xlsx');
 }
 
 // ============================================================
