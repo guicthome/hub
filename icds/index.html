@@ -267,8 +267,17 @@
         <div class="tools-grid">
             <div class="tool-card featured">
                 <div class="tool-title">TEA: Data Set Indicadores</div>
-                <a href="tea-dataset.html" class="tool-link">Acessar</a>
+                <a href="#" class="tool-link" onclick="event.preventDefault();openTeaEmbed()">Acessar</a>
             </div>
+        </div>
+
+        <!-- TEA Data Set Embed -->
+        <div id="teaEmbedOverlay" style="display:none;position:fixed;inset:0;z-index:10000;background:#fff">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--icds-blue);color:#fff;font-size:14px;font-weight:600">
+                <span>Data Set TEA</span>
+                <button onclick="closeTeaEmbed()" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px 8px;line-height:1" title="Fechar">&times;</button>
+            </div>
+            <iframe id="teaEmbedFrame" src="" style="width:100%;height:calc(100vh - 40px);border:none"></iframe>
         </div>
     </div>
 
@@ -297,6 +306,25 @@
       </div>
       <div style="font-size:11px;color:#94a3b8">Copyright © 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
     </div>
+<script>
+function openTeaEmbed() {
+  var overlay = document.getElementById('teaEmbedOverlay');
+  var frame = document.getElementById('teaEmbedFrame');
+  frame.src = '/p/tea-dataset/';
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeTeaEmbed() {
+  var overlay = document.getElementById('teaEmbedOverlay');
+  var frame = document.getElementById('teaEmbedFrame');
+  overlay.style.display = 'none';
+  frame.src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeTeaEmbed();
+});
+</script>
 <script src="/scripts/hub-auth.js" data-portal="icds"></script>
 </body>
 </html>

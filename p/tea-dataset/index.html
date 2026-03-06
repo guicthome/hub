@@ -15,7 +15,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:image" content="https://hub.grupocsv.com/og/og_icds.png">
-  <meta property="og:url" content="https://hub.grupocsv.com/icds/tea-dataset.html">
+  <meta property="og:url" content="https://hub.grupocsv.com/p/tea-dataset/">
   <meta property="og:site_name" content="ICDS | Hub Grupo CSV">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Data Set TEA — Panorama Assistencial do Cuidado">
@@ -1078,32 +1078,43 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f2a42 0%, #1B3A5C 50%, #2C5F8A 100%);
+      background: linear-gradient(135deg, #0f2a42 0%, #1B3A5C 40%, #1a6a5c 100%);
       padding: 24px;
+      position: relative;
+    }
+    .login-screen-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+      width: 100%;
     }
     .login-screen .login-brand {
       width: 160px;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      opacity: 0.95;
     }
     .login-screen .login-title {
       color: #fff;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 800;
       margin-bottom: 4px;
       letter-spacing: -0.02em;
     }
     .login-screen .login-subtitle {
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.6);
       font-size: 0.92rem;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
+      letter-spacing: 0.02em;
     }
     .login-card {
       background: #fff;
-      border-radius: 16px;
-      padding: 36px 32px;
+      border-radius: 20px;
+      padding: 40px 36px 32px;
       max-width: 440px;
       width: 100%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.05);
     }
     .login-card h3 {
       font-size: 1.05rem;
@@ -1224,27 +1235,86 @@
       display: none;
       width: 100%;
       padding: 14px;
-      background: var(--ax-primary);
+      background: linear-gradient(135deg, var(--ax-primary) 0%, var(--ax-primary-dark) 100%);
       color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
     }
     .btn-login.visible {
       display: block;
     }
     .btn-login:hover {
-      background: var(--ax-primary-dark);
+      background: linear-gradient(135deg, var(--ax-primary-dark) 0%, #0a1f33 100%);
+      box-shadow: 0 4px 16px rgba(15,42,66,0.35);
+      transform: translateY(-1px);
     }
-    .login-footer {
+    .btn-login:active {
+      transform: translateY(0);
+    }
+    .login-card-footer {
       margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
       text-align: center;
-      color: rgba(255,255,255,0.4);
+    }
+    .login-card-footer-text {
       font-size: 0.72rem;
+      color: var(--text-tertiary);
+      line-height: 1.5;
+    }
+    .login-card-footer-text sup {
+      font-size: 0.55rem;
+    }
+    .login-footer-logos {
+      padding: 24px 0 16px;
+      text-align: center;
+      width: 100%;
+    }
+    .login-footer-logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 14px;
+    }
+    .login-footer-logo {
+      height: 28px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      filter: brightness(0) invert(1);
+    }
+    .login-footer-logo:hover {
+      opacity: 0.9;
+    }
+    .login-footer-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255,255,255,0.2);
+    }
+    .login-footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.72rem;
+    }
+    .login-footer-links a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .login-footer-links a:hover {
+      color: rgba(255,255,255,0.8);
+    }
+    .login-footer-links span {
+      color: rgba(255,255,255,0.2);
+      font-size: 0.6rem;
     }
     .app-content {
       display: none;
@@ -1253,9 +1323,11 @@
       display: block;
     }
     @media (max-width: 480px) {
-      .login-card { padding: 28px 20px; }
+      .login-card { padding: 28px 20px 24px; }
       .unit-option { padding: 12px 14px; gap: 10px; }
       .unit-option .unit-logo { height: 30px; }
+      .login-footer-logos-row { gap: 14px; }
+      .login-footer-logo { height: 22px; }
     }
 
     @media print {
@@ -1633,57 +1705,86 @@
 
 <!-- ==================== TELA DE LOGIN ==================== -->
 <div class="login-screen" id="loginScreen">
-  <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="login-brand" style="width:160px">
-  <div class="login-title" style="font-weight:400">Data Set <strong style="font-weight:800">TEA</strong></div>
-  <div class="login-subtitle">Panorama Assistencial do Cuidado</div>
+  <div class="login-screen-inner">
+    <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="login-brand" style="width:160px">
+    <div class="login-title" style="font-weight:400">Data Set <strong style="font-weight:800">TEA</strong></div>
+    <div class="login-subtitle">Panorama Assistencial do Cuidado</div>
 
-  <div class="login-card">
-    <h3>Selecione a unidade</h3>
-    <div class="unit-selector" id="unitSelector">
+    <div class="login-card">
+      <h3>Selecione a unidade</h3>
+      <div class="unit-selector" id="unitSelector">
 
-      <label class="unit-option" onclick="selectUnit(this, 'rioverde')">
-        <input type="radio" name="unit" value="rioverde">
-        <div class="unit-radio"></div>
-        <img src="/icds/logo_unimed_rioverde.png" alt="Unimed Rio Verde" class="unit-logo">
-        <div class="unit-info">
-          <div class="unit-name">Unimed Rio Verde</div>
-          <div class="unit-code">Código 110 — GO</div>
-        </div>
-      </label>
+        <label class="unit-option" onclick="selectUnit(this, 'rioverde')">
+          <input type="radio" name="unit" value="rioverde">
+          <div class="unit-radio"></div>
+          <img src="logo_unimed_rioverde.png" alt="Unimed Rio Verde" class="unit-logo">
+          <div class="unit-info">
+            <div class="unit-name">Unimed Rio Verde</div>
+            <div class="unit-code">Código 110 — GO</div>
+          </div>
+        </label>
 
-      <label class="unit-option" onclick="selectUnit(this, 'ourinhos')">
-        <input type="radio" name="unit" value="ourinhos">
-        <div class="unit-radio"></div>
-        <img src="/icds/logo_unimed_ourinhos.png" alt="Unimed Ourinhos" class="unit-logo">
-        <div class="unit-info">
-          <div class="unit-name">Unimed Ourinhos</div>
-          <div class="unit-code">Código 094 — SP</div>
-        </div>
-      </label>
+        <label class="unit-option" onclick="selectUnit(this, 'ourinhos')">
+          <input type="radio" name="unit" value="ourinhos">
+          <div class="unit-radio"></div>
+          <img src="logo_unimed_ourinhos.png" alt="Unimed Ourinhos" class="unit-logo">
+          <div class="unit-info">
+            <div class="unit-name">Unimed Ourinhos</div>
+            <div class="unit-code">Código 094 — SP</div>
+          </div>
+        </label>
 
-      <label class="unit-option" onclick="selectUnit(this, 'govvaladares')">
-        <input type="radio" name="unit" value="govvaladares">
-        <div class="unit-radio"></div>
-        <img src="/icds/logo_unimed_govvaladares.png" alt="Unimed Gov. Valadares" class="unit-logo">
-        <div class="unit-info">
-          <div class="unit-name">Unimed Governador Valadares</div>
-          <div class="unit-code">Código 236 — MG</div>
-        </div>
-      </label>
+        <label class="unit-option" onclick="selectUnit(this, 'govvaladares')">
+          <input type="radio" name="unit" value="govvaladares">
+          <div class="unit-radio"></div>
+          <img src="logo_unimed_govvaladares.png" alt="Unimed Gov. Valadares" class="unit-logo">
+          <div class="unit-info">
+            <div class="unit-name">Unimed Governador Valadares</div>
+            <div class="unit-code">Código 236 — MG</div>
+          </div>
+        </label>
 
+      </div>
+
+      <div class="login-password-group" id="passwordGroup">
+        <label for="loginPassword">Senha da unidade</label>
+        <input type="password" id="loginPassword" placeholder="Digite a senha" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+
+      <div class="login-error" id="loginError">Senha incorreta. Tente novamente.</div>
+
+      <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
+
+      <div class="login-card-footer">
+        <div class="login-card-footer-text">Conteúdo sob curadoria do responsável técnico</div>
+        <div class="login-card-footer-text">Guilherme Thomé | CRM-MG 64193 | RQE 41538</div>
+        <div class="login-card-footer-text" style="margin-top:4px">AxiaCare<sup>&reg;</sup> | Grupo CSV</div>
+      </div>
     </div>
-
-    <div class="login-password-group" id="passwordGroup">
-      <label for="loginPassword">Senha da unidade</label>
-      <input type="password" id="loginPassword" placeholder="Digite a senha" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
-
-    <div class="login-error" id="loginError">Senha incorreta. Tente novamente.</div>
-
-    <button class="btn-login" id="btnLogin" onclick="doLogin()">Entrar</button>
   </div>
 
-  <div class="login-footer">ICDS — Gestão em Saúde</div>
+  <div class="login-footer-logos">
+    <div class="login-footer-logos-row">
+      <a href="https://icds.org.br" target="_blank" rel="noopener">
+        <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_negativo.png" alt="ICDS" class="login-footer-logo">
+      </a>
+      <span class="login-footer-divider"></span>
+      <a href="https://axcare.com.br" target="_blank" rel="noopener">
+        <img src="/visual-identity/axiacare/logo/svg/axiacare_logo_horizontal_monochrome_negative.svg" alt="AxiaCare" class="login-footer-logo">
+      </a>
+      <span class="login-footer-divider"></span>
+      <a href="https://grupocsv.com" target="_blank" rel="noopener">
+        <img src="/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png" alt="Grupo CSV" class="login-footer-logo" style="height:22px">
+      </a>
+    </div>
+    <div class="login-footer-links">
+      <a href="https://axcare.com.br" target="_blank" rel="noopener">axcare.com.br</a>
+      <span>|</span>
+      <a href="https://grupocsv.com" target="_blank" rel="noopener">grupocsv.com</a>
+      <span>|</span>
+      <a href="https://icds.org.br" target="_blank" rel="noopener">icds.org.br</a>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== CONTEÚDO DO APP ==================== -->
@@ -2632,7 +2733,7 @@
 <!-- AI ASSISTANT CHAT -->
 <div class="ai-chat-fab" id="aiChatFab">
   <button class="ai-chat-fab-btn" id="aiChatToggle" onclick="toggleAiChat()" aria-label="Assistente IA">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
   </button>
   <span class="ai-chat-fab-label">Assistente IA</span>
 </div>
@@ -2641,7 +2742,7 @@
 <div class="ai-welcome-popup" id="aiWelcomePopup" style="display:none">
   <div class="ai-welcome-header">
     <div class="ai-welcome-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
     </div>
     <div>
       <h4>Assistente de preenchimento</h4>
@@ -2668,7 +2769,7 @@
 <div class="ai-chat-panel" id="aiChatPanel" role="dialog" aria-label="Assistente de IA">
   <div class="ai-chat-header">
     <div class="ai-chat-header-icon">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
     </div>
     <div class="ai-chat-header-text">
       <h4>Assistente Data Set TEA <span class="ai-badge">IA</span></h4>
@@ -3174,21 +3275,21 @@ const UNITS = {
     name: 'Unimed Rio Verde',
     code: '110',
     state: 'GO',
-    logo: '/icds/logo_unimed_rioverde.png',
+    logo: 'logo_unimed_rioverde.png',
     password: '12345678'
   },
   ourinhos: {
     name: 'Unimed Ourinhos',
     code: '094',
     state: 'SP',
-    logo: '/icds/logo_unimed_ourinhos.png',
+    logo: 'logo_unimed_ourinhos.png',
     password: '12345678'
   },
   govvaladares: {
     name: 'Unimed Governador Valadares',
     code: '236',
     state: 'MG',
-    logo: '/icds/logo_unimed_govvaladares.png',
+    logo: 'logo_unimed_govvaladares.png',
     password: '12345678'
   }
 };
