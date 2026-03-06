@@ -167,7 +167,7 @@ head:
     <div class="icds-card featured">
       <div class="icds-title">TEA: Data Set Indicadores</div>
       <span class="icds-date">Fevereiro-26</span>
-      <a data-direct href="/icds/tea-dataset.html" class="icds-link">Acessar</a>
+      <a data-direct href="/p/tea-dataset/" class="icds-link">Acessar</a>
     </div>
   </div>
 

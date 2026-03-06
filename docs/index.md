@@ -688,7 +688,7 @@ head:
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
-        <a href="/icds/tea-dataset.html" data-direct class="tool-item">
+        <a href="/p/tea-dataset/" data-direct class="tool-item">
           <span class="dot" style="background:#1B3A5C;"></span>
           TEA: Data Set Indicadores
           <span class="arrow">›</span>
