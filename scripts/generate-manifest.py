@@ -31,6 +31,9 @@ PRIORITY_RULES = [
     ("docs/_infra/assets/",               9, "assets"),
     ("docs/_infra/standards/",           10, "standards"),
     ("docs/_infra/",                     11, "infra"),
+    ("skills/",                          12, "skill"),
+    ("docs/public-pages",               13, "infra"),
+    ("p/registry.json",                 14, "registry"),
 ]
 
 # Arquivos e diretórios a ignorar
@@ -53,6 +56,8 @@ TAG_DESCRIPTIONS = {
     "assets": "Catálogo ou guia de assets visuais do ecossistema.",
     "standards": "Padrão ou diretriz de compliance e governança.",
     "infra": "Documento de infraestrutura cognitiva do Hub.",
+    "skill": "Instrucao operacional para agentes de IA.",
+    "registry": "Catalogo estruturado de ativos do ecossistema.",
 }
 
 # ============================================================
@@ -167,6 +172,29 @@ def discover_assets(repo_root):
                     rel = os.path.relpath(os.path.join(root, f), repo_root)
                     if not should_ignore(rel):
                         assets.append(rel)
+
+    # 3. Skills (.md dentro de skills/)
+    skills_dir = os.path.join(repo_root, "skills")
+    if os.path.isdir(skills_dir):
+        for f in sorted(os.listdir(skills_dir)):
+            if f.endswith(".md"):
+                rel = os.path.join("skills", f)
+                if not should_ignore(rel):
+                    assets.append(rel)
+
+    # 4. Documentacao avulsa (docs/*.md na raiz de docs/)
+    docs_dir = os.path.join(repo_root, "docs")
+    if os.path.isdir(docs_dir):
+        for f in sorted(os.listdir(docs_dir)):
+            if f.endswith(".md") and f != "index.md":
+                rel = os.path.join("docs", f)
+                if not should_ignore(rel):
+                    assets.append(rel)
+
+    # 5. Registry de paginas publicas
+    registry_path = os.path.join(repo_root, "p", "registry.json")
+    if os.path.isfile(registry_path):
+        assets.append(os.path.join("p", "registry.json"))
 
     return assets
 

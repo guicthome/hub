@@ -1,7 +1,7 @@
 {
   "manifestVersion": "2.0.0",
-  "lastUpdated": "2026-03-06T04:43:05Z",
-  "totalAssets": 26,
+  "lastUpdated": "2026-03-06T22:06:47Z",
+  "totalAssets": 30,
   "totalProducts": 33,
   "knowledgeAssets": [
     {
@@ -9,7 +9,7 @@
       "priority": 0,
       "title": "Llms",
       "path": "/llms.txt",
-      "sha256": "556f8f3a8c0d2767c70bdf556177c2eb90bc09b3c3937c3f8b4a5b74c0910f43",
+      "sha256": "0e5f4eb3f696d461c8887e97941e8d04be6edb05123ba0cf288396465fbe5a6e",
       "description": "Ponto de entrada para agentes de IA com instruções iniciais e links para os artefatos de conhecimento.",
       "tags": [
         "entrypoint"
@@ -20,7 +20,7 @@
       "priority": 1,
       "title": "Completeness Checklist",
       "path": "/completeness-checklist.md",
-      "sha256": "5fb52c690ae2ff7fd5114f68f507a8dad14d7149a22b5f8ce3749880551ed157",
+      "sha256": "37254ba0240304991b2ebdd9117dc2cf61b96514a8faeec898619b0b55cbd9a6",
       "description": "Artefato de meta-governança para consumo estruturado por agentes de IA.",
       "tags": [
         "meta"
@@ -289,6 +289,50 @@
       "tags": [
         "infra"
       ]
+    },
+    {
+      "id": "skills-buscar-api-keys",
+      "priority": 12,
+      "title": "Buscar Api Keys",
+      "path": "/skills/buscar-api-keys.md",
+      "sha256": "bcf088499a618bda387b380b0b20c09b2f24fa505eeed66a508127aad881ccc1",
+      "description": "Instrucao operacional para agentes de IA.",
+      "tags": [
+        "skill"
+      ]
+    },
+    {
+      "id": "skills-public-pages",
+      "priority": 12,
+      "title": "Public Pages",
+      "path": "/skills/public-pages.md",
+      "sha256": "ca72c19d68450f105a5d17a4ea496445edfc0b549cf2e4906a31ebec5639c140",
+      "description": "Instrucao operacional para agentes de IA.",
+      "tags": [
+        "skill"
+      ]
+    },
+    {
+      "id": "public-pages",
+      "priority": 13,
+      "title": "Public Pages",
+      "path": "/docs/public-pages.md",
+      "sha256": "9cc9e1547c1d0b8c23faf00d68f5abed9bd7035ef3df2c9c85ea07da98c4bc8c",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "p-registry.json",
+      "priority": 14,
+      "title": "Registry.Json",
+      "path": "/p/registry.json",
+      "sha256": "f642ab1db13775e2531bfb6446cba000114018db6de7613ae5ebc3ea6b6169d6",
+      "description": "Catalogo estruturado de ativos do ecossistema.",
+      "tags": [
+        "registry"
+      ]
     }
   ],
   "productAssets": [
@@ -296,7 +340,7 @@
       "id": "admin-index",
       "title": "Painel Administrativo",
       "path": "/admin/index.html",
-      "sha256": "0c83a05fe1df2928d933b8de830066201eef3a6f7f809c8a7e28a4739cab469e",
+      "sha256": "098fc39bef7ce09378b7127cb88555944d4cb3cd68a98e3dffd42196359d0273",
       "category": "tool",
       "entity": "Grupo CSV",
       "description": "Ferramenta focada em tarefa específica com escopo limitado."
@@ -341,7 +385,7 @@
       "id": "deck-index",
       "title": "Deck Institucional",
       "path": "/deck/index.html",
-      "sha256": "bf453cb2db2b5c4951a239c1bfeaa69c0625ef829b454114543584e277c53280",
+      "sha256": "f671fb5699d1f28a06ee8817489825eff4ddbfb64625d6d773280afad036ed92",
       "category": "static",
       "entity": "Grupo CSV",
       "description": "Página estática com conteúdo informativo."
