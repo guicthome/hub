@@ -266,7 +266,6 @@ title: Infraestrutura Técnica
 </style>
 
 <div class="tech-page">
-
   <!-- HERO -->
   <div class="frame hero-section">
     <h1>Infraestrutura Técnica</h1>
@@ -286,7 +285,6 @@ title: Infraestrutura Técnica
       O proprietário mantém uma estrutura de gerenciamento de segredos própria, que pode ser consultada sob seu consentimento expresso.
     </div>
   </div>
-
   <!-- VISÃO GERAL DA ARQUITETURA -->
   <div class="frame">
     <h2 class="section-title">1. Visão Geral da Arquitetura</h2>
@@ -295,7 +293,6 @@ title: Infraestrutura Técnica
       de microserviços implementada com <strong>Cloudflare Workers</strong>. Cada worker é um serviço independente,
       com responsabilidade única, que se comunica com os demais através do API Gateway.
     </p>
-
     <div class="arch-diagram">
 <pre style="text-align:left; margin:0;">
 ┌─────────────────────────────────────────────────────────────────┐
@@ -337,7 +334,6 @@ title: Infraestrutura Técnica
 └─────────────────────────────────────────────────────────────────┘
 </pre>
     </div>
-
     <h3 class="subsection-title">Repositórios de Código</h3>
     <table class="tech-table">
       <thead><tr><th>Repositório</th><th>Conteúdo</th><th>Deploy</th></tr></thead>
@@ -355,7 +351,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-
   <!-- API GATEWAY -->
   <div class="frame">
     <h2 class="section-title">2. API Gateway (<code>csv-gateway</code>)</h2>
@@ -364,7 +359,6 @@ title: Infraestrutura Técnica
       <strong>api.grupocsv.com</strong>. Recebe a requisição, valida a autenticação quando necessário,
       registra o log no D1 e encaminha (proxy) para o worker de destino.
     </p>
-
     <h3 class="subsection-title">Mapa de Rotas</h3>
     <table class="tech-table">
       <thead><tr><th>Prefixo</th><th>Worker de Destino</th><th>Acesso</th><th>Descrição</th></tr></thead>
@@ -419,7 +413,6 @@ title: Infraestrutura Técnica
         </tr>
       </tbody>
     </table>
-
     <h3 class="subsection-title">Autenticação do Gateway</h3>
     <p class="section-desc">
       Rotas marcadas como <span class="badge protected">Protegido</span> exigem uma API Key,
@@ -428,7 +421,6 @@ title: Infraestrutura Técnica
       <code>api_logs</code> do D1 com worker, método, path, status e tempo de resposta.
     </p>
   </div>
-
   <!-- WORKERS DE SERVIÇO -->
   <div class="frame">
     <h2 class="section-title">3. Workers de Serviço</h2>
@@ -436,7 +428,6 @@ title: Infraestrutura Técnica
       Cada worker é um microserviço independente com responsabilidade única.
       Todos rodam na edge da Cloudflare, garantindo latência mínima globalmente.
     </p>
-
     <!-- csv-auth -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -469,7 +460,6 @@ title: Infraestrutura Técnica
         <li><code>POST /deck/reset-pin</code> — Envia PIN temporário por e-mail</li>
       </ul>
     </div>
-
     <!-- csv-cron -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -497,7 +487,6 @@ title: Infraestrutura Técnica
         </div>
       </div>
     </div>
-
     <!-- csv-data -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -511,7 +500,6 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> D1 (csv-hub), KV (csv-config)</span>
     </div>
-
     <!-- csv-ai -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -533,7 +521,6 @@ title: Infraestrutura Técnica
         <li><code>GET /usage</code> — Estatísticas de uso</li>
       </ul>
     </div>
-
     <!-- csv-email -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -548,7 +535,6 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> Secret (RESEND_API_KEY)</span>
     </div>
-
     <!-- csv-webhook -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -563,7 +549,6 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> D1 (csv-hub), Secret (RESEND_API_KEY)</span>
     </div>
-
     <!-- csv-propostas -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -578,7 +563,6 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> R2 (csv-propostas), Secret (RESEND_API_KEY)</span>
     </div>
-
     <!-- thera-contact -->
     <div class="worker-card">
       <div class="worker-card-header">
@@ -593,7 +577,6 @@ title: Infraestrutura Técnica
       <span style="font-size:0.82rem; color:#5b6470;"> Secret (RESEND_API_KEY)</span>
     </div>
   </div>
-
   <!-- AUTENTICAÇÃO -->
   <div class="frame">
     <h2 class="section-title">4. Sistema de Autenticação</h2>
@@ -601,14 +584,12 @@ title: Infraestrutura Técnica
       O Hub CSV possui três modelos de autenticação distintos, cada um adequado ao tipo de portal e público.
       Todos são gerenciados pelo worker <code>csv-auth</code> e pelo script frontend <code>hub-auth.js</code>.
     </p>
-
     <h3 class="subsection-title">4.1. Admin Universal</h3>
     <p class="section-desc">
       O proprietário do sistema possui uma credencial mestra que concede acesso a todos os portais
       e ao painel administrativo. Ao fazer login com essa credencial em qualquer portal, o sistema
       reconhece automaticamente e concede acesso.
     </p>
-
     <h3 class="subsection-title">4.2. Portais de Parceiros (Autenticação Individual)</h3>
     <p class="section-desc">
       Portais: <strong>Unimed</strong>, <strong>Unihealth</strong>, <strong>ICDS</strong>.
@@ -621,7 +602,6 @@ title: Infraestrutura Técnica
       <div class="flow-step"><div class="flow-number">5</div><div class="flow-text">O admin aprova ou rejeita a solicitação via Painel Admin. Ao aprovar, define a senha do usuário.</div></div>
       <div class="flow-step"><div class="flow-number">6</div><div class="flow-text">Após aprovação, o usuário recebe e-mail de confirmação e pode efetuar login. Token válido por 24 horas.</div></div>
     </div>
-
     <h3 class="subsection-title">4.3. Portais de Empresas (Senha Compartilhada)</h3>
     <p class="section-desc">
       Portais: <strong>AxiaCare</strong>, <strong>Thera</strong>, <strong>MedValor</strong>.
@@ -636,7 +616,6 @@ title: Infraestrutura Técnica
       As senhas dos portais de empresas podem ser alteradas em tempo real pelo Painel Admin,
       na aba "Senhas dos Portais CSV".
     </p>
-
     <h3 class="subsection-title">4.4. Deck (PIN de 4 Dígitos)</h3>
     <div style="margin: 12px 0;">
       <div class="flow-step"><div class="flow-number">1</div><div class="flow-text">Usuário acessa <code>hub.grupocsv.com/deck/</code>.</div></div>
@@ -645,11 +624,9 @@ title: Infraestrutura Técnica
       <div class="flow-step"><div class="flow-number">4</div><div class="flow-text">"Esqueceu o PIN?" envia PIN temporário por e-mail via <code>/deck/reset-pin</code> e força redefinição.</div></div>
     </div>
   </div>
-
   <!-- BANCO DE DADOS -->
   <div class="frame">
     <h2 class="section-title">5. Banco de Dados e Armazenamento</h2>
-
     <h3 class="subsection-title">5.1. Cloudflare D1 (<code>csv-hub</code>)</h3>
     <p class="section-desc">
       Banco de dados SQL relacional (SQLite na edge). Principal fonte de verdade para dados estruturados.
@@ -688,7 +665,6 @@ title: Infraestrutura Técnica
         <div class="db-table-desc">Log de e-mails enviados via Resend. Campos: from_addr, to_addrs, subject, resend_id, status, error, worker_origin.</div>
       </div>
     </div>
-
     <h3 class="subsection-title">5.2. Cloudflare KV (<code>csv-config</code>)</h3>
     <p class="section-desc">
       Armazenamento de chave-valor de baixa latência. Binding disponível nos workers <code>csv-data</code>
@@ -696,7 +672,6 @@ title: Infraestrutura Técnica
       para a tabela <code>portal_passwords</code> no D1, mas o KV permanece como recurso para futuras
       configurações que exijam leitura de altíssima velocidade.
     </p>
-
     <h3 class="subsection-title">5.3. Cloudflare R2 (<code>csv-propostas</code>)</h3>
     <p class="section-desc">
       Armazenamento de objetos compatível com S3. Usado para guardar propostas comerciais geradas pelo
@@ -704,7 +679,6 @@ title: Infraestrutura Técnica
       <code>propostas.axcare.com.br</code>.
     </p>
   </div>
-
   <!-- PAINEL ADMIN -->
   <div class="frame">
     <h2 class="section-title">6. Painel Administrativo</h2>
@@ -712,7 +686,6 @@ title: Infraestrutura Técnica
       Acessível em <code>hub.grupocsv.com/admin/</code>, protegido por autenticação de admin.
       Permite gerenciar todo o sistema de autenticação e links públicos.
     </p>
-
     <table class="tech-table">
       <thead><tr><th>Aba</th><th>Funcionalidade</th></tr></thead>
       <tbody>
@@ -735,7 +708,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-
   <!-- SERVIÇOS EXTERNOS -->
   <div class="frame">
     <h2 class="section-title">7. Serviços Externos Integrados</h2>
@@ -743,7 +715,6 @@ title: Infraestrutura Técnica
       O backend integra-se com serviços externos para funcionalidades específicas.
       Todas as chaves de acesso são armazenadas como Secrets nos Workers.
     </p>
-
     <table class="tech-table">
       <thead><tr><th>Serviço</th><th>Uso</th><th>Workers que Utilizam</th></tr></thead>
       <tbody>
@@ -764,7 +735,6 @@ title: Infraestrutura Técnica
         </tr>
       </tbody>
     </table>
-
     <h3 class="subsection-title">Domínios de E-mail Verificados (Resend)</h3>
     <table class="tech-table">
       <thead><tr><th>Domínio</th><th>Uso Principal</th><th>Região</th></tr></thead>
@@ -776,7 +746,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-
   <!-- DOMÍNIOS E DNS -->
   <div class="frame">
     <h2 class="section-title">8. Domínios e DNS</h2>
@@ -784,7 +753,6 @@ title: Infraestrutura Técnica
       Todos os domínios são gerenciados via <strong>Cloudflare DNS</strong>. Os registros mais relevantes
       para a infraestrutura do Hub estão listados abaixo.
     </p>
-
     <table class="tech-table">
       <thead><tr><th>Subdomínio</th><th>Tipo</th><th>Destino</th><th>Função</th></tr></thead>
       <tbody>
@@ -820,7 +788,6 @@ title: Infraestrutura Técnica
         </tr>
       </tbody>
     </table>
-
     <h3 class="subsection-title">Zonas Cloudflare</h3>
     <p class="section-desc">
       O ecossistema utiliza 9 zonas DNS no Cloudflare: <code>axcare.ai</code>, <code>axcare.app</code>,
@@ -829,7 +796,6 @@ title: Infraestrutura Técnica
       Todas utilizam Google Workspace para e-mail corporativo (MX records).
     </p>
   </div>
-
   <!-- NOTAS TÉCNICAS -->
   <div class="frame">
     <h2 class="section-title">9. Notas Técnicas</h2>
@@ -867,12 +833,10 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-
   <!-- FOOTER -->
   <div style="text-align:center; margin-bottom:24px;">
     <a href="/_infra/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#196396; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar à Infraestrutura Cognitiva</a>
   </div>
-
   <div class="page-footer">
     <strong>Grupo CSV — Infraestrutura Técnica</strong>
     <div class="small">© 2026 Grupo CSV. Cuidados em Saúde com Valor. Todos os direitos reservados.</div>
