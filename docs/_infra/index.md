@@ -149,6 +149,14 @@ title: Infraestrutura Cognitiva
   </div>
 
   <div class="frame">
+    <h2 class="section-title">Infraestrutura Técnica</h2>
+    <p class="section-desc">Documentação completa da arquitetura de backend: workers, banco de dados, rotas de API, fluxos de autenticação e tarefas agendadas.</p>
+    <div class="resource-grid">
+      <a class="resource-btn" href="/_infra/technical-architecture">Arquitetura Técnica Completa</a>
+    </div>
+  </div>
+
+  <div class="frame">
     <h2 class="section-title">Recursos Transversais</h2>
     <p class="section-desc">Compliance, governança e documentação aplicável a todo o ecossistema.</p>
     <div class="resource-grid">
