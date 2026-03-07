@@ -335,6 +335,7 @@
             <button class="admin-tab active" data-tab="passwords">Senhas dos Portais CSV</button>
             <button class="admin-tab" data-tab="users">Usuários Externos <span class="tab-badge" id="pending-badge"></span></button>
             <button class="admin-tab" data-tab="public-links">Links Públicos</button>
+            <button class="admin-tab" data-tab="access-logs">Log de Acessos Externos</button>
         </div>
 
         <!-- TAB: Users -->
@@ -397,6 +398,34 @@
                         </thead>
                         <tbody id="pl-tbody">
                             <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Access Logs -->
+        <div class="admin-tab-content" data-tab="access-logs">
+            <h3 class="section-header">Log de Acessos Externos</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Registro de acessos de usuários externos aos portais, do mais recente ao mais antigo.
+            </p>
+            <div class="table-card">
+                <div class="tc-header">
+                    <span class="count" id="logs-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>E-mail</th>
+                                <th>Nome</th>
+                                <th>Portal</th>
+                                <th>Acessado em</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-tbody">
+                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -515,7 +544,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks(), loadAccessLogs()]);
     }
 
     // ===== Auth form =====
@@ -779,6 +808,37 @@ function toggleAdminPw() {
             showToast('Erro ao copiar', 'error');
         });
     };
+
+    // ===== Access Logs =====
+    async function loadAccessLogs() {
+        try {
+            const data = await apiCall('/admin/logs?action=login&limit=200');
+            if (!data) return;
+            const logs = (data.logs || []).filter(function(l) {
+                return l.tenant_id !== 'admin';
+            });
+
+            document.getElementById('logs-count').textContent = logs.length + (logs.length === 1 ? ' registro' : ' registros');
+
+            const tbody = document.getElementById('logs-tbody');
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Nenhum acesso externo registrado</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = logs.map(function(l) {
+                return '<tr>' +
+                    '<td style="font-size:13px;">' + esc(l.user_email) + '</td>' +
+                    '<td>' + (esc(l.user_name) || '-') + '</td>' +
+                    '<td>' + (PORTAL_NAMES[l.tenant_id] || esc(l.tenant_id)) + '</td>' +
+                    '<td style="font-size:12px;">' + formatDate(l.timestamp) + '</td>' +
+                '</tr>';
+            }).join('');
+        } catch (err) {
+            document.getElementById('logs-tbody').innerHTML = '<tr><td colspan="4" class="empty-state">Erro ao carregar logs</td></tr>';
+            document.getElementById('logs-count').textContent = 'Erro';
+        }
+    }
 
     function esc(str) {
         if (!str) return '';
