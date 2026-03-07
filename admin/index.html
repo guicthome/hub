@@ -340,6 +340,7 @@
             <button class="admin-tab" data-tab="users">Usuários Externos <span class="tab-badge" id="pending-badge"></span></button>
             <button class="admin-tab" data-tab="public-links">Links Públicos</button>
             <button class="admin-tab" data-tab="access-logs">Log de Acessos Externos</button>
+            <button class="admin-tab" data-tab="deck-users">Deck™</button>
         </div>
 
         <!-- TAB: Users -->
@@ -430,6 +431,35 @@
                             </tr>
                         </thead>
                         <tbody id="logs-tbody">
+                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Deck Users -->
+        <div class="admin-tab-content" data-tab="deck-users">
+            <h3 class="section-header">Deck™ — Usuários</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Usuários registrados no Deck. Revogar remove o acesso permanentemente.
+            </p>
+            <div class="table-card">
+                <div class="tc-header">
+                    <h3>Usuários Ativos</h3>
+                    <span class="count" id="deck-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PIN</th>
+                                <th>Nome</th>
+                                <th>Data Criação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deck-tbody">
                             <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
                         </tbody>
                     </table>
@@ -532,6 +562,7 @@ function toggleAdminPw() {
                 document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]').classList.add('active');
                 if (tabName === 'passwords') loadPasswords();
                 if (tabName === 'public-links') loadPublicLinks();
+                if (tabName === 'deck-users') loadDeckUsers();
             });
         });
     }
@@ -549,7 +580,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks(), loadAccessLogs()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers()]);
     }
 
     // ===== Auth form =====
@@ -900,6 +931,44 @@ function toggleAdminPw() {
             return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
         } catch (e) { return val; }
     }
+
+    // ===== Deck Users =====
+    async function loadDeckUsers() {
+        const data = await apiCall('/admin/deck-users');
+        if (!data) return;
+        const users = data.users || [];
+        const active = users.filter(u => u.active);
+        document.getElementById('deck-count').textContent = active.length + ' ativo(s)';
+        const tbody = document.getElementById('deck-tbody');
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Nenhum usu\u00e1rio registrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = users.map(u => `
+            <tr style="${!u.active ? 'opacity:0.4;text-decoration:line-through;' : ''}">
+                <td><code style="font-size:14px;font-weight:600;">${u.pin}</code></td>
+                <td>${u.name}</td>
+                <td>${formatDate(u.created_at)}</td>
+                <td>
+                    ${u.active ? `<button class="btn-action btn-danger" onclick="revokeDeckUser('${u.pin}', '${u.name}')">Revogar</button>` : '<span style="color:var(--red);font-size:12px;">Revogado</span>'}
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    window.revokeDeckUser = async function(pin, name) {
+        if (!confirm('Revogar acesso de ' + name + ' (PIN: ' + pin + ')?')) return;
+        const data = await apiCall('/admin/deck-revoke', {
+            method: 'POST',
+            body: JSON.stringify({ pin }),
+        });
+        if (data && data.success) {
+            showToast('Acesso revogado: ' + name, 'success');
+            loadDeckUsers();
+        } else {
+            showToast((data && data.error) || 'Erro ao revogar', 'error');
+        }
+    };
 
     // ===== Start =====
     init();
