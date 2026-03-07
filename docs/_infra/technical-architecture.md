@@ -266,7 +266,6 @@ title: Infraestrutura Técnica
 </style>
 
 <div class="tech-page">
-  <!-- HERO -->
   <div class="frame hero-section">
     <h1>Infraestrutura Técnica</h1>
     <p class="version">Versão 1.0 — Atualizado em 07/03/2026</p>
@@ -285,7 +284,6 @@ title: Infraestrutura Técnica
       O proprietário mantém uma estrutura de gerenciamento de segredos própria, que pode ser consultada sob seu consentimento expresso.
     </div>
   </div>
-  <!-- VISÃO GERAL DA ARQUITETURA -->
   <div class="frame">
     <h2 class="section-title">1. Visão Geral da Arquitetura</h2>
     <p class="section-desc">
@@ -351,7 +349,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-  <!-- API GATEWAY -->
   <div class="frame">
     <h2 class="section-title">2. API Gateway (<code>csv-gateway</code>)</h2>
     <p class="section-desc">
@@ -421,15 +418,13 @@ title: Infraestrutura Técnica
       <code>api_logs</code> do D1 com worker, método, path, status e tempo de resposta.
     </p>
   </div>
-  <!-- WORKERS DE SERVIÇO -->
   <div class="frame">
     <h2 class="section-title">3. Workers de Serviço</h2>
     <p class="section-desc">
       Cada worker é um microserviço independente com responsabilidade única.
       Todos rodam na edge da Cloudflare, garantindo latência mínima globalmente.
     </p>
-    <!-- csv-auth -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-auth</span>
         <span class="worker-card-version">v3.0.0</span>
@@ -460,8 +455,7 @@ title: Infraestrutura Técnica
         <li><code>POST /deck/reset-pin</code> — Envia PIN temporário por e-mail</li>
       </ul>
     </div>
-    <!-- csv-cron -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-cron</span>
         <span class="worker-card-version">v2.0</span>
@@ -487,8 +481,7 @@ title: Infraestrutura Técnica
         </div>
       </div>
     </div>
-    <!-- csv-data -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-data</span>
         <span class="worker-card-version">Fase 3</span>
@@ -500,8 +493,7 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> D1 (csv-hub), KV (csv-config)</span>
     </div>
-    <!-- csv-ai -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-ai</span>
         <span class="worker-card-version">Fase 3</span>
@@ -521,8 +513,7 @@ title: Infraestrutura Técnica
         <li><code>GET /usage</code> — Estatísticas de uso</li>
       </ul>
     </div>
-    <!-- csv-email -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-email</span>
         <span class="worker-card-version">—</span>
@@ -535,8 +526,7 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> Secret (RESEND_API_KEY)</span>
     </div>
-    <!-- csv-webhook -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-webhook</span>
         <span class="worker-card-version">—</span>
@@ -549,8 +539,7 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> D1 (csv-hub), Secret (RESEND_API_KEY)</span>
     </div>
-    <!-- csv-propostas -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">csv-propostas</span>
         <span class="worker-card-version">—</span>
@@ -563,8 +552,7 @@ title: Infraestrutura Técnica
       <strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
       <span style="font-size:0.82rem; color:#5b6470;"> R2 (csv-propostas), Secret (RESEND_API_KEY)</span>
     </div>
-    <!-- thera-contact -->
-    <div class="worker-card">
+      <div class="worker-card">
       <div class="worker-card-header">
         <span class="worker-card-name">thera-contact</span>
         <span class="worker-card-version">—</span>
@@ -577,7 +565,6 @@ title: Infraestrutura Técnica
       <span style="font-size:0.82rem; color:#5b6470;"> Secret (RESEND_API_KEY)</span>
     </div>
   </div>
-  <!-- AUTENTICAÇÃO -->
   <div class="frame">
     <h2 class="section-title">4. Sistema de Autenticação</h2>
     <p class="section-desc">
@@ -624,7 +611,6 @@ title: Infraestrutura Técnica
       <div class="flow-step"><div class="flow-number">4</div><div class="flow-text">"Esqueceu o PIN?" envia PIN temporário por e-mail via <code>/deck/reset-pin</code> e força redefinição.</div></div>
     </div>
   </div>
-  <!-- BANCO DE DADOS -->
   <div class="frame">
     <h2 class="section-title">5. Banco de Dados e Armazenamento</h2>
     <h3 class="subsection-title">5.1. Cloudflare D1 (<code>csv-hub</code>)</h3>
@@ -679,7 +665,6 @@ title: Infraestrutura Técnica
       <code>propostas.axcare.com.br</code>.
     </p>
   </div>
-  <!-- PAINEL ADMIN -->
   <div class="frame">
     <h2 class="section-title">6. Painel Administrativo</h2>
     <p class="section-desc">
@@ -708,7 +693,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-  <!-- SERVIÇOS EXTERNOS -->
   <div class="frame">
     <h2 class="section-title">7. Serviços Externos Integrados</h2>
     <p class="section-desc">
@@ -746,7 +730,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-  <!-- DOMÍNIOS E DNS -->
   <div class="frame">
     <h2 class="section-title">8. Domínios e DNS</h2>
     <p class="section-desc">
@@ -796,7 +779,6 @@ title: Infraestrutura Técnica
       Todas utilizam Google Workspace para e-mail corporativo (MX records).
     </p>
   </div>
-  <!-- NOTAS TÉCNICAS -->
   <div class="frame">
     <h2 class="section-title">9. Notas Técnicas</h2>
     <table class="tech-table">
@@ -833,7 +815,6 @@ title: Infraestrutura Técnica
       </tbody>
     </table>
   </div>
-  <!-- FOOTER -->
   <div style="text-align:center; margin-bottom:24px;">
     <a href="/_infra/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#196396; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar à Infraestrutura Cognitiva</a>
   </div>
