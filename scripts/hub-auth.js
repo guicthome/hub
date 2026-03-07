@@ -1,5 +1,5 @@
 /**
- * Hub CSV - Portal Authentication System v2.2.0
+ * Hub CSV - Portal Authentication System v2.3.0
  * Suporta autenticação individual (parceiros) e fixa (empresas)
  * Design system padronizado: fundo gradiente, card branco, logo, cadeado, botão teal
  *
@@ -476,6 +476,9 @@
   background: transparent;\
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px;\
 }\
+#hub-auth-logout.ha-in-header {\
+  position: static; height: auto; padding: 0; margin-left: 12px; flex-shrink: 0;\
+}\
 .ha-user-badge {\
   display: flex; align-items: center; gap: 6px; color: #374151;\
   font-weight: 500; font-size: 12px; opacity: 0.7;\
@@ -491,7 +494,7 @@
 .ha-logout-btn svg { width: 13px; height: 13px; flex-shrink: 0; }\
 .ha-logout-btn:hover { background: #dc2626; color: white; border-color: #dc2626; }\
 @media (max-width: 768px) {\
-  #hub-auth-logout { padding: 6px 10px; gap: 6px; height: 64px; }\
+  #hub-auth-logout { padding: 6px 10px; gap: 6px; }\
   .ha-user-badge span { display: none; }\
   .ha-logout-btn span { display: none; }\
 }\
@@ -506,19 +509,25 @@
   <span>Sair</span>\
 </a>';
 
-    // Tentar inserir dentro do header existente
-    var headerTarget = document.querySelector('.VPNav .VPNavBar .content') // VitePress
-      || document.querySelector('.VPNav .VPNavBar') // VitePress fallback
-      || document.querySelector('header')
-      || document.querySelector('.header');
+    // Tentar inserir inline no header existente (dentro do flex row)
+    var headerFlex = document.querySelector('header .flex.items-center.justify-between')
+      || document.querySelector('header > div > .flex')
+      || null;
 
-    if (headerTarget) {
-      // Ajustar para ficar inline no header
+    // VitePress nav
+    var vpTarget = document.querySelector('.VPNav .VPNavBar .content')
+      || document.querySelector('.VPNav .VPNavBar');
+
+    if (headerFlex) {
+      // Inserir como item flex no final da row do header (ao lado do portal name)
+      btn.classList.add('ha-in-header');
+      headerFlex.appendChild(btn);
+    } else if (vpTarget) {
       btn.style.position = 'absolute';
       btn.style.top = '0';
       btn.style.right = '0';
-      headerTarget.style.position = 'relative';
-      headerTarget.appendChild(btn);
+      vpTarget.style.position = 'relative';
+      vpTarget.appendChild(btn);
     } else {
       // Fallback: fixo no topo direito
       document.body.appendChild(btn);
