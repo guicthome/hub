@@ -19,7 +19,7 @@ A pasta `/p/` abriga copias publicas dessas paginas. Cada pagina publica fica em
 | `/p/registry.json` | Catalogo de todas as paginas publicas (schema abaixo) |
 | `/scripts/public-link-btn.js` | Botao admin-only que exibe link publico nas paginas dos portais |
 | `/admin/index.html` | Aba "Links Publicos" que lista o registry.json |
-| `/docs/public-pages.md` | Documentacao completa da infraestrutura |
+| `/docs/_infra/public-pages.md` | Documentacao completa da infraestrutura |
 
 ---
 

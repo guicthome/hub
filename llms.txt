@@ -28,7 +28,7 @@
 ## Infraestrutura de Paginas Publicas
 
 - [/skills/public-pages.md](/skills/public-pages.md): Skill operacional para criar paginas publicas em /p/. **LEITURA OBRIGATORIA antes de criar qualquer pagina publica.**
-- [/docs/public-pages.md](/docs/public-pages.md): Documentacao de referencia da infraestrutura (schema, componentes, padroes HTML).
+- [/docs/_infra/public-pages.md](/docs/_infra/public-pages.md): Documentacao de referencia da infraestrutura (schema, componentes, padroes HTML).
 - [/p/registry.json](/p/registry.json): Catalogo de todas as paginas publicas. Deve ser atualizado ao criar ou desativar paginas.
 
 ## Opcional (Contexto Adicional)

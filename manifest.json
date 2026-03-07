@@ -1,7 +1,7 @@
 {
   "manifestVersion": "2.0.0",
-  "lastUpdated": "2026-03-06T22:06:47Z",
-  "totalAssets": 30,
+  "lastUpdated": "2026-03-07T13:46:24Z",
+  "totalAssets": 31,
   "totalProducts": 33,
   "knowledgeAssets": [
     {
@@ -9,7 +9,7 @@
       "priority": 0,
       "title": "Llms",
       "path": "/llms.txt",
-      "sha256": "0e5f4eb3f696d461c8887e97941e8d04be6edb05123ba0cf288396465fbe5a6e",
+      "sha256": "eb07eab50664aa1f00fdc461e511a3e280638c71bf571ae9ed80068c5a319304",
       "description": "Ponto de entrada para agentes de IA com instruções iniciais e links para os artefatos de conhecimento.",
       "tags": [
         "entrypoint"
@@ -20,7 +20,7 @@
       "priority": 1,
       "title": "Completeness Checklist",
       "path": "/completeness-checklist.md",
-      "sha256": "37254ba0240304991b2ebdd9117dc2cf61b96514a8faeec898619b0b55cbd9a6",
+      "sha256": "c9146ca9c17aca17570589252ab1392ac317bd7d1a884060cac96acb23f5108d",
       "description": "Artefato de meta-governança para consumo estruturado por agentes de IA.",
       "tags": [
         "meta"
@@ -258,6 +258,17 @@
       ]
     },
     {
+      "id": "ai-search",
+      "priority": 11,
+      "title": "Ai Search",
+      "path": "/docs/_infra/ai-search.md",
+      "sha256": "0c4c5f4aa438e24d77c834be9a26d5784834cd129e784b8e959d8084714f5e16",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
       "id": "archive-index",
       "priority": 11,
       "title": "Index",
@@ -274,6 +285,17 @@
       "title": "Index",
       "path": "/docs/_infra/index.md",
       "sha256": "435a7e72e831760158e6e3281931108041debe6140d7abf5ed6fe9e7bf3b0437",
+      "description": "Documento de infraestrutura cognitiva do Hub.",
+      "tags": [
+        "infra"
+      ]
+    },
+    {
+      "id": "public-pages",
+      "priority": 11,
+      "title": "Public Pages",
+      "path": "/docs/_infra/public-pages.md",
+      "sha256": "164afc4d3e111a269f48323a0b74ab2ffad0c229782545a4d490cec062bd88f2",
       "description": "Documento de infraestrutura cognitiva do Hub.",
       "tags": [
         "infra"
@@ -306,21 +328,10 @@
       "priority": 12,
       "title": "Public Pages",
       "path": "/skills/public-pages.md",
-      "sha256": "ca72c19d68450f105a5d17a4ea496445edfc0b549cf2e4906a31ebec5639c140",
+      "sha256": "8bb76ee1d643fdb1d7d6e6db2754164feb4af513fc52c6a6d0e890c13868d53f",
       "description": "Instrucao operacional para agentes de IA.",
       "tags": [
         "skill"
-      ]
-    },
-    {
-      "id": "public-pages",
-      "priority": 13,
-      "title": "Public Pages",
-      "path": "/docs/public-pages.md",
-      "sha256": "9cc9e1547c1d0b8c23faf00d68f5abed9bd7035ef3df2c9c85ea07da98c4bc8c",
-      "description": "Documento de infraestrutura cognitiva do Hub.",
-      "tags": [
-        "infra"
       ]
     },
     {

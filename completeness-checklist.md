@@ -32,7 +32,7 @@
 ## Fase 5: Paginas Publicas
 
 - [ ] **Skill:** Ler `/skills/public-pages.md` (instrucao operacional para criar paginas publicas em /p/).
-- [ ] **Documentacao:** Ler `/docs/public-pages.md` (referencia da infraestrutura: schema, componentes, padroes HTML).
+- [ ] **Documentacao:** Ler `/docs/_infra/public-pages.md` (referencia da infraestrutura: schema, componentes, padroes HTML).
 - [ ] **Registry:** Consultar `/p/registry.json` para conhecer as paginas publicas existentes.
 
 ## Fase 6: Parceiros e Ferramentas (Se Relevante)

@@ -32,7 +32,7 @@ PRIORITY_RULES = [
     ("docs/_infra/standards/",           10, "standards"),
     ("docs/_infra/",                     11, "infra"),
     ("skills/",                          12, "skill"),
-    ("docs/public-pages",               13, "infra"),
+    ("docs/_infra/public-pages",         13, "infra"),
     ("p/registry.json",                 14, "registry"),
 ]
 
