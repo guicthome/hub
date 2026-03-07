@@ -476,6 +476,16 @@
             <div class="pw-grid" id="pw-grid">
                 <div class="empty-state">Carregando...</div>
             </div>
+
+            <div style="margin-top: 40px;">
+                <h3 class="section-header">Outros Acessos</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Senhas de acesso para Data Sets e ferramentas compartilhadas com parceiros externos.
+                </p>
+                <div class="pw-grid" id="pw-grid-datasets">
+                    <div class="empty-state">Carregando...</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -511,6 +521,9 @@ function toggleAdminPw() {
         axia: 'AxiaCare',
         thera: 'Thera',
         medvalor: 'MedValor',
+        'tea-110': 'Data Set TEA \u2014 Unimed Rio Verde',
+        'tea-094': 'Data Set TEA \u2014 Unimed Ourinhos',
+        'tea-236': 'Data Set TEA \u2014 Unimed Gov. Valadares',
     };
 
     // ===== Toast =====
@@ -687,14 +700,8 @@ function toggleAdminPw() {
     }
 
     // ===== Load Passwords =====
-    async function loadPasswords() {
-        const data = await apiCall('/admin/passwords');
-        if (!data) return;
-
-        const grid = document.getElementById('pw-grid');
-        const portals = data.portals || [];
-
-        grid.innerHTML = portals.map(p => `
+    function renderPwCards(items) {
+        return items.map(p => `
             <div class="pw-card" data-portal="${p.portal_id}">
                 <div class="pw-portal">${p.portal_name}</div>
                 <div class="pw-field">
@@ -709,6 +716,25 @@ function toggleAdminPw() {
                 <div class="pw-status" id="pw-status-${p.portal_id}"></div>
             </div>
         `).join('');
+    }
+
+    async function loadPasswords() {
+        const data = await apiCall('/admin/passwords');
+        if (!data) return;
+
+        // Portais CSV (AxiaCare, Thera, MedValor)
+        const grid = document.getElementById('pw-grid');
+        const portals = data.portals || [];
+        grid.innerHTML = portals.length > 0
+            ? renderPwCards(portals)
+            : '<div class="empty-state">Nenhum portal encontrado</div>';
+
+        // Outros Acessos (Data Sets)
+        const gridDatasets = document.getElementById('pw-grid-datasets');
+        const datasets = data.datasets || [];
+        gridDatasets.innerHTML = datasets.length > 0
+            ? renderPwCards(datasets)
+            : '<div class="empty-state">Nenhum acesso externo configurado</div>';
     }
 
     // ===== Actions =====
