@@ -518,7 +518,7 @@ head:
           <div class="hero-group-btns">
             <a href="/compass/" class="hero-btn secondary">Compass™</a>
             <a href="/signal/" class="hero-btn secondary">Signal™</a>
-            <a href="/deck/" class="hero-btn secondary">Deck™</a>
+            <a href="https://deck.grupocsv.com" class="hero-btn secondary">Deck™</a>
           </div>
         </div>
         <div class="hero-group-divider"></div>
