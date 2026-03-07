@@ -318,34 +318,34 @@
         <div class="summary-bar">
             <div class="summary-item">
                 <span class="s-value" id="s-users">-</span>
-                <span class="s-label">usuarios ativos</span>
+                <span class="s-label">usuários ativos</span>
             </div>
             <div class="summary-item">
                 <span class="s-value" id="s-pending">-</span>
-                <span class="s-label">solicitacoes pendentes</span>
+                <span class="s-label">solicitações pendentes</span>
             </div>
             <div class="summary-item">
                 <span class="s-value" id="s-sessions">-</span>
-                <span class="s-label">sessoes ativas</span>
+                <span class="s-label">sessões ativas</span>
             </div>
             <div class="summary-item">
                 <span class="s-value" id="s-public">-</span>
-                <span class="s-label">links publicos</span>
+                <span class="s-label">links públicos</span>
             </div>
         </div>
 
         <!-- Tabs -->
         <div class="admin-tabs">
-            <button class="admin-tab active" data-tab="users">Usuarios e Acessos <span class="tab-badge" id="pending-badge"></span></button>
-            <button class="admin-tab" data-tab="passwords">Senhas dos Portais</button>
-            <button class="admin-tab" data-tab="public-links">Links Publicos</button>
+            <button class="admin-tab active" data-tab="passwords">Senhas dos Portais CSV</button>
+            <button class="admin-tab" data-tab="users">Usuários Externos <span class="tab-badge" id="pending-badge"></span></button>
+            <button class="admin-tab" data-tab="public-links">Links Públicos</button>
         </div>
 
         <!-- TAB: Users -->
-        <div class="admin-tab-content active" data-tab="users">
+        <div class="admin-tab-content" data-tab="users">
             <!-- Pending Requests -->
             <div id="requests-section">
-                <h3 class="section-header">Solicitacoes Pendentes</h3>
+                <h3 class="section-header">Solicitações Pendentes</h3>
                 <div id="requests-list">
                     <div class="empty-state">Carregando...</div>
                 </div>
@@ -353,7 +353,7 @@
 
             <!-- Users Table -->
             <div style="margin-top: 32px;">
-                <h3 class="section-header">Usuarios Aprovados</h3>
+                <h3 class="section-header">Usuários Aprovados</h3>
                 <div class="table-card">
                     <div style="overflow-x: auto;">
                         <table>
@@ -364,7 +364,7 @@
                                     <th>Status</th>
                                     <th>Portais</th>
                                     <th>Criado em</th>
-                                    <th>Acoes</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody id="users-tbody">
@@ -378,9 +378,9 @@
 
         <!-- TAB: Public Links -->
         <div class="admin-tab-content" data-tab="public-links">
-            <h3 class="section-header">Paginas Publicas</h3>
+            <h3 class="section-header">Páginas Públicas</h3>
             <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Paginas de portais protegidos publicadas em <code>/p/</code> para acesso sem autenticacao.
+                Páginas de portais protegidos publicadas em <code>/p/</code> para acesso sem autenticação.
             </p>
             <div class="table-card">
                 <div class="tc-header">
@@ -391,12 +391,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Titulo</th>
+                                <th>Título</th>
                                 <th>Portal</th>
                                 <th>URL</th>
                                 <th>Status</th>
                                 <th>Criado em</th>
-                                <th>Acoes</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="pl-tbody">
@@ -408,8 +408,8 @@
         </div>
 
         <!-- TAB: Passwords -->
-        <div class="admin-tab-content" data-tab="passwords">
-            <h3 class="section-header">Senhas dos Portais</h3>
+        <div class="admin-tab-content active" data-tab="passwords">
+            <h3 class="section-header">Senhas dos Portais CSV</h3>
             <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
                 Altere a senha de acesso de cada portal. A nova senha entra em vigor imediatamente.
             </p>
@@ -582,7 +582,7 @@ function toggleAdminPw() {
         const requests = data.requests || [];
 
         if (requests.length === 0) {
-            list.innerHTML = '<div class="empty-state">Nenhuma solicitacao pendente</div>';
+            list.innerHTML = '<div class="empty-state">Nenhuma solicitação pendente</div>';
             return;
         }
 
@@ -653,7 +653,7 @@ function toggleAdminPw() {
 
     // ===== Actions =====
     window._approve = async function(requestId) {
-        if (!confirm('Aprovar esta solicitacao de acesso?')) return;
+        if (!confirm('Aprovar esta solicitação de acesso?')) return;
         const data = await apiCall('/admin/approve', {
             method: 'POST',
             body: JSON.stringify({ request_id: requestId }),
@@ -667,13 +667,13 @@ function toggleAdminPw() {
     };
 
     window._reject = async function(requestId) {
-        if (!confirm('Rejeitar esta solicitacao?')) return;
+        if (!confirm('Rejeitar esta solicitação?')) return;
         const data = await apiCall('/admin/reject', {
             method: 'POST',
             body: JSON.stringify({ request_id: requestId }),
         });
         if (data && data.success) {
-            showToast('Solicitacao rejeitada', 'success');
+            showToast('Solicitação rejeitada', 'success');
             loadAll();
         } else {
             showToast(data?.error || 'Erro ao rejeitar', 'error');
@@ -742,11 +742,11 @@ function toggleAdminPw() {
             const pages = data.pages || [];
 
             document.getElementById('s-public').textContent = pages.filter(function(p) { return p.status === 'active'; }).length;
-            document.getElementById('pl-count').textContent = pages.length + (pages.length === 1 ? ' pagina' : ' paginas');
+            document.getElementById('pl-count').textContent = pages.length + (pages.length === 1 ? ' página' : ' páginas');
 
             const tbody = document.getElementById('pl-tbody');
             if (pages.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhuma pagina publica registrada</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhuma página pública registrada</td></tr>';
                 return;
             }
 
