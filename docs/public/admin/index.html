@@ -855,6 +855,8 @@ function toggleAdminPw() {
             if (!data) return;
             const logs = (data.logs || []).filter(function(l) {
                 return l.tenant_id !== 'admin';
+            }).sort(function(a, b) {
+                return new Date(b.timestamp) - new Date(a.timestamp);
             });
 
             document.getElementById('logs-count').textContent = logs.length + (logs.length === 1 ? ' registro' : ' registros');
