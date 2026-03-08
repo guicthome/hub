@@ -61,7 +61,9 @@ jobs:
           cp -r compliance "$DIST/" 2>/dev/null || true
           cp -r founder "$DIST/" 2>/dev/null || true
           cp -r icds "$DIST/" 2>/dev/null || true
-          cp -r deck "$DIST/" 2>/dev/null || true
+          # deck/ desativado — redirecionado para deck.grupocsv.com (Cloudflare Pages)
+          mkdir -p "$DIST/deck"
+          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=https://deck.grupocsv.com"><title>Redirecionando...</title></head><body><p>Redirecionando para <a href="https://deck.grupocsv.com">deck.grupocsv.com</a></p></body></html>' > "$DIST/deck/index.html"
           cp -r p "$DIST/" 2>/dev/null || true
 
           # Restore VitePress-built index pages (preserve SPA navigation)

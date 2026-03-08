@@ -1,8 +1,16 @@
-# Deck™ — Gerenciador de Tarefas Ativas
+# Deck -- Legado (Inativo)
+
+> Esta versão do Deck está **inativa**. O acesso via `hub.grupocsv.com/deck` redireciona automaticamente para o deploy ativo.
+
+**Deploy ativo:** [deck.grupocsv.com](https://deck.grupocsv.com) (Cloudflare Pages)
+
+Este diretório é mantido apenas como referência histórica. Qualquer alteração no Deck deve ser feita no projeto Cloudflare Pages correspondente.
+
+---
+
+## Referência histórica
 
 Painel visual de contexto ativo para rastrear tarefas em andamento, onde cada card representa uma conversa, aba ou janela aberta no momento.
-
-**Acesso:** [hub.grupocsv.com/deck](https://hub.grupocsv.com/deck)
 
 ---
 
