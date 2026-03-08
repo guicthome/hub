@@ -15,7 +15,10 @@ export default defineConfig({
     ['meta', { property: 'og:image', content: 'https://hub.grupocsv.com/og/og_hub.png' }],
     ['meta', { property: 'og:url', content: 'https://hub.grupocsv.com' }],
     ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: 'https://hub.grupocsv.com/og/og_hub.png' }],
   ],
 
   themeConfig: {
