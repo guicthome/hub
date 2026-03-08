@@ -293,9 +293,10 @@
         .topbar-clock {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px; font-weight: 500;
-            color: var(--text-secondary);
+            color: #39FF14;
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.04em;
+            text-shadow: 0 0 6px rgba(57,255,20,0.4);
         }
         .clock-separator {
             animation: clockBlink 1.2s ease-in-out infinite;
@@ -1188,8 +1189,7 @@
         <div id="screenshot-status" class="modal-status"></div>
         <div class="modal-actions">
             <button class="modal-btn" id="screenshot-cancel">Fechar</button>
-            <button class="modal-btn" id="screenshot-download">Salvar imagem</button>
-            <button class="modal-btn modal-btn-primary" id="screenshot-send">Enviar por e-mail</button>
+            <button class="modal-btn modal-btn-primary" id="screenshot-download">Salvar imagem</button>
         </div>
     </div>
 </div>
@@ -1296,15 +1296,12 @@
 const STORAGE_KEY = 'deck_state';
 const PIN_KEY = 'deck_pin';
 const THEME_KEY = 'deck_theme';
-const EMAIL_API = 'https://csv-email.guilherme-thom.workers.dev';
-const EMAIL_TO = 'guilherme@grupocsv.com';
 const UNDO_TIMEOUT = 7000;
 
 const DEFAULT_PLATFORMS = [
     { id: 'manus',         name: 'Manus',          color: '#1A1A1A', builtin: true },
     { id: 'chatgpt',       name: 'ChatGPT',        color: '#74AA9C', builtin: true },
     { id: 'claude',        name: 'Claude',          color: '#D4A27F', builtin: true },
-    { id: 'claude-cowork', name: 'Claude Cowork',   color: '#C4956A', builtin: true },
     { id: 'anti-gravity',  name: 'Anti-Gravity',    color: '#4A90D9', builtin: true },
     { id: 'notion',        name: 'Notion',          color: '#1A1A1A', builtin: true },
     { id: 'cloudflare',    name: 'Cloudflare',      color: '#F38020', builtin: true },
@@ -1465,7 +1462,6 @@ const PLATFORM_GRADIENTS = {
     'manus':         'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
     'chatgpt':       'linear-gradient(180deg, #74AA9C, #5A8F82)',
     'claude':        'linear-gradient(180deg, #D4A27F, #B8876A)',
-    'claude-cowork': 'linear-gradient(180deg, #C4956A, #A87D58)',
     'anti-gravity':  'linear-gradient(180deg, #4A90D9, #3A6FB5)',
     'notion':        'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
     'cloudflare':    'linear-gradient(180deg, #F38020, #F9A825)',
@@ -1837,39 +1833,7 @@ $('#screenshot-download').addEventListener('click', () => {
     showToast('Imagem salva');
 });
 
-$('#screenshot-send').addEventListener('click', async () => {
-    const statusEl = $('#screenshot-status');
-    const sendBtn = $('#screenshot-send');
-    statusEl.textContent = 'Enviando...'; statusEl.className = 'modal-status';
-    sendBtn.disabled = true;
-    try {
-        const dataUrl = $('#screenshot-preview').src;
-        const base64 = dataUrl.split(',')[1];
-        const dt = formatDateTimeFull();
-        const res = await fetch(EMAIL_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                to: EMAIL_TO,
-                subject: `Deck\u2122 \u2014 ${formatDateTimeShort()}`,
-                from_name: 'Deck\u2122',
-                from_email: 'hub@mail.grupocsv.com',
-                html: `<p>Captura do Deck\u2122 em ${dt}</p><p><img src="cid:deck-screenshot" style="max-width:100%;border-radius:8px"></p>`,
-                text: `Captura do Deck\u2122 em ${dt}`,
-                attachments: [{ filename: `deck-${new Date().toISOString().slice(0,10)}.png`, content: base64, content_type: 'image/png' }]
-            })
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-            statusEl.textContent = 'E-mail enviado com sucesso.'; statusEl.className = 'modal-status success';
-            setTimeout(() => $('#screenshot-modal').classList.add('hidden'), 1800);
-        } else {
-            statusEl.textContent = `Erro: ${data.error || 'falha no envio'}`; statusEl.className = 'modal-status error';
-        }
-    } catch(e) {
-        statusEl.textContent = 'Erro de conex\u00e3o. Tente novamente.'; statusEl.className = 'modal-status error';
-    } finally { sendBtn.disabled = false; }
-});
+
 
 // ── ESC fecha modais ──
 document.addEventListener('keydown', (e) => {
@@ -2048,7 +2012,6 @@ const PLATFORM_ICONS = {
     'manus':         ICON_IMG('manus', 'Manus'),
     'chatgpt':       ICON_IMG('chatgpt', 'ChatGPT', ';border-radius:3px'),
     'claude':        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
-    'claude-cowork': '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
     'anti-gravity':  ICON_IMG('antigravity', 'Anti-Gravity'),
     'notion':        ICON_IMG('notion', 'Notion'),
     'cloudflare':    ICON_IMG('cloudflare', 'Cloudflare'),
@@ -2212,22 +2175,15 @@ const PASTE_HINT_KEY = 'deck_paste_hint_dismissed';
 let pasteProcessing = false;
 
 function showPasteHint() {
-    if (localStorage.getItem(PASTE_HINT_KEY)) return;
     const hint = $('#paste-hint');
     if (hint) {
         hint.classList.remove('dismissed');
-        // Auto-dismiss after 12 seconds
-        setTimeout(() => {
-            hint.classList.add('dismissed');
-            localStorage.setItem(PASTE_HINT_KEY, '1');
-        }, 14000);
     }
 }
 
 function hidePasteHint() {
     const hint = $('#paste-hint');
     if (hint) hint.classList.add('dismissed');
-    localStorage.setItem(PASTE_HINT_KEY, '1');
 }
 
 function showPasteProcessing() {
