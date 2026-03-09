@@ -913,7 +913,8 @@ function toggleAdminPw() {
             const logs = (data.logs || []).filter(function(l) {
                 return l.tenant_id !== 'admin';
             }).sort(function(a, b) {
-                return new Date(b.timestamp) - new Date(a.timestamp);
+                function toMs(t) { var n = Number(t); return (n > 1e9 && n < 2e10) ? n * 1000 : new Date(t).getTime(); }
+                return toMs(b.timestamp) - toMs(a.timestamp);
             });
 
             document.getElementById('logs-count').textContent = logs.length + (logs.length === 1 ? ' registro' : ' registros');
