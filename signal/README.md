@@ -10,6 +10,8 @@
 > 
 > O objetivo é fornecer à alta gestão uma visão panorâmica, curada e de alta densidade informacional, permitindo a detecção de tendências, riscos e oportunidades em tempo hábil.
 > 
+> **Regra de formato:** O PDF de cada edição deve ter **exatamente 1 (uma) página**. Essa restrição é inviolável.
+> 
 > ---
 > 
 > ## Numeração
@@ -29,6 +31,9 @@
 > 
 > | Edição | Período | Status |
 > |--------|---------|--------|
+> | [S10/2026](edicoes/2026/S10/signal.md) | 2 a 8 de março | Publicado |
+> | [S09/2026](edicoes/2026/S09/signal.md) | 23 Fev a 1 Mar | Publicado |
+> | [S08/2026](edicoes/2026/S08/signal.md) | 23 Fev a 1 Mar | Publicado |
 > | [S07/2026](edicoes/2026/S07/signal.md) | 16 a 23 de fevereiro | Publicado |
 > 
 > ---

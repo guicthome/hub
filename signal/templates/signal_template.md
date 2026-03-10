@@ -15,11 +15,13 @@ head:
       content: "https://hub.grupocsv.com/signal/edicoes/AAAA/SNN/signal"
 ---
 
+<!-- REGRA INVIOLÁVEL: O PDF gerado a partir deste template deve ter EXATAMENTE 1 (uma) página. -->
+<!-- Ajustar diagramação e comprimento dos resumos para garantir o limite de 1 página A4. -->
+
 # Signal™ SNN/AAAA
 
 **Período:** DD a DD de MÊS de AAAA
-
-**Foco:** [Breve descrição do tema dominante da semana, se houver]
+**Executivo:** Guilherme Thomé, MD, MBA — Superintendente Médico | Fundador Grupo CSV
 
 ---
 
@@ -35,7 +37,7 @@ head:
 - **Tag:** `[TAG]`
 - **Resumo:** [Resumo do fato em 2-4 frases.]
 
-<!-- Adicionar mais fatos conforme necessário -->
+<!-- Adicionar mais fatos conforme necessário (5 a 7 fatos) -->
 
 ---
 
@@ -44,12 +46,6 @@ head:
 - [Movimentação 1]
 - [Movimentação 2]
 - [Movimentação 3]
-
----
-
-## Análise e Contexto
-
-[Parágrafo opcional com uma breve análise que conecta os pontos da semana, se aplicável.]
 
 ---
 

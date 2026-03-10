@@ -13,12 +13,19 @@
 
 ---
 
+## Regra de Formato: Uma Única Página
+
+> **REGRA INVIOLÁVEL:** O PDF do Signal™ deve ter **exatamente 1 (uma) página**. Essa restrição é absoluta e não admite exceções. A diagramação (tamanho de fonte, espaçamento, compactação de resumos) deve ser ajustada para que todo o conteúdo caiba em uma única página A4. Se o conteúdo exceder o espaço disponível, os resumos dos fatos estratégicos e das demais movimentações devem ser encurtados até que o limite de uma página seja respeitado. Nunca gerar um PDF com mais de uma página.
+
+---
+
 ## Estilo de Linguagem
 
 -   **Voz Ativa:** Preferir a voz ativa sempre que possível ("A equipe decidiu..." em vez de "Foi decidido pela equipe...").
--   **Terminologia Precisa:** Utilizar os termos técnicos e nomes de projetos conforme o **Dicionário Oficial RADAR**. Evitar jargões desnecessários.
+-   **Terminologia Precisa:** Utilizar os termos técnicos e nomes de projetos conforme o **Dicionário Oficial**. Evitar jargões desnecessários.
 -   **Abreviações:** Na primeira menção, usar o termo completo seguido da abreviação entre parênteses. Ex: Escritório de Valor em Saúde (EVS). Nas menções seguintes, usar apenas a abreviação.
 -   **Números:** Escrever por extenso números de um a nove. Usar algarismos para 10 ou mais. Exceção: métricas e dados tabulares.
+-   **Acentuação e Cedilha:** Respeitar rigorosamente as normas ortográficas do Português do Brasil, incluindo acentos gráficos e cedilha.
 
 ---
 
@@ -32,12 +39,13 @@
 
 | Tag | Descrição |
 |---|---|
-| `NOVA PARCERIA` | Início de relacionamento com novas empresas ou instituições. |
-| `IMUNOBIOLÓGICOS` | Decisões, análises ou projetos relacionados a medicamentos biológicos. |
+| `ESTRATÉGIA` | Decisões ou apresentações de nível estratégico à Diretoria. |
+| `GOVERNANÇA` | Aprovações contratuais, deliberações formais, compliance. |
 | `LINHAS DE CUIDADO` | Desenvolvimento, lançamento ou alteração em linhas de cuidado. |
-| `ANALYTICS` | Projetos de análise de dados, Business Intelligence e novas plataformas. |
-| `QUALIDADE CLÍNICA` | Iniciativas de governança, protocolos, segurança do paciente. |
-| `OPERAÇÕES` | Mudanças em processos, fluxos de trabalho, logística. |
+| `ASSISTENCIAL` | Novos ambulatórios, protocolos clínicos, qualidade assistencial. |
+| `OPERAÇÕES` | Mudanças em processos, fluxos de trabalho, estrutura organizacional. |
+| `IMUNOBIOLÓGICOS` | Decisões, análises ou projetos relacionados a medicamentos biológicos. |
+| `DADOS` | Projetos de análise de dados, Business Intelligence e novas plataformas. |
 | `FINANCEIRO` | Decisões com impacto orçamentário, novos modelos de remuneração. |
 | `REGULATÓRIO` | Mudanças em regulamentação (ANS, ANVISA) com impacto direto. |
 
@@ -54,16 +62,29 @@
 -   **NÃO** usar cores fora da paleta canônica do Grupo CSV.
 -   **NÃO** alterar a estrutura do layout (posicionamento de logo, fontes, etc.).
 -   **NÃO** incluir informações especulativas ou não verificadas.
--   **NÃO** ultrapassar uma página no formato PDF.
+-   **NÃO** ultrapassar uma página no formato PDF (regra inviolável).
+-   **NÃO** gerar texto sem acentuação ou cedilha.
+
+---
+
+## Fluxo de Correção
+
+Quando uma edição publicada contiver erro (formato, conteúdo, grafia), o seguinte fluxo deve ser seguido:
+
+1.  Corrigir o PDF e o `signal.md` no repositório, substituindo a versão anterior (sem versionamento da versão incorreta).
+2.  Fazer commit com mensagem `fix(signal): corrige edição SNN/AAAA — [descrição breve]`.
+3.  Reenviar o e-mail com o assunto: `Signal™ SNN/AAAA — Versão pós-correção`, sem detalhar a natureza da correção no assunto.
+4.  O corpo do e-mail segue o padrão normal, sem menção explícita ao erro corrigido.
 
 ---
 
 ## Checklist de Publicação
 
+-   [ ] O PDF tem exatamente 1 (uma) página?
 -   [ ] O título e o resumo de cada fato estão claros e objetivos?
 -   [ ] As tags de categoria foram aplicadas corretamente?
--   [ ] O texto foi revisado para erros de gramática e digitação?
--   [ ] Todos os nomes de pessoas, projetos e empresas estão corretos (conforme Dicionário RADAR)?
+-   [ ] O texto foi revisado para erros de gramática, acentuação e digitação?
+-   [ ] Todos os nomes de pessoas, projetos e empresas estão corretos (conforme Dicionário Oficial)?
 -   [ ] A data e o número da semana (SNN) estão corretos no cabeçalho e no nome do arquivo?
 -   [ ] O nome do executivo está correto?
 -   [ ] O PDF final foi inspecionado visualmente e não contém quebras ou erros de formatação?
