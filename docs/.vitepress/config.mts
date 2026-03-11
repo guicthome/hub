@@ -48,6 +48,7 @@ export default defineConfig({
       { text: 'Compass\u2122', link: '/compass/' },
       { text: 'Signal\u2122', link: '/signal/' },
       { text: 'Deck\u2122', link: 'https://deck.grupocsv.com' },
+      { text: 'Relay\u2122', link: 'https://relay.axcare.com.br' },
       { text: 'Infra', link: '/_infra/' },
     ],
 
