@@ -247,6 +247,39 @@
         .pl-origin { font-size: 12px; color: var(--text-secondary); }
         .pl-url { font-size: 12px; color: var(--primary); word-break: break-all; }
 
+        /* Modal overlay */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); z-index: 99998;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .modal-overlay.hidden { display: none; }
+        .modal-box {
+            background: white; border-radius: 16px; padding: 32px;
+            width: 100%; max-width: 420px; margin: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .modal-box h3 { color: var(--primary-dark); margin-bottom: 8px; font-size: 18px; }
+        .modal-box p { color: var(--text-secondary); font-size: 13px; margin-bottom: 20px; }
+        .modal-box input {
+            width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 14px; margin-bottom: 12px;
+        }
+        .modal-box input:focus { outline: none; border-color: var(--primary); }
+        .modal-box .modal-actions { display: flex; gap: 8px; margin-top: 8px; }
+        .modal-box .modal-actions button {
+            flex: 1; padding: 10px; border-radius: 8px; font-weight: 600;
+            font-size: 14px; cursor: pointer; border: none;
+        }
+        .modal-box .btn-primary { background: var(--primary); color: white; }
+        .modal-box .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .role-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
+        }
+        .role-badge.superadmin { background: #fef3c7; color: #92400e; }
+        .role-badge.admin { background: #dbeafe; color: #1e40af; }
+
         /* Empty state */
         .empty-state {
             text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 14px;
@@ -340,6 +373,8 @@
             <button class="admin-tab" data-tab="users">Usuários Externos <span class="tab-badge" id="pending-badge"></span></button>
             <button class="admin-tab" data-tab="public-links">Links Públicos</button>
             <button class="admin-tab" data-tab="access-logs">Log de Acessos Externos</button>
+            <button class="admin-tab" data-tab="deck-users">Deck™</button>
+            <button class="admin-tab" data-tab="admins">Administradores</button>
         </div>
 
         <!-- TAB: Users -->
@@ -437,6 +472,64 @@
             </div>
         </div>
 
+        <!-- TAB: Deck Users -->
+        <div class="admin-tab-content" data-tab="deck-users">
+            <h3 class="section-header">Deck™ — Usuários</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Usuários registrados no Deck. Revogar remove o acesso permanentemente.
+            </p>
+            <div class="table-card">
+                <div class="tc-header">
+                    <h3>Usuários Ativos</h3>
+                    <span class="count" id="deck-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PIN</th>
+                                <th>Nome</th>
+                                <th>Data Criação</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deck-tbody">
+                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Administradores -->
+        <div class="admin-tab-content" data-tab="admins">
+            <h3 class="section-header">Administradores do Painel</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Lista de administradores com acesso ao painel. O Super Admin é protegido e não pode ser removido.
+            </p>
+            <div class="table-card">
+                <div class="tc-header">
+                    <h3>Administradores</h3>
+                    <span class="count" id="admins-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>E-mail</th>
+                                <th>Nível</th>
+                                <th>Origem</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admins-tbody">
+                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- TAB: Passwords -->
         <div class="admin-tab-content active" data-tab="passwords">
             <h3 class="section-header">Senhas dos Portais CSV</h3>
@@ -446,6 +539,31 @@
             <div class="pw-grid" id="pw-grid">
                 <div class="empty-state">Carregando...</div>
             </div>
+
+            <div style="margin-top: 40px;">
+                <h3 class="section-header">Outros Acessos</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Senhas de acesso para Data Sets e ferramentas compartilhadas com parceiros externos.
+                </p>
+                <div class="pw-grid" id="pw-grid-datasets">
+                    <div class="empty-state">Carregando...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Troca de Senha Obrigatoria -->
+<div class="modal-overlay hidden" id="change-pw-modal">
+    <div class="modal-box">
+        <h3>Troque sua senha</h3>
+        <p>Por segurança, você precisa definir uma nova senha no primeiro acesso.</p>
+        <div id="change-pw-error" style="display:none;background:#fef2f2;color:#991b1b;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;"></div>
+        <input type="password" id="cpw-old" placeholder="Senha atual (temporária)">
+        <input type="password" id="cpw-new" placeholder="Nova senha (mín. 8 caracteres)">
+        <input type="password" id="cpw-confirm" placeholder="Confirme a nova senha">
+        <div class="modal-actions">
+            <button class="btn-primary" id="cpw-submit">Alterar Senha</button>
         </div>
     </div>
 </div>
@@ -481,6 +599,9 @@ function toggleAdminPw() {
         axia: 'AxiaCare',
         thera: 'Thera',
         medvalor: 'MedValor',
+        'tea-110': 'Data Set TEA \u2014 Unimed Rio Verde',
+        'tea-094': 'Data Set TEA \u2014 Unimed Ourinhos',
+        'tea-236': 'Data Set TEA \u2014 Unimed Gov. Valadares',
     };
 
     // ===== Toast =====
@@ -532,6 +653,8 @@ function toggleAdminPw() {
                 document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]').classList.add('active');
                 if (tabName === 'passwords') loadPasswords();
                 if (tabName === 'public-links') loadPublicLinks();
+                if (tabName === 'deck-users') loadDeckUsers();
+                if (tabName === 'admins') loadAdmins();
             });
         });
     }
@@ -546,10 +669,14 @@ function toggleAdminPw() {
         document.getElementById('dashboard').classList.add('visible');
         document.getElementById('topbar-user').textContent = localStorage.getItem(EMAIL_KEY) || '';
         loadAll();
+        // Verificar se precisa trocar senha
+        if (localStorage.getItem('hub_admin_must_change') === 'true') {
+            document.getElementById('change-pw-modal').classList.remove('hidden');
+        }
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPublicLinks(), loadAccessLogs()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadAdmins()]);
     }
 
     // ===== Auth form =====
@@ -571,6 +698,10 @@ function toggleAdminPw() {
                 localStorage.setItem(TOKEN_KEY, result.token);
                 localStorage.setItem(EMAIL_KEY, email);
                 localStorage.setItem(EXPIRES_KEY, result.expires_at);
+                if (result.must_change_password) {
+                    localStorage.setItem('hub_admin_must_change', 'true');
+                    localStorage.setItem('hub_admin_temp_pw', password);
+                }
                 showDashboard();
             } else {
                 errorEl.textContent = result.error || 'Erro ao autenticar';
@@ -656,14 +787,8 @@ function toggleAdminPw() {
     }
 
     // ===== Load Passwords =====
-    async function loadPasswords() {
-        const data = await apiCall('/admin/passwords');
-        if (!data) return;
-
-        const grid = document.getElementById('pw-grid');
-        const portals = data.portals || [];
-
-        grid.innerHTML = portals.map(p => `
+    function renderPwCards(items) {
+        return items.map(p => `
             <div class="pw-card" data-portal="${p.portal_id}">
                 <div class="pw-portal">${p.portal_name}</div>
                 <div class="pw-field">
@@ -678,6 +803,25 @@ function toggleAdminPw() {
                 <div class="pw-status" id="pw-status-${p.portal_id}"></div>
             </div>
         `).join('');
+    }
+
+    async function loadPasswords() {
+        const data = await apiCall('/admin/passwords');
+        if (!data) return;
+
+        // Portais CSV (AxiaCare, Thera, MedValor)
+        const grid = document.getElementById('pw-grid');
+        const portals = data.portals || [];
+        grid.innerHTML = portals.length > 0
+            ? renderPwCards(portals)
+            : '<div class="empty-state">Nenhum portal encontrado</div>';
+
+        // Outros Acessos (Data Sets)
+        const gridDatasets = document.getElementById('pw-grid-datasets');
+        const datasets = data.datasets || [];
+        gridDatasets.innerHTML = datasets.length > 0
+            ? renderPwCards(datasets)
+            : '<div class="empty-state">Nenhum acesso externo configurado</div>';
     }
 
     // ===== Actions =====
@@ -903,6 +1047,111 @@ function toggleAdminPw() {
             return d.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
         } catch (e) { return val; }
     }
+
+    // ===== Deck Users =====
+    async function loadDeckUsers() {
+        const data = await apiCall('/admin/deck-users');
+        if (!data) return;
+        const users = data.users || [];
+        const active = users.filter(u => u.active);
+        document.getElementById('deck-count').textContent = active.length + ' ativo(s)';
+        const tbody = document.getElementById('deck-tbody');
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Nenhum usu\u00e1rio registrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = users.map(u => `
+            <tr style="${!u.active ? 'opacity:0.4;text-decoration:line-through;' : ''}">
+                <td><code style="font-size:14px;font-weight:600;">${u.pin}</code></td>
+                <td>${u.name}</td>
+                <td>${formatDate(u.created_at)}</td>
+                <td>
+                    ${u.active ? `<button class="btn-action btn-danger" onclick="revokeDeckUser('${u.pin}', '${u.name}')">Revogar</button>` : '<span style="color:var(--red);font-size:12px;">Revogado</span>'}
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    window.revokeDeckUser = async function(pin, name) {
+        if (!confirm('Revogar acesso de ' + name + ' (PIN: ' + pin + ')?')) return;
+        const data = await apiCall('/admin/deck-revoke', {
+            method: 'POST',
+            body: JSON.stringify({ pin }),
+        });
+        if (data && data.success) {
+            showToast('Acesso revogado: ' + name, 'success');
+            loadDeckUsers();
+        } else {
+            showToast((data && data.error) || 'Erro ao revogar', 'error');
+        }
+    };
+
+    // ===== Admins =====
+    async function loadAdmins() {
+        const data = await apiCall('/admin/admins');
+        if (!data) return;
+        const admins = data.admins || [];
+        document.getElementById('admins-count').textContent = admins.length + ' administrador(es)';
+        const tbody = document.getElementById('admins-tbody');
+        if (admins.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Nenhum administrador</td></tr>';
+            return;
+        }
+        tbody.innerHTML = admins.map(a => {
+            const roleLabel = a.role === 'superadmin' ? 'Super Admin' : 'Admin';
+            const roleClass = a.role === 'superadmin' ? 'superadmin' : 'admin';
+            const source = a.source === 'secrets' ? 'Protegido (Cloudflare)' : 'KV';
+            let status = '<span style="color:var(--green);font-weight:600;">Ativo</span>';
+            if (a.must_change) status = '<span style="color:var(--orange);font-weight:600;">Troca de senha pendente</span>';
+            return `<tr>
+                <td>${esc(a.email)}</td>
+                <td><span class="role-badge ${roleClass}">${roleLabel}</span></td>
+                <td style="font-size:12px;color:var(--text-secondary);">${source}</td>
+                <td>${status}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    // ===== Change Password Modal =====
+    document.getElementById('cpw-submit').addEventListener('click', async function() {
+        const oldPw = document.getElementById('cpw-old').value;
+        const newPw = document.getElementById('cpw-new').value;
+        const confirmPw = document.getElementById('cpw-confirm').value;
+        const errorEl = document.getElementById('change-pw-error');
+        errorEl.style.display = 'none';
+
+        if (!oldPw || !newPw || !confirmPw) {
+            errorEl.textContent = 'Preencha todos os campos.';
+            errorEl.style.display = 'block';
+            return;
+        }
+        if (newPw.length < 8) {
+            errorEl.textContent = 'Nova senha deve ter no minimo 8 caracteres.';
+            errorEl.style.display = 'block';
+            return;
+        }
+        if (newPw !== confirmPw) {
+            errorEl.textContent = 'As senhas nao coincidem.';
+            errorEl.style.display = 'block';
+            return;
+        }
+
+        const data = await apiCall('/admin/change-password', {
+            method: 'POST',
+            body: JSON.stringify({ old_password: oldPw, new_password: newPw }),
+        });
+
+        if (data && data.success) {
+            localStorage.removeItem('hub_admin_must_change');
+            localStorage.removeItem('hub_admin_temp_pw');
+            document.getElementById('change-pw-modal').classList.add('hidden');
+            showToast('Senha alterada com sucesso. Um e-mail de confirmacao foi enviado.', 'success');
+            loadAdmins();
+        } else {
+            errorEl.textContent = (data && data.error) || 'Erro ao alterar senha.';
+            errorEl.style.display = 'block';
+        }
+    });
 
     // ===== Start =====
     init();
