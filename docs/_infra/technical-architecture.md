@@ -268,7 +268,7 @@ title: Infraestrutura Técnica
 <div class="tech-page">
 <div class="frame hero-section">
 <h1>Infraestrutura Técnica</h1>
-<p class="version">Versão 1.0 — Atualizado em 07/03/2026</p>
+<p class="version">Versão 1.1 — Atualizado em 14/03/2026</p>
 <p class="subtitle">
 Documentação completa da arquitetura de backend do ecossistema <strong>Grupo CSV</strong>.
 Descreve todos os microserviços (Workers), banco de dados, armazenamento, rotas de API,
@@ -328,7 +328,16 @@ com responsabilidade única, que se comunica com os demais através do API Gatew
 │   ├── pending_requests                                          │
 │   ├── auth_sessions         R2 Storage (csv-propostas)         │
 │   ├── access_logs           └── Propostas HTML/PDF             │
-│   └── api_logs                                                  │
+│   ├── api_logs                                                  │
+│   └── email_logs                                                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│          SERVICO INDEPENDENTE (fora do gateway)                  │
+│                                                                 │
+│   csv-mail v1.0.0 ─── mail-api.grupocsv.com                   │
+│   Autenticação própria (Bearer API Key)                         │
+│   Bindings: D1 (csv-hub), Resend                               │
 └─────────────────────────────────────────────────────────────────┘
 </pre>
 </div>
@@ -410,6 +419,11 @@ registra o log no D1 e encaminha (proxy) para o worker de destino.
 </tr>
 </tbody>
 </table>
+<div class="security-note" style="background:#f0f9ff; border-color:#93c5fd; color:#1e40af;">
+<strong>Nota:</strong> O worker <code>csv-mail</code> opera fora do gateway, acessível diretamente em
+<code>mail-api.grupocsv.com</code> com autenticação própria via Bearer token (API key dedicada).
+Não consta na tabela acima por não utilizar o roteamento do <code>csv-gateway</code>.
+</div>
 <h3 class="subsection-title">Autenticação do Gateway</h3>
 <p class="section-desc">
 Rotas marcadas como <span class="badge protected">Protegido</span> exigem uma API Key,
