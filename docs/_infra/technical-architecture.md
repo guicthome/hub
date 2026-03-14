@@ -343,7 +343,7 @@ com responsabilidade única, que se comunica com os demais através do API Gatew
 </tr>
 <tr>
 <td><code>grupocsv/backend</code></td>
-<td>Workers Cloudflare: csv-auth, csv-gateway, csv-data, csv-email, csv-ai, csv-cron, csv-propostas, csv-webhook, thera-contact</td>
+<td>Workers Cloudflare: csv-auth, csv-gateway, csv-data, csv-email, csv-mail, csv-ai, csv-cron, csv-propostas, csv-webhook, thera-contact</td>
 <td>Cloudflare Workers</td>
 </tr>
 </tbody>
@@ -528,6 +528,26 @@ Remetente padrão: <code>Hub CSV &lt;hub@mail.grupocsv.com&gt;</code>.
 </div>
 <div class="worker-card">
 <div class="worker-card-header">
+<span class="worker-card-name">csv-mail</span>
+<span class="worker-card-version">v1.0.0</span>
+</div>
+<div class="worker-card-desc">
+Sistema de envio de e-mails agentico do Grupo CSV. Endpoint independente com autenticacao por API key propria,
+suporte a HTML, texto, template institucional (header/footer padrao), anexos (ate 25 MB), CC, BCC, reply-to
+e tags de rastreamento. Remetente padrao: <code>Guilherme Thome &lt;guilherme@mail.grupocsv.com&gt;</code>.
+</div>
+<strong style="font-size:0.82rem; color:#1e293b;">Bindings:</strong>
+<span style="font-size:0.82rem; color:#5b6470;"> D1 (csv-hub), Secret (RESEND_API_KEY), Secret (CSV_MAIL_API_KEY)</span>
+<ul class="endpoint-list">
+<li><code>POST /send</code> — Envio completo de e-mail</li>
+<li><code>POST /send-template</code> — Envio com template institucional</li>
+<li><code>GET /status/:id</code> — Consultar status via Resend</li>
+<li><code>GET /logs</code> — Listar ultimos e-mails enviados (D1)</li>
+<li><code>GET /health</code> — Health check</li>
+</ul>
+</div>
+<div class="worker-card">
+<div class="worker-card-header">
 <span class="worker-card-name">csv-webhook</span>
 <span class="worker-card-version">—</span>
 </div>
@@ -705,7 +725,7 @@ Todas as chaves de acesso são armazenadas como Secrets nos Workers.
 <tr>
 <td><strong>Resend</strong></td>
 <td>Envio de e-mails transacionais (notificações, relatórios, propostas, formulários de contato)</td>
-<td>csv-auth, csv-cron, csv-email, csv-propostas, csv-webhook, thera-contact</td>
+<td>csv-auth, csv-cron, csv-email, csv-mail, csv-propostas, csv-webhook, thera-contact</td>
 </tr>
 <tr>
 <td><strong>Cloudflare AI Gateway</strong></td>
@@ -762,6 +782,12 @@ para a infraestrutura do Hub estão listados abaixo.
 <td>CNAME</td>
 <td>public.r2.dev</td>
 <td>R2 Bucket (propostas)</td>
+</tr>
+<tr>
+<td><code>mail-api.grupocsv.com</code></td>
+<td>AAAA</td>
+<td>100::</td>
+<td>Worker csv-mail</td>
 </tr>
 <tr>
 <td><code>webhook.grupocsv.com</code></td>
