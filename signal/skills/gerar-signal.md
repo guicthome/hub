@@ -59,13 +59,21 @@ Este processo é executado semanalmente, tipicamente às segundas-feiras, para c
 
 ### Fase 6: Envio por E-mail e Entrega
 
-1.  **Enviar E-mail:** Enviar e-mail com layout HTML e o PDF anexo para a lista de distribuição:
-    -   `guilherme@grupocsv.com`
-    -   `guilherme.thome@unimedgv.com.br`
-    -   `naline@grupocsv.com`
-    -   `naline.rocha@unimedgv.com.br`
-2.  **Assunto do E-mail:** `Signal™ SNN/AAAA — Resumo Semanal Estratégico`
-3.  **Confirmar e Entregar:** Após a confirmação do envio, o PDF é disponibilizado ao usuário para download.
+> **Obrigatório:** O envio do Signal™ deve ser realizado exclusivamente pela skill `/csv-mail` (`/home/ubuntu/skills/csv-mail/SKILL.md`). Ler a skill antes de executar o envio.
+
+1.  **Enviar E-mail via csv-mail:** Usar a API `POST /send-template` (template institucional) com o PDF anexo em base64. O header `User-Agent: csv-mail-client/1.0` é obrigatório para evitar bloqueio Cloudflare 1010.
+    -   **Endpoint:** `https://mail-api.grupocsv.com/send-template`
+    -   **Lista de distribuição:**
+        -   `guilherme@grupocsv.com`
+        -   `guilherme.thome@unimedgv.com.br`
+        -   `naline@grupocsv.com`
+        -   `naline.rocha@unimedgv.com.br`
+    -   **Tags obrigatórias:** `source:manus`, `project:signal`
+    -   **from_name:** `Guilherme Thomé`
+    -   **reply_to:** `guilherme@grupocsv.com`
+2.  **Assunto do E-mail:** `Signal™ SNN/AAAA — Resumo Semanal Estratégico (DD a DD de mês)`
+3.  **Corpo HTML:** Parágrafo breve indicando a edição, o período, o número de fatos estratégicos e os destaques principais.
+4.  **Confirmar e Entregar:** Após a confirmação do envio (verificar `success: true` e `id` retornado), o PDF é disponibilizado ao usuário para download.
 
 ---
 
