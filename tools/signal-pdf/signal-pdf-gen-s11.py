@@ -68,12 +68,12 @@ FATOS = [
     },
     {
         "tag": "IMUNOBIOLÓGICOS",
-        "titulo": "Hirimoz → Yuflyma",
-        "resumo": "Desabastecimento Hirimoz (Sandoz) desde março/2026. EVS articulou substituição por Yuflyma. Impacto na gestão via Ymunity.",
+        "titulo": "Hyrimoz → Yuflyma",
+        "resumo": "Desabastecimento Hyrimoz (Sandoz) desde março/2026. EVS articulou substituição por Yuflyma. Impacto na gestão via Ymunity.",
     },
     {
         "tag": "INOVAÇÃO",
-        "titulo": "Relay Lançado",
+        "titulo": "Relay™ Lançado",
         "resumo": "Templates de mensagens padronizadas para WhatsApp corporativo em nome da Sup. Médica. Comunicação a toda equipe EVS, CC e Auditoria.",
     },
     {

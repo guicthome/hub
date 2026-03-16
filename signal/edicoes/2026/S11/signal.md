@@ -36,13 +36,13 @@ head:
 - **Tag:** `ASSISTENCIAL`
 - **Resumo:** Publicado novo POP simplificando o fluxo de solicitações de dispositivos de hemostasia com negativa em ata. O fluxo anterior, de cinco passos concentrados na Auditoria, foi reduzido a dois blocos e quatro entregas. O Hospital Unihealth assume a devolutiva direta ao médico, enquanto a Auditoria mantém a negativa e a formalização. Resultado esperado: menos intermediação e maior agilidade.
 
-### Desabastecimento Hirimoz e Substituição por Yuflyma
+### Desabastecimento Hyrimoz e Substituição por Yuflyma
 - **Tag:** `IMUNOBIOLÓGICOS`
-- **Resumo:** Identificado desabastecimento do Hirimoz (biossimilar de Adalimumabe, Sandoz) desde março/2026. O EVS articulou a substituição pelo Yuflyma como biossimilar alternativo. O tema foi tratado no alinhamento EVS de 09/03, com impacto direto na gestão de imunobiológicos e no acompanhamento via Ymunity.
+- **Resumo:** Identificado desabastecimento do Hyrimoz (biossimilar de Adalimumabe, Sandoz) desde março/2026. O EVS articulou a substituição pelo Yuflyma como biossimilar alternativo. O tema foi tratado no alinhamento EVS de 09/03, com impacto direto na gestão de imunobiológicos e no acompanhamento via Ymunity.
 
-### Relay — Ferramenta de Produtividade da Superintendência Médica
+### Relay™ — Ferramenta de Produtividade da Superintendência Médica
 - **Tag:** `INOVAÇÃO`
-- **Resumo:** Lançado o Relay, ferramenta interna de produtividade que disponibiliza templates de mensagens padronizadas para envio pelo WhatsApp corporativo em nome da Superintendência Médica. A comunicação foi enviada a toda a equipe do EVS, Coordenação do Cuidado e Auditoria em 12/03, com canal aberto para sugestão de novos templates.
+- **Resumo:** Lançado o Relay™, ferramenta interna de produtividade que disponibiliza templates de mensagens padronizadas para envio pelo WhatsApp corporativo em nome da Superintendência Médica. A comunicação foi enviada a toda a equipe do EVS, Coordenação do Cuidado e Auditoria em 12/03, com canal aberto para sugestão de novos templates.
 
 ### Ymunity Passa a Acompanhar Pacientes de Intercâmbio
 - **Tag:** `LINHAS DE CUIDADO`
