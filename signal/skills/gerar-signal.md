@@ -9,6 +9,7 @@
 1. **O PDF do Signal™ deve ter exatamente 1 (uma) página.** Essa restrição é absoluta. Ajustar diagramação, tamanho de fonte e comprimento dos resumos para garantir que todo o conteúdo caiba em uma única página A4.
 2. **Acentuação e cedilha** devem ser rigorosamente respeitadas em todo o conteúdo (PDF, Markdown, metadados).
 3. **Consultar o Dicionário Oficial** antes de gerar qualquer texto para garantir grafias corretas.
+4. **Nunca usar `replace_content` para edições pontuais no Notion.** Para correções de grafia ou atualizações parciais, usar exclusivamente o comando `update_content` com `content_updates`. O comando `replace_content` substitui TODO o conteúdo da página e só deve ser usado para reescrita total intencional. Violação desta regra causa perda de dados (incidente S11/2026).
 
 ---
 
@@ -86,6 +87,54 @@ Quando uma edição publicada contiver erro (formato, conteúdo, grafia), seguir
 3.  **Reenviar e-mail** com assunto: `Signal™ SNN/AAAA — Versão pós-correção`
 4.  O corpo do e-mail segue o padrão normal, sem menção explícita ao erro corrigido.
 5.  **Entregar** o PDF corrigido ao usuário para download.
+
+---
+
+## Salvaguardas para Edição no Notion (MCP)
+
+Esta seção documenta o uso correto dos comandos de edição de conteúdo do MCP Notion, após incidente de perda de dados em S11/2026.
+
+### Comandos de Edição de Conteúdo
+
+| Comando | Uso correto | Parâmetros | Risco |
+|---------|-------------|------------|-------|
+| `update_content` | Edições pontuais (search-and-replace) | `content_updates`: array de `{old_str, new_str, replace_all_matches}` | Baixo — altera apenas o trecho encontrado |
+| `replace_content` | Reescrita total da página | `new_str`: conteúdo completo novo | ALTO — apaga todo o conteúdo existente |
+
+### Exemplo Correto — Correção de Grafia
+
+```json
+{
+  "page_id": "2fcdc8a9-...",
+  "command": "update_content",
+  "content_updates": [
+    {
+      "old_str": "Relay",
+      "new_str": "Relay™",
+      "replace_all_matches": true
+    }
+  ]
+}
+```
+
+### Exemplo ERRADO — Nunca Fazer
+
+```json
+{
+  "page_id": "2fcdc8a9-...",
+  "command": "replace_content",
+  "old_str": "Relay",
+  "new_str": "Relay™"
+}
+```
+
+Este comando apaga todo o conteúdo da página e substitui por "Relay™". O parâmetro `old_str` não pertence ao comando `replace_content`.
+
+### Regra Geral
+
+- Para **correções de grafia, adição de termos ou atualizações parciais**: sempre `update_content`.
+- Para **reescrita total intencional** (raro): `replace_content` com `new_str` contendo o conteúdo completo.
+- Antes de qualquer edição no Dicionário, fazer `fetch` da página para confirmar o conteúdo atual.
 
 ---
 
