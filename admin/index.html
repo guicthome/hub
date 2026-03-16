@@ -374,6 +374,7 @@
             <button class="admin-tab" data-tab="public-links">Links Públicos</button>
             <button class="admin-tab" data-tab="access-logs">Log de Acessos Externos</button>
             <button class="admin-tab" data-tab="deck-users">Deck™</button>
+            <button class="admin-tab" data-tab="deck-feedback">Deck™ Feedback</button>
             <button class="admin-tab" data-tab="admins">Administradores</button>
         </div>
 
@@ -495,6 +496,64 @@
                         </thead>
                         <tbody id="deck-tbody">
                             <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Deck Feedback -->
+        <div class="admin-tab-content" data-tab="deck-feedback">
+            <h3 class="section-header">Deck™ — Feedback do Paste Vision</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Avaliações dos usuários sobre a precisão da captura automática (Ctrl+V).
+            </p>
+
+            <!-- Stats Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                <div class="table-card" style="padding: 20px; text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="fb-total">-</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Total de feedbacks</div>
+                </div>
+                <div class="table-card" style="padding: 20px; text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="fb-positive">-</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Positivos</div>
+                </div>
+                <div class="table-card" style="padding: 20px; text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: #ef4444;" id="fb-negative">-</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Negativos</div>
+                </div>
+                <div class="table-card" style="padding: 20px; text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: var(--accent);" id="fb-approval">-</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Taxa de aprovação</div>
+                </div>
+                <div class="table-card" style="padding: 20px; text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: var(--blue);" id="fb-platform-acc">-</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Acerto de plataforma</div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="tc-header">
+                    <h3>Histórico de Feedbacks</h3>
+                    <span class="count" id="fb-count">Carregando...</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Voto</th>
+                                <th>Usuário</th>
+                                <th>Tipo</th>
+                                <th>Plataforma sugerida</th>
+                                <th>Plataforma final</th>
+                                <th>Título sugerido</th>
+                                <th>Título final</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fb-tbody">
+                            <tr><td colspan="8" class="empty-state">Carregando...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -654,6 +713,7 @@ function toggleAdminPw() {
                 if (tabName === 'passwords') loadPasswords();
                 if (tabName === 'public-links') loadPublicLinks();
                 if (tabName === 'deck-users') loadDeckUsers();
+                if (tabName === 'deck-feedback') loadDeckFeedback();
                 if (tabName === 'admins') loadAdmins();
             });
         });
@@ -676,7 +736,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadAdmins()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadAdmins()]);
     }
 
     // ===== Auth form =====
@@ -1085,6 +1145,47 @@ function toggleAdminPw() {
             showToast((data && data.error) || 'Erro ao revogar', 'error');
         }
     };
+
+    // ===== Deck Feedback =====
+    async function loadDeckFeedback() {
+        const data = await apiCall('/admin/deck-feedback');
+        if (!data) return;
+        const feedback = data.feedback || [];
+        const stats = data.stats || {};
+
+        // Update stat cards
+        document.getElementById('fb-total').textContent = stats.total || 0;
+        document.getElementById('fb-positive').textContent = stats.positive || 0;
+        document.getElementById('fb-negative').textContent = stats.negative || 0;
+        document.getElementById('fb-approval').textContent = stats.total > 0 ? stats.approval_rate + '%' : '-';
+        document.getElementById('fb-platform-acc').textContent = stats.platform_total > 0 ? stats.platform_accuracy + '%' : '-';
+        document.getElementById('fb-count').textContent = feedback.length + ' registro(s)';
+
+        const tbody = document.getElementById('fb-tbody');
+        if (feedback.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Nenhum feedback registrado</td></tr>';
+            return;
+        }
+        tbody.innerHTML = feedback.map(f => {
+            const voteIcon = f.vote === 1
+                ? '<span style="color:#22c55e;font-weight:700;font-size:16px;" title="Positivo">&uarr;</span>'
+                : '<span style="color:#ef4444;font-weight:700;font-size:16px;" title="Negativo">&darr;</span>';
+            const platformMatch = f.suggested_platform === f.final_platform;
+            const platformStyle = platformMatch ? '' : 'color:#ef4444;font-weight:600;';
+            return `
+                <tr>
+                    <td style="text-align:center;">${voteIcon}</td>
+                    <td>${f.user_name || f.pin}</td>
+                    <td>${f.original_type || '-'}</td>
+                    <td>${f.suggested_platform || '-'}</td>
+                    <td style="${platformStyle}">${f.final_platform || '-'}</td>
+                    <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(f.suggested_title || '').replace(/"/g, '&quot;')}">${f.suggested_title || '-'}</td>
+                    <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${(f.final_title || '').replace(/"/g, '&quot;')}">${f.final_title || '-'}</td>
+                    <td>${formatDate(f.created_at)}</td>
+                </tr>
+            `;
+        }).join('');
+    }
 
     // ===== Admins =====
     async function loadAdmins() {
