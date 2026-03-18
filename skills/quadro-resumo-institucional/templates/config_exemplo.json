@@ -1,0 +1,47 @@
+{
+  "logo_path": "/home/ubuntu/hub/icds/logo_unimed_govvaladares.png",
+  "output_path": "/home/ubuntu/quadro_output.png",
+  "dados": {
+    "titulo": "Conven\u00e7\u00e3o T\u00e9cnica Unimed 2026",
+    "subtitulo": "Quadro resumo de custos por participante e modalidade de transporte",
+    "info_linha": "29 e 30 de abril  |  S\u00e3o Paulo  |  Presencial  |  18h",
+    "colunas_header": [
+      "Item",
+      "A\u00e9reo\n(GVR-CGH)",
+      "Misto\n(\u00f4nibus GV-BH +\na\u00e9reo CNF-CGH)",
+      "Terrestre\n(\u00f4nibus GV-SP)"
+    ],
+    "secoes": [
+      {
+        "titulo": "Dr. Guilherme Camargo Thom\u00e9  \u2014  Superintendente M\u00e9dico",
+        "linhas": [
+          ["Inscri\u00e7\u00e3o", "R$ 1.100,00", "R$ 1.100,00", "R$ 1.100,00"],
+          ["Hospedagem (single, 3 noites)", "R$ 2.800,00", "R$ 2.800,00", "R$ 2.800,00"],
+          ["Alimenta\u00e7\u00e3o", "\u2014", "\u2014", "\u2014"],
+          ["Transporte", "R$ 2.807,27", "R$ 995,18", "R$ 850,76"],
+          ["Total", "R$ 6.707,27", "R$ 4.895,18", "R$ 4.750,76"]
+        ]
+      },
+      {
+        "titulo": "Naline Abdala Rocha  \u2014  Coordenadora",
+        "linhas": [
+          ["Inscri\u00e7\u00e3o", "R$ 1.100,00", "R$ 1.100,00", "R$ 1.100,00"],
+          ["Hospedagem (single, 3 noites)", "R$ 2.800,00", "R$ 2.800,00", "R$ 2.800,00"],
+          ["Alimenta\u00e7\u00e3o", "R$ 1.000,00", "R$ 1.000,00", "R$ 1.000,00"],
+          ["Transporte", "R$ 2.807,27", "R$ 995,18", "R$ 850,76"],
+          ["Total", "R$ 7.707,27", "R$ 5.895,18", "R$ 5.750,76"]
+        ]
+      }
+    ],
+    "total_geral": {
+      "labels": [
+        "A\u00e9reo (GVR-CGH)",
+        "Misto (\u00f4nibus GV-BH + a\u00e9reo CNF-CGH)",
+        "Terrestre (\u00f4nibus GV-SP)"
+      ],
+      "valores": ["R$ 14.414,54", "R$ 10.790,36", "R$ 10.501,52"]
+    },
+    "rodape_nota": "Valores consultados em 05/03/2026 \u2014 sujeitos a altera\u00e7\u00e3o. Hospedagem: quarto individual (single) para ambos os participantes.",
+    "rodape_assinatura": "Escrit\u00f3rio de Valor  |  Unimed Governador Valadares"
+  }
+}

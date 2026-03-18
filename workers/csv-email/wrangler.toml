@@ -1,0 +1,8 @@
+name = "csv-email"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "csv-hub"
+database_id = "6fac03eb-4c71-40d5-8edf-7fb0f2e27d37"

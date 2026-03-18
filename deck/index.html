@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck™ — Grupo CSV</title>
+    <link rel="icon" href="/assets/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <meta name="description" content="Deck™ — Painel de contexto ativo | Grupo CSV">
+    <meta property="og:title" content="Deck™ — Grupo CSV">
+    <meta property="og:description" content="Deck™ — Seu painel de contexto ativo. Grupo CSV.">
+    <meta property="og:image" content="https://hub.grupocsv.com/og/og_hub.png">
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ══ Reset ══ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ══ Variáveis de tema ══ */
+        :root {
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --transition: 180ms ease;
+            --grad-start: #0f2b46;
+            --grad-mid: #196396;
+            --grad-end: #2DBF7F;
+            --accent-gradient: linear-gradient(135deg, var(--grad-mid), var(--grad-end));
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0d14;
+            --bg-surface: #111620;
+            --bg-card: #161c28;
+            --bg-input: #0f1319;
+            --text: #e8ebf2;
+            --text-secondary: #b0bdd0;
+            --text-muted: #6b7a94;
+            --border: #1e2538;
+            --border-hover: #2e3650;
+            --accent: #2DBF7F;
+            --accent-secondary: #196396;
+            --accent-soft: rgba(45,191,127,0.10);
+            --danger: #ef4444;
+            --shadow: 0 4px 24px rgba(0,0,0,0.5);
+            --card-glow: 0 0 0 1px rgba(25,99,150,0.12);
+            --topbar-bg: rgba(10,13,20,0.92);
+            --topbar-border: rgba(45,191,127,0.08);
+        }
+
+        [data-theme="light"] {
+            --bg: #f2f4f7;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f5f7fa;
+            --text: #0f2b46;
+            --text-secondary: #4a6280;
+            --text-muted: #8a9ab0;
+            --border: #dce3ec;
+            --border-hover: #bcc8d8;
+            --accent: #196396;
+            --accent-secondary: #2DBF7F;
+            --accent-soft: rgba(25,99,150,0.08);
+            --danger: #dc2626;
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --card-glow: 0 1px 4px rgba(0,0,0,0.06);
+            --topbar-bg: rgba(255,255,255,0.92);
+            --topbar-border: rgba(25,99,150,0.10);
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background 300ms ease, color 300ms ease;
+        }
+        button { cursor: pointer; font-family: var(--font); }
+        input, textarea, select { font-family: var(--font); }
+        .hidden { display: none !important; }
+
+        /* ══ Tela de bloqueio ══ */
+        #lock-screen {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+        #lock-screen::before {
+            content: '';
+            position: absolute;
+            top: -40%; left: -20%; width: 140%; height: 180%;
+            background: radial-gradient(ellipse at 30% 30%, rgba(25,99,150,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 70%, rgba(45,191,127,0.06) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .lock-box {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px 44px 40px;
+            width: 400px; max-width: 92vw;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .lock-logo {
+            height: 38px;
+            margin-bottom: 28px;
+            opacity: 0.75;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        [data-theme="dark"] .lock-logo { content: url('/assets/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png'); }
+        .lock-icon {
+            width: 44px; height: 44px;
+            margin: 0 auto 18px;
+            display: block;
+        }
+        .lock-icon .lock-body { fill: none; stroke: var(--accent); stroke-width: 2; }
+        .lock-icon .lock-shackle { fill: none; stroke: var(--accent); stroke-width: 2; }
+        #lock-title {
+            font-size: 22px; font-weight: 700;
+            margin-bottom: 4px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .lock-slogan {
+            font-size: 12.5px; color: var(--text-secondary);
+            margin-bottom: 6px; letter-spacing: 0.12em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        #lock-subtitle {
+            font-size: 13px; color: var(--text-secondary);
+            margin-bottom: 22px;
+        }
+        #pin-group {
+            display: flex; gap: 10px; justify-content: center;
+            margin-bottom: 18px;
+        }
+        #pin-group input {
+            width: 52px; height: 52px;
+            text-align: center; font-size: 20px; font-weight: 700;
+            background: var(--bg-input);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            outline: none;
+            transition: border-color var(--transition);
+            -webkit-text-security: disc;
+        }
+        #pin-group input:focus { border-color: var(--accent); }
+        #lock-btn {
+            width: 100%; padding: 13px;
+            background: var(--accent-gradient);
+            color: #fff; font-weight: 600; font-size: 14px;
+            border: none; border-radius: var(--radius-sm);
+            transition: opacity var(--transition), transform var(--transition);
+        }
+        #lock-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        #lock-error {
+            color: var(--danger); font-size: 12px;
+            margin-top: 10px; min-height: 18px;
+        }
+        #lock-footer {
+            margin-top: 14px; font-size: 12px;
+        }
+        #lock-footer a {
+            color: var(--text-muted); cursor: pointer;
+            text-decoration: underline;
+            transition: color var(--transition);
+        }
+        #lock-footer a:hover { color: var(--text-secondary); }
+
+        /* ══ Animação de boas-vindas ══ */
+        #welcome-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg);
+            opacity: 1;
+            transition: opacity 600ms ease;
+        }
+        #welcome-overlay.fade-out { opacity: 0; pointer-events: none; }
+        .welcome-text {
+            font-size: 28px; font-weight: 300;
+            letter-spacing: -0.01em;
+            color: var(--text);
+            opacity: 0;
+            transform: translateY(12px);
+            animation: welcomeFadeIn 800ms ease forwards;
+        }
+        .welcome-text strong {
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @keyframes welcomeFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ══ Barra superior ══ */
+        .topbar {
+            display: flex; align-items: center;
+            padding: 0 24px; height: 54px;
+            background: var(--topbar-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--topbar-border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .topbar-left {
+            display: flex; align-items: center; gap: 12px;
+            flex: 1;
+        }
+        .topbar-brand {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none;
+        }
+        .topbar-brand-logo {
+            height: 24px;
+            opacity: 0.7;
+            transition: opacity var(--transition);
+        }
+        [data-theme="dark"] .topbar-brand-logo { content: url('/assets/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_negative_transparent.png'); }
+        .topbar-brand:hover .topbar-brand-logo { opacity: 0.9; }
+        .topbar-divider {
+            width: 1px; height: 22px;
+            background: var(--border);
+        }
+        .topbar-title {
+            font-size: 18px; font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .topbar-title sup {
+            font-size: 9px; font-weight: 600;
+            -webkit-text-fill-color: var(--text-muted);
+        }
+        .topbar-slogan {
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-left: 8px;
+            display: none;
+            opacity: 0.75;
+        }
+        @media (min-width: 1000px) {
+            .topbar-slogan { display: block; }
+        }
+        .topbar-badge {
+            font-size: 11px; font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            min-width: 22px;
+            text-align: center;
+        }
+        .topbar-shortcut-hint {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            opacity: 1;
+            margin-left: 4px;
+        }
+        .topbar-center {
+            position: absolute;
+            left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 12px;
+            font-size: 13px; color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .topbar-date-sep { color: var(--text-muted); margin: 0 1px; }
+        .topbar-clock {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; font-weight: 500;
+            color: #39FF14;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.04em;
+            text-shadow: 0 0 6px rgba(57,255,20,0.4);
+        }
+        .clock-separator {
+            animation: clockBlink 1.2s ease-in-out infinite;
+            display: inline;
+        }
+        @keyframes clockBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .topbar-right {
+            display: flex; align-items: center; gap: 6px;
+            margin-left: auto;
+        }
+        .topbar-btn {
+            display: flex; align-items: center; gap: 6px;
+            padding: 7px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 12.5px; font-weight: 500;
+            transition: all var(--transition);
+        }
+        .topbar-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text);
+            background: var(--accent-soft);
+        }
+        .topbar-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+        .topbar-btn-primary {
+            background: var(--accent-gradient);
+            border: none;
+            color: #fff;
+            font-weight: 600;
+        }
+        .topbar-btn-primary:hover {
+            opacity: 0.9;
+            background: var(--accent-gradient);
+            color: #fff;
+        }
+        .topbar-btn-icon {
+            width: 34px; height: 34px;
+            padding: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            transition: all var(--transition);
+        }
+        .topbar-btn-icon:hover {
+            color: var(--text);
+            background: var(--accent-soft);
+            border-color: var(--border);
+        }
+        .topbar-btn-icon svg { width: 17px; height: 17px; }
+
+        /* ══ Quadro de cards ══ */
+        .board {
+            padding: 28px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        @media (max-width: 600px) {
+            .board { padding: 16px; grid-template-columns: 1fr; }
+        }
+
+        /* ══ Card ══ */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex; flex-direction: column; gap: 14px;
+            position: relative;
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+            border-left: none;
+            min-height: 250px;
+            box-shadow: var(--card-glow);
+            cursor: grab;
+            overflow: hidden;
+        }
+        .card-accent-bar {
+            position: absolute;
+            top: 0; left: 0; width: 5px; height: 100%;
+            border-radius: var(--radius) 0 0 var(--radius);
+            z-index: 2;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 100%;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--card-color, var(--accent)), transparent 65%);
+            opacity: 0.05;
+            pointer-events: none;
+            transition: opacity var(--transition);
+        }
+        .card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        }
+        .card:hover::before { opacity: 0.08; }
+        .card.sortable-ghost { opacity: 0.35; }
+        .card.sortable-chosen { box-shadow: 0 8px 36px rgba(0,0,0,0.35); cursor: grabbing; }
+
+        /* Card destacado */
+        .card.highlighted {
+            border-color: var(--card-color, var(--accent));
+            box-shadow: 0 0 0 2px var(--card-color, var(--accent)),
+                        0 0 24px rgba(var(--card-color-rgb, 45,191,127), 0.35),
+                        0 0 48px rgba(var(--card-color-rgb, 45,191,127), 0.18),
+                        0 0 80px rgba(var(--card-color-rgb, 45,191,127), 0.08);
+            transform: scale(1.015);
+            z-index: 10;
+        }
+        .card.highlighted::before { opacity: 0.18; }
+        .card.highlighted::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: var(--radius);
+            border: 2px solid var(--card-color, var(--accent));
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .card.highlighted .card-accent-bar {
+            width: 6px;
+            box-shadow: 0 0 12px rgba(var(--card-color-rgb, 45,191,127), 0.5);
+        }
+        .card-highlight-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            font-weight: 500;
+            color: var(--card-color, var(--accent));
+            opacity: 0.8;
+            letter-spacing: 0.03em;
+        }
+
+        .card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px;
+        }
+        .card-platform-wrapper {
+            position: relative;
+            display: inline-flex;
+        }
+        .card-platform-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11.5px; font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        .card-platform-badge .badge-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .card-platform-badge .badge-icon svg {
+            width: 13px; height: 13px;
+            fill: currentColor;
+        }
+        .card-platform-select {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .card-actions {
+            display: flex; align-items: center; gap: 4px;
+        }
+        .card-action-btn {
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: var(--text-muted);
+            transition: all var(--transition);
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+        .card:hover .card-action-btn { opacity: 1; }
+        .card-action-btn:hover {
+            background: var(--accent-soft);
+            color: var(--text);
+        }
+        .card-action-btn.btn-highlight.active {
+            color: var(--card-color, var(--accent));
+            opacity: 1;
+        }
+        .card-action-btn.btn-remove:hover {
+            background: rgba(239,68,68,0.10);
+            color: var(--danger);
+        }
+        .card-action-btn svg { width: 14px; height: 14px; }
+        .card-title {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 15px; font-weight: 600;
+            padding: 8px 0;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+        .card-title:focus { border-color: var(--accent); }
+        .card-title::placeholder { color: var(--text-muted); font-weight: 400; }
+        .card-notes {
+            flex: 1;
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding: 12px;
+            resize: none;
+            outline: none;
+            min-height: 80px;
+            max-height: 160px;
+            line-height: 1.6;
+            transition: border-color var(--transition), color var(--transition);
+        }
+        .card-notes:focus {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        .card-notes::placeholder { color: var(--text-muted); }
+        .card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-secondary);
+            letter-spacing: 0.01em;
+            opacity: 0.75;
+        }
+
+        /* ══ Botão novo card ══ */
+        .card-new {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 10px;
+            min-height: 250px;
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            font-size: 13px; font-weight: 500;
+            transition: all var(--transition);
+        }
+        .card-new:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .card-new svg { width: 26px; height: 26px; }
+        .card-new-hint {
+            font-size: 10px;
+            color: var(--text-muted);
+            opacity: 0.5;
+            margin-top: 2px;
+        }
+
+        /* ══ Command Palette ══ */
+        .cmd-overlay {
+            position: fixed; inset: 0; z-index: 600;
+            background: rgba(0,0,0,0.6);
+            display: flex; align-items: flex-start; justify-content: center;
+            padding-top: 18vh;
+            backdrop-filter: blur(6px);
+        }
+        .cmd-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            width: 480px; max-width: 94vw;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .cmd-step {
+            padding: 24px 28px;
+        }
+        .cmd-step-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .cmd-step-counter {
+            font-size: 10px;
+            color: var(--text-muted);
+            opacity: 0.6;
+            float: right;
+        }
+        .cmd-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px 0;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+        .cmd-input:focus { border-color: var(--accent); }
+        .cmd-input::placeholder { color: var(--text-muted); font-weight: 400; }
+        .cmd-textarea {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 14px;
+            padding: 12px;
+            resize: none;
+            outline: none;
+            min-height: 80px;
+            line-height: 1.6;
+            transition: border-color var(--transition);
+        }
+        .cmd-textarea:focus { border-color: var(--accent); }
+        .cmd-textarea::placeholder { color: var(--text-muted); }
+        .cmd-suggestions {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+        .cmd-suggestion {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background var(--transition);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .cmd-suggestion:hover, .cmd-suggestion.active {
+            background: var(--accent-soft);
+            color: var(--text);
+        }
+        .cmd-suggestion-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .cmd-suggestion-icon {
+            width: 18px; height: 18px;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cmd-suggestion-icon svg { width: 16px; height: 16px; }
+        .cmd-footer {
+            padding: 12px 28px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex; gap: 16px;
+        }
+        .cmd-footer kbd {
+            display: inline-block;
+            padding: 1px 6px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        /* ══ Estado vazio ══ */
+        .empty-state {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state svg { width: 56px; height: 56px; margin-bottom: 18px; opacity: 0.3; }
+        .empty-state h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
+        .empty-state p { font-size: 13px; }
+
+        /* ══ Menu de configurações ══ */
+        .settings-menu {
+            position: absolute;
+            top: 54px; right: 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 8px 0;
+            min-width: 210px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            z-index: 200;
+        }
+        .settings-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            width: 100%;
+            color: var(--text-secondary);
+            font-size: 13px; font-weight: 400;
+            text-align: left;
+            transition: all var(--transition);
+        }
+        .settings-item:hover {
+            background: var(--accent-soft);
+            color: var(--text);
+        }
+        .settings-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+        .settings-sep {
+            height: 1px;
+            background: var(--border);
+            margin: 6px 0;
+        }
+
+        /* ══ Modais ══ */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 500;
+            background: rgba(0,0,0,0.55);
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 32px;
+            width: 480px; max-width: 94vw;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-title {
+            font-size: 17px; font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--text);
+        }
+        .modal-label {
+            display: block;
+            font-size: 12px; font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .modal-input {
+            width: 100%; padding: 10px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 14px;
+            transition: border-color var(--transition);
+        }
+        .modal-input:focus { border-color: var(--accent); }
+        .modal-actions {
+            display: flex; gap: 10px; justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .modal-btn {
+            padding: 9px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px; font-weight: 600;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all var(--transition);
+        }
+        .modal-btn:hover { background: var(--accent-soft); color: var(--text); }
+        .modal-btn-primary {
+            background: var(--accent-gradient);
+            border: none;
+            color: #fff;
+        }
+        .modal-btn-primary:hover { opacity: 0.9; }
+        .modal-status {
+            font-size: 12px; margin-top: 10px; min-height: 18px;
+        }
+        .modal-status.success { color: var(--accent); }
+        .modal-status.error { color: var(--danger); }
+
+        /* ══ Captura de tela ══ */
+        .screenshot-preview {
+            width: 100%;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        .screenshot-stamp {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        /* ══ Toast ══ */
+        .toast {
+            position: fixed;
+            bottom: 28px; left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 12px 22px;
+            display: flex; align-items: center; gap: 14px;
+            font-size: 13px; font-weight: 500;
+            color: var(--text);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 300ms ease;
+            z-index: 600;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+        .toast-undo {
+            padding: 5px 14px;
+            background: var(--accent-gradient);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px; font-weight: 600;
+            cursor: pointer;
+            transition: opacity var(--transition);
+        }
+        .toast-undo:hover { opacity: 0.85; }
+
+        /* ══ Cor de plataforma ══ */
+        .color-row {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 14px;
+        }
+        .color-row input[type="color"] {
+            width: 40px; height: 40px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            background: transparent;
+            padding: 2px;
+        }
+        .color-hex {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ══ Input file oculto ══ */
+        #import-file { display: none; }
+
+        /* ══ Responsividade mobile ══ */
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0 12px;
+                height: 48px;
+                gap: 6px;
+            }
+            .topbar-left {
+                gap: 8px;
+                min-width: 0;
+            }
+            .topbar-brand-logo {
+                height: 20px;
+            }
+            .topbar-divider {
+                display: none;
+            }
+            .topbar-title {
+                font-size: 15px;
+            }
+            .topbar-center {
+                display: none;
+            }
+            .topbar-right {
+                gap: 4px;
+            }
+            .topbar-btn {
+                padding: 6px 10px;
+                font-size: 0;
+                gap: 0;
+            }
+            .topbar-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+            .topbar-shortcut-hint {
+                display: none;
+            }
+            .topbar-btn-primary {
+                font-size: 12px;
+                padding: 6px 12px;
+                gap: 6px;
+            }
+            .topbar-btn-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .topbar-btn-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .topbar-badge {
+                font-size: 10px;
+                padding: 2px 8px;
+            }
+            /* Modais */
+            .modal {
+                width: 94vw;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .settings-menu {
+                right: 8px;
+                left: 8px;
+                width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .topbar-btn#btn-screenshot {
+                display: none;
+            }
+            .topbar-btn-primary {
+                font-size: 0;
+                padding: 8px;
+            }
+            .topbar-btn-primary svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+
+        /* ══ Paste Vision ══ */
+        .paste-hint {
+            position: fixed;
+            bottom: 16px; right: 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 16px;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: pasteHintIn 500ms ease 2s forwards;
+            pointer-events: none;
+        }
+        @keyframes pasteHintIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .paste-hint.dismissed { display: none; }
+        .paste-hint kbd {
+            display: inline-block;
+            padding: 2px 6px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+        }
+        .paste-hint-icon {
+            width: 18px; height: 18px;
+            opacity: 0.5;
+        }
+        .paste-processing {
+            position: fixed; inset: 0;
+            z-index: 700;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 20px;
+        }
+        .paste-processing-spinner {
+            width: 48px; height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .paste-processing-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .paste-processing-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .paste-preview-overlay {
+            position: fixed; inset: 0;
+            z-index: 700;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: 16px;
+            padding: 24px;
+        }
+        .paste-preview-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            width: 520px; max-width: 94vw;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .paste-preview-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 18px;
+        }
+        .paste-preview-thumb {
+            width: 80px; height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .paste-preview-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .paste-preview-title {
+            font-size: 16px; font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .paste-preview-notes {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .paste-preview-confidence {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 12px;
+        }
+        .paste-preview-actions {
+            display: flex; gap: 10px; justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .paste-drop-zone {
+            position: fixed; inset: 0;
+            z-index: 650;
+            background: rgba(45,191,127,0.08);
+            border: 3px dashed var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none;
+        }
+        .paste-drop-zone-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ Tela de bloqueio ══ -->
+<div id="lock-screen">
+    <div class="lock-box">
+        <img src="/assets/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" class="lock-logo">
+        <svg class="lock-icon" viewBox="0 0 24 24">
+            <rect class="lock-body" x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path class="lock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <div id="lock-title">Deck™</div>
+        <div class="lock-slogan">Seu painel de contexto ativo</div>
+        <div id="lock-subtitle">Digite seu PIN de 4 dígitos para acessar</div>
+        <div id="pin-group">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="1" autofocus>
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="2">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="3">
+            <input type="tel" maxlength="1" inputmode="numeric" autocomplete="one-time-code" data-lpignore="true" data-1p-ignore="true" tabindex="4">
+        </div>
+        <button id="lock-btn">Desbloquear</button>
+        <div id="lock-error"></div>
+        <div id="lock-footer"></div>
+    </div>
+</div>
+
+<!-- ══ Overlay de boas-vindas ══ -->
+<div id="welcome-overlay" class="hidden">
+    <div class="welcome-text">Bem-vindo, <strong>Guilherme</strong></div>
+</div>
+
+<!-- ══ Aplicação ══ -->
+<div id="app" class="hidden">
+    <!-- Barra superior -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <a href="https://hub.grupocsv.com" class="topbar-brand" title="Hub Grupo CSV">
+                <img src="/assets/visual-identity/grupo-csv/logo/png/grupo-csv_logo_horizontal_full-color_positive_transparent.png" alt="Grupo CSV" class="topbar-brand-logo">
+            </a>
+            <div class="topbar-divider"></div>
+            <div class="topbar-title">Deck<sup>TM</sup></div>
+            <div class="topbar-slogan">Seu painel de contexto ativo</div>
+        </div>
+        <div class="topbar-center">
+            <span id="topbar-date"></span>
+            <span class="topbar-clock" id="topbar-clock"></span>
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-badge" id="card-count">0</div>
+            <button class="topbar-btn topbar-btn-primary" id="btn-new-card" title="Adicionar (Alt+N)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Novo
+                <span class="topbar-shortcut-hint">Alt+N</span>
+            </button>
+            <button class="topbar-btn" id="btn-screenshot" title="Capturar tela">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Captura
+            </button>
+            <button class="topbar-btn-icon" id="btn-fullscreen" title="Tela cheia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+            <button class="topbar-btn-icon" id="btn-theme" title="Alternar tema">
+                <svg id="icon-theme-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg id="icon-theme-light" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <button class="topbar-btn-icon" id="btn-settings" title="Configurações">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu de configurações -->
+    <div class="settings-menu hidden" id="settings-menu">
+        <button class="settings-item" id="btn-export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar JSON
+        </button>
+        <button class="settings-item" id="btn-import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Importar JSON
+        </button>
+        <div class="settings-sep"></div>
+        <button class="settings-item" id="btn-add-platform">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Nova plataforma
+        </button>
+        <button class="settings-item" id="btn-manage-platforms">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Gerenciar plataformas
+        </button>
+        <div class="settings-sep"></div>
+        <button class="settings-item" id="btn-change-pin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Alterar PIN
+        </button>
+        <button class="settings-item" id="btn-clear-all" style="color:var(--danger)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Limpar tudo
+        </button>
+    </div>
+
+    <input type="file" id="import-file" accept=".json">
+
+    <!-- Quadro -->
+    <div class="board" id="board"></div>
+</div>
+
+<!-- ══ Modal: Captura de tela ══ -->
+<div class="modal-overlay hidden" id="screenshot-modal">
+    <div class="modal">
+        <div class="modal-title">Captura do Deck</div>
+        <div class="screenshot-stamp" id="screenshot-stamp"></div>
+        <img class="screenshot-preview" id="screenshot-preview" alt="Captura">
+        <div id="screenshot-status" class="modal-status"></div>
+        <div class="modal-actions">
+            <button class="modal-btn" id="screenshot-cancel">Fechar</button>
+            <button class="modal-btn modal-btn-primary" id="screenshot-download">Salvar imagem</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Modal: Alterar PIN ══ -->
+<div class="modal-overlay hidden" id="pin-modal">
+    <div class="modal">
+        <div class="modal-title">Alterar PIN</div>
+        <label class="modal-label">PIN atual</label>
+        <input class="modal-input" type="password" id="pin-current" maxlength="4" inputmode="numeric" autocomplete="off">
+        <label class="modal-label">Novo PIN</label>
+        <input class="modal-input" type="password" id="pin-new" maxlength="4" inputmode="numeric" autocomplete="off">
+        <label class="modal-label">Confirmar novo PIN</label>
+        <input class="modal-input" type="password" id="pin-confirm" maxlength="4" inputmode="numeric" autocomplete="off">
+        <div id="pin-status" class="modal-status"></div>
+        <div class="modal-actions">
+            <button class="modal-btn" id="pin-cancel">Cancelar</button>
+            <button class="modal-btn modal-btn-primary" id="pin-save">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Modal: Nova/editar plataforma ══ -->
+<div class="modal-overlay hidden" id="platform-modal">
+    <div class="modal">
+        <div class="modal-title" id="platform-modal-title">Nova plataforma</div>
+        <label class="modal-label">Nome</label>
+        <input class="modal-input" type="text" id="platform-name" placeholder="Ex.: Notion, Figma..." autocomplete="off">
+        <label class="modal-label">Logo / Favicon</label>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div id="platform-icon-preview" style="width:36px;height:36px;border-radius:6px;background:var(--surface);border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <label style="cursor:pointer;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:6px 14px;white-space:nowrap">
+                Escolher imagem
+                <input type="file" id="platform-icon-input" accept="image/*" style="display:none">
+            </label>
+            <button type="button" id="platform-icon-clear" style="display:none;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:11px;text-decoration:underline">Remover</button>
+        </div>
+        <label class="modal-label">Cor</label>
+        <div class="color-row">
+            <input type="color" id="platform-color" value="#2DBF7F">
+            <span class="color-hex" id="platform-color-hex">#2DBF7F</span>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn" id="platform-cancel">Cancelar</button>
+            <button class="modal-btn modal-btn-primary" id="platform-save">Salvar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Modal: Gerenciar plataformas ══ -->
+<div class="modal-overlay hidden" id="manage-platforms-modal">
+    <div class="modal">
+        <div class="modal-title">Plataformas</div>
+        <div id="manage-platforms-list"></div>
+        <div class="modal-actions">
+            <button class="modal-btn" id="manage-platforms-close">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Modal: Confirmação ══ -->
+<div class="modal-overlay hidden" id="confirm-modal">
+    <div class="modal">
+        <div class="modal-title" id="confirm-title"></div>
+        <p id="confirm-message" style="font-size:13px;color:var(--text-secondary);margin-bottom:8px"></p>
+        <div class="modal-actions">
+            <button class="modal-btn" id="confirm-cancel">Cancelar</button>
+            <button class="modal-btn modal-btn-primary" id="confirm-ok">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Command Palette ══ -->
+<div class="cmd-overlay hidden" id="cmd-palette">
+    <div class="cmd-box">
+        <div class="cmd-step" id="cmd-step-content"></div>
+        <div class="cmd-footer">
+            <span><kbd>Enter</kbd> Avançar</span>
+            <span><kbd>Esc</kbd> Cancelar</span>
+            <span><kbd>↑</kbd><kbd>↓</kbd> Navegar</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Paste Hint (onboarding) ══ -->
+<div class="paste-hint dismissed" id="paste-hint">
+    <svg class="paste-hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    Cole um print ou texto (<kbd>Ctrl+V</kbd>) para criar um registro automaticamente
+</div>
+
+<!-- ══ Toast ══ -->
+<div class="toast" id="toast"><span id="toast-text"></span></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Deck™ — Painel de Contexto Ativo
+   Grupo CSV | hub.grupocsv.com/deck
+   ══════════════════════════════════════════════════════════════ */
+(() => {
+'use strict';
+
+const STORAGE_KEY = 'deck_state';
+const PIN_KEY = 'deck_pin';
+const THEME_KEY = 'deck_theme';
+const UNDO_TIMEOUT = 7000;
+
+const DEFAULT_PLATFORMS = [
+    { id: 'manus',         name: 'Manus',          color: '#1A1A1A', builtin: true },
+    { id: 'chatgpt',       name: 'ChatGPT',        color: '#74AA9C', builtin: true },
+    { id: 'claude',        name: 'Claude',          color: '#D4A27F', builtin: true },
+    { id: 'anti-gravity',  name: 'Anti-Gravity',    color: '#4A90D9', builtin: true },
+    { id: 'notion',        name: 'Notion',          color: '#1A1A1A', builtin: true },
+    { id: 'cloudflare',    name: 'Cloudflare',      color: '#F38020', builtin: true },
+    { id: 'supabase',      name: 'Supabase',        color: '#3ECF8E', builtin: true },
+    { id: 'lovable',       name: 'Lovable',         color: '#FF385C', builtin: true },
+    { id: 'evolution',     name: 'Evolution API',   color: '#25D366', builtin: true },
+    { id: 'hubcsv',        name: 'Hub CSV',         color: '#0EA5A0', builtin: true },
+    { id: 'unimed',        name: 'Unimed',          color: '#00995D', builtin: true },
+    { id: 'email',         name: 'E-mail',          color: '#EF4444', builtin: true },
+    { id: 'chrome',        name: 'Chrome',          color: '#4285F4', builtin: true },
+    { id: 'whatsapp',      name: 'WhatsApp',        color: '#25D366', builtin: true },
+    { id: 'outro',         name: 'Outro',           color: '#9CA3AF', builtin: true },
+];
+
+const WEEKDAYS = ['Domingo','Segunda-feira','Ter\u00e7a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S\u00e1bado'];
+const MONTHS = ['janeiro','fevereiro','mar\u00e7o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+let state = { cards: [], platforms: [] };
+
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+const lockScreen = $('#lock-screen');
+const lockTitle = $('#lock-title');
+const lockSubtitle = $('#lock-subtitle');
+const lockBtn = $('#lock-btn');
+const lockError = $('#lock-error');
+const lockFooter = $('#lock-footer');
+const pinGroup = $('#pin-group');
+const pinInputs = $$('input', pinGroup);
+const app = $('#app');
+const board = $('#board');
+const cardCount = $('#card-count');
+const settingsMenu = $('#settings-menu');
+const toastEl = $('#toast');
+const toastText = $('#toast-text');
+const welcomeOverlay = $('#welcome-overlay');
+
+// ── Utilitários ──
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+
+async function hashPin(pin) {
+    const data = new TextEncoder().encode(pin + '_deck_salt');
+    const buf = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function showToast(msg, duration = 2800) {
+    toastText.textContent = msg;
+    const existing = toastEl.querySelector('.toast-undo');
+    if (existing) existing.remove();
+    toastEl.classList.add('show');
+    clearTimeout(toastEl._hideTimer);
+    toastEl._hideTimer = setTimeout(() => toastEl.classList.remove('show'), duration);
+}
+
+function showUndoToast(msg, onUndo) {
+    toastText.textContent = msg;
+    const existing = toastEl.querySelector('.toast-undo');
+    if (existing) existing.remove();
+    const btn = document.createElement('button');
+    btn.className = 'toast-undo';
+    btn.textContent = 'Desfazer';
+    btn.onclick = () => { onUndo(); toastEl.classList.remove('show'); clearTimeout(toastEl._hideTimer); };
+    toastEl.appendChild(btn);
+    toastEl.classList.add('show');
+    clearTimeout(toastEl._hideTimer);
+    toastEl._hideTimer = setTimeout(() => toastEl.classList.remove('show'), UNDO_TIMEOUT);
+}
+
+function formatDateTimeFull() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const weekday = WEEKDAYS[d.getDay()];
+    const day = pad(d.getDate());
+    const month = MONTHS[d.getMonth()];
+    const year = d.getFullYear();
+    const h = pad(d.getHours());
+    const m = pad(d.getMinutes());
+    return `${weekday}, ${day} de ${month} de ${year} \u00e0s ${h}:${m}`;
+}
+
+function formatDateTimeShort() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function formatCardTimestamp(ts) {
+    const d = new Date(ts);
+    const pad = n => String(n).padStart(2, '0');
+    return `${pad(d.getHours())}:${pad(d.getMinutes())} \u2022 ${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
+}
+
+// ── Data e relógio ──
+function updateDateTime() {
+    const now = new Date();
+    const weekday = WEEKDAYS[now.getDay()];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = MONTHS[now.getMonth()];
+    const year = now.getFullYear();
+    const dateEl = $('#topbar-date');
+    const clockEl = $('#topbar-clock');
+    if (dateEl) dateEl.innerHTML = `${weekday} <span class="topbar-date-sep">|</span> ${day} de ${month} de ${year}`;
+    if (clockEl) {
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        clockEl.innerHTML = `${h}<span class="clock-separator">:</span>${m}`;
+    }
+}
+
+// ── Tema ──
+function getTheme() { return localStorage.getItem(THEME_KEY) || 'dark'; }
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    $('#icon-theme-dark').classList.toggle('hidden', theme !== 'dark');
+    $('#icon-theme-light').classList.toggle('hidden', theme !== 'light');
+}
+
+function toggleTheme() { setTheme(getTheme() === 'dark' ? 'light' : 'dark'); }
+
+// ── Tela cheia ──
+function toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+    else document.exitFullscreen().catch(() => {});
+}
+
+// ── Persistência ──
+function saveState() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch(e) { console.error('Deck: falha ao salvar', e); }
+}
+
+function loadState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            state.cards = Array.isArray(parsed.cards) ? parsed.cards : [];
+            state.platforms = Array.isArray(parsed.platforms) ? parsed.platforms : [];
+        }
+    } catch(e) { state = { cards: [], platforms: [] }; }
+}
+
+function getAllPlatforms() { return [...DEFAULT_PLATFORMS, ...state.platforms]; }
+function getPlatformColor(id) { const p = getAllPlatforms().find(x => x.id === id); return p ? p.color : '#9CA3AF'; }
+function getPlatformName(id) { const p = getAllPlatforms().find(x => x.id === id); return p ? p.name : 'Outro'; }
+
+const PLATFORM_GRADIENTS = {
+    'manus':         'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
+    'chatgpt':       'linear-gradient(180deg, #74AA9C, #5A8F82)',
+    'claude':        'linear-gradient(180deg, #D4A27F, #B8876A)',
+    'anti-gravity':  'linear-gradient(180deg, #4A90D9, #3A6FB5)',
+    'notion':        'linear-gradient(180deg, #1A1A1A, #3D3D3D)',
+    'cloudflare':    'linear-gradient(180deg, #F38020, #F9A825)',
+    'supabase':      'linear-gradient(180deg, #3ECF8E, #2DA06E)',
+    'lovable':       'linear-gradient(180deg, #FF385C, #9B59B6)',
+    'evolution':     'linear-gradient(180deg, #25D366, #128C7E)',
+    'hubcsv':        'linear-gradient(180deg, #0EA5A0, #0C7C78)',
+    'unimed':        'linear-gradient(180deg, #00995D, #006B3F)',
+    'email':         'linear-gradient(180deg, #EF4444, #F97316)',
+    'chrome':        'linear-gradient(180deg, #4285F4, #34A853, #FBBC04, #EA4335)',
+    'whatsapp':      'linear-gradient(180deg, #25D366, #128C7E)',
+    'outro':         'linear-gradient(180deg, #9CA3AF, #6B7280)',
+};
+function getPlatformGradient(id) { return PLATFORM_GRADIENTS[id] || `linear-gradient(180deg, ${getPlatformColor(id)}, ${getPlatformColor(id)})`; }
+
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3), 16);
+    const g = parseInt(hex.slice(3,5), 16);
+    const b = parseInt(hex.slice(5,7), 16);
+    return { r, g, b };
+}
+
+function platformBadgeStyle(color) {
+    const { r, g, b } = hexToRgb(color);
+    const theme = getTheme();
+    const alpha = theme === 'dark' ? 0.14 : 0.10;
+    return `background:rgba(${r},${g},${b},${alpha});color:${color};`;
+}
+
+// ── PIN / Bloqueio ──
+function isPinSet() { return !!localStorage.getItem(PIN_KEY); }
+
+function setupLockScreen() {
+    if (!isPinSet()) {
+        lockTitle.textContent = 'Criar PIN';
+        lockSubtitle.textContent = 'Defina um PIN de 4 d\u00edgitos para proteger seu Deck';
+        lockBtn.textContent = 'Definir PIN';
+        lockFooter.innerHTML = '';
+        lockBtn.onclick = handleSetPin;
+    } else {
+        lockTitle.textContent = 'Deck\u2122';
+        lockSubtitle.textContent = 'Digite seu PIN de 4 d\u00edgitos para acessar';
+        lockBtn.textContent = 'Desbloquear';
+        lockFooter.innerHTML = '<a id="reset-pin-link">Esqueceu o PIN?</a>';
+        const rl = $('#reset-pin-link');
+        if (rl) rl.onclick = handleResetPin;
+        lockBtn.onclick = handleUnlock;
+    }
+    clearPinInputs();
+}
+
+function getPinValue() { return pinInputs.map(i => i.value).join(''); }
+function clearPinInputs() {
+    pinInputs.forEach(i => { i.value = ''; });
+    setTimeout(() => { pinInputs[0].focus(); }, 50);
+}
+
+async function handleSetPin() {
+    const pin = getPinValue();
+    if (pin.length !== 4 || !/^\d{4}$/.test(pin)) { lockError.textContent = 'Digite exatamente 4 d\u00edgitos num\u00e9ricos.'; return; }
+    localStorage.setItem(PIN_KEY, await hashPin(pin));
+    lockError.textContent = '';
+    unlock();
+}
+
+const DECK_AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
+let tempPinHash = null;
+let forceNewPin = false;
+
+async function handleUnlock() {
+    const pin = getPinValue();
+
+    // Verificar PIN temporário (se ativo)
+    if (tempPinHash) {
+        const hashed = await hashPin(pin);
+        if (hashed === tempPinHash) {
+            tempPinHash = null;
+            forceNewPin = true;
+            localStorage.removeItem(PIN_KEY);
+            lockError.style.color = 'var(--accent)';
+            lockError.textContent = 'PIN temporário aceito. Defina um novo PIN.';
+            lockTitle.textContent = 'Novo PIN';
+            lockSubtitle.textContent = 'Defina um novo PIN de 4 dígitos';
+            lockBtn.textContent = 'Definir PIN';
+            lockBtn.onclick = async function() {
+                const newPin = getPinValue();
+                if (newPin.length !== 4 || !/^\d{4}$/.test(newPin)) {
+                    lockError.style.color = '#ef4444';
+                    lockError.textContent = 'Digite exatamente 4 dígitos numéricos.';
+                    return;
+                }
+                localStorage.setItem(PIN_KEY, await hashPin(newPin));
+                forceNewPin = false;
+                lockError.textContent = '';
+                unlock();
+            };
+            const footer = $('#lock-footer');
+            if (footer) footer.innerHTML = '';
+            clearPinInputs();
+            return;
+        } else {
+            lockError.style.color = '#ef4444';
+            lockError.textContent = 'PIN temporário incorreto.';
+            clearPinInputs();
+            return;
+        }
+    }
+
+    if (pin.length !== 4) { lockError.textContent = 'Digite 4 dígitos.'; return; }
+    if (await hashPin(pin) === localStorage.getItem(PIN_KEY)) { lockError.textContent = ''; unlock(); }
+    else { lockError.textContent = 'PIN incorreto.'; clearPinInputs(); }
+}
+
+async function handleResetPin() {
+    lockError.textContent = '';
+    const resetLink = $('#reset-pin-link');
+    if (resetLink) resetLink.textContent = 'Enviando...';
+
+    try {
+        const resp = await fetch(DECK_AUTH_API + '/deck/reset-pin', { method: 'POST' });
+        const data = await resp.json();
+
+        if (data.success && data.hashed_pin) {
+            tempPinHash = data.hashed_pin;
+            lockError.style.color = 'var(--accent)';
+            lockError.textContent = 'PIN temporário enviado para guilherme@grupocsv.com';
+            lockSubtitle.textContent = 'Digite o PIN temporário recebido por e-mail';
+            clearPinInputs();
+        } else {
+            lockError.style.color = '#ef4444';
+            lockError.textContent = data.error || 'Erro ao solicitar PIN temporário';
+        }
+    } catch (e) {
+        lockError.style.color = '#ef4444';
+        lockError.textContent = 'Erro de conexão. Tente novamente.';
+    }
+
+    if (resetLink) resetLink.textContent = 'Esqueceu o PIN?';
+}
+
+function unlock() {
+    lockScreen.classList.add('hidden');
+    // Animação de boas-vindas
+    welcomeOverlay.classList.remove('hidden');
+    setTimeout(() => welcomeOverlay.classList.add('fade-out'), 1200);
+    setTimeout(() => {
+        welcomeOverlay.classList.add('hidden');
+        welcomeOverlay.classList.remove('fade-out');
+        app.classList.remove('hidden');
+        loadState();
+        renderBoard();
+        updateDateTime();
+    }, 1900);
+}
+
+pinInputs.forEach((inp, idx) => {
+    inp.addEventListener('input', () => {
+        inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+        if (inp.value && idx < 3) {
+            pinInputs[idx + 1].focus();
+        } else if (inp.value && idx === 3) {
+            // Auto-unlock ao digitar o quarto dígito
+            setTimeout(() => { handleUnlock(); }, 80);
+        }
+    });
+    inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !inp.value && idx > 0) pinInputs[idx - 1].focus();
+        if (e.key === 'Enter') lockBtn.click();
+    });
+});
+
+// ── Renderização do quadro ──
+function renderBoard() {
+    board.innerHTML = '';
+    if (state.cards.length === 0) {
+        board.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+                <h3>Nenhum registro ativo</h3>
+                <p>Clique em \u201cNovo\u201d para come\u00e7ar</p>
+            </div>`;
+    } else {
+        state.cards.forEach(card => board.appendChild(createCardElement(card)));
+    }
+    const newBtn = document.createElement('button');
+    newBtn.className = 'card-new';
+    newBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Novo<span class="card-new-hint">Alt+N</span>`;
+    newBtn.onclick = () => openCommandPalette();
+    board.appendChild(newBtn);
+    updateCardCount();
+    initSortable();
+}
+
+function createCardElement(card) {
+    const el = document.createElement('div');
+    el.className = 'card' + (card.highlighted ? ' highlighted' : '');
+    el.dataset.id = card.id;
+    const color = getPlatformColor(card.platform);
+    const { r, g, b } = hexToRgb(color);
+    el.style.setProperty('--card-color', color);
+    el.style.setProperty('--card-color-rgb', `${r},${g},${b}`);
+
+    const platforms = getAllPlatforms();
+    const optionsHtml = platforms.map(p => `<option value="${p.id}" ${p.id === card.platform ? 'selected' : ''}>${p.name}</option>`).join('');
+    const badgeStyle = platformBadgeStyle(color);
+    const platformName = getPlatformName(card.platform);
+    const createdStr = card.created ? formatCardTimestamp(card.created) : '';
+
+    el.innerHTML = `
+        <div class="card-accent-bar" style="background:${getPlatformGradient(card.platform)}"></div>
+        <div class="card-header">
+            <div class="card-platform-wrapper">
+                <div class="card-platform-badge" style="${badgeStyle}">
+                    <span class="badge-icon" style="width:13px;height:13px;display:inline-flex;align-items:center;flex-shrink:0">${getPlatformIcon(card.platform)}</span>
+                    <span class="badge-name">${escapeHtml(platformName)}</span>
+                </div>
+                <select class="card-platform-select" data-field="platform">${optionsHtml}</select>
+            </div>
+            <div class="card-actions">
+                <button class="card-action-btn btn-highlight ${card.highlighted ? 'active' : ''}" title="Destacar">
+                    <svg viewBox="0 0 24 24" fill="${card.highlighted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </button>
+                <button class="card-action-btn btn-remove" title="Remover">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+        <input class="card-title" type="text" placeholder="O que está ativo agora" value="${escapeHtml(card.title || '')}" data-field="title" autocomplete="off">
+        <textarea class="card-notes" placeholder="Descri\u00e7\u00e3o" data-field="notes">${escapeHtml(card.notes || '')}</textarea>
+        <div class="card-footer">
+            <span>Ativado em ${createdStr}</span>
+            ${card.highlighted && card.highlightedAt ? `<span class="card-highlight-timer" data-started="${card.highlightedAt}"></span>` : ''}
+        </div>
+    `;
+
+    // Plataforma
+    const sel = $('[data-field="platform"]', el);
+    sel.addEventListener('change', () => {
+        card.platform = sel.value;
+        const nc = getPlatformColor(card.platform);
+        const { r: nr, g: ng, b: nb } = hexToRgb(nc);
+        el.style.setProperty('--card-color', nc);
+        el.style.setProperty('--card-color-rgb', `${nr},${ng},${nb}`);
+        $('.card-platform-badge', el).setAttribute('style', platformBadgeStyle(nc));
+        $('.badge-name', el).textContent = getPlatformName(card.platform);
+        const iconEl = $('.badge-icon', el);
+        if (iconEl) iconEl.innerHTML = getPlatformIcon(card.platform);
+        $('.card-accent-bar', el).style.background = getPlatformGradient(card.platform);
+        saveState();
+    });
+
+    // Título
+    const titleInput = $('[data-field="title"]', el);
+    titleInput.addEventListener('input', () => { card.title = titleInput.value; saveState(); });
+
+    // Notas
+    const notesInput = $('[data-field="notes"]', el);
+    notesInput.addEventListener('input', () => { card.notes = notesInput.value; saveState(); });
+
+    // Destacar
+    const hlBtn = $('.btn-highlight', el);
+    hlBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card.highlighted = !card.highlighted;
+        if (card.highlighted) {
+            card.highlightedAt = Date.now();
+            // Mover para primeira posicao
+            const idx = state.cards.findIndex(c => c.id === card.id);
+            if (idx > 0) {
+                state.cards.splice(idx, 1);
+                state.cards.unshift(card);
+            }
+        } else {
+            delete card.highlightedAt;
+        }
+        saveState();
+        renderBoard();
+    });
+
+    // Remover com desfazer
+    const removeBtn = $('.btn-remove', el);
+    removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = state.cards.findIndex(c => c.id === card.id);
+        if (idx === -1) return;
+        const removed = state.cards.splice(idx, 1)[0];
+        saveState();
+        renderBoard();
+        showUndoToast(`\u201c${removed.title || 'Sem t\u00edtulo'}\u201d removido`, () => {
+            state.cards.splice(idx, 0, removed);
+            saveState();
+            renderBoard();
+        });
+    });
+
+    return el;
+}
+
+function updateCardCount() {
+    const n = state.cards.length;
+    cardCount.textContent = n === 0 ? '0' : n === 1 ? '1' : String(n);
+}
+
+function addCard() {
+    const card = { id: uid(), platform: 'manus', title: '', notes: '', created: Date.now(), highlighted: false };
+    state.cards.push(card);
+    saveState();
+    renderBoard();
+    const newEl = $(`[data-id="${card.id}"] .card-title`);
+    if (newEl) newEl.focus();
+}
+
+// ── Sortable (arraste pelo card inteiro) ──
+let sortableInstance = null;
+function initSortable() {
+    if (sortableInstance) sortableInstance.destroy();
+    if (state.cards.length === 0) return;
+    sortableInstance = new Sortable(board, {
+        animation: 200,
+        draggable: '.card',
+        filter: 'input, textarea, select, button',
+        preventOnFilter: false,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        onEnd: () => {
+            const ids = $$('.card', board).map(el => el.dataset.id);
+            state.cards.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+            saveState();
+        }
+    });
+}
+
+// ── Confirmação ──
+function showConfirm(title, message, onOk) {
+    const modal = $('#confirm-modal');
+    $('#confirm-title').textContent = title;
+    $('#confirm-message').textContent = message;
+    modal.classList.remove('hidden');
+    const close = () => modal.classList.add('hidden');
+    $('#confirm-cancel').onclick = close;
+    $('#confirm-ok').onclick = () => { close(); onOk(); };
+    modal.onclick = (e) => { if (e.target === modal) close(); };
+}
+
+// ── Captura de tela ──
+$('#btn-screenshot').addEventListener('click', async () => {
+    const statusEl = $('#screenshot-status');
+    statusEl.textContent = ''; statusEl.className = 'modal-status';
+    try {
+        const bgColor = getComputedStyle(document.body).backgroundColor;
+        const canvas = await html2canvas(board, { backgroundColor: bgColor, scale: 2, useCORS: true, logging: false });
+        const dataUrl = canvas.toDataURL('image/png');
+        $('#screenshot-preview').src = dataUrl;
+        $('#screenshot-stamp').textContent = formatDateTimeFull();
+        $('#screenshot-modal').classList.remove('hidden');
+    } catch(e) { showToast('Erro ao capturar tela'); console.error(e); }
+});
+
+$('#screenshot-cancel').addEventListener('click', () => $('#screenshot-modal').classList.add('hidden'));
+$('#screenshot-modal').addEventListener('click', (e) => { if (e.target.id === 'screenshot-modal') $('#screenshot-modal').classList.add('hidden'); });
+
+$('#screenshot-download').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = $('#screenshot-preview').src;
+    a.download = `deck-${new Date().toISOString().slice(0,10)}.png`;
+    a.click();
+    showToast('Imagem salva');
+});
+
+
+
+// ── ESC fecha modais ──
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        $$('.modal-overlay').forEach(m => m.classList.add('hidden'));
+        settingsMenu.classList.add('hidden');
+    }
+});
+
+// ── Configurações ──
+$('#btn-settings').addEventListener('click', (e) => { e.stopPropagation(); settingsMenu.classList.toggle('hidden'); });
+document.addEventListener('click', () => settingsMenu.classList.add('hidden'));
+settingsMenu.addEventListener('click', (e) => e.stopPropagation());
+
+$('#btn-new-card').addEventListener('click', () => openCommandPalette());
+$('#btn-fullscreen').addEventListener('click', toggleFullscreen);
+$('#btn-theme').addEventListener('click', toggleTheme);
+
+// ── Exportar ──
+$('#btn-export').addEventListener('click', () => {
+    settingsMenu.classList.add('hidden');
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url;
+    a.download = `deck-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click(); URL.revokeObjectURL(url);
+    showToast('Backup exportado');
+});
+
+// ── Importar ──
+const importFile = $('#import-file');
+$('#btn-import').addEventListener('click', () => { settingsMenu.classList.add('hidden'); importFile.click(); });
+importFile.addEventListener('change', (e) => {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        try {
+            const imported = JSON.parse(ev.target.result);
+            if (!Array.isArray(imported.cards)) throw new Error('Formato inv\u00e1lido');
+            state.cards = imported.cards;
+            state.platforms = Array.isArray(imported.platforms) ? imported.platforms : [];
+            saveState(); renderBoard();
+            showToast('Backup importado com sucesso');
+        } catch(err) { showToast('Erro: arquivo JSON inv\u00e1lido'); }
+    };
+    reader.readAsText(file); importFile.value = '';
+});
+
+// ── Plataformas ──
+$('#btn-add-platform').addEventListener('click', () => { settingsMenu.classList.add('hidden'); openPlatformModal(); });
+
+function openPlatformModal(editPlatform = null) {
+    const modal = $('#platform-modal');
+    const titleEl = $('#platform-modal-title');
+    const nameInput = $('#platform-name');
+    const colorInput = $('#platform-color');
+    const hexSpan = $('#platform-color-hex');
+    const iconInput = $('#platform-icon-input');
+    const iconPreview = $('#platform-icon-preview');
+    const iconClear = $('#platform-icon-clear');
+    let pendingIcon = null;
+    const defaultPreviewSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5" style="width:18px;height:18px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+    function setPreview(src) {
+        if (src) {
+            iconPreview.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:contain">`;
+            iconClear.style.display = '';
+        } else {
+            iconPreview.innerHTML = defaultPreviewSvg;
+            iconClear.style.display = 'none';
+        }
+    }
+    if (editPlatform) {
+        titleEl.textContent = 'Editar plataforma'; nameInput.value = editPlatform.name;
+        colorInput.value = editPlatform.color; hexSpan.textContent = editPlatform.color;
+        pendingIcon = editPlatform.icon || null; setPreview(pendingIcon);
+    } else {
+        titleEl.textContent = 'Nova plataforma'; nameInput.value = '';
+        colorInput.value = '#2DBF7F'; hexSpan.textContent = '#2DBF7F';
+        pendingIcon = null; setPreview(null);
+    }
+    iconInput.value = '';
+    modal.classList.remove('hidden'); nameInput.focus();
+    colorInput.oninput = () => { hexSpan.textContent = colorInput.value.toUpperCase(); };
+    iconInput.onchange = () => {
+        const file = iconInput.files[0]; if (!file) return;
+        if (file.size > 200000) { showToast('Imagem muito grande (max 200 KB)'); return; }
+        const reader = new FileReader();
+        reader.onload = (e) => { pendingIcon = e.target.result; setPreview(pendingIcon); };
+        reader.readAsDataURL(file);
+    };
+    iconClear.onclick = () => { pendingIcon = null; setPreview(null); iconInput.value = ''; };
+    $('#platform-cancel').onclick = () => modal.classList.add('hidden');
+    modal.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
+    $('#platform-save').onclick = () => {
+        const name = nameInput.value.trim(); if (!name) { nameInput.focus(); return; }
+        const color = colorInput.value;
+        if (editPlatform) {
+            const p = state.platforms.find(x => x.id === editPlatform.id);
+            if (p) { p.name = name; p.color = color; p.icon = pendingIcon || undefined; }
+        } else {
+            state.platforms.push({ id: 'custom-' + uid(), name, color, icon: pendingIcon || undefined, builtin: false });
+        }
+        saveState(); renderBoard(); modal.classList.add('hidden');
+        showToast(editPlatform ? 'Plataforma atualizada' : 'Plataforma adicionada');
+    };
+}
+
+$('#btn-manage-platforms').addEventListener('click', () => { settingsMenu.classList.add('hidden'); openManagePlatforms(); });
+
+function openManagePlatforms() {
+    const modal = $('#manage-platforms-modal');
+    const list = $('#manage-platforms-list');
+    const all = getAllPlatforms();
+    list.innerHTML = all.map(p => {
+        const isCustom = !p.builtin;
+        return `<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border)">
+            <div style="width:18px;height:18px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:${p.color}">${getPlatformIcon(p.id)}</div>
+            <span style="flex:1;font-size:13px;color:var(--text)">${escapeHtml(p.name)}</span>
+            <span style="font-size:11px;color:var(--text-muted)">${p.color}</span>
+            ${isCustom ? `<button class="manage-edit" data-pid="${p.id}" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px 8px;border-radius:4px" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="manage-delete" data-pid="${p.id}" style="background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px 8px;border-radius:4px" title="Remover"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:14px;height:14px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : '<span style="font-size:11px;color:var(--text-muted);padding:4px 8px">padr\u00e3o</span>'}
+        </div>`;
+    }).join('');
+    list.querySelectorAll('.manage-edit').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const p = state.platforms.find(x => x.id === btn.dataset.pid);
+            if (p) { modal.classList.add('hidden'); openPlatformModal(p); }
+        });
+    });
+    list.querySelectorAll('.manage-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+            showConfirm('Remover plataforma', 'Deseja remover esta plataforma personalizada?', () => {
+                state.platforms = state.platforms.filter(x => x.id !== btn.dataset.pid);
+                state.cards.forEach(c => { if (c.platform === btn.dataset.pid) c.platform = 'outro'; });
+                saveState(); renderBoard(); openManagePlatforms();
+            });
+        });
+    });
+    modal.classList.remove('hidden');
+    $('#manage-platforms-close').onclick = () => modal.classList.add('hidden');
+    modal.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
+}
+
+// ── Alterar PIN ──
+$('#btn-change-pin').addEventListener('click', () => {
+    settingsMenu.classList.add('hidden');
+    const modal = $('#pin-modal');
+    $('#pin-current').value = ''; $('#pin-new').value = ''; $('#pin-confirm').value = '';
+    const s = $('#pin-status'); s.textContent = ''; s.className = 'modal-status';
+    modal.classList.remove('hidden'); $('#pin-current').focus();
+});
+$('#pin-cancel').addEventListener('click', () => $('#pin-modal').classList.add('hidden'));
+$('#pin-modal').addEventListener('click', (e) => { if (e.target.id === 'pin-modal') $('#pin-modal').classList.add('hidden'); });
+$('#pin-save').addEventListener('click', async () => {
+    const s = $('#pin-status');
+    const current = $('#pin-current').value, newPin = $('#pin-new').value, confirmPin = $('#pin-confirm').value;
+    if (!/^\d{4}$/.test(current)) { s.textContent = 'PIN atual deve ter 4 d\u00edgitos.'; s.className = 'modal-status error'; return; }
+    if (await hashPin(current) !== localStorage.getItem(PIN_KEY)) { s.textContent = 'PIN atual incorreto.'; s.className = 'modal-status error'; return; }
+    if (!/^\d{4}$/.test(newPin)) { s.textContent = 'Novo PIN deve ter 4 d\u00edgitos.'; s.className = 'modal-status error'; return; }
+    if (newPin !== confirmPin) { s.textContent = 'Os PINs n\u00e3o conferem.'; s.className = 'modal-status error'; return; }
+    localStorage.setItem(PIN_KEY, await hashPin(newPin));
+    s.textContent = 'PIN alterado com sucesso.'; s.className = 'modal-status success';
+    setTimeout(() => $('#pin-modal').classList.add('hidden'), 1200);
+});
+
+// ── Limpar tudo ──
+$('#btn-clear-all').addEventListener('click', () => {
+    settingsMenu.classList.add('hidden');
+    showConfirm('Limpar tudo', 'Todos os registros e plataformas personalizadas ser\u00e3o removidos. Esta a\u00e7\u00e3o n\u00e3o pode ser desfeita.', () => {
+        state = { cards: [], platforms: [] }; saveState(); renderBoard(); showToast('Quadro limpo');
+    });
+});
+
+// ── Ícones das marcas ──
+const ICON_IMG = (file, alt, extra='') => `<img src="/deck/assets/icons/${file}.png" alt="${alt}" style="width:100%;height:100%;object-fit:contain${extra}">`;
+const PLATFORM_ICONS = {
+    'manus':         ICON_IMG('manus', 'Manus'),
+    'chatgpt':       ICON_IMG('chatgpt', 'ChatGPT', ';border-radius:3px'),
+    'claude':        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 3.54h-3.67l6.7 16.92H24zm-10.61 0L0 20.46h3.74l1.37-3.55h7.01l1.37 3.55h3.74L10.54 3.54zm-.37 10.22l2.29-5.95 2.29 5.95z"/></svg>',
+    'anti-gravity':  ICON_IMG('antigravity', 'Anti-Gravity'),
+    'notion':        ICON_IMG('notion', 'Notion'),
+    'cloudflare':    ICON_IMG('cloudflare', 'Cloudflare'),
+    'supabase':      ICON_IMG('supabase', 'Supabase'),
+    'lovable':       ICON_IMG('lovable', 'Lovable', ';border-radius:3px'),
+    'evolution':     ICON_IMG('evolution', 'Evolution API'),
+    'hubcsv':        ICON_IMG('hubcsv', 'Hub CSV'),
+    'unimed':        ICON_IMG('unimed', 'Unimed'),
+    'chrome':        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.21 0 4.83 1.76 2.63 4.5l3.95 6.85A5.45 5.45 0 0112 6.55h10.69A12 12 0 0012 0zM1.93 5.47A11.94 11.94 0 000 12c0 6.01 4.42 10.99 10.19 11.86l3.95-6.85a5.45 5.45 0 01-6.87-2.29zm13.34 2.17a5.45 5.45 0 011.45 7.09l-5.34 9.26c.21.01.41.02.62.02 6.63 0 12-5.37 12-12 0-1.54-.29-3.01-.82-4.36zM12 16.36a4.36 4.36 0 110-8.73 4.36 4.36 0 010 8.73z"/></svg>',
+    'whatsapp':      '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 01-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 01-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 012.89 6.99c0 5.45-4.44 9.88-9.89 9.88m8.41-18.3A11.82 11.82 0 0012.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 00-3.48-8.41z"/></svg>',
+    'email':         '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.46v13.91c0 .9-.73 1.64-1.64 1.64h-3.82V11.73L12 16.64l-6.55-4.91v9.27H1.64A1.64 1.64 0 010 19.37V5.46c0-2.02 2.31-3.18 3.93-1.96L5.45 4.64 12 9.55l6.55-4.91 1.53-1.15C21.69 2.28 24 3.43 24 5.46z"/></svg>',
+    'outro':         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
+};
+
+function getPlatformIcon(id) {
+    // Suporta icones customizados (base64) de plataformas do usuario
+    const p = getAllPlatforms().find(x => x.id === id);
+    if (p && p.icon) return `<img src="${p.icon}" alt="${escapeHtml(p.name)}" style="width:100%;height:100%;object-fit:contain;border-radius:3px">`;
+    return PLATFORM_ICONS[id] || PLATFORM_ICONS['outro'];
+}
+
+// ── Command Palette ──
+const cmdPalette = $('#cmd-palette');
+const cmdStepContent = $('#cmd-step-content');
+let cmdState = { step: 0, platform: 'manus', title: '', notes: '', activeIdx: 0 };
+
+function openCommandPalette() {
+    cmdState = { step: 0, platform: 'manus', title: '', notes: '', activeIdx: 0 };
+    cmdPalette.classList.remove('hidden');
+    renderCmdStep();
+}
+
+function closeCmdPalette() {
+    cmdPalette.classList.add('hidden');
+}
+
+function renderCmdStep() {
+    const step = cmdState.step;
+    if (step === 0) {
+        const platforms = getAllPlatforms();
+        cmdStepContent.innerHTML = `
+            <div class="cmd-step-label">Plataforma <span class="cmd-step-counter">1/3</span></div>
+            <input class="cmd-input" id="cmd-platform-input" type="text" placeholder="Digite para filtrar..." autocomplete="off">
+            <div class="cmd-suggestions" id="cmd-suggestions"></div>
+        `;
+        const input = $('#cmd-platform-input');
+        const sugBox = $('#cmd-suggestions');
+        cmdState.activeIdx = 0;
+        function renderSuggestions(filter) {
+            const filtered = filter ? platforms.filter(p => p.name.toLowerCase().includes(filter.toLowerCase())) : platforms;
+            if (cmdState.activeIdx >= filtered.length) cmdState.activeIdx = 0;
+            sugBox.innerHTML = filtered.map((p, i) => `
+                <div class="cmd-suggestion ${i === cmdState.activeIdx ? 'active' : ''}" data-pid="${p.id}">
+                    <span class="cmd-suggestion-icon" style="color:${p.color}">${getPlatformIcon(p.id)}</span>
+                    <span>${escapeHtml(p.name)}</span>
+                </div>
+            `).join('');
+            sugBox.querySelectorAll('.cmd-suggestion').forEach(el => {
+                el.addEventListener('click', () => {
+                    cmdState.platform = el.dataset.pid;
+                    cmdState.step = 1;
+                    renderCmdStep();
+                });
+            });
+        }
+        renderSuggestions('');
+        input.focus();
+        input.addEventListener('input', () => { cmdState.activeIdx = 0; renderSuggestions(input.value); });
+        input.addEventListener('keydown', (e) => {
+            const items = sugBox.querySelectorAll('.cmd-suggestion');
+            if (e.key === 'ArrowDown') { e.preventDefault(); cmdState.activeIdx = Math.min(cmdState.activeIdx + 1, items.length - 1); renderSuggestions(input.value); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); cmdState.activeIdx = Math.max(cmdState.activeIdx - 1, 0); renderSuggestions(input.value); }
+            else if (e.key === 'Enter') {
+                e.preventDefault();
+                const active = sugBox.querySelector('.cmd-suggestion.active');
+                if (active) { cmdState.platform = active.dataset.pid; cmdState.step = 1; renderCmdStep(); }
+            }
+            else if (e.key === 'Escape') { closeCmdPalette(); }
+        });
+    } else if (step === 1) {
+        const pName = getPlatformName(cmdState.platform);
+        const pColor = getPlatformColor(cmdState.platform);
+        cmdStepContent.innerHTML = `
+            <div class="cmd-step-label">
+                <span class="cmd-suggestion-icon" style="color:${pColor};display:inline-flex;vertical-align:middle;margin-right:6px;width:14px;height:14px">${getPlatformIcon(cmdState.platform)}</span>
+                ${escapeHtml(pName)} <span class="cmd-step-counter">2/3</span>
+            </div>
+            <input class="cmd-input" id="cmd-title-input" type="text" placeholder="O que está ativo agora" autocomplete="off">
+        `;
+        const input = $('#cmd-title-input');
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); cmdState.title = input.value; cmdState.step = 2; renderCmdStep(); }
+            else if (e.key === 'Escape') { closeCmdPalette(); }
+        });
+    } else if (step === 2) {
+        const pName = getPlatformName(cmdState.platform);
+        const pColor = getPlatformColor(cmdState.platform);
+        cmdStepContent.innerHTML = `
+            <div class="cmd-step-label">
+                <span class="cmd-suggestion-icon" style="color:${pColor};display:inline-flex;vertical-align:middle;margin-right:6px;width:14px;height:14px">${getPlatformIcon(cmdState.platform)}</span>
+                ${escapeHtml(cmdState.title || pName)} <span class="cmd-step-counter">3/3</span>
+            </div>
+            <textarea class="cmd-textarea" id="cmd-notes-input" placeholder="Descri\u00e7\u00e3o (opcional)" rows="3"></textarea>
+        `;
+        const input = $('#cmd-notes-input');
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                cmdState.notes = input.value;
+                // Criar o card
+                const card = { id: uid(), platform: cmdState.platform, title: cmdState.title, notes: cmdState.notes, created: Date.now(), highlighted: false };
+                state.cards.push(card);
+                saveState();
+                renderBoard();
+                closeCmdPalette();
+                showToast('Registro adicionado');
+            }
+            else if (e.key === 'Escape') { closeCmdPalette(); }
+        });
+    }
+}
+
+cmdPalette.addEventListener('click', (e) => { if (e.target === cmdPalette) closeCmdPalette(); });
+
+// ── Cronômetro de destaque ──
+function formatElapsed(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    const pad = n => String(n).padStart(2, '0');
+    if (h > 0) return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    return `${pad(m)}:${pad(s)}`;
+}
+
+function updateHighlightTimers() {
+    const timers = $$('.card-highlight-timer');
+    const now = Date.now();
+    timers.forEach(el => {
+        const started = parseInt(el.dataset.started, 10);
+        if (started) el.textContent = '\u26A1 ' + formatElapsed(now - started);
+    });
+}
+setInterval(updateHighlightTimers, 1000);
+
+// ── Atalho Alt+N ──
+document.addEventListener('keydown', (e) => {
+    if (e.altKey && e.key.toLowerCase() === 'n') {
+        if (app.classList.contains('hidden')) return;
+        if (!cmdPalette.classList.contains('hidden')) return;
+        e.preventDefault();
+        openCommandPalette();
+    }
+});
+
+// ── Paste Vision (Ctrl+V de print) ──
+const VISION_API = 'https://deck-vision.guilherme-thom.workers.dev';
+const PASTE_HINT_KEY = 'deck_paste_hint_dismissed';
+let pasteProcessing = false;
+
+function showPasteHint() {
+    const hint = $('#paste-hint');
+    if (hint) {
+        hint.classList.remove('dismissed');
+    }
+}
+
+function hidePasteHint() {
+    const hint = $('#paste-hint');
+    if (hint) hint.classList.add('dismissed');
+}
+
+function showPasteProcessing() {
+    const overlay = document.createElement('div');
+    overlay.className = 'paste-processing';
+    overlay.id = 'paste-processing';
+    overlay.innerHTML = `
+        <div class="paste-processing-spinner"></div>
+        <div class="paste-processing-text">Analisando captura...</div>
+        <div class="paste-processing-sub">Identificando contexto e plataforma</div>
+    `;
+    document.body.appendChild(overlay);
+}
+
+function hidePasteProcessing() {
+    const el = $('#paste-processing');
+    if (el) el.remove();
+}
+
+function showPastePreview(result, imageDataUrl) {
+    const color = getPlatformColor(result.platform);
+    const { r, g, b } = hexToRgb(color);
+    const pName = getPlatformName(result.platform);
+    const icon = getPlatformIcon(result.platform);
+    const confPct = Math.round((result.confidence || 0.5) * 100);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'paste-preview-overlay';
+    overlay.id = 'paste-preview';
+    overlay.innerHTML = `
+        <div class="paste-preview-card">
+            <div class="paste-preview-header">
+                ${imageDataUrl ? `<img class="paste-preview-thumb" src="${imageDataUrl}" alt="Captura">` : `<div style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--bg-input);border-radius:10px;font-size:22px">\u{1F4CB}</div>`}
+                <div>
+                    <div class="paste-preview-badge" style="background:rgba(${r},${g},${b},0.14);color:${color}">
+                        <span style="width:14px;height:14px;display:inline-flex;align-items:center">${icon}</span>
+                        ${escapeHtml(pName)}
+                    </div>
+                    <div class="paste-preview-confidence">Confian\u00e7a: ${confPct}%</div>
+                </div>
+            </div>
+            <div class="paste-preview-title" contenteditable="true" id="paste-title">${escapeHtml(result.title)}</div>
+            <div class="paste-preview-notes" contenteditable="true" id="paste-notes">${escapeHtml(result.notes)}</div>
+            <div class="paste-preview-actions">
+                <button class="modal-btn" id="paste-cancel">Cancelar</button>
+                <button class="modal-btn" id="paste-edit">Editar plataforma</button>
+                <button class="modal-btn modal-btn-primary" id="paste-confirm">Adicionar ao Deck</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Focus on title for immediate editing
+    const titleEl = $('#paste-title');
+    if (titleEl) {
+        const range = document.createRange();
+        range.selectNodeContents(titleEl);
+        range.collapse(false);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    // Cancel
+    $('#paste-cancel').onclick = () => overlay.remove();
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+
+    // Edit platform - open select
+    $('#paste-edit').onclick = () => {
+        overlay.remove();
+        // Open command palette pre-filled
+        cmdState = { step: 0, platform: result.platform, title: result.title, notes: result.notes, activeIdx: 0 };
+        cmdPalette.classList.remove('hidden');
+        renderCmdStep();
+    };
+
+    // Confirm - create card
+    $('#paste-confirm').onclick = () => {
+        const title = ($('#paste-title')?.textContent || result.title).trim();
+        const notes = ($('#paste-notes')?.textContent || result.notes).trim();
+        const card = {
+            id: uid(),
+            platform: result.platform,
+            title: title,
+            notes: notes,
+            created: Date.now(),
+            highlighted: false
+        };
+        state.cards.push(card);
+        saveState();
+        renderBoard();
+        overlay.remove();
+        showToast('Registro adicionado via captura');
+        hidePasteHint();
+    };
+
+    // ESC to close
+    const escHandler = (e) => {
+        if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', escHandler); }
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('#paste-confirm')?.click(); document.removeEventListener('keydown', escHandler); }
+    };
+    document.addEventListener('keydown', escHandler);
+}
+
+async function processImagePaste(imageDataUrl) {
+    if (pasteProcessing) return;
+    pasteProcessing = true;
+    showPasteProcessing();
+
+    try {
+        const res = await fetch(VISION_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: imageDataUrl })
+        });
+
+        const data = await res.json();
+        hidePasteProcessing();
+
+        if (!res.ok || data.error) {
+            showToast(data.error || 'Erro ao analisar a imagem');
+            return;
+        }
+
+        // Validate platform exists
+        const allP = getAllPlatforms();
+        if (!allP.find(p => p.id === data.platform)) {
+            data.platform = 'outro';
+        }
+
+        showPastePreview(data, imageDataUrl);
+
+    } catch (err) {
+        hidePasteProcessing();
+        showToast('Erro de conex\u00e3o ao processar a imagem');
+        console.error('Paste vision error:', err);
+    } finally {
+        pasteProcessing = false;
+    }
+}
+
+async function processTextPaste(text) {
+    if (pasteProcessing) return;
+    // Ignore short texts (likely just a word or URL copy)
+    if (text.trim().length < 40) return;
+    pasteProcessing = true;
+    showPasteProcessing();
+
+    try {
+        const res = await fetch(VISION_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
+
+        const data = await res.json();
+        hidePasteProcessing();
+
+        if (!res.ok || data.error) {
+            showToast(data.error || 'Erro ao analisar o texto');
+            return;
+        }
+
+        const allP = getAllPlatforms();
+        if (!allP.find(p => p.id === data.platform)) {
+            data.platform = 'outro';
+        }
+
+        // Show preview without thumbnail (text-only)
+        showPastePreview(data, null);
+
+    } catch (err) {
+        hidePasteProcessing();
+        showToast('Erro de conex\u00e3o ao processar o texto');
+        console.error('Paste text error:', err);
+    } finally {
+        pasteProcessing = false;
+    }
+}
+
+// Global paste listener
+document.addEventListener('paste', (e) => {
+    // Only process when app is visible
+    if (app.classList.contains('hidden')) return;
+    // Don't intercept if a modal/overlay is open
+    if ($('#paste-processing')) return;
+    if ($('#paste-preview')) return;
+    if (!cmdPalette.classList.contains('hidden')) return;
+
+    const items = e.clipboardData?.items;
+    if (!items) return;
+
+    // Check for image first
+    for (const item of items) {
+        if (item.type.startsWith('image/')) {
+            e.preventDefault();
+            const blob = item.getAsFile();
+            if (!blob) return;
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const dataUrl = ev.target.result;
+                processImagePaste(dataUrl);
+            };
+            reader.readAsDataURL(blob);
+            return;
+        }
+    }
+
+    // Check for text (only if not typing in an input/textarea/contenteditable)
+    const activeEl = document.activeElement;
+    const isEditing = activeEl && (
+        activeEl.tagName === 'INPUT' ||
+        activeEl.tagName === 'TEXTAREA' ||
+        activeEl.isContentEditable
+    );
+    if (isEditing) return;
+
+    const text = e.clipboardData?.getData('text/plain');
+    if (text && text.trim().length >= 40) {
+        e.preventDefault();
+        processTextPaste(text);
+    }
+});
+
+// ── Inicializa\u00e7\u00e3o ──
+document.addEventListener('DOMContentLoaded', () => {
+    setTheme(getTheme());
+    updateDateTime();
+    setInterval(updateDateTime, 10000);
+    setupLockScreen();
+});
+
+// Show paste hint after unlock (called from setupLockScreen on successful unlock)
+const _origRenderBoard = renderBoard;
+let _pasteHintShown = false;
+renderBoard = function() {
+    _origRenderBoard();
+    if (!_pasteHintShown) {
+        _pasteHintShown = true;
+        setTimeout(showPasteHint, 1500);
+    }
+};
+
+})();
+</script>
+</body>
+</html>
