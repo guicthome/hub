@@ -77,6 +77,7 @@ export default defineConfig({
               text: '2026',
               collapsed: false,
               items: [
+                { text: 'S12 \u2014 16-22 Mar', link: '/signal/edicoes/2026/S12/signal' },
                 { text: 'S11 \u2014 9-15 Mar', link: '/signal/edicoes/2026/S11/signal' },
                 { text: 'S10 \u2014 2-8 Mar', link: '/signal/edicoes/2026/S10/signal' },
                 { text: 'S09 \u2014 23 Fev-1 Mar', link: '/signal/edicoes/2026/S09/signal' },
