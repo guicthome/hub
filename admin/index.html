@@ -378,6 +378,7 @@
             <button class="admin-tab" data-tab="deck-memories">Deck™ Memórias</button>
             <button class="admin-tab" data-tab="deck-api">Deck™ API</button>
             <button class="admin-tab" data-tab="admins">Administradores</button>
+            <button class="admin-tab" data-tab="services">Serviços</button>
         </div>
 
         <!-- TAB: Users -->
@@ -655,6 +656,79 @@
             </div>
         </div>
 
+        <!-- TAB: Serviços -->
+        <div class="admin-tab-content" data-tab="services">
+            <h3 class="section-header">Serviços e APIs do Ecossistema</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                Status em tempo real dos Workers e APIs do Grupo CSV.
+            </p>
+            <div class="pw-grid" id="services-grid">
+
+                <!-- decks.grupocsv.com -->
+                <div class="pw-card" id="svc-decks">
+                    <div class="pw-portal">decks.grupocsv.com</div>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                        API REST para geração de apresentações PPTX com branding institucional (ICDS, AxiaCare, etc.).
+                    </p>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span id="svc-decks-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                        <span id="svc-decks-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="https://decks.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                        <a href="https://github.com/grupocsv/decks-worker" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary-dark); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">GitHub</a>
+                        <a href="https://dash.cloudflare.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: #f59e0b; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Cloudflare</a>
+                    </div>
+                </div>
+
+                <!-- mail-api.grupocsv.com -->
+                <div class="pw-card" id="svc-mail">
+                    <div class="pw-portal">mail-api.grupocsv.com</div>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Worker de envio de e-mails institucionais via Resend (csv-mail).
+                    </p>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span id="svc-mail-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                        <span id="svc-mail-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="https://mail-api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                    </div>
+                </div>
+
+                <!-- assets.grupocsv.com -->
+                <div class="pw-card" id="svc-assets">
+                    <div class="pw-portal">assets.grupocsv.com</div>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Repositório centralizado de assets visuais do Grupo CSV (R2 + Worker).
+                    </p>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span id="svc-assets-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                        <span id="svc-assets-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="https://assets.grupocsv.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Acessar</a>
+                    </div>
+                </div>
+
+                <!-- api.grupocsv.com -->
+                <div class="pw-card" id="svc-api">
+                    <div class="pw-portal">api.grupocsv.com</div>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Gateway central de APIs do Grupo CSV (csv-gateway).
+                    </p>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                        <span id="svc-api-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                        <span id="svc-api-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="https://api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <!-- TAB: Passwords -->
         <div class="admin-tab-content active" data-tab="passwords">
             <h3 class="section-header">Senhas dos Portais CSV</h3>
@@ -804,7 +878,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins(), loadServices()]);
     }
 
     // ===== Auth form =====
@@ -1407,6 +1481,37 @@ function toggleAdminPw() {
             errorEl.style.display = 'block';
         }
     });
+
+    // ===== Services Health Check =====
+    async function loadServices() {
+        const services = [
+            { id: 'decks', url: 'https://decks.grupocsv.com/health' },
+            { id: 'mail', url: 'https://mail-api.grupocsv.com/health' },
+            { id: 'assets', url: 'https://assets.grupocsv.com' },
+            { id: 'api', url: 'https://api.grupocsv.com/health' }
+        ];
+        for (const svc of services) {
+            const dot = document.getElementById(`svc-${svc.id}-status`);
+            const label = document.getElementById(`svc-${svc.id}-label`);
+            if (!dot || !label) continue;
+            try {
+                const resp = await fetch(svc.url, { method: 'GET', signal: AbortSignal.timeout(5000) });
+                if (resp.ok) {
+                    dot.style.background = '#2DBF7F';
+                    label.textContent = 'Online';
+                    label.style.color = '#2DBF7F';
+                } else {
+                    dot.style.background = '#f59e0b';
+                    label.textContent = `HTTP ${resp.status}`;
+                    label.style.color = '#f59e0b';
+                }
+            } catch (e) {
+                dot.style.background = '#dc2626';
+                label.textContent = 'Offline';
+                label.style.color = '#dc2626';
+            }
+        }
+    }
 
     // ===== Start =====
     init();
