@@ -31,6 +31,7 @@
 > 
 > | Edição | Período | Status |
 > |--------|---------|--------|
+> | [S14/2026](edicoes/2026/S14/signal.md) | 23 a 29 de março | Publicado |
 > | [S12/2026](edicoes/2026/S12/signal.md) | 16 a 22 de março | Publicado |
 > | [S11/2026](edicoes/2026/S11/signal.md) | 9 a 15 de março | Publicado |
 > | [S10/2026](edicoes/2026/S10/signal.md) | 2 a 8 de março | Publicado |
