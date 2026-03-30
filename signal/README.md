@@ -31,13 +31,12 @@
 > 
 > | Edição | Período | Status |
 > |--------|---------|--------|
-> | [S14/2026](edicoes/2026/S14/signal.md) | 23 a 29 de março | Publicado |
-> | [S12/2026](edicoes/2026/S12/signal.md) | 16 a 22 de março | Publicado |
-> | [S11/2026](edicoes/2026/S11/signal.md) | 9 a 15 de março | Publicado |
-> | [S10/2026](edicoes/2026/S10/signal.md) | 2 a 8 de março | Publicado |
-> | [S09/2026](edicoes/2026/S09/signal.md) | 23 Fev a 1 Mar | Publicado |
-> | [S08/2026](edicoes/2026/S08/signal.md) | 23 Fev a 1 Mar | Publicado |
-> | [S07/2026](edicoes/2026/S07/signal.md) | 16 a 23 de fevereiro | Publicado |
+> | [S12/2026](edicoes/2026/S12/signal.md) | 23 a 27 de março | Publicado |
+> | [S11/2026](edicoes/2026/S11/signal.md) | 16 a 20 de março | Publicado |
+> | [S10/2026](edicoes/2026/S10/signal.md) | 9 a 13 de março | Publicado |
+> | [S09/2026](edicoes/2026/S09/signal.md) | 2 a 6 de março | Publicado |
+> | [S08/2026](edicoes/2026/S08/signal.md) | 23 a 27 de fevereiro | Publicado |
+> | [S07/2026](edicoes/2026/S07/signal.md) | 16 a 20 de fevereiro | Publicado |
 > 
 > ---
 > 

@@ -22,68 +22,59 @@ CARD_BG    = (249, 250, 252)
 WHITE      = (255, 255, 255)
 
 TAG_COLORS = {
-    "FINANCEIRO":       CSV_BLUE,
-    "OPERAÇÕES":        CSV_GREEN,
-    "DADOS":            CSV_BLUE,
-    "GOVERNANÇA":       CSV_GREEN,
-    "LINHAS DE CUIDADO":CSV_BLUE,
-    "ESTRATÉGIA":       CSV_GREEN,
+    "GESTÃO DE PROJETOS":  CSV_BLUE,
+    "FINANCEIRO":          CSV_GREEN,
+    "OPERAÇÕES EVS":       CSV_BLUE,
+    "MODELOS ASSISTENCIAIS": CSV_GREEN,
+    "GESTÃO DE TERAPIAS":  CSV_BLUE,
 }
 
 SEMANA = "12"
-PERIODO = "16 a 22 de março de 2026"
-DATA_GERACAO = "23/03/2026"
+PERIODO = "23 a 27 de março de 2026"
+DATA_GERACAO = "30/03/2026"
 EXECUTIVO = "Guilherme Thomé, MD, MBA"
 CARGO = "Superintendente Médico | Fundador Grupo CSV"
 
 METRICAS = [
-    ("6", "Páginas Notion"),
-    ("8", "Threads Gmail"),
-    ("90+", "Msgs analisadas"),
-    ("12", "Termos incorporados"),
-    ("10", "Registros atualizados"),
+    ("8", "Páginas Notion"),
+    ("30", "Threads Gmail"),
+    ("120+", "Msgs analisadas"),
+    ("2", "Termos incorporados"),
+    ("3", "Registros atualizados"),
 ]
 
 FATOS = [
     {
+        "tag": "GESTÃO DE PROJETOS",
+        "titulo": "Encerramento Projeto Axys Teller",
+        "resumo": "Projeto de jornada cirúrgica com a Teller Saúde encerrado por descumprimento do SLA de 60 dias. Nenhum dos 3 entregáveis obrigatórios cumprido no prazo. Estudo de caso de insucesso será realizado para aprendizados institucionais.",
+    },
+    {
         "tag": "FINANCEIRO",
-        "titulo": "Modelo Orçamentário Unihealth",
-        "resumo": "Aprovado orçamento global fixo ~R$ 2,2 mi/mês para o Hospital Unihealth. Unimed paga variáveis médicos via NF separada, facilitando novos modelos de remuneração baseados em valor.",
+        "titulo": "Orçamento Médico Hospitalar 2026",
+        "resumo": "Direx formalizou o orçamento médico da Unihealth GV para 2026. Modelo sem variáveis vinculadas à produção (fluxo apartado). Reforçada comunicação de que PJ não integra base de cálculo para divisão de sobras.",
     },
     {
-        "tag": "OPERAÇÕES",
-        "titulo": "E-mails Institucionais Lideranças",
-        "resumo": "Implantados e-mails nominais @unihealthgv.org.br para lideranças médicas do Hospital. Medida orientada pela Direx e Jurídico formaliza comunicação e fortalece governança corporativa.",
+        "tag": "OPERAÇÕES EVS",
+        "titulo": "Macroprocesso Técnico-Científico",
+        "resumo": "EVS concluiu documentação do macroprocesso de desenvolvimento técnico-científico: ciclo completo, POP de produção científica, SLA, formulário estruturado e checklist de validação. Modelo replicável.",
     },
     {
-        "tag": "DADOS",
-        "titulo": "Calculadora de Valor: Novas Regras",
-        "resumo": "EVS e IAG revisaram regras de pontuação PPE-15 e DRG na Calculadora de Valor. Proposta retroatividade set-dez/2025. Automatização e educação médica em andamento.",
+        "tag": "MODELOS ASSISTENCIAIS",
+        "titulo": "Ambulatório Cardiologia no CAI",
+        "resumo": "Projeto de ambulatório de egressos de Hemodinâmica e pré-op de Cardiologia no CAI avançou. Dr. Waisman Toledo Bastos confirmado. Tratativas com Dr. Márcio Avelar em andamento.",
     },
     {
-        "tag": "GOVERNANÇA",
-        "titulo": "Ymunity: Carteira Financeira",
-        "resumo": "Lançado módulo Carteira Financeira para análise de custos. Renovação contratual avança com 4 entregáveis e reajuste previsto para maio/2026.",
-    },
-    {
-        "tag": "LINHAS DE CUIDADO",
-        "titulo": "Modelo Valor Cirurgias Ortopédicas",
-        "resumo": "Iniciada estruturação de remuneração baseada em valor para cirurgias de ombro e hálux valgo, com foco no custo total do episódio assistencial.",
-    },
-    {
-        "tag": "OPERAÇÕES",
-        "titulo": "Migração Identidade Visual",
-        "resumo": "Iniciada varredura e substituição de 100% dos documentos institucionais do hospital, migrando logomarca Unimed para identidade visual Unihealth.",
+        "tag": "GESTÃO DE TERAPIAS",
+        "titulo": "Alinhamento Operacional Ymunity",
+        "resumo": "Reunião entre Autorização, Auditoria, EVS e Ymunity para revisão de fluxos de intercâmbio e gestão de pendências. Foco em estoque domiciliar de medicamentos e pacientes oncológicos.",
     },
 ]
 
 OBSERVACOES = [
-    "ConTec 2026: participação aprovada (29-30/abr); Naline em Valor em Saúde, Guilherme em Auditoria.",
-    "Ambulatório TEA: pré-aprovada triagem neuropediatria no CAI com Dra. Mariana Sotte.",
-    "Fototerapia domiciliar: projeto não avançará; foco em cesarianas precoces (causa-raiz).",
-    "IDSS/IDGA: pausado por 2 semanas; retomada prevista na Semana 13.",
-    "LC Idoso: reunião FEMG em 19/03 com Guilherme Thomé e Valéria Rosa dos Santos.",
-    "Residentes Univale: início autorizado por Dr. Fernando Paragó (máx. 2 alunos/setor).",
+    "Pesquisa de Satisfação Interna: reformulação das perguntas do EVS para dimensões mais amplas (acessibilidade, clareza, colaboração, impacto).",
+    "LCI: fluxo BPM ativo no Hospital Unihealth GV, registrando atendimentos regulares no Interact Suite SA.",
+    "Contratos: Direx iniciou avaliação do contrato Unimetrics, com pauta para alinhamento com a Federação.",
 ]
 
 
@@ -305,6 +296,6 @@ def build_signal_pdf(output_path):
 
 
 if __name__ == "__main__":
-    out = "/home/ubuntu/hub/signal/edicoes/2026/S12/assets/Signal_S12_2026.pdf"
+    out = "/home/ubuntu/hub/docs/signal/edicoes/2026/S12/assets/Signal_S12_2026.pdf"
     os.makedirs(os.path.dirname(out), exist_ok=True)
     build_signal_pdf(out)
