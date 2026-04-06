@@ -68,6 +68,7 @@ O objetivo é fornecer à alta gestão uma visão panorâmica, curada e de alta 
 
 | Edição | Período | Fatos | Status |
 |--------|---------|-------|--------|
+| [S15/2026](edicoes/2026/S15/signal) | 30 de março a 05 de abril | 6 | Publicado |
 | [S12/2026](edicoes/2026/S12/signal) | 23 a 27 de março | 5 | Publicado |
 | [S11/2026](edicoes/2026/S11/signal) | 16 a 20 de março | 6 | Publicado |
 | [S10/2026](edicoes/2026/S10/signal) | 9 a 13 de março | 7 | Publicado |
