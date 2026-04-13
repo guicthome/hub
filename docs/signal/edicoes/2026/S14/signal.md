@@ -25,12 +25,9 @@ head:
 ### DRG: Mortalidade Ajustada e Report Q1/2026
 - **Tag:** `GOVERNANÇA CLÍNICA`
 - **Resumo:** Mortalidade ajustada por risco de 166,03% em março (17 óbitos vs 28,2 previstos). Casemix estável em 1,0109. Report trimestral Q1: 1.900 altas, 1.001 diárias evitadas, eficiência global de 84,1%.
-### Contrato Quálix Assinado pela Diretoria
+### Quálix: Contrato Assinado e Início em Maio
 - **Tag:** `OPERAÇÕES`
-- **Resumo:** Contrato entre Unimed GV e Federação Minas aprovado e assinado. Objeto: avaliação da rede prestadora (serviços próprios e credenciados). Vigência a partir de 06/04/2026.
-### Projeto QualiX: Minuta Assinada, Início em Maio
-- **Tag:** `PROJETOS E INICIATIVAS`
-- **Resumo:** Minuta contratual do Projeto QualiX (parceria CTNI com Federação Unimed Minas) assinada. Início das atividades previsto para as primeiras semanas de maio/2026. Comunicação formal ao CTNI em 10/04.
+- **Resumo:** Contrato Quálix entre Unimed GV e Federação Minas aprovado e assinado pela Diretoria. Objeto: avaliação da rede prestadora (serviços próprios e credenciados). Vigência a partir de 06/04/2026. Minuta contratual da parceria CTNI assinada. Início das atividades previsto para maio/2026.
 ### Calculadora de Valor: Reconfiguração Metodológica
 - **Tag:** `GOVERNANÇA CLÍNICA`
 - **Resumo:** Estratégia de reconfiguração dos indicadores formalizada junto à IAG. Regras de imputação por média global para ausência de PPE-15 e produção DRG. Aplicação retroativa para fechamento íntegro do ciclo 2025.

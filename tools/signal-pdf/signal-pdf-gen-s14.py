@@ -56,13 +56,8 @@ FATOS = [
     },
     {
         "tag": "OPERAÇÕES",
-        "titulo": "Contrato Quálix Assinado pela Diretoria",
-        "resumo": "Contrato entre Unimed GV e Federação Minas aprovado e assinado. Objeto: avaliação da rede prestadora (serviços próprios e credenciados). Vigência a partir de 06/04/2026.",
-    },
-    {
-        "tag": "PROJETOS E INICIATIVAS",
-        "titulo": "Projeto QualiX: Minuta Assinada, Início em Maio",
-        "resumo": "Minuta contratual do Projeto QualiX (parceria CTNI com Federação Unimed Minas) assinada. Início das atividades previsto para as primeiras semanas de maio/2026. Comunicação formal ao CTNI em 10/04.",
+        "titulo": "Quálix: Contrato Assinado e Início em Maio",
+        "resumo": "Contrato Quálix entre Unimed GV e Federação Minas aprovado e assinado pela Diretoria. Objeto: avaliação da rede prestadora (serviços próprios e credenciados). Vigência a partir de 06/04/2026. Minuta contratual da parceria CTNI assinada. Início das atividades previsto para maio/2026.",
     },
     {
         "tag": "GOVERNANÇA CLÍNICA",
