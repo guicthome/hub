@@ -1,20 +1,20 @@
 ---
-title: Signal™ S15/2026 - Resumo Semanal Estratégico
+title: Signal™ S13/2026 - Resumo Semanal Estratégico
 head:
   - - meta
     - property: og:title
-      content: "Signal™ S15/2026 | Resumo Semanal Estratégico"
+      content: "Signal™ S13/2026 | Resumo Semanal Estratégico"
   - - meta
     - property: og:description
-      content: "Edição S15 do resumo semanal de inteligência estratégica do Grupo CSV, cobrindo o período de 30 de março a 05 de abril de 2026."
+      content: "Edição S13 do resumo semanal de inteligência estratégica do Grupo CSV, cobrindo o período de 30 de março a 05 de abril de 2026."
   - - meta
     - property: og:image
       content: "https://hub.grupocsv.com/og/og_signal.png"
   - - meta
     - property: og:url
-      content: "https://hub.grupocsv.com/signal/edicoes/2026/S15/signal"
+      content: "https://hub.grupocsv.com/signal/edicoes/2026/S13/signal"
 ---
-# Signal™ S15/2026
+# Signal™ S13/2026
 **Período:** 30 de março a 05 de abril de 2026
 **Executivo:** Guilherme Thomé, MD, MBA — Superintendente Médico | Fundador Grupo CSV
 ---
@@ -44,5 +44,5 @@ head:
 - Linha de Cuidado Domiciliar: GCE aguarda escopo e orçamento formal da proposta da Federação (FEMG) para linha de cuidado com plataforma tecnológica.
 ---
 ## Documentos e Recursos
-- [PDF da Edição (Signal_S15_2026.pdf)](assets/Signal_S15_2026.pdf)
+- [PDF da Edição (Signal_S13_2026.pdf)](assets/Signal_S13_2026.pdf)
 - [Metadados da Edição (metadata.yml)](metadata.yml)

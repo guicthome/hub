@@ -1,20 +1,20 @@
 ---
-title: Signal™ S16/2026 - Resumo Semanal Estratégico
+title: Signal™ S14/2026 - Resumo Semanal Estratégico
 head:
   - - meta
     - property: og:title
-      content: "Signal™ S16/2026 | Resumo Semanal Estratégico"
+      content: "Signal™ S14/2026 | Resumo Semanal Estratégico"
   - - meta
     - property: og:description
-      content: "Edição S16 do resumo semanal de inteligência estratégica do Grupo CSV, cobrindo o período de 06 a 12 de abril de 2026."
+      content: "Edição S14 do resumo semanal de inteligência estratégica do Grupo CSV, cobrindo o período de 06 a 12 de abril de 2026."
   - - meta
     - property: og:image
       content: "https://hub.grupocsv.com/og/og_signal.png"
   - - meta
     - property: og:url
-      content: "https://hub.grupocsv.com/signal/edicoes/2026/S16/signal"
+      content: "https://hub.grupocsv.com/signal/edicoes/2026/S14/signal"
 ---
-# Signal™ S16/2026
+# Signal™ S14/2026
 **Período:** 06 a 12 de abril de 2026
 **Executivo:** Guilherme Thomé, MD, MBA — Superintendente Médico | Fundador Grupo CSV
 ---
@@ -44,5 +44,5 @@ head:
 - CEQ-2BR: Novo instrumento PREM (Questionário sobre a Experiência de Parto) registrado como DOC-EVS-84.
 ---
 ## Documentos e Recursos
-- [PDF da Edição (Signal_S16_2026.pdf)](assets/Signal_S16_2026.pdf)
+- [PDF da Edição (Signal_S14_2026.pdf)](assets/Signal_S14_2026.pdf)
 - [Metadados da Edição (metadata.yml)](metadata.yml)

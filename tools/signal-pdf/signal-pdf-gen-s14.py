@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Signal™ PDF Generator — S16/2026
+Signal™ PDF Generator — S14/2026
 Resumo Semanal Estratégico | Grupo CSV
 REGRA INVIOLÁVEL: exatamente 1 página A4.
 """
@@ -29,7 +29,7 @@ TAG_COLORS = {
     "QUALIDADE ASSISTENCIAL":  CSV_GREEN,
 }
 
-SEMANA = "16"
+SEMANA = "14"
 PERIODO = "06 a 12 de abril de 2026"
 DATA_GERACAO = "13/04/2026"
 EXECUTIVO = "Guilherme Thomé, MD, MBA"
@@ -281,6 +281,6 @@ def build_signal_pdf(output_path):
 
 
 if __name__ == "__main__":
-    out = "/home/ubuntu/hub/signal/edicoes/2026/S16/assets/Signal_S16_2026.pdf"
+    out = "/home/ubuntu/hub/signal/edicoes/2026/S14/assets/Signal_S14_2026.pdf"
     os.makedirs(os.path.dirname(out), exist_ok=True)
     build_signal_pdf(out)

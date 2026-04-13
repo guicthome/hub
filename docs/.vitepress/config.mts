@@ -77,8 +77,8 @@ export default defineConfig({
               text: '2026',
               collapsed: false,
               items: [
-                { text: 'S16 \u2014 06-12 Abr', link: '/signal/edicoes/2026/S16/signal' },
-                { text: 'S15 \u2014 30 Mar-05 Abr', link: '/signal/edicoes/2026/S15/signal' },
+                { text: 'S14 \u2014 06-12 Abr', link: '/signal/edicoes/2026/S14/signal' },
+                { text: 'S13 \u2014 30 Mar-05 Abr', link: '/signal/edicoes/2026/S13/signal' },
                 { text: 'S12 \u2014 23-27 Mar', link: '/signal/edicoes/2026/S12/signal' },
                 { text: 'S11 \u2014 16-20 Mar', link: '/signal/edicoes/2026/S11/signal' },
                 { text: 'S10 \u2014 9-13 Mar', link: '/signal/edicoes/2026/S10/signal' },
