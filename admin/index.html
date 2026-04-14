@@ -13,11 +13,13 @@
             --green: #2DBF7F;
             --red: #dc2626;
             --orange: #f59e0b;
+            --blue: #3b82f6;
             --bg: #f3f4f6;
             --card: #ffffff;
             --text: #1f2937;
             --text-secondary: #6b7280;
             --border: #e5e7eb;
+            --sidebar-width: 240px;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -72,17 +74,17 @@
         .auth-box .auth-submit:hover { opacity: 0.9; transform: translateY(-1px); }
         .auth-error { color: var(--red); font-size: 13px; text-align: center; margin-bottom: 12px; display: none; }
 
-        /* Dashboard */
+        /* Dashboard layout */
         #dashboard { display: none; }
-        #dashboard.visible { display: block; }
+        #dashboard.visible { display: flex; flex-direction: column; min-height: 100vh; }
 
         .topbar {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            padding: 16px 24px;
+            padding: 14px 24px;
             display: flex; align-items: center; justify-content: space-between;
-            color: white;
+            color: white; z-index: 100; position: sticky; top: 0;
         }
-        .topbar h1 { font-size: 18px; font-weight: 700; }
+        .topbar h1 { font-size: 17px; font-weight: 700; }
         .topbar-actions { display: flex; gap: 12px; align-items: center; }
         .topbar-user { font-size: 13px; opacity: 0.8; }
         .topbar-btn {
@@ -94,34 +96,72 @@
         .topbar-btn.hub { background: rgba(45,191,127,0.2); color: #2DBF7F; }
         .topbar-btn.hub:hover { background: rgba(45,191,127,0.3); }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        /* Layout: sidebar + main */
+        .app-layout {
+            display: flex; flex: 1;
+        }
 
-        /* Summary bar */
-        .summary-bar {
-            display: flex; gap: 24px; margin-bottom: 24px; padding: 16px 20px;
-            background: var(--card); border-radius: 14px; border: 1px solid var(--border);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width); min-width: var(--sidebar-width);
+            background: var(--card); border-right: 1px solid var(--border);
+            padding: 16px 0; overflow-y: auto; position: sticky; top: 48px;
+            height: calc(100vh - 48px);
         }
-        .summary-item { display: flex; align-items: baseline; gap: 8px; }
-        .summary-item .s-value { font-size: 22px; font-weight: 800; color: var(--primary-dark); }
-        .summary-item .s-label { font-size: 13px; color: var(--text-secondary); }
-
-        /* Tabs */
-        .admin-tabs {
-            display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--border);
+        .sidebar-section {
+            padding: 0 12px; margin-bottom: 8px;
         }
-        .admin-tab {
-            padding: 12px 24px; background: none; border: none; border-bottom: 3px solid transparent;
-            color: var(--text-secondary); font-weight: 600; cursor: pointer; transition: all 0.2s;
-            font-size: 14px; position: relative;
+        .sidebar-section-label {
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--text-secondary);
+            padding: 8px 12px 4px; margin-bottom: 2px;
         }
-        .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-        .admin-tab .tab-badge {
+        .sidebar-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 12px; border-radius: 8px; cursor: pointer;
+            font-size: 13px; font-weight: 500; color: var(--text-secondary);
+            transition: all 0.15s; border: none; background: none;
+            width: 100%; text-align: left;
+        }
+        .sidebar-item:hover { background: #f3f4f6; color: var(--text); }
+        .sidebar-item.active { background: #e8f4fd; color: var(--primary); font-weight: 600; }
+        .sidebar-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+        .sidebar-item .item-badge {
             background: var(--red); color: white; border-radius: 50%;
-            width: 20px; height: 20px; display: inline-flex; align-items: center;
-            justify-content: center; font-size: 11px; margin-left: 6px; font-weight: 700;
+            width: 18px; height: 18px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 700; margin-left: auto;
         }
-        .admin-tab .tab-badge:empty { display: none; }
+        .sidebar-item .item-badge:empty { display: none; }
+
+        /* Main content */
+        .main-content {
+            flex: 1; padding: 24px; overflow-y: auto; min-width: 0;
+        }
+
+        /* Summary cards */
+        .summary-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px; margin-bottom: 24px;
+        }
+        .summary-card {
+            background: var(--card); border-radius: 12px; padding: 18px 20px;
+            border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        .summary-card .sc-label {
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.04em; color: var(--text-secondary); margin-bottom: 6px;
+        }
+        .summary-card .sc-value {
+            font-size: 26px; font-weight: 800; color: var(--primary-dark);
+        }
+        .summary-card .sc-sub {
+            font-size: 11px; color: var(--text-secondary); margin-top: 4px;
+        }
+        .summary-card.accent .sc-value { color: var(--green); }
+        .summary-card.warn .sc-value { color: var(--orange); }
+        .summary-card.info .sc-value { color: var(--blue); }
+
+        /* Tab content */
         .admin-tab-content { display: none; }
         .admin-tab-content.active { display: block; }
 
@@ -158,6 +198,9 @@
         .badge.active { background: #dcfce7; color: #166534; }
         .badge.pending { background: #fef3c7; color: #92400e; }
         .badge.revoked { background: #fef2f2; color: #991b1b; }
+        .badge.inactive { background: #f3f4f6; color: #6b7280; }
+        .badge.sent { background: #dcfce7; color: #166534; }
+        .badge.failed { background: #fef2f2; color: #991b1b; }
 
         /* Request card */
         .request-card {
@@ -183,7 +226,7 @@
 
         /* Password card */
         .pw-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 16px;
         }
         .pw-card {
@@ -227,8 +270,11 @@
         }
         .action-btn.revoke { background: #fee2e2; color: var(--red); }
         .action-btn.revoke:hover { background: #fecaca; }
+        .btn-action { padding: 6px 12px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-action.btn-danger { background: #fee2e2; color: var(--red); }
+        .btn-action.btn-danger:hover { background: #fecaca; }
 
-        /* Public links action buttons */
+        /* Public links */
         .pl-actions { display: flex; gap: 6px; }
         .pl-btn {
             display: inline-flex; align-items: center; justify-content: center;
@@ -243,7 +289,6 @@
         .pl-btn.pl-revoke:hover { background: #fef2f2; }
         .pl-btn.pl-restore { border-color: #2563eb; color: #2563eb; }
         .pl-btn.pl-restore:hover { background: #eff6ff; }
-        .badge.inactive { background: #f3f4f6; color: #6b7280; }
         .pl-origin { font-size: 12px; color: var(--text-secondary); }
         .pl-url { font-size: 12px; color: var(--primary); word-break: break-all; }
 
@@ -296,49 +341,46 @@
         .toast.success { background: var(--green); }
         .toast.error { background: var(--red); }
 
-        /* Mobile responsivo */
+        /* Mobile hamburger */
+        .sidebar-toggle {
+            display: none; background: none; border: none; color: white;
+            cursor: pointer; padding: 4px;
+        }
+        .sidebar-toggle svg { width: 22px; height: 22px; }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .container { padding: 12px; }
-            .summary-bar {
-                flex-direction: row; flex-wrap: wrap; gap: 8px 16px;
-                padding: 12px 16px;
+            .sidebar {
+                position: fixed; left: -260px; top: 48px; z-index: 90;
+                width: 260px; min-width: 260px;
+                height: calc(100vh - 48px);
+                box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+                transition: left 0.25s ease;
             }
-            .summary-item .s-value { font-size: 18px; }
-            .summary-item .s-label { font-size: 11px; }
+            .sidebar.open { left: 0; }
+            .sidebar-overlay {
+                display: none; position: fixed; top: 48px; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.3); z-index: 89;
+            }
+            .sidebar-overlay.open { display: block; }
+            .sidebar-toggle { display: block; }
+            .main-content { padding: 16px; }
+            .summary-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .summary-card { padding: 14px 16px; }
+            .summary-card .sc-value { font-size: 22px; }
             .pw-grid { grid-template-columns: 1fr; }
             .request-card { flex-direction: column; align-items: stretch; }
             .table-card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
             table { min-width: 500px; }
-            .topbar {
-                flex-direction: column; gap: 8px; text-align: center;
-                padding: 12px 16px;
-            }
-            .topbar h1 { font-size: 16px; }
-            .topbar-actions { justify-content: center; }
-            .admin-tabs {
-                overflow-x: auto; -webkit-overflow-scrolling: touch;
-                flex-wrap: nowrap; gap: 0;
-                scrollbar-width: none; -ms-overflow-style: none;
-            }
-            .admin-tabs::-webkit-scrollbar { display: none; }
-            .admin-tab {
-                white-space: nowrap; padding: 10px 14px; font-size: 12px;
-                flex-shrink: 0;
-            }
+            .topbar { padding: 10px 16px; }
+            .topbar h1 { font-size: 15px; }
+            .topbar-actions { gap: 8px; }
+            .topbar-btn { padding: 5px 10px; font-size: 12px; }
             .section-header { font-size: 14px; }
             td { padding: 10px 12px; font-size: 13px; }
             th { padding: 8px 12px; font-size: 10px; }
             .modal-box { padding: 24px; margin: 12px; }
-            .modal-box h3 { font-size: 16px; }
             .auth-box { padding: 32px 24px 28px; margin: 16px; }
-        }
-
-        @media (max-width: 400px) {
-            .container { padding: 8px; }
-            .summary-bar { padding: 10px 12px; }
-            .admin-tab { padding: 8px 10px; font-size: 11px; }
-            .topbar h1 { font-size: 14px; }
-            .topbar-btn { padding: 5px 10px; font-size: 12px; }
         }
     </style>
 </head>
@@ -376,7 +418,12 @@
 <!-- Dashboard -->
 <div id="dashboard">
     <div class="topbar">
-        <h1>Hub CSV - Admin</h1>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <h1>Hub CSV &mdash; Admin</h1>
+        </div>
         <div class="topbar-actions">
             <span class="topbar-user" id="topbar-user"></span>
             <a href="/" class="topbar-btn hub">Hub</a>
@@ -384,475 +431,605 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- Summary -->
-        <div class="summary-bar">
-            <div class="summary-item">
-                <span class="s-value" id="s-users">-</span>
-                <span class="s-label">usuários ativos</span>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-section-label">Geral</div>
+                <button class="sidebar-item active" data-tab="overview">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Vis\u00e3o Geral
+                </button>
+                <button class="sidebar-item" data-tab="passwords">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Senhas
+                </button>
+                <button class="sidebar-item" data-tab="users">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Usu\u00e1rios
+                    <span class="item-badge" id="pending-badge"></span>
+                </button>
+                <button class="sidebar-item" data-tab="public-links">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Links P\u00fablicos
+                </button>
+                <button class="sidebar-item" data-tab="access-logs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Log de Acessos
+                </button>
             </div>
-            <div class="summary-item">
-                <span class="s-value" id="s-pending">-</span>
-                <span class="s-label">solicitações pendentes</span>
+            <div class="sidebar-section">
+                <div class="sidebar-section-label">Deck</div>
+                <button class="sidebar-item" data-tab="deck-users">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Usu\u00e1rios
+                </button>
+                <button class="sidebar-item" data-tab="deck-feedback">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Feedback
+                </button>
+                <button class="sidebar-item" data-tab="deck-memories">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Mem\u00f3rias
+                </button>
+                <button class="sidebar-item" data-tab="deck-api">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    API
+                </button>
             </div>
-            <div class="summary-item">
-                <span class="s-value" id="s-public">-</span>
-                <span class="s-label">links públicos</span>
+            <div class="sidebar-section">
+                <div class="sidebar-section-label">Comunica\u00e7\u00e3o</div>
+                <button class="sidebar-item" data-tab="waba">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    WABA-CSV
+                </button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-label">Sistema</div>
+                <button class="sidebar-item" data-tab="admins">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Administradores
+                </button>
+                <button class="sidebar-item" data-tab="services">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                    Servi\u00e7os
+                </button>
             </div>
         </div>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- Tabs -->
-        <div class="admin-tabs">
-            <button class="admin-tab active" data-tab="passwords">Senhas dos Portais CSV</button>
-            <button class="admin-tab" data-tab="users">Usuários Externos <span class="tab-badge" id="pending-badge"></span></button>
-            <button class="admin-tab" data-tab="public-links">Links Públicos</button>
-            <button class="admin-tab" data-tab="access-logs">Log de Acessos Externos</button>
-            <button class="admin-tab" data-tab="deck-users">Deck™</button>
-            <button class="admin-tab" data-tab="deck-feedback">Deck™ Feedback</button>
-            <button class="admin-tab" data-tab="deck-memories">Deck™ Memórias</button>
-            <button class="admin-tab" data-tab="deck-api">Deck™ API</button>
-            <button class="admin-tab" data-tab="admins">Administradores</button>
-            <button class="admin-tab" data-tab="services">Serviços</button>
-        </div>
+        <!-- Main Content -->
+        <div class="main-content">
 
-        <!-- TAB: Users -->
-        <div class="admin-tab-content" data-tab="users">
-            <!-- Pending Requests -->
-            <div id="requests-section">
-                <h3 class="section-header">Solicitações Pendentes</h3>
-                <div id="requests-list">
-                    <div class="empty-state">Carregando...</div>
+            <!-- TAB: Overview (new) -->
+            <div class="admin-tab-content active" data-tab="overview">
+                <h3 class="section-header">Vis\u00e3o Geral</h3>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="sc-label">Usu\u00e1rios Ativos</div>
+                        <div class="sc-value" id="s-users">-</div>
+                        <div class="sc-sub">Portais externos</div>
+                    </div>
+                    <div class="summary-card warn">
+                        <div class="sc-label">Solicita\u00e7\u00f5es</div>
+                        <div class="sc-value" id="s-pending">-</div>
+                        <div class="sc-sub">Pendentes de aprova\u00e7\u00e3o</div>
+                    </div>
+                    <div class="summary-card info">
+                        <div class="sc-label">Links P\u00fablicos</div>
+                        <div class="sc-value" id="s-public">-</div>
+                        <div class="sc-sub">Hub + Open Pages</div>
+                    </div>
+                    <div class="summary-card accent">
+                        <div class="sc-label">Mensagens WABA</div>
+                        <div class="sc-value" id="s-waba-total">-</div>
+                        <div class="sc-sub">Total enviadas</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-label">Contatos WABA</div>
+                        <div class="sc-value" id="s-waba-contacts">-</div>
+                        <div class="sc-sub">Lista telef\u00f4nica</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-label">Servi\u00e7os</div>
+                        <div class="sc-value" id="s-services">-</div>
+                        <div class="sc-sub">Workers online</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Users Table -->
-            <div style="margin-top: 32px;">
-                <h3 class="section-header">Usuários Aprovados</h3>
+            <!-- TAB: Passwords -->
+            <div class="admin-tab-content" data-tab="passwords">
+                <h3 class="section-header">Senhas dos Portais CSV</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Altere a senha de acesso de cada portal. A nova senha entra em vigor imediatamente.
+                </p>
+                <div class="pw-grid" id="pw-grid">
+                    <div class="empty-state">Carregando...</div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 class="section-header">Outros Acessos</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                        Senhas de acesso para Data Sets e ferramentas compartilhadas com parceiros externos.
+                    </p>
+                    <div class="pw-grid" id="pw-grid-datasets">
+                        <div class="empty-state">Carregando...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Users -->
+            <div class="admin-tab-content" data-tab="users">
+                <div id="requests-section">
+                    <h3 class="section-header">Solicita\u00e7\u00f5es Pendentes</h3>
+                    <div id="requests-list">
+                        <div class="empty-state">Carregando...</div>
+                    </div>
+                </div>
+                <div style="margin-top: 32px;">
+                    <h3 class="section-header">Usu\u00e1rios Aprovados</h3>
+                    <div class="table-card">
+                        <div style="overflow-x: auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>E-mail</th>
+                                        <th>Nome</th>
+                                        <th>Status</th>
+                                        <th>Portais</th>
+                                        <th>Criado em</th>
+                                        <th>A\u00e7\u00f5es</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-tbody">
+                                    <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Public Links -->
+            <div class="admin-tab-content" data-tab="public-links">
+                <h3 class="section-header">P\u00e1ginas P\u00fablicas</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    P\u00e1ginas de portais protegidos publicadas em <code>/p/</code> para acesso sem autentica\u00e7\u00e3o.
+                </p>
                 <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Hub - P\u00e1ginas P\u00fablicas</h3>
+                        <span class="count" id="pl-count">Carregando...</span>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>E-mail</th>
-                                    <th>Nome</th>
+                                    <th>T\u00edtulo</th>
+                                    <th>Portal</th>
+                                    <th>URL</th>
                                     <th>Status</th>
-                                    <th>Portais</th>
-                                    <th>Criado em</th>
-                                    <th>Ações</th>
+                                    <th>Criado</th>
+                                    <th>Modificado</th>
+                                    <th>A\u00e7\u00f5es</th>
                                 </tr>
                             </thead>
-                            <tbody id="users-tbody">
+                            <tbody id="pl-tbody">
+                                <tr><td colspan="7" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-card" style="margin-top: 24px;">
+                    <div class="tc-header">
+                        <h3>Open Pages (open.grupocsv.com)</h3>
+                        <span class="count" id="op-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>T\u00edtulo</th>
+                                    <th>URL</th>
+                                    <th>Status</th>
+                                    <th>Criado</th>
+                                    <th>Modificado</th>
+                                    <th>A\u00e7\u00f5es</th>
+                                </tr>
+                            </thead>
+                            <tbody id="op-tbody">
                                 <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB: Public Links -->
-        <div class="admin-tab-content" data-tab="public-links">
-            <h3 class="section-header">Páginas Públicas</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Páginas de portais protegidos publicadas em <code>/p/</code> para acesso sem autenticação.
-            </p>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Registry (Hub)</h3>
-                    <span class="count" id="pl-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>Portal</th>
-                                <th>URL</th>
-                                <th>Status</th>
-                                <th>Criado em</th>
-                                <th>Modificado em</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pl-tbody">
-                            <tr><td colspan="7" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Open Pages -->
-            <h3 class="section-header" style="margin-top: 32px;">Open Pages</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Páginas publicadas em <a href="https://open.grupocsv.com" target="_blank" rel="noopener" style="color: var(--primary);">open.grupocsv.com</a> — portal público independente.
-            </p>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Open Pages</h3>
-                    <span class="count" id="op-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Título</th>
-                                <th>URL</th>
-                                <th>Status</th>
-                                <th>Criado em</th>
-                                <th>Modificado em</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="op-tbody">
-                            <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Access Logs -->
-        <div class="admin-tab-content" data-tab="access-logs">
-            <h3 class="section-header">Log de Acessos Externos</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Registro de acessos de usuários externos aos portais, do mais recente ao mais antigo.
-            </p>
-            <div class="table-card">
-                <div class="tc-header">
-                    <span class="count" id="logs-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>E-mail</th>
-                                <th>Nome</th>
-                                <th>Portal</th>
-                                <th>Acessado em</th>
-                            </tr>
-                        </thead>
-                        <tbody id="logs-tbody">
-                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Deck Users -->
-        <div class="admin-tab-content" data-tab="deck-users">
-            <h3 class="section-header">Deck™ — Usuários</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Usuários registrados no Deck. Revogar remove o acesso permanentemente.
-            </p>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Usuários Ativos</h3>
-                    <span class="count" id="deck-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>PIN</th>
-                                <th>Nome</th>
-                                <th>Data Criação</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="deck-tbody">
-                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Deck Feedback -->
-        <div class="admin-tab-content" data-tab="deck-feedback">
-            <h3 class="section-header">Deck™ — Feedback do Paste Vision</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Avaliações dos usuários sobre a precisão da captura automática (Ctrl+V).
-            </p>
-
-            <!-- Stats Cards -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="fb-total">-</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Total de feedbacks</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="fb-positive">-</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Positivos</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #ef4444;" id="fb-negative">-</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Negativos</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--accent);" id="fb-approval">-</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Taxa de aprovação</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--blue);" id="fb-platform-acc">-</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Acerto de plataforma</div>
-                </div>
-            </div>
-
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Histórico de Feedbacks</h3>
-                    <span class="count" id="fb-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Voto</th>
-                                <th>Usuário</th>
-                                <th>Tipo</th>
-                                <th>Plataforma sugerida</th>
-                                <th>Plataforma final</th>
-                                <th>Título sugerido</th>
-                                <th>Título final</th>
-                                <th>Data</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fb-tbody">
-                            <tr><td colspan="8" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Deck Memórias -->
-        <div class="admin-tab-content" data-tab="deck-memories">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="mem-total">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Total</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="mem-manual">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Manuais</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #3b82f6;" id="mem-card">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">De cards</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #f59e0b;" id="mem-api">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Via API</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--accent);" id="mem-users">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Usuários</div>
-                </div>
-            </div>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Memórias</h3>
-                    <span class="count" id="mem-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead><tr><th>Título</th><th>Conteúdo</th><th>Tags</th><th>Fonte</th><th>Usuário</th><th>Criada</th><th>Atualizada</th></tr></thead>
-                        <tbody id="mem-tbody">
-                            <tr><td colspan="7" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Deck API -->
-        <div class="admin-tab-content" data-tab="deck-api">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="api-total-keys">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Chaves</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="api-active-keys">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Ativas</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--accent);" id="api-total-calls">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Chamadas</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #3b82f6;" id="api-cards-created">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Cards criados</div>
-                </div>
-                <div class="table-card" style="padding: 20px; text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #f59e0b;" id="api-memories-created">0</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Memórias criadas</div>
-                </div>
-            </div>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Chaves API</h3>
-                    <span class="count" id="api-keys-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead><tr><th>Nome</th><th>Usuário</th><th>Permissões</th><th>Status</th><th>Último uso</th><th>Criada</th></tr></thead>
-                        <tbody id="api-keys-tbody">
-                            <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="table-card" style="margin-top:20px;">
-                <div class="tc-header">
-                    <h3>Últimas chamadas</h3>
-                    <span class="count" id="api-calls-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead><tr><th>Chave</th><th>Endpoint</th><th>Método</th><th>Status</th><th>Data</th></tr></thead>
-                        <tbody id="api-calls-tbody">
-                            <tr><td colspan="5" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Administradores -->
-        <div class="admin-tab-content" data-tab="admins">
-            <h3 class="section-header">Administradores do Painel</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Lista de administradores com acesso ao painel. O Super Admin é protegido e não pode ser removido.
-            </p>
-            <div class="table-card">
-                <div class="tc-header">
-                    <h3>Administradores</h3>
-                    <span class="count" id="admins-count">Carregando...</span>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>E-mail</th>
-                                <th>Nível</th>
-                                <th>Origem</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admins-tbody">
-                            <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Serviços -->
-        <div class="admin-tab-content" data-tab="services">
-            <h3 class="section-header">Serviços e APIs do Ecossistema</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Status em tempo real dos Workers e APIs do Grupo CSV.
-            </p>
-            <div class="pw-grid" id="services-grid">
-
-                <!-- decks.grupocsv.com -->
-                <div class="pw-card" id="svc-decks">
-                    <div class="pw-portal">decks.grupocsv.com</div>
-                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
-                        API REST para geração de apresentações PPTX com branding institucional (ICDS, AxiaCare, etc.).
-                    </p>
-                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-                        <span id="svc-decks-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
-                        <span id="svc-decks-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
-                    </div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <a href="https://decks.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
-                        <a href="https://github.com/grupocsv/decks-worker" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary-dark); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">GitHub</a>
-                        <a href="https://dash.cloudflare.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: #f59e0b; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Cloudflare</a>
-                    </div>
-                </div>
-
-                <!-- mail-api.grupocsv.com -->
-                <div class="pw-card" id="svc-mail">
-                    <div class="pw-portal">mail-api.grupocsv.com</div>
-                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
-                        Worker de envio de e-mails institucionais via Resend (csv-mail).
-                    </p>
-                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-                        <span id="svc-mail-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
-                        <span id="svc-mail-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
-                    </div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <a href="https://mail-api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
-                    </div>
-                </div>
-
-                <!-- assets.grupocsv.com -->
-                <div class="pw-card" id="svc-assets">
-                    <div class="pw-portal">assets.grupocsv.com</div>
-                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
-                        Repositório centralizado de assets visuais do Grupo CSV (R2 + Worker).
-                    </p>
-                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-                        <span id="svc-assets-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
-                        <span id="svc-assets-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
-                    </div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <a href="https://assets.grupocsv.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Acessar</a>
-                    </div>
-                </div>
-
-                <!-- api.grupocsv.com -->
-                <div class="pw-card" id="svc-api">
-                    <div class="pw-portal">api.grupocsv.com</div>
-                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
-                        Gateway central de APIs do Grupo CSV (csv-gateway).
-                    </p>
-                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
-                        <span id="svc-api-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
-                        <span id="svc-api-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
-                    </div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <a href="https://api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TAB: Passwords -->
-        <div class="admin-tab-content active" data-tab="passwords">
-            <h3 class="section-header">Senhas dos Portais CSV</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Altere a senha de acesso de cada portal. A nova senha entra em vigor imediatamente.
-            </p>
-            <div class="pw-grid" id="pw-grid">
-                <div class="empty-state">Carregando...</div>
-            </div>
-
-            <div style="margin-top: 40px;">
-                <h3 class="section-header">Outros Acessos</h3>
+            <!-- TAB: Access Logs -->
+            <div class="admin-tab-content" data-tab="access-logs">
+                <h3 class="section-header">Log de Acessos Externos</h3>
                 <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                    Senhas de acesso para Data Sets e ferramentas compartilhadas com parceiros externos.
+                    Registro de acessos de usu\u00e1rios externos aos portais, do mais recente ao mais antigo.
                 </p>
-                <div class="pw-grid" id="pw-grid-datasets">
-                    <div class="empty-state">Carregando...</div>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <span class="count" id="logs-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>E-mail</th>
+                                    <th>Nome</th>
+                                    <th>Portal</th>
+                                    <th>Acessado em</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-tbody">
+                                <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <!-- TAB: Deck Users -->
+            <div class="admin-tab-content" data-tab="deck-users">
+                <h3 class="section-header">Deck &mdash; Usu\u00e1rios</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Usu\u00e1rios registrados no Deck. Revogar remove o acesso permanentemente.
+                </p>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Usu\u00e1rios Ativos</h3>
+                        <span class="count" id="deck-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>PIN</th>
+                                    <th>Nome</th>
+                                    <th>Data Cria\u00e7\u00e3o</th>
+                                    <th>A\u00e7\u00f5es</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deck-tbody">
+                                <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Deck Feedback -->
+            <div class="admin-tab-content" data-tab="deck-feedback">
+                <h3 class="section-header">Deck &mdash; Feedback do Paste Vision</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Avalia\u00e7\u00f5es dos usu\u00e1rios sobre a precis\u00e3o da captura autom\u00e1tica (Ctrl+V).
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="fb-total">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Total de feedbacks</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="fb-positive">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Positivos</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #ef4444;" id="fb-negative">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Negativos</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--primary);" id="fb-approval">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Taxa de aprova\u00e7\u00e3o</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--blue);" id="fb-platform-acc">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Acerto de plataforma</div>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Hist\u00f3rico de Feedbacks</h3>
+                        <span class="count" id="fb-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Voto</th>
+                                    <th>Usu\u00e1rio</th>
+                                    <th>Tipo</th>
+                                    <th>Plataforma sugerida</th>
+                                    <th>Plataforma final</th>
+                                    <th>T\u00edtulo sugerido</th>
+                                    <th>T\u00edtulo final</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fb-tbody">
+                                <tr><td colspan="8" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Deck Memories -->
+            <div class="admin-tab-content" data-tab="deck-memories">
+                <h3 class="section-header">Deck &mdash; Mem\u00f3rias</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="mem-total">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Total</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="mem-manual">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Manuais</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #3b82f6;" id="mem-card">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">De cards</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #f59e0b;" id="mem-api">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Via API</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--primary);" id="mem-users">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Usu\u00e1rios</div>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Mem\u00f3rias</h3>
+                        <span class="count" id="mem-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead><tr><th>T\u00edtulo</th><th>Conte\u00fado</th><th>Tags</th><th>Fonte</th><th>Usu\u00e1rio</th><th>Criada</th><th>Atualizada</th></tr></thead>
+                            <tbody id="mem-tbody">
+                                <tr><td colspan="7" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Deck API -->
+            <div class="admin-tab-content" data-tab="deck-api">
+                <h3 class="section-header">Deck &mdash; API</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="api-total-keys">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Chaves</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #22c55e;" id="api-active-keys">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Ativas</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--primary);" id="api-total-calls">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Chamadas</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #3b82f6;" id="api-cards-created">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Cards criados</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: #f59e0b;" id="api-memories-created">0</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Mem\u00f3rias criadas</div>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Chaves API</h3>
+                        <span class="count" id="api-keys-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead><tr><th>Nome</th><th>Usu\u00e1rio</th><th>Permiss\u00f5es</th><th>Status</th><th>\u00daltimo uso</th><th>Criada</th></tr></thead>
+                            <tbody id="api-keys-tbody">
+                                <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-card" style="margin-top:20px;">
+                    <div class="tc-header">
+                        <h3>\u00daltimas chamadas</h3>
+                        <span class="count" id="api-calls-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead><tr><th>Chave</th><th>Endpoint</th><th>M\u00e9todo</th><th>Status</th><th>Data</th></tr></thead>
+                            <tbody id="api-calls-tbody">
+                                <tr><td colspan="5" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: WABA-CSV -->
+            <div class="admin-tab-content" data-tab="waba">
+                <h3 class="section-header">WABA-CSV &mdash; WhatsApp Business</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Gerenciamento de contatos e hist\u00f3rico de mensagens enviadas via WhatsApp Business API.
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--text);" id="waba-total-contacts">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Contatos</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--green);" id="waba-total-sent">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Enviadas</div>
+                    </div>
+                    <div class="table-card" style="padding: 20px; text-align: center;">
+                        <div style="font-size: 28px; font-weight: 700; color: var(--red);" id="waba-total-failed">-</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Falhas</div>
+                    </div>
+                </div>
+
+                <!-- Contacts -->
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Lista Telef\u00f4nica</h3>
+                        <span class="count" id="waba-contacts-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Tag</th>
+                                    <th>Adicionado em</th>
+                                </tr>
+                            </thead>
+                            <tbody id="waba-contacts-tbody">
+                                <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Logs -->
+                <div class="table-card" style="margin-top: 24px;">
+                    <div class="tc-header">
+                        <h3>Hist\u00f3rico de Envios</h3>
+                        <span class="count" id="waba-logs-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Destinat\u00e1rio</th>
+                                    <th>Telefone</th>
+                                    <th>Template</th>
+                                    <th>Conte\u00fado</th>
+                                    <th>Status</th>
+                                    <th>Enviado em</th>
+                                </tr>
+                            </thead>
+                            <tbody id="waba-logs-tbody">
+                                <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Admins -->
+            <div class="admin-tab-content" data-tab="admins">
+                <h3 class="section-header">Administradores do Painel</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Lista de administradores com acesso ao painel. O Super Admin \u00e9 protegido e n\u00e3o pode ser removido.
+                </p>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Administradores</h3>
+                        <span class="count" id="admins-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>E-mail</th>
+                                    <th>N\u00edvel</th>
+                                    <th>Origem</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admins-tbody">
+                                <tr><td colspan="4" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: Services -->
+            <div class="admin-tab-content" data-tab="services">
+                <h3 class="section-header">Servi\u00e7os e APIs do Ecossistema</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Status em tempo real dos Workers e APIs do Grupo CSV.
+                </p>
+                <div class="pw-grid" id="services-grid">
+                    <div class="pw-card" id="svc-decks">
+                        <div class="pw-portal">decks.grupocsv.com</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            API REST para gera\u00e7\u00e3o de apresenta\u00e7\u00f5es PPTX com branding institucional.
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-decks-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-decks-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://decks.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                            <a href="https://github.com/grupocsv/decks-worker" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary-dark); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">GitHub</a>
+                            <a href="https://dash.cloudflare.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: #f59e0b; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Cloudflare</a>
+                        </div>
+                    </div>
+                    <div class="pw-card" id="svc-mail">
+                        <div class="pw-portal">mail-api.grupocsv.com</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Worker de envio de e-mails institucionais via Resend (csv-mail).
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-mail-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-mail-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://mail-api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                        </div>
+                    </div>
+                    <div class="pw-card" id="svc-assets">
+                        <div class="pw-portal">assets.grupocsv.com</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Reposit\u00f3rio centralizado de assets visuais do Grupo CSV (R2 + Worker).
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-assets-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-assets-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://assets.grupocsv.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Acessar</a>
+                        </div>
+                    </div>
+                    <div class="pw-card" id="svc-api">
+                        <div class="pw-portal">api.grupocsv.com</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Gateway central de APIs do Grupo CSV (csv-gateway).
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-api-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-api-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /main-content -->
+    </div><!-- /app-layout -->
 </div>
 
 <!-- Modal: Troca de Senha Obrigatoria -->
 <div class="modal-overlay hidden" id="change-pw-modal">
     <div class="modal-box">
         <h3>Troque sua senha</h3>
-        <p>Por segurança, você precisa definir uma nova senha no primeiro acesso.</p>
+        <p>Por seguran\u00e7a, voc\u00ea precisa definir uma nova senha no primeiro acesso.</p>
         <div id="change-pw-error" style="display:none;background:#fef2f2;color:#991b1b;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;"></div>
-        <input type="password" id="cpw-old" placeholder="Senha atual (temporária)">
-        <input type="password" id="cpw-new" placeholder="Nova senha (mín. 8 caracteres)">
+        <input type="password" id="cpw-old" placeholder="Senha atual (tempor\u00e1ria)">
+        <input type="password" id="cpw-new" placeholder="Nova senha (m\u00edn. 8 caracteres)">
         <input type="password" id="cpw-confirm" placeholder="Confirme a nova senha">
         <div class="modal-actions">
             <button class="btn-primary" id="cpw-submit">Alterar Senha</button>
@@ -880,6 +1057,7 @@ function toggleAdminPw() {
     'use strict';
 
     const AUTH_API = 'https://csv-auth.guilherme-thom.workers.dev';
+    const DATA_API = 'https://csv-data.guilherme-thom.workers.dev';
     const TOKEN_KEY = 'hub_auth_admin_token';
     const EMAIL_KEY = 'hub_auth_admin_email';
     const EXPIRES_KEY = 'hub_auth_admin_expires';
@@ -931,27 +1109,50 @@ function toggleAdminPw() {
         return resp.json();
     }
 
+    // ===== Sidebar navigation =====
+    const sidebarItems = document.querySelectorAll('.sidebar-item[data-tab]');
+    const tabContents = document.querySelectorAll('.admin-tab-content[data-tab]');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            this.classList.add('active');
+            const target = document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]');
+            if (target) target.classList.add('active');
+            // Load data on demand
+            if (tabName === 'passwords') loadPasswords();
+            if (tabName === 'public-links') loadPublicLinks();
+            if (tabName === 'deck-users') loadDeckUsers();
+            if (tabName === 'deck-feedback') loadDeckFeedback();
+            if (tabName === 'deck-memories') loadDeckMemories();
+            if (tabName === 'deck-api') loadDeckApi();
+            if (tabName === 'admins') loadAdmins();
+            if (tabName === 'waba') loadWaba();
+            // Close mobile sidebar
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+    });
+
+    // Mobile sidebar toggle
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        sidebarOverlay.classList.toggle('open');
+    });
+    sidebarOverlay.addEventListener('click', function() {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('open');
+    });
+
     // ===== Init =====
     function init() {
         if (getToken()) showDashboard();
         else showAuth();
-
-        document.querySelectorAll('.admin-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabName = this.getAttribute('data-tab');
-                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelector('.admin-tab-content[data-tab="' + tabName + '"]').classList.add('active');
-                if (tabName === 'passwords') loadPasswords();
-                if (tabName === 'public-links') loadPublicLinks();
-                if (tabName === 'deck-users') loadDeckUsers();
-                if (tabName === 'deck-feedback') loadDeckFeedback();
-                if (tabName === 'deck-memories') loadDeckMemories();
-                if (tabName === 'deck-api') loadDeckApi();
-                if (tabName === 'admins') loadAdmins();
-            });
-        });
     }
 
     function showAuth() {
@@ -964,14 +1165,13 @@ function toggleAdminPw() {
         document.getElementById('dashboard').classList.add('visible');
         document.getElementById('topbar-user').textContent = localStorage.getItem(EMAIL_KEY) || '';
         loadAll();
-        // Verificar se precisa trocar senha
         if (localStorage.getItem('hub_admin_must_change') === 'true') {
             document.getElementById('change-pw-modal').classList.remove('hidden');
         }
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins(), loadServices()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins(), loadServices(), loadWaba()]);
     }
 
     // ===== Auth form =====
@@ -1037,7 +1237,7 @@ function toggleAdminPw() {
         const requests = data.requests || [];
 
         if (requests.length === 0) {
-            list.innerHTML = '<div class="empty-state">Nenhuma solicitação pendente</div>';
+            list.innerHTML = '<div class="empty-state">Nenhuma solicita\u00e7\u00e3o pendente</div>';
             return;
         }
 
@@ -1104,14 +1304,12 @@ function toggleAdminPw() {
         const data = await apiCall('/admin/passwords');
         if (!data) return;
 
-        // Portais CSV (AxiaCare, Thera, MedValor)
         const grid = document.getElementById('pw-grid');
         const portals = data.portals || [];
         grid.innerHTML = portals.length > 0
             ? renderPwCards(portals)
             : '<div class="empty-state">Nenhum portal encontrado</div>';
 
-        // Outros Acessos (Data Sets)
         const gridDatasets = document.getElementById('pw-grid-datasets');
         const datasets = data.datasets || [];
         gridDatasets.innerHTML = datasets.length > 0
@@ -1121,7 +1319,7 @@ function toggleAdminPw() {
 
     // ===== Actions =====
     window._approve = async function(requestId) {
-        if (!confirm('Aprovar esta solicitação de acesso?')) return;
+        if (!confirm('Aprovar esta solicita\u00e7\u00e3o de acesso?')) return;
         const data = await apiCall('/admin/approve', {
             method: 'POST',
             body: JSON.stringify({ request_id: requestId }),
@@ -1135,13 +1333,13 @@ function toggleAdminPw() {
     };
 
     window._reject = async function(requestId) {
-        if (!confirm('Rejeitar esta solicitação?')) return;
+        if (!confirm('Rejeitar esta solicita\u00e7\u00e3o?')) return;
         const data = await apiCall('/admin/reject', {
             method: 'POST',
             body: JSON.stringify({ request_id: requestId }),
         });
         if (data && data.success) {
-            showToast('Solicitação rejeitada', 'success');
+            showToast('Solicita\u00e7\u00e3o rejeitada', 'success');
             loadAll();
         } else {
             showToast(data?.error || 'Erro ao rejeitar', 'error');
@@ -1204,7 +1402,6 @@ function toggleAdminPw() {
 
     // ===== Load Public Links (Hub + Open Pages) =====
     async function loadPublicLinks() {
-        // --- Hub registry ---
         try {
             const resp = await fetch('/p/registry.json');
             const data = await resp.json();
@@ -1246,12 +1443,10 @@ function toggleAdminPw() {
                 }).join('');
             }
 
-            // --- Open Pages ---
             loadOpenPages(hubActiveCount);
         } catch (err) {
             document.getElementById('pl-tbody').innerHTML = '<tr><td colspan="7" class="empty-state">Erro ao carregar registry.json</td></tr>';
             document.getElementById('pl-count').textContent = 'Erro';
-            // Tentar carregar Open Pages mesmo se registry falhar
             loadOpenPages(0);
         }
     }
@@ -1264,7 +1459,6 @@ function toggleAdminPw() {
             var data = await resp.json();
             var pages = data.pages || [];
 
-            // Atualizar summary com total (hub + open)
             var totalActive = (hubActiveCount || 0) + pages.length;
             document.getElementById('s-public').textContent = totalActive;
 
@@ -1297,7 +1491,6 @@ function toggleAdminPw() {
         } catch (err) {
             opTbody.innerHTML = '<tr><td colspan="6" class="empty-state">Erro ao carregar Open Pages</td></tr>';
             opCount.textContent = 'Erro';
-            // Atualizar summary apenas com hub
             document.getElementById('s-public').textContent = hubActiveCount || 0;
         }
     }
@@ -1383,7 +1576,6 @@ function toggleAdminPw() {
     function formatDate(val) {
         if (!val) return '-';
         try {
-            // Handle unix timestamp (seconds)
             if (typeof val === 'number' || /^\d+$/.test(val)) {
                 const ts = typeof val === 'number' ? val : parseInt(val);
                 const d = new Date(ts > 1e12 ? ts : ts * 1000);
@@ -1439,7 +1631,6 @@ function toggleAdminPw() {
         const feedback = data.feedback || [];
         const stats = data.stats || {};
 
-        // Update stat cards
         document.getElementById('fb-total').textContent = stats.total || 0;
         document.getElementById('fb-positive').textContent = stats.positive || 0;
         document.getElementById('fb-negative').textContent = stats.negative || 0;
@@ -1473,7 +1664,7 @@ function toggleAdminPw() {
         }).join('');
     }
 
-    // ===== Deck Memórias =====
+    // ===== Deck Memories =====
     async function loadDeckMemories() {
         const data = await apiCall('/admin/deck-memories');
         if (!data) return;
@@ -1485,11 +1676,11 @@ function toggleAdminPw() {
         document.getElementById('mem-card').textContent = stats.from_card || stats.card_count || 0;
         document.getElementById('mem-api').textContent = stats.from_api || stats.api_count || 0;
         document.getElementById('mem-users').textContent = stats.unique_users || 0;
-        document.getElementById('mem-count').textContent = memories.length + ' memória(s)';
+        document.getElementById('mem-count').textContent = memories.length + ' mem\u00f3ria(s)';
 
         const tbody = document.getElementById('mem-tbody');
         if (memories.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhuma memória registrada</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nenhuma mem\u00f3ria registrada</td></tr>';
             return;
         }
         tbody.innerHTML = memories.map(m => {
@@ -1497,7 +1688,7 @@ function toggleAdminPw() {
                 : m.source === 'card' ? '<span style="color:#3b82f6;">Card</span>'
                 : '<span style="color:#f59e0b;">API</span>';
             const tagArr = Array.isArray(m.tags) ? m.tags : (m.tags || '').split(',');
-            const tags = tagArr.filter(Boolean).map(t => `<span style="display:inline-block;background:rgba(255,255,255,0.08);border-radius:4px;padding:1px 6px;margin:1px;font-size:11px;">${esc(String(t).trim())}</span>`).join('');
+            const tags = tagArr.filter(Boolean).map(t => `<span style="display:inline-block;background:rgba(0,0,0,0.05);border-radius:4px;padding:1px 6px;margin:1px;font-size:11px;">${esc(String(t).trim())}</span>`).join('');
             return `<tr>
                 <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(m.title)}">${esc(m.title)}</td>
                 <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(m.content)}">${esc(m.content)}</td>
@@ -1586,6 +1777,69 @@ function toggleAdminPw() {
         }).join('');
     }
 
+    // ===== WABA-CSV =====
+    async function loadWaba() {
+        try {
+            const [statsResp, contactsResp, logsResp] = await Promise.all([
+                fetch(DATA_API + '/waba/stats').then(r => r.json()).catch(() => ({})),
+                fetch(DATA_API + '/waba/contacts').then(r => r.json()).catch(() => ({ contacts: [] })),
+                fetch(DATA_API + '/waba/logs?limit=100').then(r => r.json()).catch(() => ({ logs: [] })),
+            ]);
+
+            // Stats
+            const contacts = contactsResp.contacts || [];
+            const logs = logsResp.logs || [];
+            const sent = logs.filter(l => l.status === 'sent').length;
+            const failed = logs.filter(l => l.status === 'failed').length;
+
+            document.getElementById('waba-total-contacts').textContent = contacts.length;
+            document.getElementById('waba-total-sent').textContent = sent;
+            document.getElementById('waba-total-failed').textContent = failed;
+
+            // Overview cards
+            document.getElementById('s-waba-total').textContent = logs.length;
+            document.getElementById('s-waba-contacts').textContent = contacts.length;
+
+            // Contacts table
+            document.getElementById('waba-contacts-count').textContent = contacts.length + ' contato(s)';
+            const cTbody = document.getElementById('waba-contacts-tbody');
+            if (contacts.length === 0) {
+                cTbody.innerHTML = '<tr><td colspan="4" class="empty-state">Nenhum contato cadastrado</td></tr>';
+            } else {
+                cTbody.innerHTML = contacts.map(c => `<tr>
+                    <td style="font-weight:600;">${esc(c.name)}</td>
+                    <td style="font-family:monospace;font-size:13px;">${esc(c.phone)}</td>
+                    <td>${esc(c.tag || '-')}</td>
+                    <td style="font-size:12px;">${formatDate(c.created_at)}</td>
+                </tr>`).join('');
+            }
+
+            // Logs table
+            document.getElementById('waba-logs-count').textContent = logs.length + ' envio(s)';
+            const lTbody = document.getElementById('waba-logs-tbody');
+            if (logs.length === 0) {
+                lTbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum envio registrado</td></tr>';
+            } else {
+                lTbody.innerHTML = logs.map(l => {
+                    const statusBadge = l.status === 'sent'
+                        ? '<span class="badge sent">Enviado</span>'
+                        : '<span class="badge failed">Falha</span>';
+                    return `<tr>
+                        <td style="font-weight:600;">${esc(l.recipient_name || '-')}</td>
+                        <td style="font-family:monospace;font-size:13px;">${esc(l.recipient_phone)}</td>
+                        <td>${esc(l.template_name || '-')}</td>
+                        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.content || '')}">${esc(l.content || '-')}</td>
+                        <td>${statusBadge}</td>
+                        <td style="font-size:12px;">${formatDate(l.sent_at || l.created_at)}</td>
+                    </tr>`;
+                }).join('');
+            }
+        } catch (err) {
+            document.getElementById('waba-contacts-tbody').innerHTML = '<tr><td colspan="4" class="empty-state">Erro ao carregar dados WABA</td></tr>';
+            document.getElementById('waba-logs-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Erro ao carregar logs WABA</td></tr>';
+        }
+    }
+
     // ===== Change Password Modal =====
     document.getElementById('cpw-submit').addEventListener('click', async function() {
         const oldPw = document.getElementById('cpw-old').value;
@@ -1619,7 +1873,7 @@ function toggleAdminPw() {
             localStorage.removeItem('hub_admin_must_change');
             localStorage.removeItem('hub_admin_temp_pw');
             document.getElementById('change-pw-modal').classList.add('hidden');
-            showToast('Senha alterada com sucesso. Um e-mail de confirmacao foi enviado.', 'success');
+            showToast('Senha alterada com sucesso. Um e-mail de confirma\u00e7\u00e3o foi enviado.', 'success');
             loadAdmins();
         } else {
             errorEl.textContent = (data && data.error) || 'Erro ao alterar senha.';
@@ -1635,6 +1889,7 @@ function toggleAdminPw() {
             { id: 'assets', url: 'https://assets.grupocsv.com' },
             { id: 'api', url: 'https://api.grupocsv.com/health' }
         ];
+        let onlineCount = 0;
         for (const svc of services) {
             const dot = document.getElementById(`svc-${svc.id}-status`);
             const label = document.getElementById(`svc-${svc.id}-label`);
@@ -1645,6 +1900,7 @@ function toggleAdminPw() {
                     dot.style.background = '#2DBF7F';
                     label.textContent = 'Online';
                     label.style.color = '#2DBF7F';
+                    onlineCount++;
                 } else {
                     dot.style.background = '#f59e0b';
                     label.textContent = `HTTP ${resp.status}`;
@@ -1656,6 +1912,7 @@ function toggleAdminPw() {
                 label.style.color = '#dc2626';
             }
         }
+        document.getElementById('s-services').textContent = onlineCount + '/' + services.length;
     }
 
     // ===== Start =====
