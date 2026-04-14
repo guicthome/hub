@@ -19,7 +19,7 @@
             --text: #1f2937;
             --text-secondary: #6b7280;
             --border: #e5e7eb;
-            --sidebar-width: 240px;
+            --sidebar-width: 260px;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -2055,8 +2055,9 @@ function toggleAdminPw() {
             const label = document.getElementById(`svc-${svc.id}-label`);
             if (!dot || !label) continue;
             try {
-                const resp = await fetch(svc.url, { method: 'GET', signal: AbortSignal.timeout(5000) });
-                if (resp.ok) {
+                const resp = await fetch(svc.url, { method: 'GET', mode: 'no-cors', signal: AbortSignal.timeout(5000) });
+                // mode: no-cors returns opaque response (type 'opaque', status 0) but no network error = online
+                if (resp.ok || resp.type === 'opaque') {
                     dot.style.background = '#2DBF7F';
                     label.textContent = 'Online';
                     label.style.color = '#2DBF7F';
