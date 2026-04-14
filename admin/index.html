@@ -422,6 +422,7 @@
             <button class="sidebar-toggle" id="sidebar-toggle">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </button>
+            <img src="https://assets.grupocsv.com/logos/grupo-csv/horizontal-negativo-transparente.png" alt="Grupo CSV" style="height:28px;object-fit:contain;">
             <h1>Hub CSV &mdash; Admin</h1>
         </div>
         <div class="topbar-actions">
@@ -475,6 +476,13 @@
                 <button class="sidebar-item" data-tab="deck-api">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     API
+                </button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-section-label">Infraestrutura</div>
+                <button class="sidebar-item" data-tab="asset-bucket">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    Asset Bucket
                 </button>
             </div>
             <div class="sidebar-section">
@@ -854,6 +862,62 @@
                 </div>
             </div>
 
+            <!-- TAB: Asset Bucket -->
+            <div class="admin-tab-content" data-tab="asset-bucket">
+                <h3 class="section-header">Asset Bucket (assets.grupocsv.com)</h3>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+                    Repositório centralizado de assets visuais do Grupo CSV. Hospedado em Cloudflare R2.
+                </p>
+                <div class="summary-grid" id="asset-summary" style="margin-bottom:24px;">
+                    <div class="summary-card accent">
+                        <div class="sc-label">Total de Assets</div>
+                        <div class="sc-value" id="asset-total">-</div>
+                    </div>
+                    <div class="summary-card info">
+                        <div class="sc-label">Logos</div>
+                        <div class="sc-value" id="asset-logos">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-label">Criativos</div>
+                        <div class="sc-value" id="asset-criativos">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-label">Wallpapers</div>
+                        <div class="sc-value" id="asset-wallpapers">-</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-label">E-mail</div>
+                        <div class="sc-value" id="asset-email">-</div>
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="tc-header">
+                        <h3>Assets por Marca</h3>
+                        <span class="count" id="asset-brands-count">Carregando...</span>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Marca</th>
+                                    <th>Logos</th>
+                                    <th>Criativos</th>
+                                    <th>E-mail</th>
+                                    <th>Wallpapers</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="asset-brands-tbody">
+                                <tr><td colspan="6" class="empty-state">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top:16px;">
+                    <a href="https://assets.grupocsv.com" target="_blank" style="font-size:13px;color:var(--primary);font-weight:600;text-decoration:none;">Abrir Asset Bucket &rarr;</a>
+                </div>
+            </div>
+
             <!-- TAB: WABA-CSV -->
             <div class="admin-tab-content" data-tab="waba">
                 <h3 class="section-header">WABA-CSV &mdash; WhatsApp Business</h3>
@@ -1015,6 +1079,45 @@
                             <a href="https://api.grupocsv.com/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
                         </div>
                     </div>
+                    <div class="pw-card" id="svc-open">
+                        <div class="pw-portal">open.grupocsv.com</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Open Pages — páginas públicas do ecossistema CSV (R2 + KV + Worker).
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-open-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-open-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://open.grupocsv.com" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Acessar</a>
+                        </div>
+                    </div>
+                    <div class="pw-card" id="svc-data">
+                        <div class="pw-portal">csv-data Worker</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Worker de dados persistidos (D1 + KV). Serve WABA, stats e configurações.
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-data-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-data-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://csv-data.guilherme-thom.workers.dev/stats" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Stats</a>
+                        </div>
+                    </div>
+                    <div class="pw-card" id="svc-core">
+                        <div class="pw-portal">core.gabialvim.com.br</div>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                            Crialê Core — servidor MCP central do projeto Crialê.
+                        </p>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <span id="svc-core-status" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #d1d5db;"></span>
+                            <span id="svc-core-label" style="font-size: 13px; color: var(--text-secondary);">Verificando...</span>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <a href="https://core.gabialvim.com.br/health" target="_blank" style="font-size: 12px; padding: 6px 14px; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">Health Check</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1022,7 +1125,7 @@
     </div><!-- /app-layout -->
 </div>
 
-<!-- Modal: Troca de Senha Obrigatoria -->
+<!-- Modal: Troca de Senha Obrigatória -->
 <div class="modal-overlay hidden" id="change-pw-modal">
     <div class="modal-box">
         <h3>Troque sua senha</h3>
@@ -1132,6 +1235,7 @@ function toggleAdminPw() {
             if (tabName === 'deck-memories') loadDeckMemories();
             if (tabName === 'deck-api') loadDeckApi();
             if (tabName === 'admins') loadAdmins();
+            if (tabName === 'asset-bucket') loadAssetBucket();
             if (tabName === 'waba') loadWaba();
             // Close mobile sidebar
             sidebar.classList.remove('open');
@@ -1171,7 +1275,7 @@ function toggleAdminPw() {
     }
 
     async function loadAll() {
-        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins(), loadServices(), loadWaba()]);
+        await Promise.all([loadStats(), loadRequests(), loadUsers(), loadPasswords(), loadPublicLinks(), loadAccessLogs(), loadDeckUsers(), loadDeckFeedback(), loadDeckMemories(), loadDeckApi(), loadAdmins(), loadServices(), loadWaba(), loadAssetBucket()]);
     }
 
     // ===== Auth form =====
@@ -1203,7 +1307,7 @@ function toggleAdminPw() {
                 errorEl.style.display = 'block';
             }
         } catch (err) {
-            errorEl.textContent = 'Erro de conexao';
+            errorEl.textContent = 'Erro de conexão';
             errorEl.style.display = 'block';
         }
     });
@@ -1371,7 +1475,7 @@ function toggleAdminPw() {
         const newPw = input.value.trim();
 
         if (!newPw || newPw.length < 6) {
-            statusEl.textContent = 'Senha deve ter no minimo 6 caracteres';
+            statusEl.textContent = 'Senha deve ter no mínimo 6 caracteres';
             statusEl.className = 'pw-status error';
             return;
         }
@@ -1777,28 +1881,81 @@ function toggleAdminPw() {
         }).join('');
     }
 
+    // ===== Asset Bucket =====
+    async function loadAssetBucket() {
+        try {
+            const resp = await fetch('https://assets.grupocsv.com/manifest.json');
+            const data = await resp.json();
+            const assets = data.assets || [];
+
+            document.getElementById('asset-total').textContent = assets.length;
+
+            // Count by category
+            const cats = {};
+            const brands = {};
+            assets.forEach(a => {
+                const cat = (a.category || 'outro').toLowerCase();
+                cats[cat] = (cats[cat] || 0) + 1;
+                const brand = a.brand || 'sem-marca';
+                if (!brands[brand]) brands[brand] = { logo: 0, criativo: 0, email: 0, wallpaper: 0, total: 0 };
+                brands[brand].total++;
+                if (cat.includes('logo')) brands[brand].logo++;
+                else if (cat.includes('criativo') || cat.includes('creative')) brands[brand].criativo++;
+                else if (cat.includes('email') || cat.includes('e-mail')) brands[brand].email++;
+                else if (cat.includes('wallpaper') || cat.includes('wall')) brands[brand].wallpaper++;
+            });
+
+            document.getElementById('asset-logos').textContent = cats['logo'] || cats['logos'] || 0;
+            document.getElementById('asset-criativos').textContent = cats['criativo'] || cats['criativos'] || cats['creative'] || 0;
+            document.getElementById('asset-wallpapers').textContent = cats['wallpaper'] || cats['wallpapers'] || 0;
+            document.getElementById('asset-email').textContent = cats['email'] || cats['e-mail'] || 0;
+
+            const brandKeys = Object.keys(brands).sort();
+            document.getElementById('asset-brands-count').textContent = brandKeys.length + ' marca(s)';
+            const tbody = document.getElementById('asset-brands-tbody');
+            if (brandKeys.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Nenhum asset encontrado</td></tr>';
+            } else {
+                tbody.innerHTML = brandKeys.map(b => {
+                    const d = brands[b];
+                    return `<tr>
+                        <td style="font-weight:600;">${esc(b)}</td>
+                        <td>${d.logo}</td>
+                        <td>${d.criativo}</td>
+                        <td>${d.email}</td>
+                        <td>${d.wallpaper}</td>
+                        <td style="font-weight:600;">${d.total}</td>
+                    </tr>`;
+                }).join('');
+            }
+        } catch (err) {
+            document.getElementById('asset-brands-tbody').innerHTML = '<tr><td colspan="6" class="empty-state">Erro ao carregar manifest.json</td></tr>';
+            document.getElementById('asset-brands-count').textContent = 'Erro';
+        }
+    }
+
     // ===== WABA-CSV =====
     async function loadWaba() {
         try {
             const [statsResp, contactsResp, logsResp] = await Promise.all([
                 fetch(DATA_API + '/waba/stats').then(r => r.json()).catch(() => ({})),
-                fetch(DATA_API + '/waba/contacts').then(r => r.json()).catch(() => ({ contacts: [] })),
-                fetch(DATA_API + '/waba/logs?limit=100').then(r => r.json()).catch(() => ({ logs: [] })),
+                fetch(DATA_API + '/waba/contacts').then(r => r.json()).catch(() => ({ results: [] })),
+                fetch(DATA_API + '/waba/logs?limit=100').then(r => r.json()).catch(() => ({ results: [] })),
             ]);
 
             // Stats
-            const contacts = contactsResp.contacts || [];
-            const logs = logsResp.logs || [];
+            const contacts = contactsResp.results || [];
+            const logs = logsResp.results || [];
             const sent = logs.filter(l => l.status === 'sent').length;
             const failed = logs.filter(l => l.status === 'failed').length;
 
-            document.getElementById('waba-total-contacts').textContent = contacts.length;
-            document.getElementById('waba-total-sent').textContent = sent;
-            document.getElementById('waba-total-failed').textContent = failed;
+            document.getElementById('waba-total-contacts').textContent = statsResp.contacts || contacts.length;
+            document.getElementById('waba-total-sent').textContent = statsResp.sent || sent;
+            document.getElementById('waba-total-failed').textContent = statsResp.failed || failed;
 
             // Overview cards
-            document.getElementById('s-waba-total').textContent = logs.length;
-            document.getElementById('s-waba-contacts').textContent = contacts.length;
+            document.getElementById('s-waba-total').textContent = statsResp.total_messages || logs.length;
+            document.getElementById('s-waba-contacts').textContent = statsResp.contacts || contacts.length;
 
             // Contacts table
             document.getElementById('waba-contacts-count').textContent = contacts.length + ' contato(s)';
@@ -1809,7 +1966,7 @@ function toggleAdminPw() {
                 cTbody.innerHTML = contacts.map(c => `<tr>
                     <td style="font-weight:600;">${esc(c.name)}</td>
                     <td style="font-family:monospace;font-size:13px;">${esc(c.phone)}</td>
-                    <td>${esc(c.tag || '-')}</td>
+                    <td>${esc(c.tags || '-')}</td>
                     <td style="font-size:12px;">${formatDate(c.created_at)}</td>
                 </tr>`).join('');
             }
@@ -1827,10 +1984,10 @@ function toggleAdminPw() {
                     return `<tr>
                         <td style="font-weight:600;">${esc(l.recipient_name || '-')}</td>
                         <td style="font-family:monospace;font-size:13px;">${esc(l.recipient_phone)}</td>
-                        <td>${esc(l.template_name || '-')}</td>
-                        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.content || '')}">${esc(l.content || '-')}</td>
+                        <td>${esc(l.template_used || '-')}</td>
+                        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.content_summary || '')}">${esc(l.content_summary || '-')}</td>
                         <td>${statusBadge}</td>
-                        <td style="font-size:12px;">${formatDate(l.sent_at || l.created_at)}</td>
+                        <td style="font-size:12px;">${formatDate(l.timestamp || l.created_at)}</td>
                     </tr>`;
                 }).join('');
             }
@@ -1854,12 +2011,12 @@ function toggleAdminPw() {
             return;
         }
         if (newPw.length < 8) {
-            errorEl.textContent = 'Nova senha deve ter no minimo 8 caracteres.';
+            errorEl.textContent = 'Nova senha deve ter no mínimo 8 caracteres.';
             errorEl.style.display = 'block';
             return;
         }
         if (newPw !== confirmPw) {
-            errorEl.textContent = 'As senhas nao coincidem.';
+            errorEl.textContent = 'As senhas não coincidem.';
             errorEl.style.display = 'block';
             return;
         }
@@ -1887,7 +2044,10 @@ function toggleAdminPw() {
             { id: 'decks', url: 'https://decks.grupocsv.com/health' },
             { id: 'mail', url: 'https://mail-api.grupocsv.com/health' },
             { id: 'assets', url: 'https://assets.grupocsv.com' },
-            { id: 'api', url: 'https://api.grupocsv.com/health' }
+            { id: 'api', url: 'https://api.grupocsv.com/health' },
+            { id: 'open', url: 'https://open.grupocsv.com' },
+            { id: 'data', url: 'https://csv-data.guilherme-thom.workers.dev/stats' },
+            { id: 'core', url: 'https://core.gabialvim.com.br/health' }
         ];
         let onlineCount = 0;
         for (const svc of services) {
