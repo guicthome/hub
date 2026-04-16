@@ -604,6 +604,13 @@ head:
 <strong>Nota de escopo.</strong> Esta edição do Compass&trade; é um documento técnico-estratégico de uso interno, destinado à educação continuada e ao apoio à tomada de decisão dos integrantes do Grupo CSV. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 </div>
 
+<div class="compass-download">
+  <a href="/compass/edicoes/2026/002/compass_002_2026.pdf" download>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+    Download PDF com timbrado
+  </a>
+</div>
+
 <div class="compass-nav">
   <a href="/compass/" class="nav-primary">&larr; Central Compass&trade;</a>
   <a href="/compass/edicoes/2026/001/compass" class="nav-secondary">001/2026 &mdash; Metas ACO</a>

@@ -65,7 +65,50 @@ Criar o arquivo `metadata.yml` usando o template em `/compass/templates/metadata
 
 ---
 
-## Passo 7 — Rodar checklist e publicar
+## Passo 7 — Gerar PDF com timbrado
+
+Gerar o PDF timbrado da edição usando o script automatizado. O script lê o `compass.md` e produz um PDF com capa institucional, header/footer em todas as páginas, tabelas formatadas e nota de escopo.
+
+### Comando
+
+```bash
+python3 tools/compass-pdf/compass-pdf-gen.py \
+  docs/compass/edicoes/AAAA/NNN/compass.md \
+  docs/public/compass/edicoes/AAAA/NNN/compass_NNN_AAAA.pdf
+```
+
+### Pré-requisitos
+
+- O pacote `fpdf2` (versão 2.x) deve estar instalado. Se houver erro de `UnicodeDecodeError` ao carregar fontes, remover arquivos `.pkl` da pasta `tools/compass-pdf/_fonts/` e garantir que `fpdf2` (não `fpdf` 1.x) está instalado.
+- O diretório de saída (`docs/public/compass/edicoes/AAAA/NNN/`) deve ser criado antes da execução.
+- Os assets `compass_header.png` e o logo do Grupo CSV devem existir em `docs/public/`.
+
+### Verificação
+
+Após gerar, confirmar visualmente que o PDF contém: capa com logos e título, header com edição e data em todas as páginas internas, tabelas renderizadas, footer com nota de escopo e paginação.
+
+---
+
+## Passo 8 — Inserir botão de download no compass.md
+
+Adicionar o bloco HTML do botão de download do PDF timbrado no `compass.md`, posicionado entre a `compass-scope` e a `compass-nav`. O bloco segue o padrão visual das demais edições.
+
+### Bloco HTML
+
+```html
+<div class="compass-download">
+  <a href="/compass/edicoes/AAAA/NNN/compass_NNN_AAAA.pdf" download>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+    Download PDF com timbrado
+  </a>
+</div>
+```
+
+O `href` aponta para o caminho público do PDF (servido pelo VitePress a partir de `docs/public/`). Confirmar que o caminho corresponde ao arquivo gerado no Passo 7.
+
+---
+
+## Passo 9 — Rodar checklist e publicar
 
 Executar o checklist obrigatório abaixo. Todos os itens devem passar antes do commit.
 
@@ -81,6 +124,9 @@ Executar o checklist obrigatório abaixo. Todos os itens devem passar antes do c
 - [ ] Tom construtivo e não-confrontativo confirmado
 - [ ] metadata.yml preenchido corretamente
 - [ ] Versão VitePress criada (se aplicável)
+- [ ] PDF timbrado gerado e verificado visualmente
+- [ ] Botão de download presente no compass.md (entre scope e nav)
+- [ ] PDF disponível em `docs/public/compass/edicoes/AAAA/NNN/`
 
 ### Comandos de verificação
 
@@ -93,11 +139,17 @@ grep -rni "auxílio de" compass/
 
 # Verificar links de assets
 ls -la compass/edicoes/AAAA/NNN/assets/
+
+# Verificar PDF gerado
+ls -la docs/public/compass/edicoes/AAAA/NNN/compass_NNN_AAAA.pdf
+
+# Verificar botão de download no compass.md
+grep -n "compass-download" docs/compass/edicoes/AAAA/NNN/compass.md
 ```
 
 ---
 
-## Passo 8 — Atualizar índice da Central
+## Passo 10 — Atualizar índice da Central
 
 Adicionar a nova edição na tabela de edições em:
 
@@ -108,7 +160,7 @@ Incluir: número da edição, título e status.
 
 ---
 
-## Passo 9 — Commit e push
+## Passo 11 — Commit e push
 
 Fazer commit com mensagem descritiva:
 

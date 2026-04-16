@@ -54,4 +54,21 @@
 
 ---
 
+> **Bloco de download (obrigatório — posicionar entre scope e nav)**
+>
+> Após gerar o PDF timbrado com `tools/compass-pdf/compass-pdf-gen.py`, inserir o bloco abaixo no compass.md:
+>
+> ```html
+> <div class="compass-download">
+>   <a href="/compass/edicoes/AAAA/NNN/compass_NNN_AAAA.pdf" download>
+>     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+>     Download PDF com timbrado
+>   </a>
+> </div>
+> ```
+>
+> O PDF deve estar em `docs/public/compass/edicoes/AAAA/NNN/compass_NNN_AAAA.pdf`.
+
+---
+
 [Voltar para a Central Compass&trade;](../../README.md)
