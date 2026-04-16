@@ -206,6 +206,11 @@ head:
         <td>Metas quantitativas de produção em contratos ACO com orçamento global</td>
         <td><span class="status-badge">Publicado</span></td>
       </tr>
+      <tr>
+        <td><a href="/compass/edicoes/2026/002/compass">002/2026</a></td>
+        <td>O impacto da prostatectomia radical assistida por robô na saúde suplementar brasileira (2025-2026)</td>
+        <td><span class="status-badge">Publicado</span></td>
+      </tr>
     </tbody>
   </table>
 </div>

@@ -63,6 +63,7 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: '001 \u2014 Metas ACO', link: '/compass/edicoes/2026/001/compass' },
+                { text: '002 \u2014 Prostatectomia Rob\u00f3tica', link: '/compass/edicoes/2026/002/compass' },
               ]
             },
           ]
