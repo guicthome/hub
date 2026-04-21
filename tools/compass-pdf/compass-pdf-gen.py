@@ -252,6 +252,31 @@ class CompassPDF(FPDF):
 
         self.ln(4)
 
+    def render_image(self, img_path, caption=""):
+        """Render an image with optional caption."""
+        if not os.path.exists(img_path):
+            return
+        # Check space
+        if self.get_y() + 60 > 270:
+            self.add_page()
+        self.ln(3)
+        # Center image, max width 160mm
+        img_w = 160
+        x_pos = (210 - img_w) / 2
+        self.image(img_path, x=x_pos, y=self.get_y(), w=img_w)
+        # Estimate image height (approximate aspect ratio)
+        from PIL import Image as PILImage
+        with PILImage.open(img_path) as im:
+            w_px, h_px = im.size
+        img_h = img_w * (h_px / w_px)
+        self.set_y(self.get_y() + img_h + 2)
+        if caption:
+            self.set_font("DejaVu", "I", 7)
+            self.set_text_color(100, 100, 100)
+            self.multi_cell(0, 3.5, caption, align="C")
+            self.ln(2)
+        self.ln(3)
+
     def render_quote(self, text):
         """Render a blockquote-style paragraph."""
         # Check space
@@ -353,6 +378,20 @@ def parse_content(md_path):
         if not section:
             continue
 
+        # Extract images (compass-figure divs)
+        figure_matches = list(re.finditer(r'<div class="compass-figure">\s*<img\s+src="([^"]+)"[^>]*/>\s*(?:<figcaption>(.*?)</figcaption>)?\s*', section, re.DOTALL))
+        for fm in figure_matches:
+            img_src = fm.group(1)
+            # Resolve path relative to docs/public
+            if img_src.startswith('/'):
+                img_path = os.path.join(PUBLIC_DIR, img_src.lstrip('/'))
+            else:
+                img_path = img_src
+            caption = decode_html(fm.group(2)) if fm.group(2) else ''
+            # Replace the figure HTML with a placeholder
+            placeholder = f'__IMG__{img_path}__CAP__{caption}__ENDIMG__'
+            section = section[:fm.start()] + placeholder + section[fm.end():]
+
         # Extract tables first
         table_matches = list(re.finditer(r'<table[^>]*>(.*?)</table>', section, re.DOTALL))
 
@@ -390,19 +429,42 @@ def parse_content(md_path):
 
 
 def _parse_text_blocks(html, blocks):
-    """Parse HTML text into heading, paragraph, and quote blocks."""
-    # Extract headings
-    parts = re.split(r'(<h[12][^>]*>.*?</h[12]>)', html, flags=re.DOTALL)
+    """Parse HTML text into heading, paragraph, quote, image, and list blocks."""
+    # Handle image placeholders
+    img_pattern = r'__IMG__(.*?)__CAP__(.*?)__ENDIMG__'
+    # Handle list items
+    list_pattern = r'<ul>(.*?)</ul>'
+
+    # Split by headings and image placeholders
+    parts = re.split(r'(<h[123][^>]*>.*?</h[123]>|__IMG__.*?__ENDIMG__|<ul>.*?</ul>)', html, flags=re.DOTALL)
 
     for part in parts:
         part = part.strip()
         if not part:
             continue
 
+        h3_match = re.match(r'<h3[^>]*>(.*?)</h3>', part, re.DOTALL)
         h2_match = re.match(r'<h2[^>]*>(.*?)</h2>', part, re.DOTALL)
         h1_match = re.match(r'<h1[^>]*>(.*?)</h1>', part, re.DOTALL)
 
-        if h2_match:
+        img_match = re.match(img_pattern, part, re.DOTALL)
+        list_match = re.match(list_pattern, part, re.DOTALL)
+
+        if img_match:
+            img_path = img_match.group(1)
+            caption = img_match.group(2)
+            blocks.append({'type': 'image', 'path': img_path, 'caption': caption})
+        elif list_match:
+            items = re.findall(r'<li>(.*?)</li>', list_match.group(1), re.DOTALL)
+            for item in items:
+                clean = decode_html(item)
+                if clean:
+                    blocks.append({'type': 'paragraph', 'text': '\u2022 ' + clean})
+        elif h3_match:
+            text = decode_html(h3_match.group(1))
+            if text:
+                blocks.append({'type': 'h3', 'text': text})
+        elif h2_match:
             text = decode_html(h2_match.group(1))
             if text:
                 blocks.append({'type': 'h2', 'text': text})
@@ -495,6 +557,20 @@ def generate_pdf(md_path, output_path):
             pdf.set_text_color(*BLUE)
             pdf.multi_cell(0, 8, block['text'])
             pdf.ln(4)
+
+        elif btype == 'h3':
+            if pdf.get_y() + 15 > 270:
+                pdf.add_page()
+            pdf.ln(3)
+            pdf.set_font("DejaVu", "B", 9.5)
+            pdf.set_text_color(13, 38, 76)
+            pdf.multi_cell(0, 5, block['text'])
+            pdf.ln(2)
+
+        elif btype == 'image':
+            img_path = block.get('path', '')
+            caption = block.get('caption', '')
+            pdf.render_image(img_path, caption)
 
         elif btype == 'h2':
             if pdf.get_y() + 20 > 270:
