@@ -49,6 +49,7 @@ export default defineConfig({
       { text: 'Signal\u2122', link: '/signal/' },
       { text: 'Deck\u2122', link: 'https://deck.grupocsv.com' },
       { text: 'Relay\u2122', link: 'https://relay.axcare.com.br' },
+      { text: 'RTAV\u2122', link: 'https://rtav.axcare.app' },
       { text: 'Infra', link: '/_infra/' },
     ],
 
@@ -114,6 +115,7 @@ export default defineConfig({
               ]
             },
             { text: 'AxiaCare Mandate', link: '/_infra/axiacare/mandate' },
+            { text: 'RTAV\u2122', link: '/_infra/axiacare/rtav' },
             { text: 'MedValor Mandate', link: '/_infra/medvalor/mandate' },
             { text: 'TheraTech Mandate', link: '/_infra/thera/mandate' },
             { text: 'Infraestrutura Técnica', link: '/_infra/technical-architecture' },

@@ -526,6 +526,7 @@ head:
             <a href="/signal/" class="hero-btn secondary">Signal™</a>
             <a href="https://deck.grupocsv.com" class="hero-btn secondary">Deck™</a>
             <a href="https://relay.axcare.com.br" class="hero-btn secondary">Relay™</a>
+            <a href="https://rtav.axcare.app" class="hero-btn secondary">RTAV™</a>
           </div>
         </div>
         <div class="hero-group-divider"></div>
