@@ -31,6 +31,7 @@ Exemplo: `001/2026` é a primeira edição do ano de 2026.
 |--------|--------|--------|
 | [001/2026](edicoes/2026/001/compass.md) | Metas quantitativas de produção em contratos ACO com orçamento global | Publicado |
 | [002/2026](edicoes/2026/002/compass.md) | O impacto da prostatectomia radical assistida por robô na saúde suplementar brasileira (2025-2026) | Publicado |
+| [003/2026](edicoes/2026/003/compass.md) | Incidência e fatores determinantes da necessidade de fototerapia neonatal no Brasil: análise por idade gestacional e via de parto | Publicado |
 
 ---
 
