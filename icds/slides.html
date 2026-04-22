@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Apresentações | ICDS | Grupo CSV</title>
+  <link rel="icon" href="/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+  <meta property="og:title" content="Gerador de Apresentações | ICDS">
+  <meta property="og:description" content="Solicite apresentações institucionais ICDS com branding oficial.">
+  <meta property="og:image" content="https://hub.grupocsv.com/og/og_hub.png">
+  <meta property="og:url" content="https://hub.grupocsv.com/icds/slides.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ICDS | Hub Grupo CSV">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --icds-blue: #1B3A5C;
+      --icds-blue-light: #2a6496;
+      --icds-blue-pale: #e8f0f8;
+      --text-primary: #2d3748;
+      --text-secondary: #718096;
+      --bg-gradient-start: #f7f9fc;
+      --bg-gradient-end: #e8f0f8;
+      --success: #16a34a;
+      --error: #dc2626;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+      padding: 20px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    .header {
+      text-align: center;
+      padding: 40px 20px 30px;
+      background: linear-gradient(135deg, rgba(27,58,92,0.04) 0%, rgba(27,58,92,0.02) 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      margin-bottom: 32px;
+      border: 1px solid rgba(27,58,92,0.12);
+    }
+    .logo { width: 200px; max-width: 80%; margin-bottom: 16px; border-radius: 12px; }
+    h1 { color: var(--icds-blue); font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle { color: var(--text-secondary); font-size: 14px; }
+
+    .form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(27,58,92,0.1);
+      margin-bottom: 32px;
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-group:last-child { margin-bottom: 0; }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--icds-blue);
+      margin-bottom: 8px;
+    }
+    label .required { color: var(--error); }
+    label .hint {
+      font-weight: 400;
+      color: var(--text-secondary);
+      font-size: 12px;
+      display: block;
+      margin-top: 4px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: #fafbfc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--icds-blue-light);
+      box-shadow: 0 0 0 3px rgba(42,100,150,0.12);
+      background: #fff;
+    }
+    textarea { resize: vertical; min-height: 100px; }
+    select { cursor: pointer; }
+
+    .file-drop {
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: #fafbfc;
+    }
+    .file-drop:hover, .file-drop.dragover {
+      border-color: var(--icds-blue-light);
+      background: var(--icds-blue-pale);
+    }
+    .file-drop-text { font-size: 13px; color: var(--text-secondary); }
+    .file-drop-text strong { color: var(--icds-blue); }
+    .file-list { margin-top: 12px; }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--icds-blue-pale);
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .file-item button {
+      background: none;
+      border: none;
+      color: var(--error);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0 4px;
+    }
+
+    .row { display: flex; gap: 16px; }
+    .row .form-group { flex: 1; }
+    @media (max-width: 600px) { .row { flex-direction: column; gap: 0; } }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--icds-blue);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { background: var(--icds-blue-light); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .result-card {
+      display: none;
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(22,163,74,0.3);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .result-card.visible { display: block; }
+    .result-card.error { border-color: rgba(220,38,38,0.3); }
+    .result-icon { font-size: 48px; margin-bottom: 16px; }
+    .result-title { font-size: 20px; font-weight: 700; color: var(--icds-blue); margin-bottom: 8px; }
+    .result-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .result-text strong { color: var(--text-primary); }
+    .result-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: var(--icds-blue);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hub-back-btn{position:fixed;top:16px;left:16px;z-index:9999;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,0.1);border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.08);color:#196396;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;line-height:1}
+    @media(max-width:768px){.hub-back-btn{position:relative;top:auto;left:auto;display:flex;width:fit-content;margin:12px auto 0;z-index:1;box-shadow:0 1px 6px rgba(0,0,0,0.06)}}
+    .hub-back-btn:hover{background:#196396;color:#fff;box-shadow:0 4px 20px rgba(25,99,150,0.3);transform:translateY(-1px)}
+    @media print{.hub-back-btn{display:none!important}}
+  </style>
+</head>
+<body>
+<a href="/icds/" class="hub-back-btn" title="Voltar ao Hub ICDS">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>Hub ICDS
+</a>
+
+<div class="container">
+  <div class="header">
+    <img src="/visual-identity/icds/logo/png/icds_horizontal_sem_fundo_positivo.png" alt="ICDS" class="logo">
+    <h1>Gerador de Apresentações</h1>
+    <p class="subtitle">Solicite apresentações institucionais com branding ICDS</p>
+  </div>
+
+  <form id="slidesForm" class="form-card" autocomplete="off">
+    <div class="form-group">
+      <label>Tema / Título da Apresentação <span class="required">*</span></label>
+      <input type="text" id="titulo" placeholder="Ex: Resultados Assistenciais Q1 2026" required>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Instruções e Contexto
+        <span class="hint">Descreva o objetivo, público-alvo, dados a incluir, ou qualquer orientação relevante.</span>
+      </label>
+      <textarea id="instrucoes" rows="4" placeholder="Ex: Apresentação para o Conselho Deliberativo com foco em indicadores de permanência, readmissão e satisfação do paciente. Incluir comparativo com o trimestre anterior."></textarea>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>Número de Slides <span class="required">*</span></label>
+        <select id="numSlides">
+          <option value="5">5 slides</option>
+          <option value="8" selected>8 slides</option>
+          <option value="10">10 slides</option>
+          <option value="12">12 slides</option>
+          <option value="15">15 slides</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>E-mail para Entrega <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="seu@email.com" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Arquivos de Referência
+        <span class="hint">Arraste ou clique para anexar PDFs, planilhas ou imagens como referência (opcional).</span>
+      </label>
+      <div class="file-drop" id="fileDrop">
+        <p class="file-drop-text"><strong>Clique aqui</strong> ou arraste arquivos</p>
+        <p class="file-drop-text" style="font-size:11px;margin-top:4px">PDF, Excel, Imagens (max. 10 MB cada)</p>
+        <input type="file" id="fileInput" multiple accept=".pdf,.xlsx,.xls,.csv,.png,.jpg,.jpeg,.pptx" style="display:none">
+      </div>
+      <div class="file-list" id="fileList"></div>
+    </div>
+
+    <button type="submit" class="btn-submit" id="btnSubmit">
+      <span id="btnText">Solicitar Apresentação</span>
+      <div class="spinner" id="btnSpinner"></div>
+    </button>
+  </form>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-icon" id="resultIcon"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="result-text" id="resultText"></div>
+  </div>
+</div>
+
+<!-- AXIACARE FOOTER -->
+<div style="max-width:720px;margin:0 auto 20px;padding:32px 20px;background:#f8f5f0;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;border-top:2px solid #196396;border-radius:16px">
+  <img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare" style="width:140px;margin:0 auto 12px auto;display:block">
+  <div style="font-size:14px;font-weight:600;color:#2d3445;margin-bottom:14px">Gestão e Consultoria em Saúde</div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:6px">
+    <a href="https://linktr.ee/gui.thome" style="color:#196396;text-decoration:none">Conheça nossas soluções</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://www.axcare.com.br" target="_blank" style="color:#196396;text-decoration:none">axcare.com.br</a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;font-size:13px;margin-bottom:6px">
+    <a href="https://grupocsv.com" target="_blank" style="color:#196396;text-decoration:none">grupocsv.com</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://www.medvalor.med.br" target="_blank" style="color:#196396;text-decoration:none">medvalor.med.br</a>
+    <span style="color:#cbd5e1;font-size:11px">|</span>
+    <a href="https://thera.tech" target="_blank" style="color:#196396;text-decoration:none">thera.tech</a>
+  </div>
+  <div style="font-size:11px;color:#94a3b8">Copyright &copy; 2026 AxiaCare | Todos os direitos reservados | Uma empresa do Grupo CSV</div>
+</div>
+
+<script>
+// ── File Upload ──────────────────────────────────────────────────────────
+const fileDrop = document.getElementById('fileDrop');
+const fileInput = document.getElementById('fileInput');
+const fileList = document.getElementById('fileList');
+let selectedFiles = [];
+
+fileDrop.addEventListener('click', () => fileInput.click());
+fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('dragover'); });
+fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
+fileDrop.addEventListener('drop', e => {
+  e.preventDefault();
+  fileDrop.classList.remove('dragover');
+  addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', () => addFiles(fileInput.files));
+
+function addFiles(files) {
+  for (const f of files) {
+    if (f.size > 10 * 1024 * 1024) { alert('Arquivo "' + f.name + '" excede 10 MB.'); continue; }
+    if (selectedFiles.length >= 5) { alert('Máximo de 5 arquivos.'); break; }
+    selectedFiles.push(f);
+  }
+  renderFiles();
+}
+
+function removeFile(idx) {
+  selectedFiles.splice(idx, 1);
+  renderFiles();
+}
+
+function renderFiles() {
+  fileList.innerHTML = selectedFiles.map((f, i) =>
+    '<div class="file-item"><span>' + f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)</span><button type="button" onclick="removeFile(' + i + ')">&times;</button></div>'
+  ).join('');
+}
+
+// ── Form Submit ──────────────────────────────────────────────────────────
+const API_BASE = 'https://slides.grupocsv.com';
+
+document.getElementById('slidesForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const titulo = document.getElementById('titulo').value.trim();
+  const instrucoes = document.getElementById('instrucoes').value.trim();
+  const numSlides = document.getElementById('numSlides').value;
+  const email = document.getElementById('email').value.trim();
+
+  if (!titulo || !email) { alert('Preencha os campos obrigatórios.'); return; }
+
+  const btn = document.getElementById('btnSubmit');
+  const btnText = document.getElementById('btnText');
+  const spinner = document.getElementById('btnSpinner');
+
+  btn.disabled = true;
+  btnText.style.display = 'none';
+  spinner.style.display = 'block';
+
+  try {
+    // Upload de arquivos de referência (se houver)
+    let attachmentUrls = [];
+    if (selectedFiles.length > 0) {
+      for (const file of selectedFiles) {
+        const formData = new FormData();
+        formData.append('file', file);
+        const uploadRes = await fetch(API_BASE + '/api/upload', { method: 'POST', body: formData });
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json();
+          attachmentUrls.push({ name: file.name, url: uploadData.url });
+        }
+      }
+    }
+
+    // Criar solicitação
+    const payload = {
+      titulo: titulo,
+      instrucoes: instrucoes,
+      numSlides: parseInt(numSlides),
+      email: email,
+      brand: 'icds',
+      attachments: attachmentUrls
+    };
+
+    const res = await fetch(API_BASE + '/api/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      showResult(
+        'success',
+        'Solicitação Recebida',
+        'Sua apresentação <strong>"' + titulo + '"</strong> está sendo gerada. ' +
+        'O link de download será enviado para <strong>' + email + '</strong> em até <strong>15 minutos</strong>.' +
+        (data.requestId ? '<br><br>Protocolo: <strong>' + data.requestId + '</strong>' : '')
+      );
+      document.getElementById('slidesForm').style.display = 'none';
+    } else {
+      showResult('error', 'Erro na Solicitação', data.message || 'Ocorreu um erro. Tente novamente.');
+    }
+  } catch (err) {
+    showResult('error', 'Erro de Conexão', 'Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.');
+  } finally {
+    btn.disabled = false;
+    btnText.style.display = 'inline';
+    spinner.style.display = 'none';
+  }
+});
+
+function showResult(type, title, text) {
+  const card = document.getElementById('resultCard');
+  document.getElementById('resultIcon').textContent = type === 'success' ? '\u2705' : '\u274C';
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultText').innerHTML = text;
+  card.className = 'result-card visible' + (type === 'error' ? ' error' : '');
+}
+</script>
+<script src="/scripts/hub-auth.js" data-portal="icds"></script>
+</body>
+</html>
