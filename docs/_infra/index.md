@@ -128,23 +128,28 @@ title: Infraestrutura — Fonte Única da Verdade
 .empresa-header h4 { margin: 0; font-size: 1.05rem; color: #2d3445; border: none; }
 .dark .empresa-header h4 { color: var(--vp-c-text-1); }
 
-.copy-btn {
+.copy-page-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #334155, #1e293b);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.1);
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
   cursor: pointer;
-  font-weight: 700;
-  font-size: 0.92rem;
-  transition: all .2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all .15s ease;
+  font-family: inherit;
+  line-height: 1;
 }
-.copy-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
-.copy-btn.copied { background: linear-gradient(180deg, #059669, #047857); }
+.copy-page-btn:hover { background: #e2e8f0; color: #475569; border-color: #cbd5e1; }
+.copy-page-btn.copied { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+.dark .copy-page-btn { background: #1e293b; color: #94a3b8; border-color: #334155; }
+.dark .copy-page-btn:hover { background: #334155; color: #cbd5e1; border-color: #475569; }
+.dark .copy-page-btn.copied { background: #14532d; color: #86efac; border-color: #166534; }
+.copy-page-wrap { display: flex; justify-content: flex-end; margin-bottom: 8px; }
 
 .page-footer {
   background: #fff;
@@ -173,12 +178,13 @@ title: Infraestrutura — Fonte Única da Verdade
       automações, APIs externas, comunicação e assets. Projetada para consumo por humanos e agentes.
 </p>
 <p class="version" id="page-version">Atualizada em 27 de abril de 2026</p>
-<div style="margin-top: 16px;">
-<button class="copy-btn" id="copy-md-btn" onclick="copyFullMd()">
-<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        Copiar página inteira em Markdown
-</button>
 </div>
+
+<div class="copy-page-wrap">
+<button class="copy-page-btn" id="copy-md-btn" onclick="copyFullMd()">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+Copiar página
+</button>
 </div>
 
 <!-- 1. PRODUTOS DIGITAIS -->
@@ -791,10 +797,10 @@ Repositorio centralizado em assets.grupocsv.com (Cloudflare R2 + Worker csv-asse
   navigator.clipboard.writeText(md).then(() => {
     const btn = document.getElementById('copy-md-btn');
     btn.classList.add('copied');
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
     setTimeout(() => {
       btn.classList.remove('copied');
-      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar pagina inteira em Markdown';
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar p\u00e1gina';
     }, 3000);
   });
 }
