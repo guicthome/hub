@@ -165,6 +165,11 @@ head:
 
   <div class="icds-grid">
     <div class="icds-card featured">
+      <div class="icds-title">Gerador de Apresentações</div>
+      <span class="icds-date">Apresentações institucionais com branding ICDS</span>
+      <a href="/icds/slides.html" class="icds-link">Solicitar</a>
+    </div>
+    <div class="icds-card">
       <div class="icds-title">TEA: Data Set Indicadores</div>
       <span class="icds-date">Fevereiro-26</span>
       <a data-direct href="/p/tea-dataset/" class="icds-link">Acessar</a>
