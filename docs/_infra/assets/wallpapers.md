@@ -120,14 +120,7 @@ title: Wallpapers
 .dark .page-footer { background: var(--vp-c-bg-soft); border-color: var(--vp-c-divider); box-shadow: none; }
 .page-footer .small { font-size: 0.85rem; color: #5b6470; }
 
-.dark .dark .dark .copy-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 0;
-  margin-bottom: 12px;
-}
-.copy-bar-btn {
+.dark .dark .copy-bar-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;

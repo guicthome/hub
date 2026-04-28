@@ -7,14 +7,7 @@ title: Páginas Públicas — Infraestrutura Open Pages
 # Páginas Públicas (Open Pages)
 
 <style>
-.dark .dark .dark .copy-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 0;
-  margin-bottom: 12px;
-}
-.copy-bar-btn {
+.dark .dark .copy-bar-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;

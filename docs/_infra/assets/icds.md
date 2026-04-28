@@ -133,14 +133,7 @@ title: "Assets ICDS"
 .dark .rules-table th { background: var(--vp-c-bg-alt); color: var(--vp-c-text-1); }
 .dark .rules-table td { border-color: var(--vp-c-divider); }
 
-.dark .dark .dark .copy-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 0;
-  margin-bottom: 12px;
-}
-.copy-bar-btn {
+.dark .dark .copy-bar-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;

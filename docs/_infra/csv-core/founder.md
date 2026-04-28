@@ -2,14 +2,11 @@
 
 <style>
 .copy-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 0;
-  margin-bottom: 12px;
-  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  top: 72px;
+  right: 24px;
+  z-index: 20;
 }
-.dark .copy-bar { border-bottom-color: #374151; }
 .copy-bar-btn {
   display: inline-flex;
   align-items: center;

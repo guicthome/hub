@@ -129,11 +129,10 @@ title: Infraestrutura — Fonte Única da Verdade
 .dark .empresa-header h4 { color: var(--vp-c-text-1); }
 
 .copy-bar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 8px 0;
-  margin-bottom: 12px;
+  position: fixed;
+  top: 72px;
+  right: 24px;
+  z-index: 20;
 }
 .copy-bar-btn {
   display: inline-flex;
