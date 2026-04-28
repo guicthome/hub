@@ -26,7 +26,7 @@ export default defineConfig({
     siteTitle: 'Hub Grupo CSV',
 
     nav: [
-      { text: 'Início', link: '/' },
+      { text: 'In\u00EDcio', link: '/' },
       {
         text: 'Empresas',
         items: [
@@ -110,32 +110,54 @@ export default defineConfig({
       ],
       '/_infra/': [
         {
-          text: 'Infraestrutura Cognitiva',
+          text: 'Infraestrutura',
           items: [
-            { text: 'Visão Geral', link: '/_infra/' },
-            {
-              text: 'CSV Core',
-              collapsed: false,
-              items: [
-                { text: 'Definição', link: '/_infra/csv-core/definition' },
-                { text: 'Sistema de Identidade', link: '/_infra/csv-core/identity-system' },
-                { text: 'Assets', link: '/_infra/csv-core/assets' },
-                { text: 'Guia de Logos', link: '/_infra/assets/logo-usage-guide' },
-                { text: 'Playbook Hub', link: '/_infra/csv-core/playbook-hub' },
-                { text: 'Fundador', link: '/_infra/csv-core/founder' },
-              ]
-            },
-            { text: 'AxiaCare Mandate', link: '/_infra/axiacare/mandate' },
-            { text: 'RTAV\u2122', link: '/_infra/axiacare/rtav' },
-            { text: 'MedValor Mandate', link: '/_infra/medvalor/mandate' },
-            { text: 'TheraTech Mandate', link: '/_infra/thera/mandate' },
-            { text: 'Infraestrutura Técnica', link: '/_infra/technical-architecture' },
+            { text: 'Vis\u00e3o Geral (SSOT)', link: '/_infra/' },
+            { text: 'Arquitetura T\u00e9cnica', link: '/_infra/technical-architecture' },
             { text: 'AI Search', link: '/_infra/ai-search' },
-            { text: 'Páginas Públicas', link: '/_infra/public-pages' },
-            { text: 'Padrão de Footer', link: '/_infra/standards/footer' },
-            { text: 'Arquivo de Páginas', link: '/_infra/archive/' },
+            { text: 'P\u00e1ginas P\u00fablicas', link: '/_infra/public-pages' },
           ]
-        }
+        },
+        {
+          text: 'Ferramentas',
+          collapsed: false,
+          items: [
+            { text: 'Compass\u2122', link: '/_infra/ferramentas/compass' },
+            { text: 'Signal\u2122', link: '/_infra/ferramentas/signal' },
+            { text: 'Deck\u2122', link: '/_infra/ferramentas/deck' },
+            { text: 'Relay\u2122', link: '/_infra/ferramentas/relay' },
+            { text: 'RTAV\u2122', link: '/_infra/ferramentas/rtav' },
+          ]
+        },
+        {
+          text: 'CSV Core',
+          collapsed: false,
+          items: [
+            { text: 'Defini\u00e7\u00e3o', link: '/_infra/csv-core/definition' },
+            { text: 'Sistema de Identidade', link: '/_infra/csv-core/identity-system' },
+            { text: 'Assets', link: '/_infra/csv-core/assets' },
+            { text: 'Guia de Logos', link: '/_infra/assets/logo-usage-guide' },
+            { text: 'Playbook Hub', link: '/_infra/csv-core/playbook-hub' },
+            { text: 'Fundador', link: '/_infra/csv-core/founder' },
+          ]
+        },
+        {
+          text: 'Mandatos',
+          collapsed: true,
+          items: [
+            { text: 'AxiaCare\u00AE', link: '/_infra/axiacare/mandate' },
+            { text: 'MedValor\u00AE', link: '/_infra/medvalor/mandate' },
+            { text: 'TheraTech\u00AE', link: '/_infra/thera/mandate' },
+          ]
+        },
+        {
+          text: 'Padr\u00f5es',
+          collapsed: true,
+          items: [
+            { text: 'Padr\u00e3o de Footer', link: '/_infra/standards/footer' },
+            { text: 'Arquivo de P\u00e1ginas', link: '/_infra/archive/' },
+          ]
+        },
       ]
     },
 
@@ -144,19 +166,17 @@ export default defineConfig({
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/gui-thome' }
     ],
 
-
-
     search: {
       provider: 'local'
     },
 
     outline: {
-      label: 'Nesta página'
+      label: 'Nesta p\u00e1gina'
     },
 
     docFooter: {
       prev: 'Anterior',
-      next: 'Próximo'
+      next: 'Pr\u00f3ximo'
     },
 
     darkModeSwitchLabel: 'Tema',

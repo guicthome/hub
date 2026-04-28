@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Infraestrutura Cognitiva
+title: Infraestrutura — Fonte Única da Verdade
 ---
 
 <style scoped>
 .VPPage { padding: 0 !important; }
 
 .infra-page {
-  max-width: 1040px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 32px 24px 48px;
   background:
@@ -36,6 +36,7 @@ title: Infraestrutura Cognitiva
 }
 .dark .hero-section h1 { color: #5da9e0; }
 .hero-section .subtitle { font-size: 0.95rem; margin-top: 8px; line-height: 1.6; color: #5b6470; }
+.hero-section .version { font-size: 0.82rem; color: #94a3b8; margin-top: 6px; }
 
 .section-title {
   margin: 0 0 12px;
@@ -46,12 +47,48 @@ title: Infraestrutura Cognitiva
 .dark .section-title { color: var(--vp-c-text-1); }
 .section-desc { color: #5b6470; font-size: 0.92rem; margin-bottom: 16px; line-height: 1.6; }
 
+.subsection-title {
+  margin: 20px 0 8px;
+  color: #196396;
+  font-size: 1.05rem;
+  border: none;
+  font-weight: 700;
+}
+.dark .subsection-title { color: #5da9e0; }
+
+.infra-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+.infra-table th {
+  background: #f1f5f9;
+  color: #2d3445;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid #e2e8f0;
+}
+.dark .infra-table th { background: #1e2430; color: #e2e8f0; border-color: #334155; }
+.infra-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #374151;
+  vertical-align: top;
+}
+.dark .infra-table td { border-color: #334155; color: #d1d5db; }
+.infra-table tr:last-child td { border-bottom: none; }
+.infra-table code { font-size: 0.82rem; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+.dark .infra-table code { background: #1e2430; }
+
 .resource-grid {
   display: grid;
   gap: 14px;
   grid-template-columns: 1fr;
 }
 @media (min-width: 760px) { .resource-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .resource-grid.tri { grid-template-columns: 1fr 1fr 1fr; } }
 
 .resource-btn {
   display: flex;
@@ -78,6 +115,12 @@ title: Infraestrutura Cognitiva
 }
 .dark .resource-btn.secondary { background: linear-gradient(180deg, #2a3040, #1e2430); color: #ddd !important; }
 
+.resource-btn.axia { background: linear-gradient(180deg, #1d6fa0, #196396); }
+.resource-btn.medvalor { background: linear-gradient(180deg, #ea580c, #c2410c); }
+.resource-btn.thera { background: linear-gradient(180deg, #8B7CB5, #6B5B95); }
+.resource-btn.green { background: linear-gradient(180deg, #059669, #047857); }
+.resource-btn.dark-btn { background: linear-gradient(180deg, #334155, #1e293b); }
+
 .empresa-block { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,.08); }
 .dark .empresa-block { border-color: var(--vp-c-divider); }
 .empresa-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
@@ -85,9 +128,23 @@ title: Infraestrutura Cognitiva
 .empresa-header h4 { margin: 0; font-size: 1.05rem; color: #2d3445; border: none; }
 .dark .empresa-header h4 { color: var(--vp-c-text-1); }
 
-.resource-btn.axia { background: linear-gradient(180deg, #1d6fa0, #196396); }
-.resource-btn.medvalor { background: linear-gradient(180deg, #ea580c, #c2410c); }
-.resource-btn.thera { background: linear-gradient(180deg, #8B7CB5, #6B5B95); }
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #334155, #1e293b);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.1);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all .2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+.copy-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+.copy-btn.copied { background: linear-gradient(180deg, #059669, #047857); }
 
 .page-footer {
   background: #fff;
@@ -106,69 +163,639 @@ title: Infraestrutura Cognitiva
 </style>
 
 <div class="infra-page">
-  <div class="frame hero-section">
-    <h1>Infraestrutura Cognitiva</h1>
-    <p class="subtitle">
-      Este repositório contém a <strong>base de conhecimento estruturada</strong> do ecossistema Grupo CSV,
-      projetada para ser consumida tanto por humanos quanto por agentes de inteligência artificial.
-      Aqui estão os playbooks, mandatos, definições canônicas, identidade visual e regras operacionais
-      que orientam todas as decisões, automações e integrações do grupo.
-    </p>
-    <p class="subtitle">
-      Agentes de IA que interagem com o Grupo CSV devem consultar estes documentos como
-      <strong>fonte primária de verdade</strong> para nomenclaturas, tom de voz, estrutura organizacional,
-      domínios, emails oficiais e diretrizes de marca.
-    </p>
-  </div>
 
-  <div class="frame">
-    <h2 class="section-title">Definições do Grupo CSV</h2>
-    <p class="section-desc">Documentos fundacionais que definem o que é o Grupo CSV, seus princípios, manifesto e estrutura organizacional.</p>
-    <div class="resource-grid">
-      <a class="resource-btn" href="/_infra/csv-core/definition">Definições Canônicas</a>
-      <a class="resource-btn" href="/_infra/csv-core/founder">Perfil do Fundador</a>
+  <!-- HERO -->
+  <div class="frame hero-section">
+    <h1>Infraestrutura do Ecossistema Grupo CSV</h1>
+    <p class="subtitle">
+      <strong>Fonte Unica da Verdade (SSOT)</strong> de 100% da infraestrutura digital do Grupo CSV.
+      Cobre produtos, backend serverless, bancos de dados, storage, dominios, DNS, agentes de IA,
+      automacoes, APIs externas, comunicacao e assets. Projetada para consumo por humanos e agentes.
+    </p>
+    <p class="version" id="page-version">Atualizada em 27 de abril de 2026</p>
+    <div style="margin-top: 16px;">
+      <button class="copy-btn" id="copy-md-btn" onclick="copyFullMd()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar pagina inteira em Markdown
+      </button>
     </div>
   </div>
 
+  <!-- 1. PRODUTOS DIGITAIS -->
   <div class="frame">
-    <h2 class="section-title">Identidade e Assets</h2>
-    <p class="section-desc">Sistema de identidade visual, tokens de design, logos oficiais e materiais de marca para uso consistente em todas as plataformas.</p>
+    <h2 class="section-title">1. Produtos Digitais</h2>
+    <p class="section-desc">Ferramentas e plataformas proprias do ecossistema, cada uma com documentacao individual.</p>
+    <table class="infra-table">
+      <thead><tr><th>Produto</th><th>Funcao</th><th>URL</th><th>Hospedagem</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Compass™</strong></td><td>Publicacoes estrategicas (documentos tecnicos)</td><td><a href="https://hub.grupocsv.com/compass/">hub.grupocsv.com/compass/</a></td><td>GitHub Pages (VitePress)</td></tr>
+        <tr><td><strong>Signal™</strong></td><td>Boletim semanal de inteligencia</td><td><a href="https://hub.grupocsv.com/signal/">hub.grupocsv.com/signal/</a></td><td>GitHub Pages (VitePress)</td></tr>
+        <tr><td><strong>Deck™</strong></td><td>Painel de contexto ativo</td><td><a href="https://deck.grupocsv.com">deck.grupocsv.com</a></td><td>Cloudflare Pages</td></tr>
+        <tr><td><strong>Relay™</strong></td><td>Mensagens institucionais padronizadas</td><td><a href="https://relay.axcare.com.br">relay.axcare.com.br</a></td><td>Manus (React + TS + Tailwind)</td></tr>
+        <tr><td><strong>RTAV™</strong></td><td>Referencial Tecnico de Avaliacao por Valor</td><td><a href="https://rtav.axcare.app">rtav.axcare.app</a></td><td>Manus (React + TS + Tailwind)</td></tr>
+      </tbody>
+    </table>
+    <div class="resource-grid tri">
+      <a class="resource-btn" href="/_infra/ferramentas/compass">Compass™</a>
+      <a class="resource-btn" href="/_infra/ferramentas/signal">Signal™</a>
+      <a class="resource-btn green" href="/_infra/ferramentas/deck">Deck™</a>
+      <a class="resource-btn axia" href="/_infra/ferramentas/relay">Relay™</a>
+      <a class="resource-btn axia" href="/_infra/ferramentas/rtav">RTAV™</a>
+    </div>
+  </div>
+
+  <!-- 2. BACKEND SERVERLESS -->
+  <div class="frame">
+    <h2 class="section-title">2. Backend Serverless (Cloudflare Workers)</h2>
+    <p class="section-desc">Todos os Workers ativos no ecossistema, com rotas, bindings e funcao.</p>
+
+    <h3 class="subsection-title">Workers do Hub CSV</h3>
+    <table class="infra-table">
+      <thead><tr><th>Worker</th><th>Rota / Dominio</th><th>Bindings</th><th>Funcao</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv-gateway</code></td><td>api.grupocsv.com/*</td><td>D1: csv-hub, Secrets</td><td>API gateway central</td></tr>
+        <tr><td><code>csv-auth</code></td><td>csv-auth.guilherme-thom.workers.dev</td><td>D1: csv-hub, KV: csv-config, Secret</td><td>Autenticacao e sessoes (v3.2.0)</td></tr>
+        <tr><td><code>csv-ai</code></td><td>csv-ai.guilherme-thom.workers.dev</td><td>D1: csv-hub, Secret</td><td>Assistente IA contextual</td></tr>
+        <tr><td><code>csv-data</code></td><td>csv-data.guilherme-thom.workers.dev</td><td>D1: csv-hub, KV: csv-config</td><td>Dados e configuracoes</td></tr>
+        <tr><td><code>csv-cron</code></td><td>csv-cron.guilherme-thom.workers.dev</td><td>D1: csv-hub, KV: csv-config, Secret</td><td>Tarefas agendadas (v2.1)</td></tr>
+        <tr><td><code>csv-email</code></td><td>csv-email.guilherme-thom.workers.dev</td><td>Secret: RESEND_API_KEY</td><td>E-mail + submissions</td></tr>
+        <tr><td><code>csv-mail</code></td><td>mail-api.grupocsv.com/*</td><td>D1: csv-hub, Secrets</td><td>E-mail agentico (templates)</td></tr>
+        <tr><td><code>csv-webhook</code></td><td>csv-webhook.guilherme-thom.workers.dev</td><td>Secret</td><td>Webhooks</td></tr>
+        <tr><td><code>csv-propostas</code></td><td>csv-propostas.guilherme-thom.workers.dev</td><td>R2: csv-propostas, Secret</td><td>Propostas comerciais</td></tr>
+        <tr><td><code>csv-assets</code></td><td>assets.grupocsv.com/*</td><td>R2: csv-open-pages</td><td>Servico de assets estaticos</td></tr>
+        <tr><td><code>csv-open-pages</code></td><td>open.grupocsv.com/*</td><td>KV: csv-open-pages, R2: csv-open-pages</td><td>Paginas publicas com toggle</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Workers de Produtos</h3>
+    <table class="infra-table">
+      <thead><tr><th>Worker</th><th>Rota / Dominio</th><th>Bindings</th><th>Funcao</th></tr></thead>
+      <tbody>
+        <tr><td><code>deck-vision</code></td><td>deck-vision.guilherme-thom.workers.dev</td><td>Secret: OPENAI_API_KEY</td><td>Analise visual Deck (GPT-4o)</td></tr>
+        <tr><td><code>decks-worker</code></td><td>decks.grupocsv.com/*</td><td>R2: decks</td><td>Geracao e armazenamento de PPTX</td></tr>
+        <tr><td><code>tea-dataset-api</code></td><td>tea-dataset-api.guilherme-thom.workers.dev</td><td>D1: csv-hub, Secrets</td><td>Backend TEA (Data Set)</td></tr>
+        <tr><td><code>thera-contact</code></td><td>api.thera.tech/*</td><td>Secrets</td><td>Formulario de contato Thera</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Workers de Agentes e Automacoes</h3>
+    <table class="infra-table">
+      <thead><tr><th>Worker</th><th>Rota / Dominio</th><th>Bindings</th><th>Funcao</th></tr></thead>
+      <tbody>
+        <tr><td><code>whatsapp-webhook</code></td><td>webhook.grupocsv.com/*</td><td>D1: whatsapp-brain</td><td>Webhook WhatsApp (WABA)</td></tr>
+        <tr><td><code>extensio-mcp</code></td><td>extensio-mcp.guilherme-thom.workers.dev</td><td>D1: csv-hub, D1: whatsapp-brain, Secrets</td><td>MCP Server Extensio</td></tr>
+        <tr><td><code>extensio-daily-pipeline</code></td><td>extensio-daily-pipeline.guilherme-thom.workers.dev</td><td>Secrets</td><td>Pipeline diario Extensio</td></tr>
+        <tr><td><code>agent-context-bridge</code></td><td>agent-context-bridge.guilherme-thom.workers.dev</td><td>Secrets: SUPABASE_URL, SUPABASE_KEY</td><td>MCP de contexto entre agentes (ACB)</td></tr>
+        <tr><td><code>manus-webhook</code></td><td>manus-webhook.guilherme-thom.workers.dev</td><td>Secrets</td><td>Receptor de webhooks do Manus</td></tr>
+        <tr><td><code>resend-webhook</code></td><td>resend-webhook.guilherme-thom.workers.dev</td><td>Secrets</td><td>Webhook Resend para Supabase</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Workers Externos (Criale, CRT, Digital Deck)</h3>
+    <table class="infra-table">
+      <thead><tr><th>Worker</th><th>Rota / Dominio</th><th>Funcao</th></tr></thead>
+      <tbody>
+        <tr><td><code>criale-ai</code></td><td>criale-ai.guilherme-thom.workers.dev</td><td>IA para Criale</td></tr>
+        <tr><td><code>criale-todo</code></td><td>criale-todo.guilherme-thom.workers.dev</td><td>Tarefas Criale</td></tr>
+        <tr><td><code>criale-core</code></td><td>criale-core.guilherme-thom.workers.dev</td><td>MCP Server do Criale Core</td></tr>
+        <tr><td><code>crt</code></td><td>crt.guilherme-thom.workers.dev</td><td>CRT</td></tr>
+        <tr><td><code>digital-deck-api</code></td><td>digital-deck-api.guilherme-thom.workers.dev</td><td>API de leads, gates e campanhas</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 12px;">
+      <a class="resource-btn dark-btn" href="/_infra/technical-architecture" style="display:inline-flex; max-width: 400px;">Arquitetura Tecnica Completa</a>
+    </div>
+  </div>
+
+  <!-- 3. BANCOS DE DADOS -->
+  <div class="frame">
+    <h2 class="section-title">3. Bancos de Dados (D1)</h2>
+    <p class="section-desc">Bancos SQLite serverless na Cloudflare.</p>
+    <table class="infra-table">
+      <thead><tr><th>Banco</th><th>ID</th><th>Tamanho</th><th>Tabelas</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv-hub</code></td><td><code>6fac03eb-4c71-40d5-8edf-7fb0f2e27d37</code></td><td>1.2 MB</td><td>21</td><td>Hub principal (auth, logs, NF, TEA, propostas, e-mail)</td></tr>
+        <tr><td><code>whatsapp-brain</code></td><td><code>db907899-3b4d-43b3-b2d4-f429bad2a88a</code></td><td>98 MB</td><td>4</td><td>Cerebro do WhatsApp (Extensio)</td></tr>
+        <tr><td><code>ccrt</code></td><td><code>8adfc2da-379f-4983-a19c-4d089b5e0fdc</code></td><td>52 KB</td><td>-</td><td>CRT</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Tabelas do csv-hub (21)</h3>
+    <table class="infra-table">
+      <thead><tr><th>Tabela</th><th>Descricao</th></tr></thead>
+      <tbody>
+        <tr><td><code>auth_sessions</code></td><td>Sessoes ativas (token, tenant_id, user_email, expires_at)</td></tr>
+        <tr><td><code>access_logs</code></td><td>Logs de acesso (tenant_id, user_email, action, ip, device, country)</td></tr>
+        <tr><td><code>access_requests</code></td><td>Solicitacoes pendentes (name, email, tenant_id, status)</td></tr>
+        <tr><td><code>users</code></td><td>Usuarios (email, name, password_hash, status)</td></tr>
+        <tr><td><code>user_tenants</code></td><td>Relacao usuario-tenant (multi-tenant)</td></tr>
+        <tr><td><code>config</code></td><td>Configuracoes do sistema</td></tr>
+        <tr><td><code>nf_tomadores</code></td><td>Tomadores de servico para NF</td></tr>
+        <tr><td><code>nf_servicos</code></td><td>Servicos prestados para NF</td></tr>
+        <tr><td><code>nf_solicitacoes</code></td><td>Solicitacoes de NF emitidas</td></tr>
+        <tr><td><code>nf_dados_bancarios</code></td><td>Dados bancarios</td></tr>
+        <tr><td><code>tea_submissions</code></td><td>Submissoes dataset TEA</td></tr>
+        <tr><td><code>tea_answers</code></td><td>Respostas dataset TEA</td></tr>
+        <tr><td><code>tea_users</code></td><td>Usuarios TEA</td></tr>
+        <tr><td><code>tea_organizations</code></td><td>Organizacoes TEA</td></tr>
+        <tr><td><code>tea_audit_logs</code></td><td>Auditoria TEA</td></tr>
+        <tr><td><code>proposals</code></td><td>Propostas comerciais</td></tr>
+        <tr><td><code>email_logs</code></td><td>Logs de e-mails</td></tr>
+        <tr><td><code>api_logs</code></td><td>Logs de API</td></tr>
+        <tr><td><code>form_submissions</code></td><td>Submissoes de formularios</td></tr>
+        <tr><td><code>webhook_events</code></td><td>Eventos webhook</td></tr>
+        <tr><td><code>_cf_KV</code></td><td>Tabela interna Cloudflare</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. KV E R2 -->
+  <div class="frame">
+    <h2 class="section-title">4. Key-Value Store (KV) e Object Storage (R2)</h2>
+
+    <h3 class="subsection-title">KV Namespaces</h3>
+    <table class="infra-table">
+      <thead><tr><th>Namespace</th><th>ID</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv-config</code></td><td><code>dc02d334d6e04075a7adf7e801e86d7e</code></td><td>Senhas de portais, webhooks, configuracoes</td></tr>
+        <tr><td><code>csv-open-pages</code></td><td><code>7a21d052398e4724aabb3d3c62372d12</code></td><td>Metadados de paginas publicas (Open Pages)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">R2 Buckets</h3>
+    <table class="infra-table">
+      <thead><tr><th>Bucket</th><th>Dominio Publico</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv-propostas</code></td><td>propostas.axcare.com.br</td><td>Propostas comerciais (PDF)</td></tr>
+        <tr><td><code>hub-csv-knowledge</code></td><td>-</td><td>Base vetorial para AI Search (191 objetos)</td></tr>
+        <tr><td><code>csv-open-pages</code></td><td>-</td><td>Open Pages + Assets estaticos</td></tr>
+        <tr><td><code>decks</code></td><td>decks.grupocsv.com</td><td>Apresentacoes PPTX geradas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. DOMINIOS E DNS -->
+  <div class="frame">
+    <h2 class="section-title">5. Dominios e DNS</h2>
+    <p class="section-desc">Todas as zonas DNS gerenciadas na Cloudflare com SSL Full Strict.</p>
+
+    <h3 class="subsection-title">Zonas Cloudflare</h3>
+    <table class="infra-table">
+      <thead><tr><th>Dominio</th><th>Zone ID</th></tr></thead>
+      <tbody>
+        <tr><td>grupocsv.com</td><td><code>8a8f9adb4965260df64447c732f9ebbd</code></td></tr>
+        <tr><td>guithome.com.br</td><td><code>63a6c58d3f7aec9fa79be5fc0bb4b7be</code></td></tr>
+        <tr><td>axcare.com.br</td><td><code>2a2af254f84a3dbf588e4c7f3a0a3c8e</code></td></tr>
+        <tr><td>axcare.app</td><td><code>57f5f50766ac9713f8682d16d53331fb</code></td></tr>
+        <tr><td>axcare.ai</td><td><code>246edfbaeffc09b741a1bb2e830d52a9</code></td></tr>
+        <tr><td>thera.tech</td><td><code>3fdeeb868c665ec33947eb6b51be75b8</code></td></tr>
+        <tr><td>thera.med.br</td><td><code>c0c702aabca32d3c57e1718eade9f2f0</code></td></tr>
+        <tr><td>theramed.ai</td><td><code>013c68695048d30445273ade3e5f4ac4</code></td></tr>
+        <tr><td>medvalor.med.br</td><td><code>25823a280daf10098aadfc42904e4f85</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Subdominios Principais</h3>
+    <table class="infra-table">
+      <thead><tr><th>Subdominio</th><th>Destino</th><th>Funcao</th></tr></thead>
+      <tbody>
+        <tr><td>hub.grupocsv.com</td><td>grupocsv.github.io</td><td>Hub principal (GitHub Pages)</td></tr>
+        <tr><td>api.grupocsv.com</td><td>Worker csv-gateway</td><td>API gateway</td></tr>
+        <tr><td>mail-api.grupocsv.com</td><td>Worker csv-mail</td><td>E-mail agentico</td></tr>
+        <tr><td>webhook.grupocsv.com</td><td>Worker whatsapp-webhook</td><td>Webhook WhatsApp</td></tr>
+        <tr><td>open.grupocsv.com</td><td>Worker csv-open-pages</td><td>Paginas publicas</td></tr>
+        <tr><td>assets.grupocsv.com</td><td>Worker csv-assets</td><td>Assets estaticos</td></tr>
+        <tr><td>deck.grupocsv.com</td><td>Cloudflare Pages</td><td>Deck™</td></tr>
+        <tr><td>decks.grupocsv.com</td><td>Worker decks-worker</td><td>Geracao de PPTX</td></tr>
+        <tr><td>pay.grupocsv.com</td><td>Stripe</td><td>Checkout Criale</td></tr>
+        <tr><td>propostas.axcare.com.br</td><td>R2 public</td><td>Propostas PDF</td></tr>
+        <tr><td>relay.axcare.com.br</td><td>cname.manus.space</td><td>Relay™</td></tr>
+        <tr><td>rtav.axcare.app</td><td>cname.manus.space</td><td>RTAV™</td></tr>
+        <tr><td>api.thera.tech</td><td>Worker thera-contact</td><td>API Thera</td></tr>
+        <tr><td>thera.tech</td><td>cname.manus.space</td><td>Site Thera</td></tr>
+        <tr><td>spectra.thera.tech</td><td>cname.manus.space</td><td>Spectra AI</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 6. AGENTES DE IA -->
+  <div class="frame">
+    <h2 class="section-title">6. Agentes de IA</h2>
+    <p class="section-desc">Tres agentes coordenados operam o ecossistema digital do Grupo CSV.</p>
+    <table class="infra-table">
+      <thead><tr><th>Agente</th><th>Funcao</th><th>Infraestrutura</th><th>Comunicacao</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Manus</strong></td><td>Agente principal: tarefas complexas, desenvolvimento, deploy, pesquisa</td><td>Sandbox isolado (Manus Cloud)</td><td>API Manus, Webhook, MCP</td></tr>
+        <tr><td><strong>OpenClaw</strong></td><td>Agente autonomo 24/7: WhatsApp (Extensio), heartbeat, cron jobs</td><td>VPS Hostinger (extensio-vps)</td><td>WhatsApp (WABA), API Manus</td></tr>
+        <tr><td><strong>Claude</strong></td><td>Agente de desenvolvimento: coding sessions locais</td><td>Claude Code (local)</td><td>Terminal, GitHub</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Ponte de Contexto (ACB)</h3>
+    <p class="section-desc">A comunicacao entre agentes e feita via Agent Context Bridge (ACB) no Supabase do OpenClaw. O Worker <code>agent-context-bridge</code> expoe ferramentas MCP: <code>log_activity</code>, <code>log_file</code>, <code>log_decision</code>, <code>get_recent_activities</code>, <code>get_project_context</code>, <code>search_activities</code>.</p>
+
+    <h3 class="subsection-title">Extensio (MCP Server)</h3>
+    <p class="section-desc">O Worker <code>extensio-mcp</code> e o servidor MCP do Extensio, com acesso a D1 (csv-hub, whatsapp-brain), AI Search, Notion, OpenAI e Gemini. O <code>extensio-daily-pipeline</code> executa o pipeline diario com envio de e-mail via csv-mail.</p>
+  </div>
+
+  <!-- 7. AI SEARCH -->
+  <div class="frame">
+    <h2 class="section-title">7. AI Search (Busca Semantica)</h2>
+    <p class="section-desc">Cloudflare AutoRAG indexa automaticamente todo o conteudo do Hub para busca semantica via API REST.</p>
+    <table class="infra-table">
+      <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Instancia</td><td><code>hub-csv</code></td></tr>
+        <tr><td>Bucket R2</td><td><code>hub-csv-knowledge</code> (191 objetos, 384 vetores)</td></tr>
+        <tr><td>Embedding</td><td>qwen3-embedding-0.6b (2048 tokens/chunk, 10% overlap)</td></tr>
+        <tr><td>AI Gateway</td><td><code>csv_ai_gateway</code></td></tr>
+        <tr><td>Sincronizacao</td><td>Automatica: push na main → GitHub Actions → R2 → re-index</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 12px;">
+      <a class="resource-btn secondary" href="/_infra/ai-search">Documentacao Completa do AI Search</a>
+    </div>
+  </div>
+
+  <!-- 8. APIS EXTERNAS -->
+  <div class="frame">
+    <h2 class="section-title">8. APIs e Servicos Externos</h2>
+    <table class="infra-table">
+      <thead><tr><th>Servico</th><th>Uso</th><th>Detalhes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Resend</strong></td><td>E-mail transacional</td><td>Dominios: mail.grupocsv.com, thera.tech, veritas.thera.tech, spectra.thera.tech</td></tr>
+        <tr><td><strong>OpenAI</strong></td><td>GPT-4o (deck-vision, varredura ortografica, csv-ai)</td><td>Via Cloudflare AI Gateway</td></tr>
+        <tr><td><strong>Google Gemini</strong></td><td>Extensio MCP, Daily Pipeline</td><td>API direta</td></tr>
+        <tr><td><strong>Stripe</strong></td><td>Pagamentos Criale</td><td>Checkout: pay.grupocsv.com, Webhook: Supabase</td></tr>
+        <tr><td><strong>Supabase</strong></td><td>Backend Criale + Repositorio clinico AxiaCare</td><td>Projetos: criale, axiacare</td></tr>
+        <tr><td><strong>GitHub API</strong></td><td>Changelog (csv-cron), deploy, sync R2</td><td>GitHub Actions + API REST</td></tr>
+        <tr><td><strong>Notion API</strong></td><td>Extensio, Daily Pipeline, Dicionario Oficial</td><td>Via NOTION_TOKEN</td></tr>
+        <tr><td><strong>Manus API</strong></td><td>Criacao de tarefas, polling, webhooks</td><td>OpenClaw → Manus via extensio__manus_create_task</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 9. COMUNICACAO -->
+  <div class="frame">
+    <h2 class="section-title">9. Comunicacao</h2>
+
+    <h3 class="subsection-title">WhatsApp Business API (WABA)</h3>
+    <p class="section-desc">O Extensio (OpenClaw) gerencia o WhatsApp do Grupo CSV via WABA. O webhook <code>webhook.grupocsv.com</code> recebe mensagens e armazena no D1 <code>whatsapp-brain</code>. Templates Meta sao gerenciados via Zapier MCP.</p>
+
+    <h3 class="subsection-title">E-mail</h3>
+    <table class="infra-table">
+      <thead><tr><th>Worker</th><th>Endpoint</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>csv-email</code></td><td>csv-email.guilherme-thom.workers.dev</td><td>E-mail generico + submissions</td></tr>
+        <tr><td><code>csv-mail</code></td><td>mail-api.grupocsv.com</td><td>E-mail agentico com templates (Signal, relatorios, notificacoes)</td></tr>
+      </tbody>
+    </table>
+    <p class="section-desc">Dominio de envio: <code>mail.grupocsv.com</code> (Resend). Autenticacao csv-mail: Bearer token via header Authorization.</p>
+  </div>
+
+  <!-- 10. AUTENTICACAO -->
+  <div class="frame">
+    <h2 class="section-title">10. Autenticacao</h2>
+    <p class="section-desc">Sistema multi-tenant com dois fluxos distintos.</p>
+    <table class="infra-table">
+      <thead><tr><th>Tipo</th><th>Portais</th><th>Metodo</th></tr></thead>
+      <tbody>
+        <tr><td>Senha fixa</td><td>AxiaCare, Thera, MedValor</td><td>Senha unica por portal (armazenada no KV csv-config)</td></tr>
+        <tr><td>Login individual</td><td>Unimed, Unihealth, ICDS</td><td>E-mail + senha, com fluxo de solicitacao e aprovacao</td></tr>
+        <tr><td>PIN local</td><td>Deck™</td><td>PIN 4 digitos (SHA-256 no localStorage)</td></tr>
+      </tbody>
+    </table>
+    <p class="section-desc">Script client-side: <code>hub-auth.js</code> (v2.4.0) incluido em toda pagina protegida via <code>&lt;script src="/scripts/hub-auth.js" data-portal="{id}"&gt;</code>. Painel Admin: <code>hub.grupocsv.com/admin/</code> (8 abas: usuarios, senhas, links, logs, deck, feedback, admins, datasets).</p>
+  </div>
+
+  <!-- 11. REPOSITORIOS -->
+  <div class="frame">
+    <h2 class="section-title">11. Repositorios e Deploy</h2>
+    <table class="infra-table">
+      <thead><tr><th>Repositorio</th><th>Conteudo</th><th>Deploy</th></tr></thead>
+      <tbody>
+        <tr><td><code>grupocsv/hub</code></td><td>Frontend: VitePress + HTML + portais + compliance + admin + deck</td><td>GitHub Pages (Actions)</td></tr>
+        <tr><td><code>grupocsv/backend</code></td><td>Workers: csv-auth, csv-gateway, csv-data, csv-email, csv-propostas, tea-dataset-api</td><td>Wrangler (manual)</td></tr>
+        <tr><td><code>grupocsv/csv-open-pages</code></td><td>Worker + admin do Open Pages</td><td>Wrangler (manual)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-title">Pipeline de Deploy (Hub)</h3>
+    <p class="section-desc">Push na <code>main</code> dispara dois workflows: (1) Build VitePress + copia modulos estaticos + deploy GitHub Pages; (2) Sincroniza conteudo para R2 <code>hub-csv-knowledge</code> e re-indexa o AI Search.</p>
+  </div>
+
+  <!-- 12. ASSETS -->
+  <div class="frame">
+    <h2 class="section-title">12. Assets Visuais</h2>
+    <p class="section-desc">Repositorio centralizado de assets em <code>assets.grupocsv.com</code> (Cloudflare R2 + Worker csv-assets).</p>
+    <table class="infra-table">
+      <thead><tr><th>Entidade</th><th>Cor Principal</th><th>Formatos</th></tr></thead>
+      <tbody>
+        <tr><td>Grupo CSV</td><td>#196396 (azul) + #2DBF7F (verde)</td><td>PNG, SVG, JPG, PDF, AI</td></tr>
+        <tr><td>AxiaCare</td><td>#196396 (azul)</td><td>PNG, SVG, JPG, PDF, AI</td></tr>
+        <tr><td>MedValor</td><td>Azul + Laranja</td><td>PNG, SVG, JPG, PDF, AI</td></tr>
+        <tr><td>TheraTech</td><td>#6B5B95 (roxo)</td><td>PNG, SVG, JPG, PDF, AI</td></tr>
+        <tr><td>Unimed GV</td><td>#00995d (verde)</td><td>PNG, SVG</td></tr>
+        <tr><td>Unihealth</td><td>#013d19 (verde escuro)</td><td>PNG, SVG</td></tr>
+      </tbody>
+    </table>
     <div class="resource-grid">
       <a class="resource-btn secondary" href="/_infra/csv-core/identity-system">Sistema de Identidade Visual</a>
       <a class="resource-btn secondary" href="/_infra/csv-core/assets">Central de Assets</a>
     </div>
   </div>
 
+  <!-- 13. DEFINICOES E MANDATOS -->
   <div class="frame">
-    <h2 class="section-title">Mandatos por Empresa</h2>
-    <p class="section-desc">Cada empresa do ecossistema possui um mandato que define seu escopo de atuação, público-alvo, domínios oficiais e diretrizes específicas para agentes de IA.</p>
+    <h2 class="section-title">13. Definicoes e Mandatos</h2>
+    <p class="section-desc">Documentos fundacionais que definem o Grupo CSV, suas empresas e parceiros.</p>
+    <div class="resource-grid">
+      <a class="resource-btn" href="/_infra/csv-core/definition">Definicoes Canonicas</a>
+      <a class="resource-btn" href="/_infra/csv-core/founder">Perfil do Fundador</a>
+    </div>
 
-<div class="empresa-block" style="border-top: none; margin-top: 0; padding-top: 0;"><div class="empresa-header"><img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare"><h4>AxiaCare® — Consultoria e Governança Clínica</h4></div><div class="resource-grid"><a class="resource-btn axia" href="/_infra/axiacare/mandate">Mandato AxiaCare</a></div></div>
-<div class="empresa-block"><div class="empresa-header"><img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor"><h4>MedValor® — Educação e Capacitação</h4></div><div class="resource-grid"><a class="resource-btn medvalor" href="/_infra/medvalor/mandate">Mandato MedValor</a></div></div>
+<div class="empresa-block" style="border-top: none; margin-top: 16px; padding-top: 0;"><div class="empresa-header"><img src="/visual-identity/axiacare/logo/png/axiacare_logo_horizontal_full-color_positive.png" alt="AxiaCare"><h4>AxiaCare® — Consultoria e Governanca Clinica</h4></div><div class="resource-grid"><a class="resource-btn axia" href="/_infra/axiacare/mandate">Mandato AxiaCare</a></div></div>
+<div class="empresa-block"><div class="empresa-header"><img src="/visual-identity/medvalor/logo/png/medvalor_logo_horizontal_orange_positive.png" alt="MedValor"><h4>MedValor® — Educacao e Capacitacao</h4></div><div class="resource-grid"><a class="resource-btn medvalor" href="/_infra/medvalor/mandate">Mandato MedValor</a></div></div>
 <div class="empresa-block"><div class="empresa-header"><img src="/visual-identity/thera/logo/png/thera_logo_horizontal_purple_positive.png" alt="TheraTech"><h4>TheraTech® — Desenvolvimento de Software e IA</h4></div><div class="resource-grid"><a class="resource-btn thera" href="/_infra/thera/mandate">Mandato TheraTech</a></div></div>
   </div>
 
+  <!-- 14. RECURSOS TRANSVERSAIS -->
   <div class="frame">
-    <h2 class="section-title">Infraestrutura Técnica</h2>
-    <p class="section-desc">Documentação completa da arquitetura de backend: workers, banco de dados, rotas de API, fluxos de autenticação e tarefas agendadas.</p>
-    <div class="resource-grid">
-      <a class="resource-btn" href="/_infra/technical-architecture">Arquitetura Técnica Completa</a>
-    </div>
-  </div>
-
-  <div class="frame">
-    <h2 class="section-title">Recursos Transversais</h2>
-    <p class="section-desc">Compliance, governança e documentação aplicável a todo o ecossistema.</p>
-    <div class="resource-grid">
+    <h2 class="section-title">14. Recursos Transversais</h2>
+    <div class="resource-grid tri">
+      <a class="resource-btn secondary" href="/_infra/public-pages">Paginas Publicas (Open Pages)</a>
       <a class="resource-btn secondary" href="/compliance/">Central de Compliance</a>
-      <a class="resource-btn secondary" href="https://github.com/grupocsv/hub" target="_blank">Repositório GitHub</a>
+      <a class="resource-btn secondary" href="/_infra/standards/footer">Padrao de Footer</a>
+      <a class="resource-btn secondary" href="/_infra/archive/">Arquivo de Paginas</a>
+      <a class="resource-btn secondary" href="https://github.com/grupocsv/hub" target="_blank">Repositorio GitHub</a>
+      <a class="resource-btn secondary" href="/_infra/csv-core/playbook-hub">Playbook Hub</a>
     </div>
   </div>
 
-  <div style="text-align:center; margin-bottom:24px;"><a href="/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#196396; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a></div>
+  <!-- FOOTER -->
+  <div style="text-align:center; margin-bottom:24px;">
+    <a href="/" style="display:inline-flex; align-items:center; gap:8px; padding:10px 24px; border-radius:10px; background:#196396; color:white; text-decoration:none; font-weight:600; font-size:0.9rem; transition:all 0.2s;">← Voltar ao Hub</a>
+  </div>
 
   <div class="page-footer">
-    <strong>Grupo CSV — Infraestrutura Cognitiva</strong>
-    <div class="small">© 2026 Grupo CSV. Cuidados em Saúde com Valor. Todos os direitos reservados.</div>
+    <strong>Grupo CSV — Infraestrutura do Ecossistema</strong>
+    <div class="small">© 2026 Grupo CSV. Cuidados em Saude com Valor. Todos os direitos reservados.</div>
   </div>
 </div>
+
+<script>
+function copyFullMd() {
+  const md = `# Infraestrutura do Ecossistema Grupo CSV — SSOT
+
+Fonte Unica da Verdade (SSOT) de 100% da infraestrutura digital do Grupo CSV. Atualizada em 27 de abril de 2026.
+
+---
+
+## 1. Produtos Digitais
+
+| Produto | Funcao | URL | Hospedagem |
+|---|---|---|---|
+| Compass™ | Publicacoes estrategicas | hub.grupocsv.com/compass/ | GitHub Pages (VitePress) |
+| Signal™ | Boletim semanal de inteligencia | hub.grupocsv.com/signal/ | GitHub Pages (VitePress) |
+| Deck™ | Painel de contexto ativo | deck.grupocsv.com | Cloudflare Pages |
+| Relay™ | Mensagens institucionais padronizadas | relay.axcare.com.br | Manus (React + TS + Tailwind) |
+| RTAV™ | Referencial Tecnico de Avaliacao por Valor | rtav.axcare.app | Manus (React + TS + Tailwind) |
+
+---
+
+## 2. Backend Serverless (Cloudflare Workers)
+
+### Workers do Hub CSV
+
+| Worker | Rota / Dominio | Bindings | Funcao |
+|---|---|---|---|
+| csv-gateway | api.grupocsv.com/* | D1: csv-hub, Secrets | API gateway central |
+| csv-auth | csv-auth.guilherme-thom.workers.dev | D1: csv-hub, KV: csv-config, Secret | Autenticacao e sessoes (v3.2.0) |
+| csv-ai | csv-ai.guilherme-thom.workers.dev | D1: csv-hub, Secret | Assistente IA contextual |
+| csv-data | csv-data.guilherme-thom.workers.dev | D1: csv-hub, KV: csv-config | Dados e configuracoes |
+| csv-cron | csv-cron.guilherme-thom.workers.dev | D1: csv-hub, KV: csv-config, Secret | Tarefas agendadas (v2.1) |
+| csv-email | csv-email.guilherme-thom.workers.dev | Secret: RESEND_API_KEY | E-mail + submissions |
+| csv-mail | mail-api.grupocsv.com/* | D1: csv-hub, Secrets | E-mail agentico (templates) |
+| csv-webhook | csv-webhook.guilherme-thom.workers.dev | Secret | Webhooks |
+| csv-propostas | csv-propostas.guilherme-thom.workers.dev | R2: csv-propostas, Secret | Propostas comerciais |
+| csv-assets | assets.grupocsv.com/* | R2: csv-open-pages | Servico de assets estaticos |
+| csv-open-pages | open.grupocsv.com/* | KV: csv-open-pages, R2: csv-open-pages | Paginas publicas com toggle |
+
+### Workers de Produtos
+
+| Worker | Rota / Dominio | Bindings | Funcao |
+|---|---|---|---|
+| deck-vision | deck-vision.guilherme-thom.workers.dev | Secret: OPENAI_API_KEY | Analise visual Deck (GPT-4o) |
+| decks-worker | decks.grupocsv.com/* | R2: decks | Geracao e armazenamento de PPTX |
+| tea-dataset-api | tea-dataset-api.guilherme-thom.workers.dev | D1: csv-hub, Secrets | Backend TEA |
+| thera-contact | api.thera.tech/* | Secrets | Formulario de contato Thera |
+
+### Workers de Agentes e Automacoes
+
+| Worker | Rota / Dominio | Bindings | Funcao |
+|---|---|---|---|
+| whatsapp-webhook | webhook.grupocsv.com/* | D1: whatsapp-brain | Webhook WhatsApp (WABA) |
+| extensio-mcp | extensio-mcp.guilherme-thom.workers.dev | D1: csv-hub, D1: whatsapp-brain, Secrets | MCP Server Extensio |
+| extensio-daily-pipeline | extensio-daily-pipeline.guilherme-thom.workers.dev | Secrets | Pipeline diario Extensio |
+| agent-context-bridge | agent-context-bridge.guilherme-thom.workers.dev | Secrets: SUPABASE_URL, SUPABASE_KEY | MCP de contexto entre agentes (ACB) |
+| manus-webhook | manus-webhook.guilherme-thom.workers.dev | Secrets | Receptor de webhooks do Manus |
+| resend-webhook | resend-webhook.guilherme-thom.workers.dev | Secrets | Webhook Resend para Supabase |
+
+### Workers Externos (Criale, CRT, Digital Deck)
+
+| Worker | Rota / Dominio | Funcao |
+|---|---|---|
+| criale-ai | criale-ai.guilherme-thom.workers.dev | IA para Criale |
+| criale-todo | criale-todo.guilherme-thom.workers.dev | Tarefas Criale |
+| criale-core | criale-core.guilherme-thom.workers.dev | MCP Server do Criale Core |
+| crt | crt.guilherme-thom.workers.dev | CRT |
+| digital-deck-api | digital-deck-api.guilherme-thom.workers.dev | API de leads, gates e campanhas |
+
+---
+
+## 3. Bancos de Dados (D1)
+
+| Banco | ID | Tamanho | Tabelas | Uso |
+|---|---|---|---|---|
+| csv-hub | 6fac03eb-4c71-40d5-8edf-7fb0f2e27d37 | 1.2 MB | 21 | Hub principal (auth, logs, NF, TEA, propostas, e-mail) |
+| whatsapp-brain | db907899-3b4d-43b3-b2d4-f429bad2a88a | 98 MB | 4 | Cerebro do WhatsApp (Extensio) |
+| ccrt | 8adfc2da-379f-4983-a19c-4d089b5e0fdc | 52 KB | - | CRT |
+
+### Tabelas do csv-hub (21)
+
+auth_sessions, access_logs, access_requests, users, user_tenants, config, nf_tomadores, nf_servicos, nf_solicitacoes, nf_dados_bancarios, tea_submissions, tea_answers, tea_users, tea_organizations, tea_audit_logs, proposals, email_logs, api_logs, form_submissions, webhook_events, _cf_KV
+
+---
+
+## 4. Key-Value Store (KV) e Object Storage (R2)
+
+### KV Namespaces
+
+| Namespace | ID | Uso |
+|---|---|---|
+| csv-config | dc02d334d6e04075a7adf7e801e86d7e | Senhas de portais, webhooks, configuracoes |
+| csv-open-pages | 7a21d052398e4724aabb3d3c62372d12 | Metadados de paginas publicas (Open Pages) |
+
+### R2 Buckets
+
+| Bucket | Dominio Publico | Uso |
+|---|---|---|
+| csv-propostas | propostas.axcare.com.br | Propostas comerciais (PDF) |
+| hub-csv-knowledge | - | Base vetorial para AI Search (191 objetos) |
+| csv-open-pages | - | Open Pages + Assets estaticos |
+| decks | decks.grupocsv.com | Apresentacoes PPTX geradas |
+
+---
+
+## 5. Dominios e DNS
+
+### Zonas Cloudflare
+
+grupocsv.com (8a8f9adb4965260df64447c732f9ebbd), guithome.com.br (63a6c58d3f7aec9fa79be5fc0bb4b7be), axcare.com.br (2a2af254f84a3dbf588e4c7f3a0a3c8e), axcare.app (57f5f50766ac9713f8682d16d53331fb), axcare.ai (246edfbaeffc09b741a1bb2e830d52a9), thera.tech (3fdeeb868c665ec33947eb6b51be75b8), thera.med.br (c0c702aabca32d3c57e1718eade9f2f0), theramed.ai (013c68695048d30445273ade3e5f4ac4), medvalor.med.br (25823a280daf10098aadfc42904e4f85)
+
+### Subdominios Principais
+
+| Subdominio | Destino | Funcao |
+|---|---|---|
+| hub.grupocsv.com | grupocsv.github.io | Hub principal (GitHub Pages) |
+| api.grupocsv.com | Worker csv-gateway | API gateway |
+| mail-api.grupocsv.com | Worker csv-mail | E-mail agentico |
+| webhook.grupocsv.com | Worker whatsapp-webhook | Webhook WhatsApp |
+| open.grupocsv.com | Worker csv-open-pages | Paginas publicas |
+| assets.grupocsv.com | Worker csv-assets | Assets estaticos |
+| deck.grupocsv.com | Cloudflare Pages | Deck |
+| decks.grupocsv.com | Worker decks-worker | Geracao de PPTX |
+| pay.grupocsv.com | Stripe | Checkout Criale |
+| propostas.axcare.com.br | R2 public | Propostas PDF |
+| relay.axcare.com.br | cname.manus.space | Relay |
+| rtav.axcare.app | cname.manus.space | RTAV |
+| api.thera.tech | Worker thera-contact | API Thera |
+| thera.tech | cname.manus.space | Site Thera |
+| spectra.thera.tech | cname.manus.space | Spectra AI |
+
+---
+
+## 6. Agentes de IA
+
+| Agente | Funcao | Infraestrutura | Comunicacao |
+|---|---|---|---|
+| Manus | Agente principal: tarefas complexas, desenvolvimento, deploy, pesquisa | Sandbox isolado (Manus Cloud) | API Manus, Webhook, MCP |
+| OpenClaw | Agente autonomo 24/7: WhatsApp (Extensio), heartbeat, cron jobs | VPS Hostinger (extensio-vps) | WhatsApp (WABA), API Manus |
+| Claude | Agente de desenvolvimento: coding sessions locais | Claude Code (local) | Terminal, GitHub |
+
+Ponte de contexto (ACB): Worker agent-context-bridge com ferramentas MCP (log_activity, log_file, log_decision, get_recent_activities, get_project_context, search_activities).
+
+Extensio MCP Server: Worker extensio-mcp com acesso a D1 (csv-hub, whatsapp-brain), AI Search, Notion, OpenAI e Gemini. Pipeline diario via extensio-daily-pipeline.
+
+---
+
+## 7. AI Search (Busca Semantica)
+
+Cloudflare AutoRAG indexa automaticamente todo o conteudo do Hub.
+
+| Campo | Valor |
+|---|---|
+| Instancia | hub-csv |
+| Bucket R2 | hub-csv-knowledge (191 objetos, 384 vetores) |
+| Embedding | qwen3-embedding-0.6b (2048 tokens/chunk, 10% overlap) |
+| AI Gateway | csv_ai_gateway |
+| Sincronizacao | Automatica: push na main → GitHub Actions → R2 → re-index |
+
+---
+
+## 8. APIs e Servicos Externos
+
+| Servico | Uso | Detalhes |
+|---|---|---|
+| Resend | E-mail transacional | Dominios: mail.grupocsv.com, thera.tech, veritas.thera.tech, spectra.thera.tech |
+| OpenAI | GPT-4o (deck-vision, varredura ortografica, csv-ai) | Via Cloudflare AI Gateway |
+| Google Gemini | Extensio MCP, Daily Pipeline | API direta |
+| Stripe | Pagamentos Criale | Checkout: pay.grupocsv.com, Webhook: Supabase |
+| Supabase | Backend Criale + Repositorio clinico AxiaCare | Projetos: criale, axiacare |
+| GitHub API | Changelog (csv-cron), deploy, sync R2 | GitHub Actions + API REST |
+| Notion API | Extensio, Daily Pipeline, Dicionario Oficial | Via NOTION_TOKEN |
+| Manus API | Criacao de tarefas, polling, webhooks | OpenClaw → Manus via extensio__manus_create_task |
+
+---
+
+## 9. Comunicacao
+
+### WhatsApp Business API (WABA)
+O Extensio (OpenClaw) gerencia o WhatsApp do Grupo CSV via WABA. Webhook: webhook.grupocsv.com. Armazenamento: D1 whatsapp-brain. Templates Meta via Zapier MCP.
+
+### E-mail
+- csv-email (csv-email.guilherme-thom.workers.dev): E-mail generico + submissions
+- csv-mail (mail-api.grupocsv.com): E-mail agentico com templates (Signal, relatorios, notificacoes)
+- Dominio de envio: mail.grupocsv.com (Resend). Autenticacao csv-mail: Bearer token.
+
+---
+
+## 10. Autenticacao
+
+| Tipo | Portais | Metodo |
+|---|---|---|
+| Senha fixa | AxiaCare, Thera, MedValor | Senha unica por portal (KV csv-config) |
+| Login individual | Unimed, Unihealth, ICDS | E-mail + senha, com fluxo de solicitacao e aprovacao |
+| PIN local | Deck | PIN 4 digitos (SHA-256 no localStorage) |
+
+Script client-side: hub-auth.js (v2.4.0). Painel Admin: hub.grupocsv.com/admin/ (8 abas).
+
+---
+
+## 11. Repositorios e Deploy
+
+| Repositorio | Conteudo | Deploy |
+|---|---|---|
+| grupocsv/hub | Frontend: VitePress + HTML + portais + compliance + admin + deck | GitHub Pages (Actions) |
+| grupocsv/backend | Workers: csv-auth, csv-gateway, csv-data, csv-email, csv-propostas, tea-dataset-api | Wrangler (manual) |
+| grupocsv/csv-open-pages | Worker + admin do Open Pages | Wrangler (manual) |
+
+Pipeline: push na main → (1) Build VitePress + deploy GitHub Pages; (2) Sync R2 + re-index AI Search.
+
+---
+
+## 12. Assets Visuais
+
+Repositorio centralizado em assets.grupocsv.com (Cloudflare R2 + Worker csv-assets).
+
+| Entidade | Cor Principal |
+|---|---|
+| Grupo CSV | #196396 (azul) + #2DBF7F (verde) |
+| AxiaCare | #196396 (azul) |
+| MedValor | Azul + Laranja |
+| TheraTech | #6B5B95 (roxo) |
+| Unimed GV | #00995d (verde) |
+| Unihealth | #013d19 (verde escuro) |
+
+---
+
+## 13. Conta Cloudflare
+
+| Campo | Valor |
+|---|---|
+| Nome | Guilherme Thome |
+| Account ID | da0c29123f448f3c3892f784cd9f7cac |
+| Workers Subdomain | guilherme-thom.workers.dev |
+
+---
+
+## 14. Contatos Oficiais
+
+| Canal | Endereco |
+|---|---|
+| Grupo CSV | contato@grupocsv.com |
+| Compliance | compliance@grupocsv.com |
+| Guilherme Thome | guilherme@guithome.com.br |
+`;
+  navigator.clipboard.writeText(md).then(() => {
+    const btn = document.getElementById('copy-md-btn');
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar pagina inteira em Markdown';
+    }, 3000);
+  });
+}
+</script>
