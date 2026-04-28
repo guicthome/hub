@@ -1,5 +1,5 @@
 /**
- * Hub CSV - Portal Authentication System v2.2.0
+ * Hub CSV - Portal Authentication System v2.4.0
  * Suporta autenticação individual (parceiros) e fixa (empresas)
  * Design system padronizado: fundo gradiente, card branco, logo, cadeado, botão teal
  *
@@ -476,6 +476,13 @@
   background: transparent;\
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px;\
 }\
+#hub-auth-logout.ha-in-nav {\
+  position: static; height: auto; padding: 0 0 0 8px; margin: 0; flex-shrink: 0;\
+  border-left: 1px solid var(--vp-c-divider, rgba(0,0,0,0.08));\
+}\
+#hub-auth-logout.ha-in-header {\
+  position: static; height: auto; padding: 0; margin-left: 12px; flex-shrink: 0;\
+}\
 .ha-user-badge {\
   display: flex; align-items: center; gap: 6px; color: #374151;\
   font-weight: 500; font-size: 12px; opacity: 0.7;\
@@ -491,7 +498,7 @@
 .ha-logout-btn svg { width: 13px; height: 13px; flex-shrink: 0; }\
 .ha-logout-btn:hover { background: #dc2626; color: white; border-color: #dc2626; }\
 @media (max-width: 768px) {\
-  #hub-auth-logout { padding: 6px 10px; gap: 6px; height: 64px; }\
+  #hub-auth-logout { padding: 6px 10px; gap: 6px; }\
   .ha-user-badge span { display: none; }\
   .ha-logout-btn span { display: none; }\
 }\
@@ -506,19 +513,27 @@
   <span>Sair</span>\
 </a>';
 
-    // Tentar inserir dentro do header existente
-    var headerTarget = document.querySelector('.VPNav .VPNavBar .content') // VitePress
-      || document.querySelector('.VPNav .VPNavBar') // VitePress fallback
-      || document.querySelector('header')
-      || document.querySelector('.header');
+    // Tentar inserir inline no header existente (dentro do flex row)
+    var headerFlex = document.querySelector('header .flex.items-center.justify-between')
+      || document.querySelector('header > div > .flex')
+      || null;
 
-    if (headerTarget) {
-      // Ajustar para ficar inline no header
-      btn.style.position = 'absolute';
-      btn.style.top = '0';
-      btn.style.right = '0';
-      headerTarget.style.position = 'relative';
-      headerTarget.appendChild(btn);
+    // VitePress: inserir após os social links no container extra-content
+    var vpExtraContent = document.querySelector('.VPNavBar .content .content-body .extra-content');
+    var vpSocialLinks = document.querySelector('.VPNavBar .VPSocialLinks');
+
+    if (headerFlex) {
+      // Inserir como item flex no final da row do header (ao lado do portal name)
+      btn.classList.add('ha-in-header');
+      headerFlex.appendChild(btn);
+    } else if (vpSocialLinks && vpSocialLinks.parentElement) {
+      // Inserir após os social links como irmão no flex container
+      btn.classList.add('ha-in-nav');
+      vpSocialLinks.parentElement.appendChild(btn);
+    } else if (vpExtraContent) {
+      // Fallback VitePress: inserir no extra-content
+      btn.classList.add('ha-in-nav');
+      vpExtraContent.appendChild(btn);
     } else {
       // Fallback: fixo no topo direito
       document.body.appendChild(btn);
