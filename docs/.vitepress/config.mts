@@ -30,9 +30,9 @@ export default defineConfig({
       {
         text: 'Empresas',
         items: [
-          { text: 'AxiaCare', link: '/axia/' },
-          { text: 'MedValor', link: '/medvalor/' },
-          { text: 'TheraTech', link: '/thera/' },
+          { text: 'AxiaCare\u00AE', link: '/axia/' },
+          { text: 'MedValor\u00AE', link: '/medvalor/' },
+          { text: 'TheraTech\u00AE', link: '/thera/' },
         ]
       },
       {
@@ -43,14 +43,24 @@ export default defineConfig({
           { text: 'ICDS', link: '/icds/' },
         ]
       },
-      { text: 'Compliance', link: '/compliance/' },
-      { text: 'Fundador', link: '/founder/' },
-      { text: 'Compass\u2122', link: '/compass/' },
-      { text: 'Signal\u2122', link: '/signal/' },
-      { text: 'Deck\u2122', link: 'https://deck.grupocsv.com' },
-      { text: 'Relay\u2122', link: 'https://relay.axcare.com.br' },
-      { text: 'RTAV\u2122', link: 'https://rtav.axcare.app' },
-      { text: 'Infra', link: '/_infra/' },
+      {
+        text: 'Ferramentas',
+        items: [
+          { text: 'Compass\u2122', link: '/compass/' },
+          { text: 'Signal\u2122', link: '/signal/' },
+          { text: 'Deck\u2122', link: 'https://deck.grupocsv.com' },
+          { text: 'Relay\u2122', link: 'https://relay.axcare.com.br' },
+          { text: 'RTAV\u2122', link: 'https://rtav.axcare.app' },
+        ]
+      },
+      {
+        text: 'Governan\u00E7a',
+        items: [
+          { text: 'Compliance', link: '/compliance/' },
+          { text: 'Infraestrutura', link: '/_infra/' },
+          { text: 'Fundador', link: '/founder/' },
+        ]
+      },
     ],
 
     sidebar: {
