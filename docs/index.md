@@ -696,6 +696,11 @@ head:
       </div>
       <div class="partner-tools-wrapper">
       <div class="partner-tools">
+        <a href="/icds/slides.html" class="tool-item">
+          <span class="dot" style="background:#1B3A5C;"></span>
+          Gerador de Apresentações
+          <span class="arrow">›</span>
+        </a>
         <a href="/p/tea-dataset/" data-direct class="tool-item">
           <span class="dot" style="background:#1B3A5C;"></span>
           TEA: Data Set Indicadores

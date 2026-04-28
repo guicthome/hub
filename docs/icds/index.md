@@ -164,7 +164,7 @@ head:
   </div>
 
   <div class="icds-grid">
-    <div class="icds-card featured">
+    <div class="icds-card">
       <div class="icds-title">Gerador de Apresentações</div>
       <span class="icds-date">Apresentações institucionais com branding ICDS</span>
       <a href="/icds/slides.html" class="icds-link">Solicitar</a>
