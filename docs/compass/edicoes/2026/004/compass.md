@@ -513,6 +513,63 @@ head:
 <p>Ademais e cabalmente em números absolutos diretos perante o corpo diretor financeiro atestador de balanços do balizamento do hospital de desempenho no Brasil: Os imensos dividendos aferidos nas métricas atestadas de retorno propiciados na proteção perante o ciclo estruturado operado atuarial por toda a instituição com as garantias da análise não limitam-se ao campo acadêmico estéril ou conceito restrito retórico. As demonstrações consolidadas no campo e capacidade plena material comprovadas em robustas atuações registradas na base nacional que chegaram a evitar pagamentos indevidos diretos imediatos superando o estonteante montante fixado financeiro orçamentário superior estrito do "Teto estimado na mitigação evitada nas margens orçamentárias avaliadas das marcas diretas na ordem fixadas dos expressivos limites em R$ 15 milhões " e na consolidação expressiva contínua nos indicadores globais de desempenho do ROI medidos em proporções absolutas registradas nas taxas plenas do extraordinário benchmark no índice financeiro e operatório na marca e métrica dos retornos em 15:1 no sistema da literatura aplicada consolidada da ATS , são provas conclusivas fundamentais incontestáveis para os decisores corporativos de saúde. Demonstram na arena real nua macro que todo o aporte focado no provimento e manutenção estruturada perene das equipes estritas multidisciplinares formadas com <em>expertise</em> em avaliações não é despesa passiva ociosa orçamentária, mas sim o seguro alocativo rentável com o melhor retorno proporcional avaliado e a conduta protetiva corporativa corporativista primária inalienável na gestão sustentável contínua nos orçamentos com os quais a operadora atua para perpetuar margens saudáveis competitivas num mercado restrito nacional da saúde suplementar complexa garantindo no ápice perene aos seus cofres o controle responsável da entrega integral plena no cuidado primoroso de excelência a seus clientes e mantendo as estruturas sãs para a corporação sustentável financeira a perpetuidade absoluta do hospital e seus ciclos de vida nas linhas operatórias de inovação com responsabilidade real efetiva baseada unicamente nas comprovações exaustivas estritas baseadas rigorosamente em evidência sólida comprovada em análise metanalítica absoluta em todo o Brasil.</p>
 </div>
 
+<div class="compass-section">
+<h2>Referências citadas</h2>
+<table class="ref-table">
+<thead>
+<tr><th>#</th><th>Referência</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>A criação do Núcleo de Avaliação das Tecnologias em Saúde (NATS) do Hospital Universitário Maria Aparecida Pedrossian da — <a href="https://desafioonline.ufms.br/index.php/pecibes/article/view/17411/12129">Revista Desafio Online</a></td></tr>
+<tr><td>2</td><td>A criação do Núcleo de Avaliação das Tecnologias em Saúde ... — <a href="https://periodicos.ufms.br/index.php/pecibes/article/view/17411/12129">periodicos.ufms.br</a></td></tr>
+<tr><td>3</td><td>DIRETRIZ NACIONAL PARA OS NÚCLEOS DE AVALIAÇÃO DE ... — <a href="https://repositorio.ufrn.br/bitstreams/cf23b71d-40ad-4861-967f-949f4f67e7e8/download">repositorio.ufrn.br</a></td></tr>
+<tr><td>4</td><td>Anexo 4 - Roteiro de apresentação do NATS para divulgação na página eletrônica da — <a href="https://rebrats.saude.gov.br/images/CartaApresentacao/1057.pdf">Rebrats</a></td></tr>
+<tr><td>5</td><td>Conheça a CLASSIFICAÇÃO DOS NATS — <a href="https://rebrats.saude.gov.br/images/Documentos/2024/classificacao-NATS-2024_final.pdf">Rebrats</a></td></tr>
+<tr><td>6</td><td>ID 196 - Disseminação e Fortalecimento da Rede de Conhecimento dos Nats da Ebserh através da Série Temática sobre Avaliação de Tecnologias em Saúde Hospitalar — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12806683/">PMC</a></td></tr>
+<tr><td>7</td><td>GUiA DA SAúDE SUplEMEntAR — <a href="https://www.iess.org.br/sites/default/files/2021-04/Guia%20SS_2Ed.pdf">IESS</a></td></tr>
+<tr><td>8</td><td>Relatório Anual de Gestão e de Atividades - Exercício 2025 — <a href="https://www.gov.br/ans/pt-br/acesso-a-informacao/transparencia-e-prestacao-de-contas/prestacao-de-contas/Relatorio_anual_de_gestao__RAG_2025_r07.pdf">Portal Gov.br</a></td></tr>
+<tr><td>9</td><td>Variação de Custos Médico-Hospitalares fecha em 27,7% — <a href="https://plurall.com.br/plurall/variacao-de-custos-medico-hospitalares-fecha-em-277/">Plurall Consultoria</a></td></tr>
+<tr><td>10</td><td>Atualização do Rol de Procedimentos — Agência Nacional de Saúde Suplementar — <a href="https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos">gov.br</a></td></tr>
+<tr><td>11</td><td>Incorporação de tecnologias em saúde na Agência Nacional de Saúde Suplementar: uma análise pela perspectiva do modelo — <a href="https://dialnet.unirioja.es/descarga/articulo/10224592.pdf">Dialnet</a></td></tr>
+<tr><td>12</td><td>Sinistralidade na saúde suplementar: o que é, dados e como reduzir — <a href="https://upflux.com.br/blog/sinistralidade-na-saude-suplementar/">UpFlux</a></td></tr>
+<tr><td>13</td><td>regimento interno da comissão técnica permanente do núcleo de avaliação de tecnologias em — <a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-centro-oeste/hu-ufgd/acesso-a-informacao/pops-protocolos-e-processos/gad/reg-ctp-nats-001-regimento-interno-do-nats-v-3.pdf">Portal Gov.br</a></td></tr>
+<tr><td>14</td><td>elaboração de parecer técnico-científico manual — <a href="https://www.saude.mg.gov.br/wp-content/uploads/2026/04/Manual-de-Elaboracao-de-Parecer-Tecnico-Cientifico-NATS-SES-MG.pdf">Secretaria de Estado de Saúde (SES-MG)</a></td></tr>
+<tr><td>15</td><td>Sustentabilidade e gestão hospitalar: revisão de revisões sistemáticas — <a href="https://nats.spdm.org.br/wp-content/uploads/2021/10/Sustentabilidade-e-gesta%CC%83o-hospitalar_NATS-SPDM.pdf">NATS SPDM</a></td></tr>
+<tr><td>16</td><td>PARECER TÉCNICO-CIENTÍFICO — <a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-sudeste/hc-uftm/painel/gep/sgpits/ugits/PTCMantaTrmicaEbserhHCFINAL.pdf">Portal Gov.br</a></td></tr>
+<tr><td>17</td><td>Pesquisa para a cobertura universal de saúde — <a href="https://ccoms.esenfc.pt/pub/Relat%C3%B3rio%20Mundial%20da%20Sa%C3%BAde%202013.pdf">CCOMS</a></td></tr>
+<tr><td>18</td><td>REGIMENTO INTERNO UNIDADE HOSPITALAR - Portal da Transparencia — <a href="https://hcpgestao-portal.hcpgestao.org.br/storage/regimento_interno/regimentohospital.pdf">HCP Gestão</a></td></tr>
+<tr><td>19</td><td>Pareceres publicados — HU Brasil — <a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-sudeste/hc-uftm/painel/gep/sgpits/ugits/nats/pareceres-publicados">Portal Gov.br</a></td></tr>
+<tr><td>20</td><td>Experiência do Hospital Israelita Albert Einstein ... — <a href="https://eventosfehosp.com.br/wp-content/uploads/2023/05/Consumo-de-Tecnologias_Vanessa-Teich.pdf">Eventos Fehosp</a></td></tr>
+<tr><td>21</td><td>Índice — <a href="https://rebrats.saude.gov.br/images/Documentos/2022/20221011_Cartas_de_apresentao_Novos_membros_Rebrats.pdf">Rebrats</a></td></tr>
+<tr><td>22</td><td>DIRETRIZES METODOLÓGICAS — <a href="https://bvsms.saude.gov.br/bvs/publicacoes/diretrizes_metodologicas_elaboracao_parecer_tecnico_1ed.pdf">Biblioteca Virtual em Saúde</a></td></tr>
+<tr><td>23</td><td>Núcleo de Avaliação de Tecnologias em Saúde e Núcleo de Evidências do Hospital Sírio-Libanês — <a href="https://brasil.evipnet.org/nucleos/nats-e-nev-hospital-sirio-libanes/">EVIPNet Brasil</a></td></tr>
+<tr><td>24</td><td>NATS-HSL apresenta iniciativas de projetos PROADI-SUS no HTAi — <a href="https://redenatjus.org.br/nats-hsl-apresenta-iniciativas-de-projetos-proadi-sus-no-htai/">Rede NATJus</a></td></tr>
+<tr><td>25</td><td>Quem somos — <a href="https://redenatjus.org.br/quem-somos/">Rede NATJus</a></td></tr>
+<tr><td>26</td><td>A importância da auditoria concorrente para os hospitais — <a href="https://www.rivio.com.br/blog/auditoria-concorrente-importancia">Rivio</a></td></tr>
+<tr><td>27</td><td>IMPLANTAÇÃO DA AUDITORIA CONCORRENTE DE ENFERMAGEM: UM RELATO DE EXPERIÊNCIA IMPLEMENTATION OF CONCURRENT NURSING AUDIT: AN E — <a href="https://www.scielo.br/j/tce/a/Ngp7wXfFCbmDvvyHRXPRbNC/?format=pdf&lang=pt">SciELO</a></td></tr>
+<tr><td>28</td><td>O que é uma auditoria concorrente e como ela pode prevenir perdas ainda durante a internação | GIF — <a href="https://giftech.com.br/blog/o-que-e-uma-auditoria-concorrente-e-como-ela-pode-prevenir-perdas-ainda-durante-a-internacao/">Gestão Inteligente e Fácil</a></td></tr>
+<tr><td>29</td><td>PROCEDIMENTO DE AUDITORIA CONCORRENTE NO HUJB — <a href="https://www.gov.br/hubrasil/pt-br/hospitais-universitarios/regiao-nordeste/hujb-ufcg/acesso-a-informacao/gestao-documental/superintendencia/POP.STCOR.007AuditoriaConcorrente.pdf">Portal Gov.br</a></td></tr>
+<tr><td>30</td><td>Relatório Final — <a href="https://legismap.com.br/phocadownload/relatorio_final_gti_opme.pdf">Legismap</a></td></tr>
+<tr><td>31</td><td>OPME CAST: Estratégias e boas práticas para a gestão de OPME ... — <a href="https://advicehealth.com.br/opme-cast-estrategias-e-boas-praticas-para-a-gestao-de-opme/">advicehealth.com.br</a></td></tr>
+<tr><td>32</td><td>ID 61 — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12806615/">Avaliações de Tecnologia em Saúde e Padronização de Material Técnico Hospitalar</a></td></tr>
+<tr><td>33</td><td>7 boas práticas na gestão de OPME para você implementar — <a href="https://telemedicinamorsch.com.br/blog/gestao-opme">telemedicinamorsch.com.br</a></td></tr>
+<tr><td>34</td><td>Impacto orçamentário da incorporação do rituximabe para o — <a href="https://www.jbes.com.br/index.php/jbes/article/download/63/49/92">jbes.com.br</a></td></tr>
+<tr><td>35</td><td>CONSELHO NACIONAL DE SAÚDE — <a href="https://fi-admin.bvsalud.org/document/view/mftza">fi-admin</a></td></tr>
+<tr><td>36</td><td>Como analisar o ROI das iniciativas digitais das instituições de saúde? — <a href="https://medicinasa.com.br/roi-saude-digital/">Medicina S/A</a></td></tr>
+<tr><td>37</td><td>ROI no mercado da Saúde | RC Health — <a href="https://rchealth.io/roi-no-mercado-da-saude/">rchealth.io</a></td></tr>
+<tr><td>38</td><td>Expert participation in the health technology assessment process: a scoping review — <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12995334/">PMC</a></td></tr>
+<tr><td>39</td><td>Sistema de Indicadores Hospitalares da Anahp — <a href="https://www.anahp.com.br/indicadores-hospitalares/">anahp.com.br</a></td></tr>
+<tr><td>40</td><td>14 indicadores hospitalares essenciais para a gestão em saúde — <a href="https://www.sydle.com/br/blog/indicadores-hospitalares-63d18e9b4ab2f16c85451a14">sydle</a></td></tr>
+<tr><td>41</td><td>Anahp — <a href="https://www.anahp.com.br/">Associação Nacional de Hospitais Privados</a></td></tr>
+<tr><td>42</td><td>Carreira em ATS e construção de um NATS: experiências e desafios — <a href="https://www.youtube.com/watch?v=Gzy3Zu9h-TY">YouTube</a></td></tr>
+<tr><td>43</td><td>Indicadores de sustentabilidade hospitalar e redução de impactos socioambientais: uma revisão de escopo — <a href="https://www.scielo.br/j/reeusp/a/vVf7LytXn9yqZ3cMpJ7PCTw/?format=pdf&lang=pt">SciELO</a></td></tr>
+<tr><td>44</td><td>Elaboração de guia para Núcleos de Avaliação de Tecnologias em Saúde da Rede Ebserh: relato de — <a href="https://fi-admin.bvsalud.org/document/view/raa7p">fi-admin</a></td></tr>
+<tr><td>45</td><td>Indicadores-chave de desempenho para gestão hospitalar: percepções de gestores públicos de saúde Key performance indicator — <a href="https://dialnet.unirioja.es/descarga/articulo/10232319.pdf">Dialnet</a></td></tr>
+<tr><td>46</td><td>NATS — <a href="https://rebrats.saude.gov.br/10-institucional/110-os-nats">Rebrats</a></td></tr>
+</tbody>
+</table>
+</div>
+
 <div class="compass-scope">
 <strong>Nota de escopo.</strong> Esta edição do Compass&trade; é um documento técnico-estratégico de uso interno, destinado à educação continuada e ao apoio à tomada de decisão dos integrantes do Grupo CSV. Quando o tema envolver aspectos jurídicos, regulatórios ou contratuais, recomenda-se avaliação complementar por profissional especializado.
 </div>
