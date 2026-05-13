@@ -216,6 +216,11 @@ head:
         <td>Incidência e fatores determinantes da necessidade de fototerapia neonatal no Brasil: análise por idade gestacional e via de parto</td>
         <td><span class="status-badge">Publicado</span></td>
       </tr>
+      <tr>
+        <td><a href="/compass/edicoes/2026/004/compass">004/2026</a></td>
+        <td>Implantação Estratégica e Operacional de Núcleos de Avaliação de Tecnologias em Saúde (NATS) na Saúde Suplementar Brasileira</td>
+        <td><span class="status-badge">Publicado</span></td>
+      </tr>
     </tbody>
   </table>
 </div>
