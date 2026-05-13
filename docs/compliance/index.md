@@ -148,7 +148,7 @@ head:
 <div class="compliance-page">
   <div class="frame hero-section">
     <h1>Central de Compliance</h1>
-    <p class="date">Última atualização: 01/2026</p>
+    <p class="date">Última atualização: 05/2026</p>
     <p class="subtitle">Documentos institucionais do <strong>Grupo CSV</strong> e suas empresas sobre privacidade, termos e integridade.</p>
   </div>
 
@@ -186,6 +186,7 @@ head:
 <div class="btn-grid">
 <a class="policy-btn axia" data-direct href="/compliance/axiacare/privacidade.html">Privacidade – AxiaCare</a>
 <a class="policy-btn axia" data-direct href="/compliance/axiacare/termos.html">Termos de Uso – AxiaCare</a>
+<a class="policy-btn axia" data-direct href="/compliance/axiacare/nda.html">Acordo de Confidencialidade (NDA) – AxiaCare</a>
 </div>
 </div>
 
