@@ -1161,8 +1161,14 @@
         const logMinX = Math.log10(minX);
         const logMaxX = Math.log10(maxX);
         
-        const minY = Math.min(...dadosFiltrados.map(d => d.custo_medio)) * 0.92;
-        const maxY = Math.max(...dadosFiltrados.map(d => d.custo_medio)) * 1.06;
+        // Escala Y com padding proporcional ao range dos dados
+        const rawMinY = Math.min(...dadosFiltrados.map(d => d.custo_medio));
+        const rawMaxY = Math.max(...dadosFiltrados.map(d => d.custo_medio));
+        const rangeY = rawMaxY - rawMinY;
+        const avgY = (rawMinY + rawMaxY) / 2;
+        const effectivePadding = Math.max(rangeY * 0.4, avgY * 0.04);
+        const minY = rawMinY - effectivePadding;
+        const maxY = rawMaxY + effectivePadding;
         const maxDriver = Math.max(...spec.data.map(d => d.driver));
         
         const scaleX = (val) => margin.left + ((Math.log10(val) - logMinX) / (logMaxX - logMinX)) * plotWidth;
@@ -1250,7 +1256,7 @@
         dadosFiltrados.forEach(d => {
           const x = scaleX(d.consultas);
           const y = scaleY(d.custo_medio);
-          const r = 9 + (d.driver / maxDriver) * 16;
+          const r = 7 + (d.driver / maxDriver) * 11;
           const quartil = getQuartil(d.custo_medio, allStats.q1, allStats.q3);
           const cor = getCorQuartil(quartil);
           
@@ -1284,7 +1290,7 @@
           dadosFiltrados.forEach(d => {
             const x = scaleX(d.consultas);
             const y = scaleY(d.custo_medio);
-            const r = 9 + (d.driver / maxDriver) * 16;
+            const r = 7 + (d.driver / maxDriver) * 11;
             ctx.fillText(d.nome_curto, x, y - r - 4);
           });
         }
@@ -1320,7 +1326,7 @@
         for (let i = 0; i <= yTicks; i++) {
           const val = maxY - ((maxY - minY) / yTicks) * i;
           const y = margin.top + (plotHeight / yTicks) * i;
-          ctx.fillText(`R$ ${Math.round(val)}`, margin.left - 8, y + 4);
+          ctx.fillText(`R$ ${rangeY < 10 ? val.toFixed(1) : Math.round(val)}`, margin.left - 8, y + 4);
         }
         
         canvas._pointsData = pointsData;
@@ -1397,14 +1403,14 @@
               ),
               React.createElement('div', { className: 'flex justify-between' },
                 React.createElement('span', { className: 'text-gray-500' }, 'Custo médio'),
-                React.createElement('span', { className: 'font-medium', style: { color: getCorQuartil(getQuartil(tooltip.data.custo_medio, canvas._allStats.q1, canvas._allStats.q3)) } }, 
+                React.createElement('span', { className: 'font-medium', style: { color: getCorQuartil(getQuartil(tooltip.data.custo_medio, allStats.q1, allStats.q3)) } }, 
                   formatCurrency(tooltip.data.custo_medio)
                 )
               ),
               React.createElement('div', { className: 'flex justify-between' },
                 React.createElement('span', { className: 'text-gray-500' }, spec.driver_label),
                 React.createElement('span', { className: 'font-medium text-gray-900' }, 
-                  spec.driver_prefix ? `${spec.driver_prefix} ${tooltip.data.driver}` : tooltip.data.driver.toFixed(2)
+                  spec.driver_prefix ? `${spec.driver_prefix} ${tooltip.data.driver}` : (Number.isInteger(tooltip.data.driver) ? formatNumber(tooltip.data.driver) : tooltip.data.driver.toFixed(2))
                 )
               ),
               React.createElement('div', { className: 'flex justify-between' },
