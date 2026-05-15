@@ -1251,29 +1251,63 @@
         ctx.textAlign = 'right';
         ctx.fillText(`Mediana: ${formatCurrency(allStats.mediana)}`, width - margin.right - 8, yMed - 6);
         
-        // Bolhas
+        // Bolhas com collision avoidance
         const pointsData = [];
         dadosFiltrados.forEach(d => {
           const x = scaleX(d.consultas);
           const y = scaleY(d.custo_medio);
-          const r = 7 + (d.driver / maxDriver) * 11;
+          const r = 6 + (d.driver / maxDriver) * 9;
           const quartil = getQuartil(d.custo_medio, allStats.q1, allStats.q3);
           const cor = getCorQuartil(quartil);
-          
-          pointsData.push({ x, y, r, data: d });
-          
-          // Borda de clínica
-          if (spec.tem_clinica && d.clinica !== 'Independente') {
+          pointsData.push({ x, y, origY: y, r, data: d, cor, quartil });
+        });
+
+        // Force-directed repulsion para evitar sobreposição
+        const padding = 3;
+        for (let iter = 0; iter < 80; iter++) {
+          let moved = false;
+          for (let i = 0; i < pointsData.length; i++) {
+            for (let j = i + 1; j < pointsData.length; j++) {
+              const a = pointsData[i], b = pointsData[j];
+              const dx = b.x - a.x, dy = b.y - a.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              const minDist = a.r + b.r + padding;
+              if (dist < minDist && dist > 0) {
+                const overlap = (minDist - dist) / 2;
+                const nx = dx / dist, ny = dy / dist;
+                // Empurrar preferencialmente no eixo Y (80% Y, 20% X)
+                a.x -= nx * overlap * 0.2;
+                a.y -= ny * overlap * 0.8;
+                b.x += nx * overlap * 0.2;
+                b.y += ny * overlap * 0.8;
+                moved = true;
+              } else if (dist === 0) {
+                // Pontos exatamente iguais: separar verticalmente
+                a.y -= (a.r + padding);
+                b.y += (b.r + padding);
+                moved = true;
+              }
+            }
+          }
+          // Limitar ao plot area
+          pointsData.forEach(p => {
+            p.x = Math.max(margin.left + p.r, Math.min(width - margin.right - p.r, p.x));
+            p.y = Math.max(margin.top + p.r, Math.min(height - margin.bottom - p.r, p.y));
+          });
+          if (!moved) break;
+        }
+
+        // Desenhar bolhas nas posições ajustadas
+        pointsData.forEach(p => {
+          if (spec.tem_clinica && p.data.clinica !== 'Independente') {
             ctx.beginPath();
-            ctx.arc(x, y, r + 3, 0, Math.PI * 2);
-            ctx.fillStyle = CORES_CLINICA[d.clinica];
+            ctx.arc(p.x, p.y, p.r + 3, 0, Math.PI * 2);
+            ctx.fillStyle = CORES_CLINICA[p.data.clinica];
             ctx.fill();
           }
-          
-          // Bolha
           ctx.beginPath();
-          ctx.arc(x, y, r, 0, Math.PI * 2);
-          ctx.fillStyle = cor;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.cor;
           ctx.globalAlpha = 0.85;
           ctx.fill();
           ctx.globalAlpha = 1;
@@ -1283,15 +1317,12 @@
         });
         
         // Labels
-        if (dadosFiltrados.length <= 18) {
+        if (dadosFiltrados.length <= 20) {
           ctx.font = '600 9px Inter, system-ui';
           ctx.textAlign = 'center';
           ctx.fillStyle = CORES.verde3;
-          dadosFiltrados.forEach(d => {
-            const x = scaleX(d.consultas);
-            const y = scaleY(d.custo_medio);
-            const r = 7 + (d.driver / maxDriver) * 11;
-            ctx.fillText(d.nome_curto, x, y - r - 4);
+          pointsData.forEach(p => {
+            ctx.fillText(p.data.nome_curto, p.x, p.y - p.r - 4);
           });
         }
         
