@@ -256,6 +256,22 @@ O workflow:
 
 ---
 
+## Repositório de Backup
+
+Este repositório (`guicthome/hub`) funciona como **cópia de segurança do repositório oficial** (`grupocsv/hub`). Ambos apontam para [hub.grupocsv.com](https://hub.grupocsv.com).
+
+| Aspecto | Oficial | Backup |
+|--------|---------|--------|
+| **Repositório** | grupocsv/hub | guicthome/hub |
+| **Branch** | main | main |
+| **Deploy** | Automático (GitHub Actions) | Manual (não ativado) |
+| **Sincronização** | N/A (fonte) | Sincronizado via upstream |
+| **Último sync** | — | 15/05/2026 |
+
+O repositório de backup é sincronizado regularmente com o repositório oficial para garantir continuidade e recuperação em caso de necessidade. Não deve ser usado para deploy em produção.
+
+---
+
 ## Contato
 
 - **Grupo CSV:** contato@grupocsv.com
